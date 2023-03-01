@@ -24,7 +24,7 @@ export const LoginPage = () => {
   const errorMessage = ""
   const isAuthenticating = false
 
-  const { formState, onInputChange, user, password } = useForm(loginData)
+  const { formState, onInputChange, user, password } = useForm(loginData);
 
   return (
     <AuthLayout title="Iniciar sesión">
