@@ -94,7 +94,7 @@ export const LoginPage = () => {
               href="https://www.erassoluciones.com"
               sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
             >
-              ¿Problemas?
+              Contáctanos
             </Link>
           </Grid>
         </Grid>
