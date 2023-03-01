@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 
 export const AuthLayout = ({ children, title = '' }) => {
     return (
@@ -9,16 +9,17 @@ export const AuthLayout = ({ children, title = '' }) => {
             alignItems="center"
             sx={{ minHeight: "100vh", backgroundColor: "primary.main", padding: 4 }}
         >
-            <Grid 
+            <Grid
                 item
                 xs={3}
                 sx={{
                     width: { sm: 450 },
                     backgroundColor: 'white',
-                    padding: 3,
-                    borderRadius: 2
+                    padding: 5,
+                    borderRadius: 5
                 }}>
-                <Typography variant='h5' sx={{ mb: 1 }}>{title}</Typography>
+
+                <Typography variant='h5' sx={{ mb: 0, color: "primary.main" }} textAlign="center">{title}</Typography>
                 {children}
             </Grid>
         </Grid>
