@@ -1,5 +1,4 @@
-import { Button} from "@mui/material"
-import { AppTheme } from "./theme/AppTheme"
+import { AppTheme } from "./theme"
 
 export const MorgquickApp = () => {
     return (
