@@ -9,6 +9,9 @@ export const blueTheme = createTheme({
         secondary: {
             main: "#144272",
         },
+        third: {
+            main: "#E8D5C4",
+        },
         error: {
             main: red.A400
         }

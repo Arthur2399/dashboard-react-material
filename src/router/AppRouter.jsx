@@ -1,10 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom"
+import { AuthRoutes } from "../auth/routes"
+import { CheckingAuth } from "../ui";
 
 export const AppRouter = () => {
+
+    const status = "checking";
+    /* const status = "authenticated"; */
+
+    if (status === 'checking') {
+        return <CheckingAuth />
+    }
+
     return (
         <Routes>
-            <Route path="/*" element={<>ModuleRoutes</>} />
-            <Route path="/auth/*" element={<>AuthRoutes</>} />
+            {
+                (status === 'authenticated')
+                    ? < Route path="/*" element={<>ModuleRoutes</>} />
+                    : <Route path="/auth/*" element={<AuthRoutes />} />
+            }
             <Route path="/*" element={<Navigate to="/auth/login" />} />
         </Routes>
     )
