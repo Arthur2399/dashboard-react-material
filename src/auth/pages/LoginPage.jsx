@@ -1,9 +1,9 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
 import { useState } from "react";
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout"
+import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const loginData = {
   user: '',
@@ -70,7 +70,7 @@ export const LoginPage = () => {
           label="Recuérdame"
         />
         <Button
-          type="submit" 
+          type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2, borderRadius: 4 }}
