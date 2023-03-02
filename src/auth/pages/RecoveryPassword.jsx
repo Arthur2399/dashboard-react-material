@@ -13,10 +13,14 @@ export const RecoveryPassword = () => {
   const { onInputChange, formState, email, } = useForm(RecoveryPasswordData);
   const errorMessage = ""
 
+  const onPasswordRecovery = (e) => {
+    e.preventDefault();
+    console.log(formState)
+  }
 
   return (
     <AuthLayout title="Recuperar contraseña">
-      <Box component="form" noValidate sx={{ mt: 2 }}>
+      <Box component="form" onSubmit={onPasswordRecovery} noValidate sx={{ mt: 2 }}>
         <Grid
           container
           justifyContent="center"
@@ -69,26 +73,16 @@ export const RecoveryPassword = () => {
           Recuperar
         </Button>
         <Grid container>
-          <Grid item xs>
+          <Grid container justifyContent="end">
             <Link
               component={RouterLink}
               color='inherit'
               to="/auth/login"
               sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
             >
-              Ingresar
+              Ingresar al sistema
             </Link>
 
-          </Grid>
-
-          <Grid item >
-            <Link
-              color='inherit'
-              href="https://www.erassoluciones.com"
-              sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
-            >
-              Contáctanos
-            </Link>
           </Grid>
         </Grid>
       </Box>
