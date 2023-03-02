@@ -1,4 +1,5 @@
 import { Grid, Typography } from "@mui/material"
+import loginGif from '/assets/img/login.gif'
 
 export const AuthLayout = ({ children, title = '' }) => {
     return (
@@ -23,11 +24,13 @@ export const AuthLayout = ({ children, title = '' }) => {
                     item
                     xs={0}
                     sm={6}
+                    backgroundColor="black"
                     sx={{ display: { sm: "block", xs: "none" } }}
                 >
                     <img
-                        src="https://d11cuk1a0j5b57.cloudfront.net/blog/wp-content/uploads/2013/02/23171033/oficina-1800x1200-1.jpg"
-                        alt="A beautiful landscape."
+                        src={loginGif}
+                        alt="Login."
+                        className="shadowLogin"
                         style={{
                             borderBottomRightRadius: 4,
                             display: 'block',
