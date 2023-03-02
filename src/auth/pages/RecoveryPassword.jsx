@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Link, TextField } from "@mui/material"
+import { Alert, Box, Button, Grid, Link, TextField } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm"
 import { AuthLayout } from "../layout"
@@ -11,10 +11,16 @@ const RecoveryPasswordData = {
 export const RecoveryPassword = () => {
 
   const { onInputChange, formState, email, } = useForm(RecoveryPasswordData);
+  const errorMessage = ""
+
+  const onPasswordRecovery = (e) => {
+    e.preventDefault();
+    console.log(formState)
+  }
 
   return (
     <AuthLayout title="Recuperar contraseña">
-      <Box component="form" noValidate sx={{ mt: 2 }}>
+      <Box component="form" onSubmit={onPasswordRecovery} noValidate sx={{ mt: 2 }}>
         <Grid
           container
           justifyContent="center"
@@ -46,6 +52,18 @@ export const RecoveryPassword = () => {
           variant="standard"
         />
 
+        <Grid
+          className="animate__animated animate__fadeIn"
+          container
+          display={!!errorMessage ? '' : 'none'}
+          sx={{ mt: 1 }}>
+          <Grid
+            item
+            xs={12}
+          >
+            <Alert severity='error'>{errorMessage}</Alert>
+          </Grid>
+        </Grid>
         <Button
           type="submit"
           fullWidth
@@ -55,7 +73,7 @@ export const RecoveryPassword = () => {
           Recuperar
         </Button>
         <Grid container>
-          <Grid item xs>
+          <Grid container justifyContent="end">
             <Link
               component={RouterLink}
               color='inherit'
@@ -65,16 +83,6 @@ export const RecoveryPassword = () => {
               Ingresar al sistema
             </Link>
 
-          </Grid>
-
-          <Grid item >
-            <Link
-              color='inherit'
-              href="https://www.erassoluciones.com"
-              sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
-            >
-              Contáctanos
-            </Link>
           </Grid>
         </Grid>
       </Box>

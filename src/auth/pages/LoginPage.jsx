@@ -8,54 +8,54 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 const loginData = {
   user: '',
   password: '',
+  rememberme: false,
 }
 
 export const LoginPage = () => {
 
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-
   const errorMessage = ""
   const isAuthenticating = false
 
-  const { formState, onInputChange, user, password } = useForm(loginData);
+  const [showPassword, setShowPassword] = useState(false);
+  const { formState, onInputChange, onInputChangeCheckBox, user, password, rememberme } = useForm(loginData);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const onLogin = (e) => {
+    e.preventDefault();
+    console.log(formState);
+  }
 
   return (
     <AuthLayout title="Iniciar sesión">
 
-      <Box component="form" noValidate sx={{ mt: 2 }}>
+      <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
         <TextField
           autoComplete="user"
           fullWidth
           label="Usuario"
           margin="normal"
-          name="user"
-          onChange={onInputChange}
           placeholder="Ingrese su usuario"
-          value={user}
           variant="standard"
+          name="user"
+          value={user}
+          onChange={onInputChange}
         />
         <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
           <InputLabel >Password</InputLabel>
           <Input
-            type={showPassword ? 'text' : 'password'}
             placeholder="Ingrese su contraseña"
+            type={showPassword ? 'text' : 'password'}
+            variant="standard"
             name="password"
             value={password}
             onChange={onInputChange}
-            variant="standard"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
                 >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
@@ -65,9 +65,27 @@ export const LoginPage = () => {
         </FormControl>
 
         <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
+          control={<Checkbox
+            color="primary"
+            name="rememberme"
+            value={rememberme}
+            onChange={onInputChangeCheckBox}
+          />}
           label="Recuérdame"
         />
+        <Grid
+          className="animate__animated animate__fadeIn"
+          container
+          display={!!errorMessage ? '' : 'none'}
+          sx={{ mt: 1 }}>
+          <Grid
+            item
+            xs={12}
+          >
+            <Alert severity='error'>{errorMessage}</Alert>
+          </Grid>
+        </Grid>
+
         <Button
           type="submit"
           fullWidth
