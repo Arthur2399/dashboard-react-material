@@ -13,6 +13,7 @@ export const AuthLayout = ({ children, title = '' }) => {
         >
 
             <Grid
+                className="animate__animated animate__fadeIn"
                 container
                 backgroundColor="white"
                 flexDirection="row"
