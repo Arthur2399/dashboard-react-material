@@ -32,7 +32,6 @@ export const LoginPage = () => {
       <Box component="form" noValidate sx={{ mt: 2 }}>
         <TextField
           autoComplete="user"
-          autoFocus
           fullWidth
           label="Usuario"
           margin="normal"

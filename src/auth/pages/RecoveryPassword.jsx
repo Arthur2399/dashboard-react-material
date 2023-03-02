@@ -22,6 +22,7 @@ export const RecoveryPassword = () => {
           <img
             src={passwordImg}
             alt="password"
+            className="animate__animated animate__pulse"
             style={{
               borderBottomRightRadius: 4,
               display: 'block',
@@ -34,8 +35,8 @@ export const RecoveryPassword = () => {
         </Grid>
         <TextField
           autoComplete="email"
-          autoFocus
           fullWidth
+          type="email"
           label="Correo electrónico"
           margin="normal"
           name="email"
