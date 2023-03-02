@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout"
 import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
 
 const loginData = {
   user: '',
@@ -13,9 +14,11 @@ const loginData = {
 
 export const LoginPage = () => {
 
+  const {status, errorMessage} = useSelector ( state=> state.auth);
 
-  const errorMessage = ""
-  const isAuthenticating = false
+  const dispatch = useDispatch();
+
+  const isAuthenticating = useMemo( () => status === 'checking', [status]);
 
   const [showPassword, setShowPassword] = useState(false);
   const { formState, onInputChange, onInputChangeCheckBox, user, password, rememberme } = useForm(loginData);
@@ -25,6 +28,7 @@ export const LoginPage = () => {
   const onLogin = (e) => {
     e.preventDefault();
     console.log(formState);
+    dispatch();
   }
 
   return (
@@ -87,6 +91,7 @@ export const LoginPage = () => {
         </Grid>
 
         <Button
+          disabled={isAuthenticating}
           type="submit"
           fullWidth
           variant="contained"
