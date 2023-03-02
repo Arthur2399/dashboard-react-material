@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Link, TextField } from "@mui/material"
+import { Alert, Box, Button, Grid, Link, TextField } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm"
 import { AuthLayout } from "../layout"
@@ -11,6 +11,8 @@ const RecoveryPasswordData = {
 export const RecoveryPassword = () => {
 
   const { onInputChange, formState, email, } = useForm(RecoveryPasswordData);
+  const errorMessage = ""
+
 
   return (
     <AuthLayout title="Recuperar contraseña">
@@ -46,6 +48,18 @@ export const RecoveryPassword = () => {
           variant="standard"
         />
 
+        <Grid
+          className="animate__animated animate__fadeIn"
+          container
+          display={!!errorMessage ? '' : 'none'}
+          sx={{ mt: 1 }}>
+          <Grid
+            item
+            xs={12}
+          >
+            <Alert severity='error'>{errorMessage}</Alert>
+          </Grid>
+        </Grid>
         <Button
           type="submit"
           fullWidth
@@ -62,7 +76,7 @@ export const RecoveryPassword = () => {
               to="/auth/login"
               sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
             >
-              Ingresar al sistema
+              Ingresar
             </Link>
 
           </Grid>

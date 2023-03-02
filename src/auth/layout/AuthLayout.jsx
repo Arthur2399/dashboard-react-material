@@ -19,7 +19,7 @@ export const AuthLayout = ({ children, title = '' }) => {
                 flexDirection="row"
                 borderRadius={5}
                 overflow="hidden"
-                width={800}
+                width={930}
             >
                 <Grid
                     item
