@@ -13,6 +13,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
     dispatch(checkingCredentials());
     try {
       const { data } = await axios.post(`${config.apiUrl}/api/token/`, { username, password })
+      window.sessionStorage.setItem("Token",data.access);
       return dispatch(login(data));
     } catch (error) {
       const { data } = error.response;
