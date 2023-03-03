@@ -1,62 +1,65 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout"
+import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoginWithUserPassword } from "../../store/auth/thunks";
 
 const loginData = {
-  user: '',
-  password: '',
+  username: 'admin',
+  password: '1Q2w3e4r.',
+  rememberme: false,
 }
 
 export const LoginPage = () => {
 
+  const {status, errorMessage} = useSelector ( state=> state.auth);
+
+  const dispatch = useDispatch();
+
+  const isAuthenticating = useMemo( () => status === 'checking', [status]);
 
   const [showPassword, setShowPassword] = useState(false);
+  const { formState, onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
 
-
-  const errorMessage = ""
-  const isAuthenticating = false
-
-  const { formState, onInputChange, user, password } = useForm(loginData);
+  const onLogin = (e) => {
+    e.preventDefault();
+    dispatch(startLoginWithUserPassword({username,password}));
+  }
 
   return (
     <AuthLayout title="Iniciar sesión">
 
-      <Box component="form" noValidate sx={{ mt: 2 }}>
+      <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
         <TextField
-          autoComplete="user"
-          autoFocus
+          autoComplete="username"
           fullWidth
           label="Usuario"
           margin="normal"
-          name="user"
-          onChange={onInputChange}
           placeholder="Ingrese su usuario"
-          value={user}
           variant="standard"
+          name="username"
+          value={username}
+          onChange={onInputChange}
         />
         <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
           <InputLabel >Password</InputLabel>
           <Input
-            type={showPassword ? 'text' : 'password'}
             placeholder="Ingrese su contraseña"
+            type={showPassword ? 'text' : 'password'}
+            variant="standard"
             name="password"
             value={password}
             onChange={onInputChange}
-            variant="standard"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
                 >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
@@ -66,11 +69,30 @@ export const LoginPage = () => {
         </FormControl>
 
         <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
+          control={<Checkbox
+            color="primary"
+            name="rememberme"
+            value={rememberme}
+            onChange={onInputChangeCheckBox}
+          />}
           label="Recuérdame"
         />
+        <Grid
+          className="animate__animated animate__fadeIn"
+          container
+          display={!!errorMessage ? '' : 'none'}
+          sx={{ mt: 1 }}>
+          <Grid
+            item
+            xs={12}
+          >
+            <Alert severity='error'>{errorMessage}</Alert>
+          </Grid>
+        </Grid>
+
         <Button
-          type="submit" 
+          disabled={isAuthenticating}
+          type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2, borderRadius: 4 }}
