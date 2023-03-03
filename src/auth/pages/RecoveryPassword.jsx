@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Grid, Link, TextField } from "@mui/material"
+import { Alert, Box, Button, Grid, Link, TextField, Typography } from "@mui/material"
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm"
 import { AuthLayout } from "../layout"
@@ -25,11 +25,13 @@ export const RecoveryPassword = () => {
           container
           justifyContent="center"
         >
+          <Typography sx={{textAlign:"center"}}>Por favor ingresa tu correo para reestrablecer tu contraseña.</Typography>
           <img
             src={passwordImg}
             alt="password"
             className="animate__animated animate__pulse"
             style={{
+              marginTop:25,
               borderBottomRightRadius: 4,
               display: 'block',
               width: '80px',

@@ -5,10 +5,11 @@ import { AuthLayout } from "../layout"
 import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
+import { startLoginWithUserPassword } from "../../store/auth/thunks";
 
 const loginData = {
-  user: '',
-  password: '',
+  username: 'admin',
+  password: '1Q2w3e4r.',
   rememberme: false,
 }
 
@@ -21,14 +22,13 @@ export const LoginPage = () => {
   const isAuthenticating = useMemo( () => status === 'checking', [status]);
 
   const [showPassword, setShowPassword] = useState(false);
-  const { formState, onInputChange, onInputChangeCheckBox, user, password, rememberme } = useForm(loginData);
+  const { formState, onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const onLogin = (e) => {
     e.preventDefault();
-    console.log(formState);
-    dispatch();
+    dispatch(startLoginWithUserPassword({username,password}));
   }
 
   return (
@@ -36,14 +36,14 @@ export const LoginPage = () => {
 
       <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
         <TextField
-          autoComplete="user"
+          autoComplete="username"
           fullWidth
           label="Usuario"
           margin="normal"
           placeholder="Ingrese su usuario"
           variant="standard"
-          name="user"
-          value={user}
+          name="username"
+          value={username}
           onChange={onInputChange}
         />
         <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
