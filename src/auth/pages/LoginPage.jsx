@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLoginWithUserPassword } from "../../store/auth/thunks";
 
 const loginData = {
-  username: 'adminodoo@erassoluciones.com',
-  password: '1Q2w3e4r',
+  username: 'admin',
+  password: '1Q2w3e4r.',
   rememberme: false,
 }
 
