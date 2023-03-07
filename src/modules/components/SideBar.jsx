@@ -1,6 +1,7 @@
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { useSelector } from 'react-redux';
+import { Box, Divider, Drawer, Toolbar, Typography } from '@mui/material'
+import morgquickLogo from '/assets/logos/logoERAS.png'
 import { SideBarItem } from './SideBarItem';
+
 
 export const SideBar = ({ drawerWidth = 240 }) => {
 
@@ -13,32 +14,28 @@ export const SideBar = ({ drawerWidth = 240 }) => {
             <Drawer
                 variant='permanent' // temporary
                 open
-                sx={{ 
+                sx={{
                     display: { xs: 'block' },
                     '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
                 }}
             >
                 <Toolbar>
                     <Typography variant='h6' noWrap component='div'>
-                        Morgquick
+                        <img
+                            src={morgquickLogo}
+                            alt="MorgquickLogo"
+                            style={{
+                                marginTop: '10px',
+                                width: '160px',
+                            }}
+                        />
                     </Typography>
                 </Toolbar>
                 <Divider />
 
-{/*                 <List>
-                    {
-                        notes.map( note => (
-                            <SideBarItem key={ note.id } { ...note } />
-                        ))
-                    }
-                </List> */}
-
-                <SideBarItem/>
-
-                
+                <SideBarItem />
 
             </Drawer>
-
         </Box>
     )
 }
