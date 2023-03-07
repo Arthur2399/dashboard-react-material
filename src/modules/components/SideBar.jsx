@@ -1,5 +1,6 @@
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import { useSelector } from 'react-redux';
+import { SideBarItem } from './SideBarItem';
 
 export const SideBar = ({ drawerWidth = 240 }) => {
 
@@ -32,7 +33,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                     }
                 </List> */}
 
-
+                <SideBarItem/>
 
                 
 
