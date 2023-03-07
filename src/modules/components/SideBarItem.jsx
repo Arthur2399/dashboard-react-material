@@ -12,8 +12,9 @@ import ForumIcon from '@mui/icons-material/Forum';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { useSelector } from 'react-redux';
 
-const menuItems = [
+/* const menuItems = [
   {
     id: '1',
     text: 'All Mail',
@@ -79,7 +80,8 @@ const menuItems = [
     text: 'History',
     icon: Label,
   },
-];
+]; */
+
 
 
 const StyledTreeItemRoot = styled(TreeItem)(({ theme }) => ({
@@ -156,22 +158,24 @@ StyledTreeItem.propTypes = {
 
 export const SideBarItem = () => {
 
+const {modules} = useSelector(state=> state.menu);
+
   const renderMenuItem = (item) => {
-    const { id, text, icon: LabelIcon, children } = item;
-    if (children) {
+    const { id,nombre,hijos } = item;
+    if (hijos) {
       return (
         <StyledTreeItem
           key={id}
           nodeId={id}
-          labelText={text}
-          labelIcon={LabelIcon}
+          labelText={nombre}
+          /* labelIcon={LabelIcon} */
         >
-          {children.map((childItem) => renderMenuItem(childItem))}
+          {hijos.map((childItem) => renderMenuItem(childItem))}
         </StyledTreeItem>
       );
     } else {
       return (
-        <StyledTreeItem key={id} nodeId={id} labelText={text} labelIcon={LabelIcon} />
+        <StyledTreeItem key={id} nodeId={id} labelText={nombre} /* labelIcon={LabelIcon} */ />
       );
     }
   };
@@ -184,7 +188,7 @@ export const SideBarItem = () => {
       defaultEndIcon={<div style={{ width: 24 }} />}
       sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
     >
-      {menuItems.map((item) => renderMenuItem(item))}
+      {modules.payload.map((item) => renderMenuItem(item))}
     </TreeView>
   );
 };
