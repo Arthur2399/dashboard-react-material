@@ -34,18 +34,5 @@ export const useCheckAuth = () => {
         verifyCredentials();
     }, [])
 
-
-
-    /*     useEffect(() => {
-            axios.get(`${config.apiUrl}/`)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }, [])
-     */
-
     return status;
 }
