@@ -3,21 +3,26 @@ import morgquickLogo from '/assets/logos/logoERAS.png'
 import { SideBarItem } from './SideBarItem';
 
 
-export const SideBar = ({ drawerWidth = 240 }) => {
-
+export const SideBar = ({width,menuClose}) => {
 
     return (
         <Box
             component='nav'
-            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+            sx={{ width: { sm: width }, flexShrink: { sm: 0 } }}
         >
             <Drawer
+                className="animate__animated animate__fadeIn"
                 variant='permanent' // temporary
-                open
-                sx={{
+                sx={menuClose == false
+                    ?{
                     display: { xs: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
-                }}
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: width }
+                      }
+                    :{
+                        display: { xs: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: width }
+                    }
+            }
             >
                 <Toolbar>
                     <Typography variant='h6' noWrap component='div'>

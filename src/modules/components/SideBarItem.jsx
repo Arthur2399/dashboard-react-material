@@ -159,7 +159,7 @@ const example = [
     labelIcon: AdminPanelSettingsIcon,
   },
   {
-    id:12 ,
+    id:13 ,
     text: 'Parametrización',
     ruute: '/',
     color: '',
