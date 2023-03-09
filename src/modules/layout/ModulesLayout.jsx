@@ -11,7 +11,7 @@ export const ModulesLayout = ({ children }) => {
   const [width, setWith] = useState(240);
 
   return (
-    <Box xs={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', backgroundColor:"#F5F5F5" , height:"100vh"}}>
       <NavBar width={width} menuClose={menuClose} setMenuClose={setMenuClose} setWith={setWith}/>
       <SideBar width={width} menuClose={menuClose}/>
       {

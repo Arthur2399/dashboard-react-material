@@ -1,10 +1,16 @@
-import { LogoutOutlined, MenuOutlined } from "@mui/icons-material"
+import { MenuOutlined, Search } from "@mui/icons-material"
 import { AppBar, Avatar, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material"
 import { useState } from "react";
+import InputBase from '@mui/material/InputBase';
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../../store/auth/authSlice";
+import morgquickLogo from '/assets/logos/logoERAS.png'
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
 
-export const NavBar = ({width, menuClose, setMenuClose, setWith}) => {
+
+
+export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
 
     const { name, photoURL } = useSelector(state => state.auth);
     const dispatch = useDispatch();
@@ -26,37 +32,99 @@ export const NavBar = ({width, menuClose, setMenuClose, setWith}) => {
     };
 
 
-    const inOpenMenu = () =>{
-        if(menuClose == false){
+    const inOpenMenu = () => {
+        if (menuClose == false) {
             setWith(0)
             setMenuClose(true)
-        }else{
+        } else {
             setWith(240)
             setMenuClose(false)
         }
     }
 
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }));
+
+      const Search = styled('div')(({ theme }) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.black, 0.15),
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(3),
+          width: 'auto',
+        },
+      }));
+
+      const StyledInputBase = styled(InputBase)(({ theme }) => ({
+        color: 'inherit',
+        '& .MuiInputBase-input': {
+          padding: theme.spacing(1, 1, 1, 0),
+          // vertical padding + font size from searchIcon
+          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+          transition: theme.transitions.create('width'),
+          width: '100%',
+          [theme.breakpoints.up('md')]: {
+            width: '20ch',
+          },
+        },
+      }));
+
     return (
         <AppBar
             position='fixed'
+            elevation={0}
             sx={{
-                width: { sm: `calc(100% - ${width}px)` },
-                ml: { sm: `${width}px` }
+                backgroundColor: "four.main"
             }}
+        /*   sx={{
+              width: { sm: `calc(100% - ${width}px)` },
+              ml: { sm: `${width}px` }
+          }} */
         >
             <Toolbar>
                 <IconButton
                     color='inherit'
                     edge="start"
                     onClick={inOpenMenu}
-                    /* sx={{ mr: 2, display: { sm: 'none' } }} */
+                    sx={{ mr: 2, color: 'black' }}
                 >
                     <MenuOutlined />
                 </IconButton>
+                <img
+                    src={morgquickLogo}
+                    alt="MorgquickLogo"
+                    style={{
+                        marginTop: '10px',
+                        width: '160px',
+                    }}
+                />
+                {/*                 <Grid container sx={{ display: { sm: 'block', xs: 'none'} }} >
+                    <Typography variant='h6' noWrap component='div'sx={{ml:2}} > ERAS Soluciones Integrales.Cía.Ltda </Typography>
+                </Grid> */}
 
-                <Grid container sx={{ display: { sm: 'block', xs: 'none' } }} >
-                    <Typography variant='h6' noWrap component='div' > ERAS Soluciones Integrales.Cía.Ltda </Typography>
-                </Grid>
+
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
 
                 <Grid
                     container alignItems="center"

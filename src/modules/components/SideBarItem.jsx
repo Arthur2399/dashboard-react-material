@@ -235,13 +235,14 @@ export const SideBarItem = () => {
           labelText={text}
           labelInfo={textInfo}
           labelIcon={labelIcon}
+          sx={{mb:1}}
         >
           {children.map((childItem) => renderMenuItem(childItem))}
         </StyledTreeItem>
       );
     } else {
       return (
-        <StyledTreeItem key={id} nodeId={id.toString()} labelText={text} labelIcon={labelIcon} color={color} />
+        <StyledTreeItem key={id} nodeId={id.toString()} labelText={text} labelIcon={labelIcon} color={color}sx={{mb:1}} />
       );
     }
   };
@@ -252,7 +253,7 @@ export const SideBarItem = () => {
       defaultCollapseIcon={<ArrowDropDownIcon />}
       defaultExpandIcon={<ArrowRightIcon />}
       defaultEndIcon={<div style={{ width: 24 }} />}
-      sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+      sx={{ height: 264, flexGrow: 1, maxWidth: 400, overflowY: 'auto',mt:4 }}
     >
       {example.map((item) => renderMenuItem(item))}
     </TreeView>

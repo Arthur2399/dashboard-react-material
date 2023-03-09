@@ -10,7 +10,10 @@ export const blueTheme = createTheme({
             main: "#144272",
         },
         third: {
-            main: "#E8D5C4",
+            main: "#FFFFFF",
+        },
+        four: {
+            main: "#F5F5F5",
         },
         error: {
             main: red.A400
