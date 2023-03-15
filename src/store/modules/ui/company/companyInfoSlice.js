@@ -4,25 +4,42 @@ export const companyInfoSlice = createSlice({
     name: 'companyInfo',
     initialState: {
         status: 'no-selected',
-        name: null,
-        ruc: null,
+        companies :  [],
+        selectedCompany: null,
+        /* 
+            selectCompany:{
+                id: null,
+                name: null,
+                ruc: null, 
+            }
+        */
     },
     reducers: {
-        
-        selectingCompany: (state) => {
-            state.status = 'selecting';
+
+        LoadingCompanies: (state) => {
+            state.status = 'loading';
         },
 
-        selectedCompany: (state, {payload}) => {
-            state.status = 'selected'
-            state.name = payload.name;
-            state.ruc = payload.ruc;
+        gettingCompanies: (state, {payload}) =>{
+            state.status = 'getting-cpmpanies'
+            state.companies = payload.companies
         },
 
-        unselectedCompany: (state) =>{
-            state.status = 'selecting';
-            state.name = null;
-            state.ruc = null;
+        unselectedCompany: (state) => {
+            state.status = 'no-selected';
+        },
+
+        selectedCompany: (state, { payload }) => {
+            state.status = 'selected';
+            state.selectedCompany = payload.selectCompany;
+
+        },
+
+        clearCompany: (state) => {
+            state.status = 'no-selected';
+            state.companies = [];
+            state.selectedCompany = null;
+
         }
 
     }

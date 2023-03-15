@@ -9,6 +9,8 @@ export const useCheckAuth = () => {
 
     const token = window.sessionStorage.getItem("Token");
     const { status, multicompany } = useSelector(state => state.auth);
+    const { status:satatusCompany } = useSelector(state => state.companyInfo);
+
     const dispatch = useDispatch();
 
     /*
@@ -18,9 +20,10 @@ export const useCheckAuth = () => {
         en el AppRouter.jsx
 
 
-        El multicompany arroja un boolen y donde segun su estado muestra o no el AfterLogin,
-        tomar en cuenta que no debe permitir avanzar al sistema si no leccionó una empresa,
-        este dato se extrae del initialState de authSlice.js por defecto se encuentra en null
+        El multicompany arroja un boolen y donde segun su estado se deber cambiar el status de 
+        companyInfoSlice, con ese satus muestra o no el AfterLogin,tomar en cuenta que no debe 
+        permitir avanzar al sistema si no leccionó una empresa, este dato se extrae del initialState
+        de authSlice.js por defecto se encuentra en null.
     */
 
     useEffect(() => {
@@ -39,18 +42,26 @@ export const useCheckAuth = () => {
             if (!token) return dispatch(logout());
             const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
             dispatch(login({...data,multicompany:false})) // El multicompany lo debe enviar el API
-
-
-            // Obtencion de lo modulos permitidos por usuario
-
-            /* const { data:dataMenu } = await axios.get(`${config.apiUrl}/menu/asignacion/user`, {headers: {Authorization: token}})
-            dispatch(getModules(dataMenu)) */
         }
+
+
+
+        // Verificacion de seleccion de empresa
+
+        /*
+            Si el atributo de multicompany de authSlice es true debemos mandar AfterLogin y actualizar el
+            status de companyInfoSlice en 'seleced'
+        */
+
+
+
+        /* const { data:dataMenu } = await axios.get(`${config.apiUrl}/menu/asignacion/user`, {headers: {Authorization: token}})
+        dispatch(getModules(dataMenu)) */
         verifyCredentials();
 
 
 
     }, [])
 
-    return {status,multicompany};
+    return {status};
 }
