@@ -4,6 +4,7 @@ export const menuSlice = createSlice({
     name:'menu',
     initialState:{
         status:'No-checking',
+        companyName: null,
         modules:[],
     },
     reducers:{

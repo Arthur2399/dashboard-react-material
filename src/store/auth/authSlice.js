@@ -8,6 +8,7 @@ export const authSlice = createSlice({
         name: null,
         photoURL: null,
         token: null,
+        multicompany: false,
         errorMessage: null,
     },
     reducers: {
@@ -17,6 +18,7 @@ export const authSlice = createSlice({
             state.name = payload.username;
             state.photoURL = payload.imagen;
             state.token = payload.token;
+            state.multicompany = payload.multicompany; // Vericar nombre con el API
             state.errorMessage = null;
         },
         logout: (state, { payload }) => {
@@ -25,6 +27,7 @@ export const authSlice = createSlice({
             state.name = null;
             state.photoURL = null;
             state.token = null;
+            state.multicompany = false;
             state.errorMessage = payload?.non_field_errors;
         },
         checkingCredentials: (state) => {

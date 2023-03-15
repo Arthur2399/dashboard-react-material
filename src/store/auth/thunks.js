@@ -14,7 +14,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
     try {
       const { data } = await axios.post(`${config.apiUrl}/usuarios/api-token-auth/`, { username, password })
       window.sessionStorage.setItem("Token",data.token);
-      return dispatch(login(data));
+      return dispatch(login({...data,multicompany:false})) // El multicompany lo debe enviar el API
     } catch (error) {
       const { data } = error.response;
       dispatch(logout(data));
