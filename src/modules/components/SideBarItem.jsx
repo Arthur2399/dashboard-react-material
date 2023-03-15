@@ -214,7 +214,7 @@ StyledTreeItem.propTypes = {
 
 export const SideBarItem = () => {
 
-  const { modules } = useSelector(state => state.menu);
+  /* const { modules } = useSelector(state => state.menu); */
 
   const renderMenuItem = (item) => {
     const {

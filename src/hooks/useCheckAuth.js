@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios";
 import config from "../config";
 import { login, logout } from "../store/auth/authSlice";
-import { getModules } from "../store/ui/menu/menuSlice";
 
 
 export const useCheckAuth = () => {
