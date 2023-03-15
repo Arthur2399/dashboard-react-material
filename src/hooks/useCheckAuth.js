@@ -7,7 +7,7 @@ import { login, logout } from "../store/auth/authSlice";
 
 export const useCheckAuth = () => {
 
-    const token = window.sessionStorage.getItem("Token");
+    const token = sessionStorage.getItem("Token");
     const { status, multicompany } = useSelector(state => state.auth);
     const { status:satatusCompany } = useSelector(state => state.companyInfo);
 
@@ -41,7 +41,7 @@ export const useCheckAuth = () => {
 
             if (!token) return dispatch(logout());
             const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
-            dispatch(login({...data,multicompany:false})) // El multicompany lo debe enviar el API
+            dispatch(login({...data,multicompany:true})) // El multicompany lo debe enviar el API
         }
 
 

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const companyInfoSlice = createSlice({
     name: 'companyInfo',
     initialState: {
-        status: 'no-selected',
+        status: 'no-companies',
         companies :  [],
         selectedCompany: null,
         /* 
@@ -16,13 +16,14 @@ export const companyInfoSlice = createSlice({
     },
     reducers: {
 
-        LoadingCompanies: (state) => {
+        loadingCompanies: (state) => {
             state.status = 'loading';
         },
 
         gettingCompanies: (state, {payload}) =>{
-            state.status = 'getting-cpmpanies'
-            state.companies = payload.companies
+            state.status = 'getting-companies'
+            state.companies = payload
+            state.selectedCompany = null;
         },
 
         unselectedCompany: (state) => {
@@ -32,7 +33,6 @@ export const companyInfoSlice = createSlice({
         selectedCompany: (state, { payload }) => {
             state.status = 'selected';
             state.selectedCompany = payload.selectCompany;
-
         },
 
         clearCompany: (state) => {
@@ -45,4 +45,4 @@ export const companyInfoSlice = createSlice({
     }
 });
 
-export const { se } = companyInfoSlice.actions;
+export const { loadingCompanies, gettingCompanies, unselectedCompany, selectedCompany,clearCompany } = companyInfoSlice.actions;
