@@ -15,7 +15,6 @@ export const RecoveryPassword = () => {
 
   const onPasswordRecovery = (e) => {
     e.preventDefault();
-    console.log(formState)
   }
 
   return (
