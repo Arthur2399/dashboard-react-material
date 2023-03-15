@@ -12,7 +12,7 @@ export const ModulesLayout = ({ children }) => {
 
   return (
     <Box sx={{ display: 'flex', backgroundColor:"#F5F5F5" , height:"100vh"}}>
-      <NavBar width={width} menuClose={menuClose} setMenuClose={setMenuClose} setWith={setWith}/>
+      <NavBar menuClose={menuClose} setMenuClose={setMenuClose} setWith={setWith}/>
       <SideBar width={width} menuClose={menuClose}/>
       {
         children

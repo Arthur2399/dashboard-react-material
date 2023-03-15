@@ -10,18 +10,17 @@ import { styled, alpha } from '@mui/material/styles';
 
 
 
-export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
+export const NavBar = ({ menuClose, setMenuClose, setWith }) => {
 
     const { name, photoURL } = useSelector(state => state.auth);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
     const dispatch = useDispatch();
 
     const onLogout = () => {
         window.sessionStorage.removeItem("Token");
         dispatch(logout());
     }
-
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,7 +29,6 @@ export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
 
     const inOpenMenu = () => {
         if (menuClose == false) {
@@ -41,6 +39,22 @@ export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
             setMenuClose(false)
         }
     }
+    
+    const Search = styled('div')(({ theme }) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: alpha(theme.palette.common.black, 0.15),
+        '&:hover': {
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
+        },
+        marginRight: theme.spacing(2),
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(3),
+            width: 'auto',
+        },
+    }));
 
     const SearchIconWrapper = styled('div')(({ theme }) => ({
         padding: theme.spacing(0, 2),
@@ -50,37 +64,22 @@ export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }));
+    }));
 
-      const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.black, 0.15),
-        '&:hover': {
-          backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(3),
-          width: 'auto',
-        },
-      }));
 
-      const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
-          padding: theme.spacing(1, 1, 1, 0),
-          // vertical padding + font size from searchIcon
-          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-          transition: theme.transitions.create('width'),
-          width: '100%',
-          [theme.breakpoints.up('md')]: {
-            width: '20ch',
-          },
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('md')]: {
+                width: '20ch',
+            },
         },
-      }));
+    }));
 
     return (
         <AppBar
@@ -89,12 +88,8 @@ export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
             sx={{
                 backgroundColor: "four.main"
             }}
-        /*   sx={{
-              width: { sm: `calc(100% - ${width}px)` },
-              ml: { sm: `${width}px` }
-          }} */
         >
-            <Toolbar>
+            <Toolbar>r
                 <IconButton
                     color='inherit'
                     edge="start"
@@ -111,8 +106,8 @@ export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
                         width: '160px',
                     }}
                 />
-                {/*                 <Grid container sx={{ display: { sm: 'block', xs: 'none'} }} >
-                    <Typography variant='h6' noWrap component='div'sx={{ml:2}} > ERAS Soluciones Integrales.Cía.Ltda </Typography>
+                {/*<Grid container sx={{ display: { sm: 'block', xs: 'none'} }} >
+                    <Typography variant='h6 ' noWrap component='div'sx={{ml:2}} > ERAS Soluciones Integrales.Cía.Ltda </Typography>
                 </Grid> */}
 
 
@@ -121,7 +116,7 @@ export const NavBar = ({ width, menuClose, setMenuClose, setWith }) => {
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
-                        placeholder="Search…"
+                        placeholder="Buscar en Morgquick"
                         inputProps={{ 'aria-label': 'search' }}
                     />
                 </Search>
