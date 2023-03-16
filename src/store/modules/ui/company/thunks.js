@@ -29,12 +29,13 @@ const data = [
 
 export const startGetCompanies = () => {
     
-    //Extraer token del state de authSlice
-    const { token } = useSelector(state => state.auth);
-
-    return async (dispatch) => {
+    
+    return async (dispatch, getState) => {
         //Cambia el estado a 'Loading'
         dispatch(loadingCompanies());
+
+        //Extraer token del state de authSlice
+        const { token } = getState().auth;
 
         //Realiza la peticción para traer la empresas - NOTA: Poner en un Try - Catch
             //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })

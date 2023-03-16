@@ -1,7 +1,8 @@
 import axios from "axios";
-import config from "../../config";
-import { startGetCompanies } from "../modules/ui/company/thunks";
 import { checkingCredentials, login, logout } from "./authSlice"
+import { startGetCompanies } from "../modules/ui/company/thunks";
+import config from "../../config";
+import { clearCompany } from "../modules/ui/company/companyInfoSlice";
 
 
 /* OBJETIVO
@@ -65,18 +66,21 @@ export const startLoginWithUserPassword = ({ username, password }) => {
 }
 
 export const startLogout = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     //Extraer token del state de authSlice
-    const { token } = useSelector(state => state.auth);
+    const { token } = getState().auth;
+
+    //Eliminacion de token en Base de datos.
+    //await axios.get(`${config.apiUrl}example/endpoint/deleteToken`, { headers: { Authorization: token } })
 
     //Eliminación de token en sessionStorage
     sessionStorage.removeItem("Token");
-    
-    //Eliminacion de token en Base de datos.
-      //await axios.get(`${config.apiUrl}example/endpoint/deleteToken`, { headers: { Authorization: token } })
+
+    //Limpiar las empresas guardadas 
+    dispatch(clearCompany())
 
     // Cerrar sesión y eliminar datos
-      dispatch(logout())
+    dispatch(logout())
   }
 }
 

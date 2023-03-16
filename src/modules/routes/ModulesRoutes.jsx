@@ -8,7 +8,6 @@ export const ModulesRoutes = () => {
   const { multicompany } = useCheckAuth();
 
 
-  console.log(multicompany)
 
 
   return (

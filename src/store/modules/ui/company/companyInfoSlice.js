@@ -36,7 +36,7 @@ export const companyInfoSlice = createSlice({
         },
 
         clearCompany: (state) => {
-            state.status = 'no-selected';
+            state.status = 'no-companies';
             state.companies = [];
             state.selectedCompany = null;
 

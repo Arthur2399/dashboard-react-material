@@ -18,7 +18,6 @@ export const NavBar = ({ menuClose, setMenuClose, setWith }) => {
     const dispatch = useDispatch();
 
     const onLogout = () => {
-        
         dispatch(startLogout());
     }
 
