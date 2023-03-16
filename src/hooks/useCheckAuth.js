@@ -13,17 +13,13 @@ export const useCheckAuth = () => {
 
     const dispatch = useDispatch();
 
-    /*
-        El status muestra si el usuario actual estas authenticado o no, existen tres estado en
-        los reducers: "authenticated, "not-authtenticated" y "checking", este ira cambiando de 
-        acuerdo la verificación del token, por ello se debe retornar para dar o denegar acceso 
-        en el AppRouter.jsx
+    /* OBJETIVO
+        Este hook debe retornar el estado del authSlice y compoanyInfoSlice realizando:
+            1. Verificar si existe el token autentificación en el localStorage y guardarlo.
+            2. Realizar un petición al API y verificar si dicho token es valido.
+            3. Si es válido volver enviar los datos del usuario a authSlice rectificando el estado 'authenticated'
+            4. Si el token no es válido llama el reducer logout() borrando datos del sessionStorage.
 
-
-        El multicompany arroja un boolen y donde segun su estado se deber cambiar el status de 
-        companyInfoSlice, con ese satus muestra o no el AfterLogin,tomar en cuenta que no debe 
-        permitir avanzar al sistema si no leccionó una empresa, este dato se extrae del initialState
-        de authSlice.js por defecto se encuentra en null.
     */
 
     useEffect(() => {

@@ -1,8 +1,6 @@
 import axios from "axios";
 import { gettingCompanies, loadingCompanies, unselectedCompany } from "./companyInfoSlice";
 
-
-
 const data = [
     {
         id: 1,
@@ -21,9 +19,6 @@ const data = [
     }
 ]
 
-
-
-
 /* OBJETIVO
     Este thunk cumplicará la siguientes tareas:
         1. Pedir el token de acceso al SessionStorage
@@ -33,16 +28,16 @@ const data = [
  */
 
 export const startGetCompanies = () => {
+    
+    //Extraer token del state de authSlice
+    const { token } = useSelector(state => state.auth);
+
     return async (dispatch) => {
         //Cambia el estado a 'Loading'
         dispatch(loadingCompanies());
 
-        //Traer el token del sessionStorage del navegador
-        const token = sessionStorage.getItem("Token");
-
-        //Realiza la peticción para traer la empresas
+        //Realiza la peticción para traer la empresas - NOTA: Poner en un Try - Catch
             //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-
  
         //Setear la data de empresar en companyInfoSlice 
         dispatch(gettingCompanies(data))

@@ -11,6 +11,8 @@ import { checkingCredentials, login, logout } from "./authSlice"
     3. En caso de no ser exitosa la consulta setear el mensaje de error igual en authSlice.
     4. Verificar si usuario tiene el atributo multicompany y segun eso hacer llamado a otro thunk
        que controle la logica de petición de las empresas y su selección.
+    5. Hacer llamado al reducer Logout() y remover el token del sessionStorage.
+    6. Petición al API para eliminar token de la base de datos.
 */
 
 
@@ -31,7 +33,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
 
       //Guarda el token de usuario en el sessionStorage del navegador.
       sessionStorage.setItem("Token", data.token);
-      
+
       //IMPORTANTE: Esto es una simulación, se debe pedir al Backend el dato que falta. 
       const dataTest = { ...data, multicompany: true } // El multicompany lo debe enviar el API.
 
@@ -61,3 +63,20 @@ export const startLoginWithUserPassword = ({ username, password }) => {
     }
   }
 }
+
+export const startLogout = () => {
+  return async (dispatch) => {
+    //Extraer token del state de authSlice
+    const { token } = useSelector(state => state.auth);
+
+    //Eliminación de token en sessionStorage
+    sessionStorage.removeItem("Token");
+    
+    //Eliminacion de token en Base de datos.
+      //await axios.get(`${config.apiUrl}example/endpoint/deleteToken`, { headers: { Authorization: token } })
+
+    // Cerrar sesión y eliminar datos
+      dispatch(logout())
+  }
+}
+

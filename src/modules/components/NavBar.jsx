@@ -1,12 +1,12 @@
-import { MenuOutlined, Search } from "@mui/icons-material"
-import { AppBar, Avatar, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material"
 import { useState } from "react";
-import InputBase from '@mui/material/InputBase';
 import { useDispatch, useSelector } from "react-redux"
-import { logout } from "../../store/auth/authSlice";
-import morgquickLogo from '/assets/logos/logoERAS.png'
-import SearchIcon from '@mui/icons-material/Search';
+import { startLogout } from "../../store/auth/thunks";
+import { MenuOutlined} from "@mui/icons-material"
 import { styled, alpha } from '@mui/material/styles';
+import { AppBar, Avatar, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material"
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import morgquickLogo from '/assets/logos/logoERAS.png'
 
 
 
@@ -18,8 +18,8 @@ export const NavBar = ({ menuClose, setMenuClose, setWith }) => {
     const dispatch = useDispatch();
 
     const onLogout = () => {
-        window.sessionStorage.removeItem("Token");
-        dispatch(logout());
+        
+        dispatch(startLogout());
     }
 
     const handleClick = (event) => {

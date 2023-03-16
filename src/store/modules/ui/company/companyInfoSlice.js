@@ -4,7 +4,7 @@ export const companyInfoSlice = createSlice({
     name: 'companyInfo',
     initialState: {
         status: 'no-companies',
-        companies :  [],
+        companies: [],
         selectedCompany: null,
         /* 
             selectCompany:{
@@ -20,7 +20,7 @@ export const companyInfoSlice = createSlice({
             state.status = 'loading';
         },
 
-        gettingCompanies: (state, {payload}) =>{
+        gettingCompanies: (state, { payload }) => {
             state.status = 'getting-companies'
             state.companies = payload
             state.selectedCompany = null;
@@ -45,4 +45,4 @@ export const companyInfoSlice = createSlice({
     }
 });
 
-export const { loadingCompanies, gettingCompanies, unselectedCompany, selectedCompany,clearCompany } = companyInfoSlice.actions;
+export const { loadingCompanies, gettingCompanies, unselectedCompany, selectedCompany, clearCompany } = companyInfoSlice.actions;
