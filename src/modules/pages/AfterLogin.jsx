@@ -39,9 +39,10 @@ export const AfterLogin = () => {
         <Grid
           item
           xs={0}
-          sm={6}
+          sm={0}
+          md={6}
           backgroundColor="black"
-          sx={{ display: { sm: "block", xs: "none" } }}
+          sx={{ display: { sm: "none", xs: "none", md:"block" } }}
         >
           <img
             src={afterLoginGif}
@@ -60,7 +61,8 @@ export const AfterLogin = () => {
         <Grid
           item
           xs={12}
-          sm={6}
+          sm={12}
+          md={6}
           sx={{
             padding: 5,
           }}>
