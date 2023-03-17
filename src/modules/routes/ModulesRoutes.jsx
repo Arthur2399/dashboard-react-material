@@ -5,20 +5,15 @@ import { ModulesPages } from "../pages/ModulesPages"
 
 export const ModulesRoutes = () => {
 
-  const { multicompany } = useCheckAuth();
-
-
-
+  const { satatusCompany } = useCheckAuth();
 
   return (
     <Routes>
       {
-        (multicompany === true)
+        (satatusCompany === 'no-selected')
           ? <Route path="/after-login/*" element={<AfterLogin />} />
           : <Route path="/*" element={<ModulesPages />} />
       }
-      {/* <Route path="home" element={<ModulesPages />} /> */}
-
       <Route path="/*" element={<Navigate to="/after-login" />} />
     </Routes>
   )
