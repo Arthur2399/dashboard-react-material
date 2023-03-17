@@ -5,17 +5,56 @@ const data = [
     {
         id: 1,
         name: "MBA",
-        ruc: "9999999999", 
+        ruc: "9999999999",
+        fiscal_exercise: [
+            {
+                id: 1,
+                date: "2019"
+            },
+            {
+                id: 2,
+                date: "2020"
+            },
+            {
+                id: 3,
+                date: "2021"
+            },
+        ]
     },
     {
         id: 2,
         name: "Arthur&Company",
-        ruc: "9999999999", 
+        ruc: "9999999999",
+        fiscal_exercise: [
+            {
+                id: 1,
+                date: "2021"
+            },
+            {
+                id: 2,
+                date: "2022"
+            },
+
+        ]
     },
     {
         id: 3,
         name: "ERAS Soluciones",
-        ruc: "9999999999", 
+        ruc: "9999999999",
+        fiscal_exercise: [
+            {
+                id: 1,
+                date: "2021"
+            },
+            {
+                id: 2,
+                date: "2022"
+            },
+            {
+                id: 3,
+                date: "2023"
+            }
+        ]
     }
 ]
 
@@ -28,8 +67,7 @@ const data = [
  */
 
 export const startGetCompanies = () => {
-    
-    
+
     return async (dispatch, getState) => {
         //Cambia el estado a 'Loading'
         dispatch(loadingCompanies());
@@ -38,8 +76,8 @@ export const startGetCompanies = () => {
         const { token } = getState().auth;
 
         //Realiza la peticción para traer la empresas - NOTA: Poner en un Try - Catch
-            //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
- 
+        //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
+
         //Setear la data de empresar en companyInfoSlice 
         dispatch(gettingCompanies(data))
 

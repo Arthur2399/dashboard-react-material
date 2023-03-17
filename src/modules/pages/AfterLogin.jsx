@@ -1,21 +1,43 @@
 import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select, TextField, Typography } from "@mui/material"
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link as RouterLink } from 'react-router-dom';
+import { useForm } from "../../hooks/useForm";
 import afterLoginGif from '/assets/img/after-login.gif'
 
 
 
+const data = {
+  id_company: '',
+  id_fiscal_exercise: ''
+}
 
 export const AfterLogin = () => {
 
+  const { companies } = useSelector(state => state.companyInfo);
+  const [fiscalExerciseList, setFiscalExerciseList] = useState([]);
+  const [isDisable, setIsDisable] = useState(true);
 
+  const { onInputChange, onResetForm, formState, id_company, id_fiscal_exercise } = useForm(data)
+
+  useEffect(() => {
+    if (formState.id_company != '') {
+      setFiscalExerciseList(companies[formState.id_company - 1].fiscal_exercise)
+      setIsDisable(false)
+    }
+    else {
+      onResetForm();
+      setFiscalExerciseList([])
+      setIsDisable(true)
+    }
+  }, [id_company])
 
 
   const onCompanySelect = (e) => {
     e.preventDefault();
+    console.log(formState)
 
   }
-
-
 
   return (
     <Grid
@@ -26,7 +48,6 @@ export const AfterLogin = () => {
       justifyContent="center"
       sx={{ minHeight: "100vh", backgroundColor: "primary.main", paddingX: { sm: 10, xs: 4 } }}
     >
-
       <Grid
         className="animate__animated animate__fadeIn"
         container
@@ -42,7 +63,7 @@ export const AfterLogin = () => {
           sm={0}
           md={6}
           backgroundColor="black"
-          sx={{ display: { sm: "none", xs: "none", md:"block" } }}
+          sx={{ display: { sm: "none", xs: "none", md: "block" } }}
         >
           <img
             src={afterLoginGif}
@@ -69,21 +90,25 @@ export const AfterLogin = () => {
           <Typography variant='h5' sx={{ mb: 0, color: "primary.main" }} textAlign="center">Seleccionar empresa</Typography>
 
           <Box component="form" onSubmit={onCompanySelect} noValidate sx={{ mt: 2 }}>
-
-
             <FormControl variant="standard" sx={{ width: '100%', mb: 2 }}>
               <InputLabel id="demo-simple-select-standard-label">Empresa</InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                label="Age"
+                label="Empresa"
+                name="id_company"
+                value={id_company}
+                onChange={onInputChange}
               >
                 <MenuItem value="">
-                  <em>None</em>
+                  <em>Seleccione una</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {
+                  companies.map((company) => (
+                    <MenuItem key={company.id} value={company.id}>{company.name}</MenuItem>
+
+                  ))
+                }
               </Select>
             </FormControl>
 
@@ -93,18 +118,23 @@ export const AfterLogin = () => {
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
                 label="Age"
+                disabled={isDisable}
+                name='id_fiscal_exercise'
+                value={id_fiscal_exercise}
+                onChange={onInputChange}
+
               >
                 <MenuItem value="">
-                  <em>None</em>
+                  <em>Seleccione uno</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {
+                  fiscalExerciseList.map((fiscal) => (
+                    <MenuItem key={fiscal.id} value={fiscal.id}>{fiscal.date}</MenuItem>
+
+                  ))
+                }
               </Select>
             </FormControl>
-
-
-
             <Grid
               className="animate__animated animate__fadeIn"
               container
