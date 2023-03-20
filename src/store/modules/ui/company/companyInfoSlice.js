@@ -5,44 +5,48 @@ export const companyInfoSlice = createSlice({
     initialState: {
         status: 'no-companies',
         companies: [],
-        selectedCompany: null,
-        /* 
-            selectCompany:{
-                id: null,
-                name: null,
-                ruc: null, 
-            }
-        */
+        currentCompany: null,
     },
+
     reducers: {
 
+        //Estado de carga
         loadingCompanies: (state) => {
             state.status = 'loading';
         },
 
+        //UnicaEmpresa
+        onlyCompany: (state, { payload }) => {
+            state.status = 'only-company';
+            state.companies = null;
+            state.currentCompany = payload;
+        },
+
+        //Multiempresa
         gettingCompanies: (state, { payload }) => {
             state.status = 'getting-companies'
             state.companies = payload
-            state.selectedCompany = null;
+            state.currentCompany = null;
         },
 
         unselectedCompany: (state) => {
             state.status = 'no-selected';
         },
 
-        selectedCompany: (state, { payload }) => {
+        selectCompany: (state, { payload }) => {
             state.status = 'selected';
-            state.selectedCompany = payload.selectCompany;
+            state.currentCompany = payload.selectCompany;
         },
 
+        //Salida del sistema
         clearCompany: (state) => {
             state.status = 'no-companies';
             state.companies = [];
-            state.selectedCompany = null;
+            state.currentCompany = null;
 
         }
 
     }
 });
 
-export const { loadingCompanies, gettingCompanies, unselectedCompany, selectedCompany, clearCompany } = companyInfoSlice.actions;
+export const { loadingCompanies, gettingCompanies, unselectedCompany, selectCompany, onlyCompany, clearCompany } = companyInfoSlice.actions;

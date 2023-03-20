@@ -6,26 +6,31 @@ import { CheckingAuth } from "../ui"
 
 export const AppRouter = () => {
 
-    const { status } = useCheckAuth();
+    const { status, satatusCompany } = useCheckAuth();
 
     if (status === 'checking') {
         return <CheckingAuth />
     }
 
-
     /* NOTA
         Aqui se deben hacer las validaciones de multiempresa
     */
 
-    /* const { satatusCompany } = useCheckAuth(); */
     {/* <Route path="/after-login/*" element={<AfterLogin />} /> */ }
+
+
 
 
     return (
         <Routes>
             {
                 (status === 'authenticated')
-                    ? < Route path="/*" element={<ModulesRoutes />} />
+                    ? <>
+                        {
+
+                            < Route path="/*" element={<ModulesRoutes />} />
+                        }
+                      </>
                     : < Route path="/auth/*" element={<AuthRoutes />} />
             }
             <Route path="/*" element={<Navigate to="/auth/login" />} />
