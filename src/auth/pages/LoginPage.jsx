@@ -54,6 +54,7 @@ export const LoginPage = () => {
             variant="standard"
             name="password"
             value={password}
+            autoComplete="current-password"
             onChange={onInputChange}
             endAdornment={
               <InputAdornment position="end">

@@ -6,10 +6,12 @@ import { CheckingAuth } from "../ui"
 
 export const AppRouter = () => {
 
-    const { status, satatusCompany } = useCheckAuth();
+    const { status, statusCompany } = useCheckAuth();
 
     if (status === 'checking') {
         return <CheckingAuth />
+    } else if (statusCompany === 'loading') {
+        return <CheckingAuth msg="Cargando empresa ..." />
     }
 
     {/* <Route path="/after-login/*" element={<AfterLogin />} /> */ }
@@ -23,10 +25,11 @@ export const AppRouter = () => {
                 (status === 'authenticated')
                     ? <>
                         {
-
-                            < Route path="/*" element={<ModulesRoutes />} />
+                            (statusCompany === 'only-company')
+                                ? < Route path="/*" element={<ModulesRoutes />} />
+                                : < Route path="/after-login/*" element={<><h1>Alfter Login</h1></>} />
                         }
-                      </>
+                    </>
                     : < Route path="/auth/*" element={<AuthRoutes />} />
             }
             <Route path="/*" element={<Navigate to="/auth/login" />} />

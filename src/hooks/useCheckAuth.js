@@ -9,7 +9,7 @@ export const useCheckAuth = () => {
 
     const token = sessionStorage.getItem("Token");
     const { status } = useSelector(state => state.auth);
-    const { status: satatusCompany } = useSelector(state => state.companyInfo);
+    const { status: statusCompany } = useSelector(state => state.companyInfo);
 
     const dispatch = useDispatch();
 
@@ -60,6 +60,6 @@ export const useCheckAuth = () => {
 
     return {
         status,
-        satatusCompany
+        statusCompany
     };
 }
