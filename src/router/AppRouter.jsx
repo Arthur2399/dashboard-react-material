@@ -9,17 +9,18 @@ export const AppRouter = () => {
     const { status, statusCompany } = useCheckAuth();
 
     if (status === 'checking') {
-        return <CheckingAuth />
-    } else if (statusCompany === 'loading') {
+        return <CheckingAuth msg="Validando credenciales ..." />
+    }
+
+    if (status === 'authenticated' && statusCompany === 'no-companies' || statusCompany === 'loading') {
         return <CheckingAuth msg="Cargando empresa ..." />
     }
 
-    {/* <Route path="/after-login/*" element={<AfterLogin />} /> */ }
 
 
 
 
-    return (
+    return ( 
         <Routes>
             {
                 (status === 'authenticated')
