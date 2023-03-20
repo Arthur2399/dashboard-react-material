@@ -27,7 +27,6 @@ export const useCheckAuth = () => {
         const verifyCredentials = async () => {
 
             // Verificación de token
-
             /*
                 Si no encuentra un Token en el localStore hara el llamado al reducer de logout(),
                 donde borrará el localStore y seteará los datos null por default, si existe el token 
@@ -39,7 +38,8 @@ export const useCheckAuth = () => {
             const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
             dispatch(login({ ...data, multicompany: true })) // El multicompany lo debe enviar el API
         }
-
+        
+        verifyCredentials();
 
 
         // Verificacion de seleccion de empresa
@@ -53,7 +53,6 @@ export const useCheckAuth = () => {
 
         /* const { data:dataMenu } = await axios.get(`${config.apiUrl}/menu/asignacion/user`, {headers: {Authorization: token}})
         dispatch(getModules(dataMenu)) */
-        verifyCredentials();
 
 
 

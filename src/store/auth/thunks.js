@@ -1,6 +1,6 @@
 import axios from "axios";
 import { checkingCredentials, login, logout } from "./authSlice"
-import { startGetCompanies } from "../modules/ui/company/thunks";
+import { startGetCompany, startGetMultiCompanies } from "../modules/ui/company/thunks";
 import config from "../../config";
 import { clearCompany } from "../modules/ui/company/companyInfoSlice";
 
@@ -36,7 +36,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
       sessionStorage.setItem("Token", data.token);
 
       //IMPORTANTE: Esto es una simulación, se debe pedir al Backend el dato que falta. 
-      const dataTest = { ...data, multicompany: true } // El multicompany lo debe enviar el API.
+      const dataTest = { ...data, multicompany: false } // El multicompany lo debe enviar el API.
 
       //Seteo de la información al initialState authSlice.
       dispatch(login(dataTest))
@@ -47,7 +47,8 @@ export const startLoginWithUserPassword = ({ username, password }) => {
       */
 
       //Validación de multicompany
-      if (dataTest.multicompany === true) return dispatch(startGetCompanies());
+      if (dataTest.multicompany === true) return dispatch(startGetMultiCompanies());
+      dispatch(startGetCompany())
 
       /* NOTA
         Si la data que retorna el API tiene el atributo multiempresa en true, hace el llamado al thunk

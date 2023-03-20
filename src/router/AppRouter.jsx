@@ -12,10 +12,6 @@ export const AppRouter = () => {
         return <CheckingAuth />
     }
 
-    /* NOTA
-        Aqui se deben hacer las validaciones de multiempresa
-    */
-
     {/* <Route path="/after-login/*" element={<AfterLogin />} /> */ }
 
 
