@@ -2,7 +2,7 @@ import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select, Tex
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from 'react-router-dom';
-import { useForm } from "../../hooks/useForm";
+import { useForm } from "../../../hooks/useForm";
 import afterLoginGif from '/assets/img/after-login.gif'
 
 const data = {
