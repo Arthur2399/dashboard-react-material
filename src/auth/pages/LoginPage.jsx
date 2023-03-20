@@ -6,6 +6,8 @@ import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Icon
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoginWithUserPassword } from "../../store/auth/thunks";
+import loginGif from '/assets/img/login.gif'
+
 
 const loginData = {
   username: 'admin',
@@ -32,7 +34,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <AuthLayout title="Iniciar sesión">
+    <AuthLayout title="Iniciar sesión" imgSrc={loginGif}>
 
       <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
         <TextField
