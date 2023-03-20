@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { AuthRoutes } from "../auth"
+import { AfterLogin, AuthRoutes } from "../auth"
 import { useCheckAuth } from "../hooks/useCheckAuth"
 import { ModulesRoutes } from "../modules"
 import { CheckingAuth } from "../ui"
@@ -16,11 +16,7 @@ export const AppRouter = () => {
         return <CheckingAuth msg="Cargando empresa ..." />
     }
 
-
-
-
-
-    return ( 
+    return (
         <Routes>
             {
                 (status === 'authenticated')
@@ -28,7 +24,7 @@ export const AppRouter = () => {
                         {
                             (statusCompany === 'only-company')
                                 ? < Route path="/*" element={<ModulesRoutes />} />
-                                : < Route path="/after-login/*" element={<><h1>Alfter Login</h1></>} />
+                                : < Route path="/*" element={<AfterLogin />} />
                         }
                     </>
                     : < Route path="/auth/*" element={<AuthRoutes />} />

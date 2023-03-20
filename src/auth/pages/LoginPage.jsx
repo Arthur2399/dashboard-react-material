@@ -9,7 +9,7 @@ import { startLoginWithUserPassword } from "../../store/auth/thunks";
 
 const loginData = {
   username: 'admin',
-  password: '1Q2w3e4r',
+  password: '1Q2w3e4r.',
   rememberme: false,
 }
 
