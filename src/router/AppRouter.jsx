@@ -14,7 +14,7 @@ export const AppRouter = () => {
     }
 
     if (status === 'authenticated' && statusCompany === 'no-companies' || statusCompany === 'loading') {
-        return <CheckingAuth msg="Cargando empresa ..." />
+        return <CheckingAuth msg="Cargando información ..." />
     }
 
     return (

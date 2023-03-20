@@ -119,6 +119,7 @@ export const startGetCompany = () => {
         //Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
         //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
 
+        localStorage.setItem("companyData",JSON.stringify(dataOnly));
         //Setear la data de empresa en companyInfoSlice 
         dispatch(onlyCompany(dataOnly))
 
