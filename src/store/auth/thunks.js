@@ -36,7 +36,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
       sessionStorage.setItem("Token", data.token);
 
       //IMPORTANTE: Esto es una simulación, se debe pedir al Backend el dato que falta. 
-      const dataTest = { ...data, multicompany: false } // El multicompany lo debe enviar el API.
+      const dataTest = { ...data, multicompany: true } // El multicompany lo debe enviar el API.
 
       //Seteo de la información al initialState authSlice.
       dispatch(login(dataTest))

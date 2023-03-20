@@ -5,8 +5,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm";
 import afterLoginGif from '/assets/img/after-login.gif'
 
-
-
 const data = {
   id_company: '',
   id_fiscal_exercise: ''

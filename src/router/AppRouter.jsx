@@ -20,13 +20,11 @@ export const AppRouter = () => {
         <Routes>
             {
                 (status === 'authenticated')
-                    ? <>
-                        {
-                            (statusCompany === 'only-company')
-                                ? < Route path="/*" element={<ModulesRoutes />} />
-                                : < Route path="/*" element={<AfterLogin />} />
-                        }
-                    </>
+                    ? <>{
+                        (statusCompany === 'only-company')
+                            ? < Route path="/*" element={<ModulesRoutes />} />
+                            : < Route path="/*" element={<AfterLogin />} />
+                    }</>
                     : < Route path="/auth/*" element={<AuthRoutes />} />
             }
             <Route path="/*" element={<Navigate to="/auth/login" />} />
