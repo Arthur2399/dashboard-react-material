@@ -5,7 +5,7 @@ import config from "../config";
 import { login, logout } from "../store/auth/authSlice";
 
 
-export const useCheckAuth = () => {
+export const useCheckStatus = () => {
 
     const token = sessionStorage.getItem("Token");
     const { status } = useSelector(state => state.auth);

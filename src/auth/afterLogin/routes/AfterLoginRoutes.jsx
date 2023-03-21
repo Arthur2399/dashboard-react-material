@@ -1,12 +1,12 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { useCheckAuth } from '../../../hooks/useCheckAuth'
+import { useCheckStatus } from '../../../hooks'
 import { ModulesRoutes } from '../../../modules'
 import { AfterLogin } from '../pages/AfterLogin'
 
 export const AfterLoginRoutes = () => {
 
-    const { statusCompany } = useCheckAuth();
+    const { statusCompany } = useCheckStatus();
 
     return (
         <Routes>
