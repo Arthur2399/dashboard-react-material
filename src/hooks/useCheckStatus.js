@@ -8,6 +8,8 @@ import { login, logout } from "../store/auth/authSlice";
 export const useCheckStatus = () => {
 
     const token = sessionStorage.getItem("Token");
+
+    //UseSelector extrae datos del Store de la aplicación
     const { status } = useSelector(state => state.auth);
     const { status: statusCompany } = useSelector(state => state.companyInfo);
 
@@ -26,35 +28,19 @@ export const useCheckStatus = () => {
 
         const verifyCredentials = async () => {
 
-            // Verificación de token
-            /*
+            /* NOTA
                 Si no encuentra un Token en el localStore hara el llamado al reducer de logout(),
                 donde borrará el localStore y seteará los datos null por default, si existe el token 
                 y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará
                 de nuevo al estado actual
             */
-
+           
             if (!token) return dispatch(logout());
             const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
             dispatch(login({ ...data, multicompany: true })) // El multicompany lo debe enviar el API
         }
-        
+
         verifyCredentials();
-
-
-        // Verificacion de seleccion de empresa
-
-        /*
-            Si el atributo de multicompany de authSlice es true debemos mandar AfterLogin y actualizar el
-            status de companyInfoSlice en 'seleced'
-        */
-
-
-
-        /* const { data:dataMenu } = await axios.get(`${config.apiUrl}/menu/asignacion/user`, {headers: {Authorization: token}})
-        dispatch(getModules(dataMenu)) */
-
-
 
     }, [])
 

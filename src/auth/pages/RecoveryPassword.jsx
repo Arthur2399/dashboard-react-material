@@ -3,6 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm"
 import { AuthLayout } from "../layout"
 import passwordImg from '../../../assets/Img/password.png';
+import loginGif from '../../../assets/Img/login.gif'
 
 const RecoveryPasswordData = {
   email: ""
@@ -18,7 +19,7 @@ export const RecoveryPassword = () => {
   }
 
   return (
-    <AuthLayout title="Recuperar contraseña">
+    <AuthLayout title="Recuperar contraseña" imgSrc={loginGif}>
       <Box component="form" onSubmit={onPasswordRecovery} noValidate sx={{ mt: 2 }}>
         <Grid
           container
