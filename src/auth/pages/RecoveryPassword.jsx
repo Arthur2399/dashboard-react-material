@@ -2,7 +2,7 @@ import { Alert, Box, Button, Grid, Link, TextField, Typography } from "@mui/mate
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from "../../hooks/useForm"
 import { AuthLayout } from "../layout"
-import passwordImg from '/assets/img/password.png';
+import passwordImg from '../../../assets/Img/password.png';
 
 const RecoveryPasswordData = {
   email: ""

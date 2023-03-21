@@ -6,7 +6,7 @@ import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, Icon
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoginWithUserPassword } from "../../store/auth/thunks";
-import loginGif from '/assets/img/login.gif'
+import loginGif from '../../../assets/Img/login.gif'
 
 
 const loginData = {
