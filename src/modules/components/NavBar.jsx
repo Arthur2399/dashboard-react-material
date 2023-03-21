@@ -6,7 +6,7 @@ import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Avatar, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material"
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import morgquickLogo from '../../../assets/logos/logoERAS.png'
+import morgquickLogo from '../../../assets/logos/LogoERAS.png';
 
 export const NavBar = ({ menuClose, setMenuClose, setWith }) => {
 
