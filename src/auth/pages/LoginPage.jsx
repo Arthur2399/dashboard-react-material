@@ -1,14 +1,30 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useForm } from "../../hooks/useForm";
-import { AuthLayout } from "../layout"
-import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { startLoginWithUserPassword } from "../../store/auth/thunks";
-import loginGif from '../../../assets/Img/login.gif'
+import { useDispatch, useSelector } from 'react-redux';
+
+import { startLoginWithUserPassword } from '../../store/auth/thunks';
+import { useForm } from '../../hooks/useForm';
+
+import { AuthLayout } from '../layout'
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import loginGif from '../../../assets/Img/login.gif';
+import {
+  Alert,
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  Link,
+  TextField} from '@mui/material';
 
 
+//TODO Borrar los datos iniciales
 const loginData = {
   username: 'admin',
   password: '1Q2w3e4r',
@@ -17,11 +33,11 @@ const loginData = {
 
 export const LoginPage = () => {
 
-  const {status, errorMessage} = useSelector ( state=> state.auth);
+  const { status, errorMessage } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
 
-  const isAuthenticating = useMemo( () => status === 'checking', [status]);
+  const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
   const [showPassword, setShowPassword] = useState(false);
   const { formState, onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
@@ -30,7 +46,7 @@ export const LoginPage = () => {
 
   const onLogin = (e) => {
     e.preventDefault();
-    dispatch(startLoginWithUserPassword({username,password}));
+    dispatch(startLoginWithUserPassword({ username, password }));
   }
 
   return (

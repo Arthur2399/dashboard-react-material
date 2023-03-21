@@ -34,7 +34,7 @@ export const useCheckStatus = () => {
                 y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará
                 de nuevo al estado actual
             */
-           
+
             if (!token) return dispatch(logout());
             const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
             dispatch(login({ ...data, multicompany: true })) //TODO El multicompany lo debe enviar el API

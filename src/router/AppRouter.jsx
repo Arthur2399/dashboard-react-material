@@ -35,15 +35,15 @@ export const AppRouter = () => {
                     caso contrario vuelva a redireccionar a /auth/login de AuthRoutes
                 */
                 (status === 'authenticated')
-                    ?<>
+                    ? <>
                         {
                             /*
                                 Si el valor de statusCompany es 'only-company' direcciona 
                                 a dashboard del sistema caso contrar manda al AfterLogin
                             */
                             (statusCompany === 'only-company')
-                                ? < Route path = "/*" element={<ModulesRoutes />} />
-                                : < Route path = "/*" element={<AfterLoginRoutes />} />
+                                ? < Route path="/*" element={<ModulesRoutes />} />
+                                : < Route path="/*" element={<AfterLoginRoutes />} />
                         }
                     </>
                     : < Route path="/auth/*" element={<AuthRoutes />} />
