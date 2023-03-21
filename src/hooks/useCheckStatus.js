@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import axios from "axios";
-import config from "../config";
-import { login, logout } from "../store/auth/authSlice";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios';
+
+import { login, logout } from '../store/auth/authSlice';
+import config from '../config';
 
 
 export const useCheckStatus = () => {
@@ -21,7 +22,6 @@ export const useCheckStatus = () => {
             2. Realizar un petición al API y verificar si dicho token es valido.
             3. Si es válido volver enviar los datos del usuario a authSlice rectificando el estado 'authenticated'
             4. Si el token no es válido llama el reducer logout() borrando datos del sessionStorage.
-
     */
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export const useCheckStatus = () => {
            
             if (!token) return dispatch(logout());
             const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
-            dispatch(login({ ...data, multicompany: true })) // El multicompany lo debe enviar el API
+            dispatch(login({ ...data, multicompany: true })) //TODO El multicompany lo debe enviar el API
         }
 
         verifyCredentials();
