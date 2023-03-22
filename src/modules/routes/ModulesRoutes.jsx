@@ -1,11 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { ModulesPages } from "../pages/ModulesPages"
+import { ModulesPages } from "../pages"
 
 export const ModulesRoutes = () => {
+
   return (
     <Routes>
-        <Route path="/" element={ <ModulesPages/> } />
-        <Route path="/*" element={ <Navigate to="/" /> } />
+      <Route path="/" element={<ModulesPages />} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   )
 }
