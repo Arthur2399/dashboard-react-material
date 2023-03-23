@@ -1,8 +1,10 @@
 import axios from "axios";
+
 import { checkingCredentials, login, logout } from "./authSlice"
-import { startGetCompany, startGetMultiCompanies } from "../modules/ui/company/thunks";
-import config from "../../config";
 import { clearCompany } from "../modules/ui/company/companyInfoSlice";
+import { startGetCompany, startGetMultiCompanies } from "../modules/ui/company/thunks";
+
+import config from "../../config";
 
 
 /* OBJETIVO
