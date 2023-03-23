@@ -1,6 +1,6 @@
 import axios from "axios";
 import { companyData } from "../../../../data/ui/companyData";
-import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany} from "./companyInfoSlice";
+import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "./companyInfoSlice";
 
 
 
@@ -22,15 +22,28 @@ export const startGetCompany = () => {
         const { token } = getState().auth;
 
         //TODO Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
-            //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-            dispatch(gettingCompanies(companyData));
-        
+        //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
+        dispatch(gettingCompanies(companyData));
+
         //Validación seleccion de empresa
-        if(companyData.length == 1) return (dispatch(selectCompany(companyData[0])));
-        dispatch(unselectedCompany());
+        if (companyData.length > 1) return dispatch(unselectedCompany());
+
+        const { fiscal_exercise, ...newCompanyData } = companyData[0];
+
+        dispatch(selectCompany({ ...newCompanyData, fiscal_exercise: fiscal_exercise[0] }));
     }
 }
 
-export const startSelectionCompany = () => {
-    
+export const startSelectionCompany = ({ id_company, id_fiscal_exercise }) => {
+    return async (dispatch) => {
+
+        let onlyCompany = companyData.find(obj => obj.id === id_company)
+        const selectFiscalExercise = onlyCompany.fiscal_exercise.find(obj => obj.id === id_fiscal_exercise)
+
+        const { fiscal_exercise, ...newOnlyCompany } = onlyCompany; // crear una copia de onlyCompany sin la propiedad fiscal_exercise
+
+        const selectedCompany = { ...newOnlyCompany, fiscal_exercise: selectFiscalExercise }; // imprimir la nueva copia del objeto con la propiedad actualizada
+
+        dispatch(selectCompany(selectedCompany))
+    }
 }

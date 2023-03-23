@@ -5,6 +5,7 @@ import { useForm } from "../../../hooks/useForm";
 import { startLogout } from "../../../store/auth/thunks";
 import { AuthLayout } from "../../layout";
 import afterLoginGif from '../../../../assets/Img/after-login.gif'
+import { startSelectionCompany } from "../../../store/modules/ui/company/thunks";
 
 const data = {
   id_company: '',
@@ -22,6 +23,7 @@ export const AfterLogin = () => {
 
   const { onInputChange, onResetForm, formState, id_company, id_fiscal_exercise } = useForm(data)
 
+  
   useEffect(() => {
     if (formState.id_company != '') {
       setFiscalExerciseList(companies[formState.id_company - 1].fiscal_exercise)
@@ -37,7 +39,7 @@ export const AfterLogin = () => {
 
   const onCompanySelect = (e) => {
     e.preventDefault();
-    console.log(formState)
+    dispatch(startSelectionCompany({...formState}))
   }
 
   const onLogout = () => {

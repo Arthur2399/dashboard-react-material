@@ -12,7 +12,7 @@ export const AfterLoginRoutes = () => {
         <Routes>
             {(statusCompany === 'selected')
                 ? < Route path="/*" element={<ModulesRoutes />} />
-                : <Route path="after-login" element={<AfterLogin />} />
+                : < Route path="after-login" element={<AfterLogin />} />
             }
             <Route path="/*" element={<Navigate to="after-login" />} />
         </Routes>

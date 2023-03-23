@@ -28,7 +28,7 @@ export const companyInfoSlice = createSlice({
 
         selectCompany: (state, { payload }) => {
             state.status = 'selected';
-            state.currentCompany = payload.selectCompany;
+            state.currentCompany = payload;
         },
 
         //Salida del sistema
