@@ -1,6 +1,6 @@
 import axios from "axios";
-import { companiesData } from "../../../../data/ui/companyData";
-import { gettingCompanies, loadingCompanies, onlyCompany, unselectedCompany } from "./companyInfoSlice";
+import { companyData } from "../../../../data/ui/companyData";
+import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany} from "./companyInfoSlice";
 
 
 
@@ -12,27 +12,6 @@ import { gettingCompanies, loadingCompanies, onlyCompany, unselectedCompany } fr
            en las rutas y direccionar a After login y  que seleccione un empresa.
  */
 
-export const startGetMultiCompanies = () => {
-
-    return async (dispatch, getState) => {
-        //Cambia el estado a 'Loading'
-        dispatch(loadingCompanies());
-
-        //Extraer token del state de authSlice
-        const { token } = getState().auth;
-
-        //TODO Realiza la peticción para traer la empresas - NOTA: Poner en un Try - Catch
-            //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-
-        //Setear la data de empresar en companyInfoSlice 
-        dispatch(gettingCompanies(companiesData))
-
-        //Cambiar estado a 'no-selected'
-        dispatch(unselectedCompany())
-    }
-}
-
-
 export const startGetCompany = () => {
 
     return async (dispatch, getState) => {
@@ -42,12 +21,12 @@ export const startGetCompany = () => {
         //Extraer token del state de authSlice
         const { token } = getState().auth;
 
-        //Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
-        //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-
-        localStorage.setItem("companyData",JSON.stringify(dataOnly));
-        //Setear la data de empresa en companyInfoSlice 
-        dispatch(onlyCompany(dataOnly))
-
+        //TODO Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
+            //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
+            dispatch(gettingCompanies(companyData));
+        
+        //Validación seleccion de empresa
+        if(companyData.length == 1) return (dispatch(selectCompany(companyData[0])));
+        dispatch(unselectedCompany());
     }
 }

@@ -1,4 +1,4 @@
-export const companiesData = [
+export const companyData = [
     {
         id: 1,
         name: "MBA",
@@ -54,23 +54,3 @@ export const companiesData = [
         ]
     }
 ]
-
-export const companyData = {
-    id: 1,
-    name: "MBA",
-    ruc: "9999999999",
-    fiscal_exercise: [
-        {
-            id: 1,
-            date: "2019"
-        },
-        {
-            id: 2,
-            date: "2020"
-        },
-        {
-            id: 3,
-            date: "2021"
-        },
-    ]
-}

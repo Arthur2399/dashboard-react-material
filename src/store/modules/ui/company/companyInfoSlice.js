@@ -14,15 +14,8 @@ export const companyInfoSlice = createSlice({
         loadingCompanies: (state) => {
             state.status = 'loading';
         },
-
-        //UnicaEmpresa
-        onlyCompany: (state, { payload }) => {
-            state.status = 'only-company';
-            state.companies = null;
-            state.currentCompany = payload;
-        },
-
-        //Multiempresa
+        
+        //Selección de empresa
         gettingCompanies: (state, { payload }) => {
             state.status = 'getting-companies'
             state.companies = payload
@@ -49,4 +42,4 @@ export const companyInfoSlice = createSlice({
     }
 });
 
-export const { loadingCompanies, gettingCompanies, unselectedCompany, selectCompany, onlyCompany, clearCompany } = companyInfoSlice.actions;
+export const { loadingCompanies, gettingCompanies, unselectedCompany, selectCompany, clearCompany } = companyInfoSlice.actions;

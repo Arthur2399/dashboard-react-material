@@ -1,8 +1,8 @@
 import axios from "axios";
 
+import { startGetCompany} from "../modules/ui/company/thunks";
 import { checkingCredentials, login, logout } from "./authSlice"
 import { clearCompany } from "../modules/ui/company/companyInfoSlice";
-import { startGetCompany, startGetMultiCompanies } from "../modules/ui/company/thunks";
 
 import config from "../../config";
 import { userData } from "../../data/auth/userData";
@@ -48,14 +48,8 @@ export const startLoginWithUserPassword = ({ username, password }) => {
         en AppRouter.jsx
       */
 
-      //Validación de multicompany
-      if (userData.multicompany === true) return dispatch(startGetMultiCompanies());
-      dispatch(startGetCompany())
-
-      /* NOTA
-        Si la data que retorna el API tiene el atributo multiempresa en true, hace el llamado al thunk
-        startCompanies que contiene otra logica para traer la empresas, caso contrario no realiza nada.
-      */
+      // Petición, obtener compañias. 
+      dispatch(startGetCompany()); 
 
     } catch (error) {
 
