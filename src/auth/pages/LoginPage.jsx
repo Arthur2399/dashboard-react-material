@@ -21,7 +21,8 @@ import {
   InputAdornment,
   InputLabel,
   Link,
-  TextField} from '@mui/material';
+  TextField
+} from '@mui/material';
 
 
 //TODO Borrar los datos iniciales
@@ -33,25 +34,38 @@ const loginData = {
 
 export const LoginPage = () => {
 
-  const { status, errorMessage } = useSelector(state => state.auth);
+  // State para mostrar contraseña escrita
+  const [showPassword, setShowPassword] = useState(false);
 
+  // Valores iniciales de authSlice.
+  const { status, errorMessage } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
+  // Hook de validación y obtención de data del formulario.
+  const { onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
+
+  // Verificador de estado al ejecutar petición.
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
+  /* NOTA
+      La constante isAuthenticating almacena un boleano que cambiara su valor depeniendo 
+      del valor de status, es decir que si status es 'checking' su valor será true pero si
+      su valor es cualquier otro su valor será false.
+  */
 
-  const [showPassword, setShowPassword] = useState(false);
-  const { formState, onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
-
+  // Función de flecha para actualizar estado de vista de contraseña
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  // Función de flecha realiza el dispatch para hacer el POST del login.
   const onLogin = (e) => {
     e.preventDefault();
+    //TODO Buscar funcionalidad para el rememberme.
     dispatch(startLoginWithUserPassword({ username, password }));
   }
 
   return (
     <AuthLayout title="Iniciar sesión" imgSrc={loginGif}>
 
+      {/* USERNAME */}
       <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
         <TextField
           autoComplete="username"
@@ -64,6 +78,8 @@ export const LoginPage = () => {
           value={username}
           onChange={onInputChange}
         />
+
+        {/* PASSWORD */}
         <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
           <InputLabel >Password</InputLabel>
           <Input
@@ -87,6 +103,7 @@ export const LoginPage = () => {
           />
         </FormControl>
 
+        {/* REMEMBERME */}
         <FormControlLabel
           control={<Checkbox
             color="primary"
@@ -96,6 +113,8 @@ export const LoginPage = () => {
           />}
           label="Recuérdame"
         />
+
+        {/* ALERT BOX */}
         <Grid
           className="animate__animated animate__fadeIn"
           container
@@ -109,6 +128,7 @@ export const LoginPage = () => {
           </Grid>
         </Grid>
 
+        {/* LOG IN BUTTON */}
         <Button
           disabled={isAuthenticating}
           type="submit"
@@ -118,6 +138,8 @@ export const LoginPage = () => {
         >
           Ingresar
         </Button>
+
+        {/* LINKS TO */}
         <Grid container>
           <Grid item xs>
             <Link

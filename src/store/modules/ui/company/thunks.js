@@ -1,82 +1,8 @@
 import axios from "axios";
-import { gettingCompanies, loadingCompanies, onlyCompany, unselectedCompany } from "./companyInfoSlice";
+import { companyData } from "../../../../data/ui/companyData";
+import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany} from "./companyInfoSlice";
 
-const data = [
-    {
-        id: 1,
-        name: "MBA",
-        ruc: "9999999999",
-        fiscal_exercise: [
-            {
-                id: 1,
-                date: "2019"
-            },
-            {
-                id: 2,
-                date: "2020"
-            },
-            {
-                id: 3,
-                date: "2021"
-            },
-        ]
-    },
-    {
-        id: 2,
-        name: "Arthur&Company",
-        ruc: "9999999999",
-        fiscal_exercise: [
-            {
-                id: 1,
-                date: "2021"
-            },
-            {
-                id: 2,
-                date: "2022"
-            },
 
-        ]
-    },
-    {
-        id: 3,
-        name: "ERAS Soluciones",
-        ruc: "9999999999",
-        fiscal_exercise: [
-            {
-                id: 1,
-                date: "2021"
-            },
-            {
-                id: 2,
-                date: "2022"
-            },
-            {
-                id: 3,
-                date: "2023"
-            }
-        ]
-    }
-]
-
-const dataOnly = {
-        id: 1,
-        name: "MBA",
-        ruc: "9999999999",
-        fiscal_exercise: [
-            {
-                id: 1,
-                date: "2019"
-            },
-            {
-                id: 2,
-                date: "2020"
-            },
-            {
-                id: 3,
-                date: "2021"
-            },
-        ]
-    }
 
 /* OBJETIVO
     Este thunk cumplicará la siguientes tareas:
@@ -85,27 +11,6 @@ const dataOnly = {
         3. Cambiar el estado de companyInfoSlice, para alterar el acceso
            en las rutas y direccionar a After login y  que seleccione un empresa.
  */
-
-export const startGetMultiCompanies = () => {
-
-    return async (dispatch, getState) => {
-        //Cambia el estado a 'Loading'
-        dispatch(loadingCompanies());
-
-        //Extraer token del state de authSlice
-        const { token } = getState().auth;
-
-        //Realiza la peticción para traer la empresas - NOTA: Poner en un Try - Catch
-        //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-
-        //Setear la data de empresar en companyInfoSlice 
-        dispatch(gettingCompanies(data))
-
-        //Cambiar estado a 'no-selected'
-        dispatch(unselectedCompany())
-    }
-}
-
 
 export const startGetCompany = () => {
 
@@ -116,12 +21,16 @@ export const startGetCompany = () => {
         //Extraer token del state de authSlice
         const { token } = getState().auth;
 
-        //Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
-        //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-
-        localStorage.setItem("companyData",JSON.stringify(dataOnly));
-        //Setear la data de empresa en companyInfoSlice 
-        dispatch(onlyCompany(dataOnly))
-
+        //TODO Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
+            //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
+            dispatch(gettingCompanies(companyData));
+        
+        //Validación seleccion de empresa
+        if(companyData.length == 1) return (dispatch(selectCompany(companyData[0])));
+        dispatch(unselectedCompany());
     }
+}
+
+export const startSelectionCompany = () => {
+    
 }

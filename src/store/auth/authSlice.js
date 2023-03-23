@@ -16,7 +16,7 @@ export const authSlice = createSlice({
             state.status = 'authenticated';
             state.email = payload.email;
             state.name = payload.username;
-            state.photoURL = payload.imagen;
+            state.photoURL = payload.photoURL;
             state.token = payload.token;
             state.multicompany = payload.multicompany; // Vericar nombre con el API
             state.errorMessage = null;
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
             state.photoURL = null;
             state.token = null;
             state.multicompany = false;
-            state.errorMessage = payload?.non_field_errors;
+            state.errorMessage = payload;
         },
         checkingCredentials: (state) => {
             state.status = 'checking'

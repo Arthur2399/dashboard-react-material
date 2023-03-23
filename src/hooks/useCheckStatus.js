@@ -36,8 +36,8 @@ export const useCheckStatus = () => {
             */
 
             if (!token) return dispatch(logout());
-            const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
-            dispatch(login({ ...data, multicompany: true })) //TODO El multicompany lo debe enviar el API
+            /* const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
+            dispatch(login({ ...data, multicompany: true })) */ //TODO El multicompany lo debe enviar el API
         }
 
         verifyCredentials();
