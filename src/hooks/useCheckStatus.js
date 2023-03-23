@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 
 import { login, logout } from '../store/auth/authSlice';
+import { userData } from '../data/auth/userData';
 import config from '../config';
 
 
 export const useCheckStatus = () => {
 
     const token = sessionStorage.getItem("Token");
+    const company = localStorage.getItem("Company");
 
     //UseSelector extrae datos del Store de la aplicación
     const { status } = useSelector(state => state.auth);
@@ -34,13 +36,19 @@ export const useCheckStatus = () => {
                 y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará
                 de nuevo al estado actual
             */
-
             if (!token) return dispatch(logout());
+            //TODO El multicompany lo debe enviar el API
             /* const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
-            dispatch(login({ ...data, multicompany: true })) */ //TODO El multicompany lo debe enviar el API
+            dispatch(login({ ...data, multicompany: true })) */
+            dispatch(login(userData))
         }
 
         verifyCredentials();
+
+        const verifyCompanySelected = async () => {
+            if()
+        }
+
 
     }, [])
 

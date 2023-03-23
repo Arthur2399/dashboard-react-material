@@ -46,7 +46,7 @@ export const startGetCompany = () => {
         const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(companySelected), 'uva').toString();
 
         //Guardar la información de la empresa seleccionada en el localStorage del navegador
-        localStorage.setItem("company", encryptedData);
+        localStorage.setItem("Company", encryptedData);
 
         //Seteo de la informacion en state currentCompany de companyInfoSlice.js
         dispatch(selectCompany(companySelected));
@@ -78,7 +78,7 @@ export const startSelectionCompany = ({ id_company, id_fiscal_exercise }) => {
         const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(selectedCompany), 'uva').toString();
 
         //Guardar la información de la empresa seleccionada en el localStorage del navegador
-        localStorage.setItem("company", encryptedData);
+        localStorage.setItem("Company", encryptedData);
         
         //Seteo de la informacion en state currentCompany de companyInfoSlice.js
         dispatch(selectCompany(selectedCompany))
