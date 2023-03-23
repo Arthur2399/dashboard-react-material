@@ -5,6 +5,7 @@ import { clearCompany } from "../modules/ui/company/companyInfoSlice";
 import { startGetCompany, startGetMultiCompanies } from "../modules/ui/company/thunks";
 
 import config from "../../config";
+import { userData } from "../../data/auth/userData";
 
 
 /* OBJETIVO
@@ -32,16 +33,15 @@ export const startLoginWithUserPassword = ({ username, password }) => {
     // Verificación de credenciales.
     try {
       //Posteo de las credenciales 
-      const { data } = await axios.post(`${config.apiUrl}/usuarios/api-token-auth/`, { username, password })
+          //TODO Cambiar HardCode a realizar la petición del API 
+            //const { data } = await axios.post(`${config.apiUrl}/usuarios/api-token-auth/`, { username, password })
+            const {token} = userData;
 
       //Guarda el token de usuario en el sessionStorage del navegador.
-      sessionStorage.setItem("Token", data.token);
-
-      //IMPORTANTE: Esto es una simulación, se debe pedir al Backend el dato que falta. 
-      const dataTest = { ...data, multicompany: false } // El multicompany lo debe enviar el API.
+      sessionStorage.setItem("Token", userData.token /* data.token */);
 
       //Seteo de la información al initialState authSlice.
-      dispatch(login(dataTest))
+      dispatch(login(userData))
 
       /* NOTA
         El dispatch(login()) cambia el estado a authenticated  lo que da paso a las rutas privadas 
@@ -49,7 +49,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
       */
 
       //Validación de multicompany
-      if (dataTest.multicompany === true) return dispatch(startGetMultiCompanies());
+      if (userData.multicompany === true) return dispatch(startGetMultiCompanies());
       dispatch(startGetCompany())
 
       /* NOTA
@@ -58,8 +58,13 @@ export const startLoginWithUserPassword = ({ username, password }) => {
       */
 
     } catch (error) {
-      const { data } = error.response;
-      dispatch(logout(data));
+
+      //TODO Descomentar esto cuando este haciendo llamado al API
+      /*const { data } = error.response;
+      dispatch(logout(data)); */
+      console.log(error)
+      dispatch(logout(error))
+      
       /* NOTA
         Si la petición llega a tener un erro lo atrapa y hace llamado al reduce logout(),
         el cual espera recibirlo para mostrarlo en pantalla.
