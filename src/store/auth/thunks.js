@@ -48,7 +48,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
         en AppRouter.jsx
       */
 
-      // Petición, obtener compañias. 
+      // Obbtener información de la o las empresas. 
       dispatch(startGetCompany()); 
 
     } catch (error) {

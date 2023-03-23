@@ -30,3 +30,7 @@ export const startGetCompany = () => {
         dispatch(unselectedCompany());
     }
 }
+
+export const startSelectionCompany = () => {
+    
+}
