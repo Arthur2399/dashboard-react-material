@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import CryptoJS from 'crypto-js';
+
 import axios from 'axios';
 
 import { login, logout } from '../store/auth/authSlice';
 import { userData } from '../data/auth/userData';
 import config from '../config';
+import { gettingCompanies, selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
+import { companyData } from '../data/ui/companyData';
 
 
 export const useCheckStatus = () => {
@@ -41,13 +45,17 @@ export const useCheckStatus = () => {
             /* const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
             dispatch(login({ ...data, multicompany: true })) */
             dispatch(login(userData))
+
+
+            if (!company) return dispatch(unselectedCompany());
+            dispatch(setCompanies(companyData));
+            const decryptedData = CryptoJS.AES.decrypt(company, 'uva').toString(CryptoJS.enc.Utf8);
+            const dataCompany = JSON.parse(decryptedData);
+            dispatch(selectCompany(dataCompany));
+
         }
 
         verifyCredentials();
-
-        const verifyCompanySelected = async () => {
-            if()
-        }
 
 
     }, [])

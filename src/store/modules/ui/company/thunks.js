@@ -66,7 +66,7 @@ export const startSelectionCompany = ({ id_company, id_fiscal_exercise }) => {
         let onlyCompany = companyData.find(obj => obj.id === id_company)
 
         //Busqueda por id entre la lista de ejercicio fiscal de la empresa.
-        const selectFiscalExercise = onlyCompany.fiscal_exercise.find(obj => obj.id === id_fiscal_exercise)
+        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.id === id_fiscal_exercise)
 
         //Aislamiento del atributo fiscal_exercise
         const { fiscal_exercise, ...newOnlyCompany } = onlyCompany; 
