@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material"
-import loginGif from '/assets/img/login.gif'
 
-export const AuthLayout = ({ children, title = '' }) => {
+export const AuthLayout = ({ children, title = '',imgSrc }) => {
     return (
         <Grid
             container
@@ -24,12 +23,12 @@ export const AuthLayout = ({ children, title = '' }) => {
                 <Grid
                     item
                     xs={0}
-                    sm={6}
-                    backgroundColor="black"
-                    sx={{ display: { sm: "block", xs: "none" } }}
+                    sm={0}
+                    md={6}
+                    sx={{ display: {sm: "none", xs: "none", md:"block",backgroundColor:"#0A2647"  } }}
                 >
                     <img
-                        src={loginGif}
+                        src={imgSrc}
                         alt="Login."
                         className="shadowLogin"
                         style={{
@@ -45,7 +44,8 @@ export const AuthLayout = ({ children, title = '' }) => {
                 <Grid
                     item
                     xs={12}
-                    sm={6}
+                    sm={12}
+                    md={6}
                     sx={{
                         padding: 5,
                     }}>

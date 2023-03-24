@@ -3,20 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        status: 'not-authtenticated',
+        status: 'checking',
         email: null,
         name: null,
         photoURL: null,
         token: null,
+        multicompany: false,
         errorMessage: null,
     },
     reducers: {
         login: (state, { payload }) => {
             state.status = 'authenticated';
             state.email = payload.email;
-            state.name = payload.name;
+            state.name = payload.username;
             state.photoURL = payload.photoURL;
-            state.token = payload.access;
+            state.token = payload.token;
+            state.multicompany = payload.multicompany; // Vericar nombre con el API
             state.errorMessage = null;
         },
         logout: (state, { payload }) => {
@@ -25,7 +27,8 @@ export const authSlice = createSlice({
             state.name = null;
             state.photoURL = null;
             state.token = null;
-            state.errorMessage = payload?.detail;
+            state.multicompany = false;
+            state.errorMessage = payload;
         },
         checkingCredentials: (state) => {
             state.status = 'checking'

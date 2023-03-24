@@ -1,39 +1,71 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useForm } from "../../hooks/useForm";
-import { AuthLayout } from "../layout"
-import { Alert, Box, Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Input, InputAdornment, InputLabel, Link, TextField } from "@mui/material"
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { startLoginWithUserPassword } from "../../store/auth/thunks";
+import { useDispatch, useSelector } from 'react-redux';
 
+import { startLoginWithUserPassword } from '../../store/auth/thunks';
+import { useForm } from '../../hooks/useForm';
+
+import { AuthLayout } from '../layout'
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import loginGif from '../../../assets/Img/login.gif';
+import {
+  Alert,
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Input,
+  InputAdornment,
+  InputLabel,
+  Link,
+  TextField
+} from '@mui/material';
+
+
+//TODO Borrar los datos iniciales
 const loginData = {
   username: 'admin',
-  password: '1Q2w3e4r.',
+  password: '1Q2w3e4r',
   rememberme: false,
 }
 
 export const LoginPage = () => {
 
-  const {status, errorMessage} = useSelector ( state=> state.auth);
+  // State para mostrar contraseña escrita
+  const [showPassword, setShowPassword] = useState(false);
 
+  // Valores iniciales de authSlice.
+  const { status, errorMessage } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
-  const isAuthenticating = useMemo( () => status === 'checking', [status]);
+  // Hook de validación y obtención de data del formulario.
+  const { onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const { formState, onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
+  // Verificador de estado al ejecutar petición.
+  const isAuthenticating = useMemo(() => status === 'checking', [status]);
+  /* NOTA
+      La constante isAuthenticating almacena un boleano que cambiara su valor depeniendo 
+      del valor de status, es decir que si status es 'checking' su valor será true pero si
+      su valor es cualquier otro su valor será false.
+  */
 
+  // Función de flecha para actualizar estado de vista de contraseña
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  // Función de flecha realiza el dispatch para hacer el POST del login.
   const onLogin = (e) => {
     e.preventDefault();
-    dispatch(startLoginWithUserPassword({username,password}));
+    //TODO Buscar funcionalidad para el rememberme.
+    dispatch(startLoginWithUserPassword({ username, password }));
   }
 
   return (
-    <AuthLayout title="Iniciar sesión">
+    <AuthLayout title="Iniciar sesión" imgSrc={loginGif}>
 
+      {/* USERNAME */}
       <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
         <TextField
           autoComplete="username"
@@ -46,6 +78,8 @@ export const LoginPage = () => {
           value={username}
           onChange={onInputChange}
         />
+
+        {/* PASSWORD */}
         <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
           <InputLabel >Password</InputLabel>
           <Input
@@ -54,6 +88,7 @@ export const LoginPage = () => {
             variant="standard"
             name="password"
             value={password}
+            autoComplete="current-password"
             onChange={onInputChange}
             endAdornment={
               <InputAdornment position="end">
@@ -68,6 +103,7 @@ export const LoginPage = () => {
           />
         </FormControl>
 
+        {/* REMEMBERME */}
         <FormControlLabel
           control={<Checkbox
             color="primary"
@@ -77,6 +113,8 @@ export const LoginPage = () => {
           />}
           label="Recuérdame"
         />
+
+        {/* ALERT BOX */}
         <Grid
           className="animate__animated animate__fadeIn"
           container
@@ -90,6 +128,7 @@ export const LoginPage = () => {
           </Grid>
         </Grid>
 
+        {/* LOG IN BUTTON */}
         <Button
           disabled={isAuthenticating}
           type="submit"
@@ -99,6 +138,8 @@ export const LoginPage = () => {
         >
           Ingresar
         </Button>
+
+        {/* LINKS TO */}
         <Grid container>
           <Grid item xs>
             <Link
