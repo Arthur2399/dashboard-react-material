@@ -25,8 +25,7 @@ export const AuthLayout = ({ children, title = '',imgSrc }) => {
                     xs={0}
                     sm={0}
                     md={6}
-                    backgroundColor="black"
-                    sx={{ display: {sm: "none", xs: "none", md:"block"  } }}
+                    sx={{ display: {sm: "none", xs: "none", md:"block",backgroundColor:"#0A2647"  } }}
                 >
                     <img
                         src={imgSrc}

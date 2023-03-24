@@ -78,6 +78,9 @@ export const startLogout = () => {
     //Eliminación de token en sessionStorage
     sessionStorage.removeItem("Token");
 
+    //Eliminación de empresa en localStorage
+    localStorage.removeItem("Company")
+
     //Limpiar las empresas guardadas 
     dispatch(clearCompany())
 

@@ -28,7 +28,11 @@ export const companyInfoSlice = createSlice({
 
         selectCompany: (state, { payload }) => {
             state.status = 'selected';
-            state.currentCompany = payload.selectCompany;
+            state.currentCompany = payload;
+        },
+
+        setCompanies: (state,payload) => {
+            state.companies = payload;
         },
 
         //Salida del sistema
@@ -42,4 +46,4 @@ export const companyInfoSlice = createSlice({
     }
 });
 
-export const { loadingCompanies, gettingCompanies, unselectedCompany, selectCompany, clearCompany } = companyInfoSlice.actions;
+export const { loadingCompanies, gettingCompanies, unselectedCompany, selectCompany,setCompanies, clearCompany } = companyInfoSlice.actions;

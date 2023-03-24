@@ -38,10 +38,10 @@ export const AppRouter = () => {
                     ? <>
                         {
                             /*
-                                Si el valor de statusCompany es 'only-company' direcciona 
+                                Si el valor de statusCompany es 'selected' direcciona 
                                 a dashboard del sistema caso contrar manda al AfterLogin
                             */
-                            (statusCompany === 'only-company')
+                            (statusCompany === 'selected')
                                 ? < Route path="/*" element={<ModulesRoutes />} />
                                 : < Route path="/*" element={<AfterLoginRoutes />} />
                         }
