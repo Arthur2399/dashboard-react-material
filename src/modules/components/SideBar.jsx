@@ -16,7 +16,7 @@ export const SideBar = ({width,menuClose}) => {
                 sx={menuClose == false
                     ?{
                     display: { xs: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: width,paddingLeft:1, borderRight:'none',backgroundColor:"white", mt:10 }
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: width,paddingLeft:1,paddingRight:1, borderRight:'none', mt:10 }
                       }
                     :{
                         display: { xs: 'none' }

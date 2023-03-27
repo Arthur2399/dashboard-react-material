@@ -14,22 +14,19 @@ import {
   AiOutlineUsergroupDelete,
   AiOutlineQuestionCircle,
   AiFillLinkedin,
-  AiFillBook
+  AiFillBook,
+  AiFillAccountBook
 } from "react-icons/ai";
+
+
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 // renders the icon for container nodes
 const ToggleIcon = ({ on, nodetype }) => {
   switch (nodetype) {
-    case "files":
+    case "accounting":
       return (
-        <>
-          {on ? (
-            <FaRegFolderOpen className="icon" />
-          ) : (
-            <FaRegFolder className="icon" />
-          )}
-
-        </>
+            <LibraryBooksIcon/>
       );
     case "grouphub":
       return (
@@ -81,7 +78,8 @@ const ListItem = ({
     className="tree-item"
     style={{
       marginLeft: searchTerm ? 0 : level * LEVEL_INDENT, // align fully left if search is happening, otherwise, indent according to level
-      boxShadow: focused ? "0 0 0 .2rem rgba(49,132,253,.4)" : "none"
+          boxShadow: focused ? "0 0 0 .2rem rgba(49,132,253,.4)" : "none", // ESTE ES BORDER ENFOCADO
+          background:focused ? "rgba(49,132,253)":""
     }}
   >
     {hasNodes && (
