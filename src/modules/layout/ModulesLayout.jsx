@@ -9,7 +9,7 @@ import { SideBar } from "../components/SideBar";
 export const ModulesLayout = ({ children }) => {
 
   const [menuClose, setMenuClose] = useState(false)
-  const [width, setWith] = useState(240);
+  const [width, setWith] = useState(260);
 
   return (
     <Box sx={{ display: 'flex', backgroundColor:"#F5F5F5" , height:"100vh"}}>
