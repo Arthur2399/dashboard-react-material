@@ -7,7 +7,7 @@ import CryptoJS from 'crypto-js';
 import { login, logout } from '../store/auth/authSlice';
 import { userData } from '../data/auth/userData';
 import { companyData } from '../data/ui/companyData';
-import { selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
+import { gettingCompanies, selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
 import config from '../config';
 
 
@@ -52,13 +52,13 @@ export const useCheckStatus = () => {
 
             /* Nota
                 En caso de no existir compania en el localStorage debe hacer despacho del metodo 
-                unSelectedCompany para selecciones un empresa, caso contrario de volvera a enviar 
+                gettingCompanies para selecciones un empresa, caso contrario de volvera a enviar 
                 la información registrada.
             */
 
 
             // Valida si existe company en localStorage
-            if (!company) return dispatch(unselectedCompany());
+            if (!company) return dispatch(gettingCompanies(companyData));
 
             // Setear de nuevo todas las companias
             //TODO Esto debe enviarse desde el API 
