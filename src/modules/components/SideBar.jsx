@@ -7,7 +7,7 @@ export const SideBar = ({width,menuClose}) => {
     return (
         <Box
             component='nav'
-            sx={{ mt:10, flexShrink: { sm: 0 } }}
+            sx={{ width: { sm: width }, mt:10, flexShrink: { sm: 0 }}}
         >
             <Drawer
                 className="animate__animated animate__fadeIn"
@@ -16,7 +16,7 @@ export const SideBar = ({width,menuClose}) => {
                 sx={menuClose == false
                     ?{
                     display: { xs: 'block' },
-                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: width, borderRight:'none',backgroundColor:"four.main", mt:10 }
+                    '& .MuiDrawer-paper': { boxSizing: 'border-box', width: width,paddingLeft:1,paddingRight:1, borderRight:'none', mt:10 }
                       }
                     :{
                         display: { xs: 'none' }

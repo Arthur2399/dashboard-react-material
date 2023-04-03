@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useCheckStatus } from '../../../hooks'
-import { ModulesRoutes } from '../../../modules'
+import { ModulesRoutes } from '../../../modules/routes/ModulesRoutes'
 import { AfterLogin } from '../pages/AfterLogin'
 
 export const AfterLoginRoutes = () => {
