@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../hooks/useForm";
 import { startLogout } from "../../../store/auth/thunks";
 import { AuthLayout } from "../../layout";
-import afterLoginGif from '../../../../assets/Img/after-login.gif'
+import afterLoginGif from '/Img/after-login.gif'
 import { startSelectionCompany } from "../../../store/modules/ui/company/thunks";
 
 const data = {

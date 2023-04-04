@@ -7,7 +7,7 @@ import { useForm } from '../../hooks/useForm';
 
 import { AuthLayout } from '../layout'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import loginGif from '../../../assets/Img/login.gif';
+import loginGif from '/Img/login.gif';
 import {
   Alert,
   Box,
