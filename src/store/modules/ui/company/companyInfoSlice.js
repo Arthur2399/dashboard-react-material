@@ -40,7 +40,6 @@ export const companyInfoSlice = createSlice({
             state.status = 'no-companies';
             state.companies = [];
             state.currentCompany = null;
-
         }
 
     }

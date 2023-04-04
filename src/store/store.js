@@ -10,8 +10,6 @@ export const store = configureStore({
         //UI Interface de usuario menu y seleccion de empresa
         companyInfo: companyInfoSlice.reducer,
 
-
-
         /* menu: menuSlice.reducer, */
 
         //Modulos de la aplicación

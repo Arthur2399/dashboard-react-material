@@ -27,8 +27,8 @@ import {
 
 //TODO Borrar los datos iniciales
 const loginData = {
-  username: 'admin',
-  password: '1Q2w3e4r',
+  username: '',
+  password: '',
   rememberme: false,
 }
 

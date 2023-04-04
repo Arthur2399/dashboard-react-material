@@ -38,7 +38,7 @@ export const startLoginWithUserPassword = ({ username, password }) => {
             const {token} = userData;
 
       //Guarda el token de usuario en el sessionStorage del navegador.
-      sessionStorage.setItem("Token", userData.token /* data.token */);
+      sessionStorage.setItem("Token", token /* data.token */);
 
       //Seteo de la información al initialState authSlice.
       dispatch(login(userData))
@@ -56,7 +56,6 @@ export const startLoginWithUserPassword = ({ username, password }) => {
       //TODO Descomentar esto cuando este haciendo llamado al API
       /*const { data } = error.response;
       dispatch(logout(data)); */
-      console.log(error)
       dispatch(logout(error))
       
       /* NOTA
