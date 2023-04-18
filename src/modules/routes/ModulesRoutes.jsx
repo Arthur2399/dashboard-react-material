@@ -8,12 +8,12 @@ import { CompanyPages } from "../modules/company/pages/CompanyPages";
 export const ModulesRoutes = () => {
   return (
     <ModulesLayout>
-      <Routes>
+{/*       <Routes>
         <Route path="/" element={<CompanyPages/>}>
 
-        </Route>
         <Route path="/*" element={<Navigate to="/" />} />
-      </Routes>
+        </Route>
+      </Routes> */}
     </ModulesLayout>
   )
 }
