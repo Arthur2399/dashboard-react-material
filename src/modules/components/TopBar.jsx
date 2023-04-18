@@ -1,13 +1,15 @@
-import { Box, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import InputBase from "@mui/material/InputBase";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchIcon from "@mui/icons-material/Search";
-import { useDispatch } from "react-redux";
-import { startLogout } from "../../store/auth/thunks";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { Badge, Box, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+
+import { tokens } from "../../theme";
+import { startLogout } from "../../store/auth/thunks";
 
 export const TopBar = () => {
 
@@ -47,7 +49,9 @@ export const TopBar = () => {
             </Box>
             <Box display="flex">
                 <IconButton>
-                    <NotificationsOutlinedIcon />
+                    <Badge badgeContent={4} color="primary">
+                        <NotificationsOutlinedIcon />
+                    </Badge>
                 </IconButton>
                 <IconButton>
                     <SettingsOutlinedIcon />
