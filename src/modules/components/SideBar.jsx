@@ -114,7 +114,9 @@ export const SideBar = () => {
                   style={{ width: "140px" }}
                 />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
+                  <MenuOutlinedIcon style={{
+                    color: colors.grey[100],
+                  }} />
                 </IconButton>
               </Box>
             )}
@@ -154,7 +156,7 @@ export const SideBar = () => {
                   key={item.id}
                   variant="h6"
                   color={colors.grey[300]}
-                  sx={{ m: "15px 0 5px 20px" }}
+                  sx={!isCollapsed?{ m: "15px 0 5px 20px" } :{ display:"none"} }
                 >
                   {item.titleGroup}
                 </Typography>
