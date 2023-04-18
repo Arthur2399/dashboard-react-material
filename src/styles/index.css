@@ -14,7 +14,7 @@ body,
 }
 
 .content{
-  background: white;
+  background: #ececec;
 }
 ::-webkit-scrollbar {
   width: 10px;
