@@ -14,7 +14,7 @@ export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
           <Typography
             variant="h4"
             fontWeight="bold"
-            sx={{ color: colors.grey[100] }}
+            sx={{ color: colors.grey[500] }}
           >
             {title}
           </Typography>

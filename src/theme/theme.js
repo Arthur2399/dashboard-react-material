@@ -78,7 +78,7 @@ export const themeSettings = () => {
                 light: colors.grey[100],
             },
             background: {
-                default: colors.grey[100],
+                default: "#ffffff",
             },
         },
         typography: {

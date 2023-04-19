@@ -20,10 +20,10 @@ export const DashboardPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box overflow="auto" padding={2} sx={{height:"calc(100% - 70px)"}}>
+    <>
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Inicio" subtitle="Bienvenido a Morgquick" />
+        <Header title="Inicio" subtitle="¡Bienvenido a Morgquick!"/>
         <Box>
           <Button
             sx={{
@@ -35,7 +35,7 @@ export const DashboardPage = () => {
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
+            Descargar reporte
           </Button>
         </Box>
       </Box>
@@ -50,8 +50,9 @@ export const DashboardPage = () => {
         {/* ROW 1 */}
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
           display="flex"
+          borderRadius={3}
           alignItems="center"
           justifyContent="center"
         >
@@ -69,8 +70,9 @@ export const DashboardPage = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
           display="flex"
+          borderRadius={3}
           alignItems="center"
           justifyContent="center"
         >
@@ -88,8 +90,9 @@ export const DashboardPage = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
           display="flex"
+          borderRadius={3}
           alignItems="center"
           justifyContent="center"
         >
@@ -107,9 +110,10 @@ export const DashboardPage = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
           display="flex"
           alignItems="center"
+          borderRadius={3}
           justifyContent="center"
         >
           <StatBox
@@ -130,7 +134,8 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 8"
           gridRow="span 2"
-          backgroundColor={colors.grey[200]}
+          borderRadius={3}
+          backgroundColor={colors.grey[100]}
         >
           <Box
             mt="25px"
@@ -143,9 +148,9 @@ export const DashboardPage = () => {
               <Typography
                 variant="h5"
                 fontWeight="600"
-                color={colors.grey[100]}
+                color={colors.grey[500]}
               >
-                Revenue Generated
+                Ingresos generados
               </Typography>
               <Typography
                 variant="h3"
@@ -170,19 +175,20 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.grey[200]}
+          borderRadius={3}
+          backgroundColor={colors.grey[100]}
           overflow="auto"
         >
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
+            borderBottom={`4px solid ${colors.grey[200]}`}
             colors={colors.grey[100]}
             p="15px"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+            <Typography color={colors.grey[500]} variant="h5" fontWeight="600">
+              Transacciones recientes
             </Typography>
           </Box>
           {mockTransactions.map((transaction, i) => (
@@ -191,7 +197,7 @@ export const DashboardPage = () => {
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
+              borderBottom={`4px solid ${colors.grey[200]}`}
               p="15px"
             >
               <Box>
@@ -202,11 +208,11 @@ export const DashboardPage = () => {
                 >
                   {transaction.txId}
                 </Typography>
-                <Typography color={colors.grey[100]}>
+                <Typography color={colors.grey[400]}>
                   {transaction.user}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box color={colors.grey[400]}>{transaction.date}</Box>
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
@@ -222,11 +228,11 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
-            Campaign
+            Campaña
           </Typography>
           <Box
             display="flex"
@@ -248,7 +254,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
         >
           <Typography
             variant="h5"
@@ -264,7 +270,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.grey[200]}
+          backgroundColor={colors.grey[100]}
           padding="30px"
         >
           <Typography
@@ -278,11 +284,8 @@ export const DashboardPage = () => {
             <GeographyChart isDashboard={true} />
           </Box>
         </Box>
-
-
-
       </Box>
-    </Box>
+    </>
   );
 };
 
