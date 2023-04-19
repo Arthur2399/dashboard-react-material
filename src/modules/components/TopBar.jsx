@@ -65,7 +65,7 @@ export const TopBar = () => {
                     <PersonOutlinedIcon />
                 </IconButton>
             </Box>
-            <ProfileMenu anchorEl={anchorEl} handleClose={handleClose}  open={open} />
+            <ProfileMenu anchorEl={anchorEl} handleClose={handleClose}  open={open}  onLogout={onLogout}/>
         </Box>
     )
 }
