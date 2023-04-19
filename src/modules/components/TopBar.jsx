@@ -43,7 +43,7 @@ export const TopBar = () => {
             <Box
                 width="50%"
                 display="flex"
-                backgroundColor={colors.grey[100]}
+                backgroundColor={colors.grey[200]}
                 borderRadius="3px"
                 sx={{ cursor: 'default', userSelect: 'none', }}
             >

@@ -2,10 +2,10 @@ html,
 body,
 #root,
 .app,
-.content {
+.content{
   height: 100%;
   width: 100%;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .app {
@@ -13,9 +13,6 @@ body,
   position: relative;
 }
 
-.content{
-  background: #ececec;
-}
 ::-webkit-scrollbar {
   width: 10px;
 }

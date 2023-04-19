@@ -8,7 +8,6 @@ export const ModulesRoutes = () => {
     <ModulesLayout>
       <Routes>
         <Route path="/" element={<DashboardPage/>}>
-
         </Route>
       </Routes>
     </ModulesLayout>
