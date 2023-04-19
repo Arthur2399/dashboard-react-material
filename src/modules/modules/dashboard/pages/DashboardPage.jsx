@@ -20,11 +20,10 @@ export const DashboardPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <Box m="20px">
+    <Box overflow="auto" padding={2} sx={{height:"calc(100% - 70px)"}}>
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="Inicio" subtitle="Bienvenido a Morgquick" />
-
         <Box>
           <Button
             sx={{
@@ -44,7 +43,7 @@ export const DashboardPage = () => {
       {/* GRID & CHARTS */}
       <Box
         display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
+        gridTemplateColumns="repeat(12, 2fr)"
         gridAutoRows="140px"
         gap="20px"
       >
@@ -125,6 +124,7 @@ export const DashboardPage = () => {
             }
           />
         </Box>
+
 
         {/* ROW 2 */}
         <Box
@@ -278,6 +278,9 @@ export const DashboardPage = () => {
             <GeographyChart isDashboard={true} />
           </Box>
         </Box>
+
+
+
       </Box>
     </Box>
   );
