@@ -1,7 +1,7 @@
 import axios from "axios";
 import CryptoJS from 'crypto-js';
 import { companyData } from "../../../../data/ui/companyData";
-import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "./companyInfoSlice";
+import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "./companyInfoSlice";
 
 
 
@@ -83,4 +83,11 @@ export const startSelectionCompany = ({ id_company, id_fiscal_exercise }) => {
         //Seteo de la informacion en state currentCompany de companyInfoSlice.js
         dispatch(selectCompany(selectedCompany))
     }
+}
+
+export const startChangeCompany = () =>{
+    return async (dispatch) => {
+        localStorage.removeItem("Company")
+        dispatch(changeCompany())
+    } 
 }

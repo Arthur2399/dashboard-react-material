@@ -21,8 +21,10 @@ import {
   InputAdornment,
   InputLabel,
   Link,
-  TextField
+  TextField,
+  useTheme
 } from '@mui/material';
+import { tokens } from '../../theme';
 
 
 //TODO Borrar los datos iniciales
@@ -33,6 +35,8 @@ const loginData = {
 }
 
 export const LoginPage = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   // State para mostrar contraseña escrita
   const [showPassword, setShowPassword] = useState(false);
@@ -134,7 +138,7 @@ export const LoginPage = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2, borderRadius: 4 }}
+          sx={{ mt: 3, mb: 2, borderRadius: 4, background:colors.primary[400] }}
         >
           Ingresar
         </Button>
@@ -144,7 +148,7 @@ export const LoginPage = () => {
           <Grid item xs>
             <Link
               component={RouterLink}
-              color='inherit'
+              color={colors.primary[400]}
               to="/auth/password-recovery"
               sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
             >
@@ -153,7 +157,7 @@ export const LoginPage = () => {
           </Grid>
           <Grid item>
             <Link
-              color='inherit'
+              color={colors.primary[400]}
               href="https://www.erassoluciones.com"
               sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
             >
