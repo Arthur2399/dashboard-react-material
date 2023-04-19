@@ -23,7 +23,7 @@ export const DashboardPage = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="Inicio" subtitle="Bienvenido a Morgquick" />
 
         <Box>
           <Button
@@ -51,7 +51,7 @@ export const DashboardPage = () => {
         {/* ROW 1 */}
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -70,7 +70,7 @@ export const DashboardPage = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -89,7 +89,7 @@ export const DashboardPage = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -108,7 +108,7 @@ export const DashboardPage = () => {
         </Box>
         <Box
           gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -130,7 +130,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 8"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
         >
           <Box
             mt="25px"
@@ -170,7 +170,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           overflow="auto"
         >
           <Box
@@ -222,7 +222,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           p="30px"
         >
           <Typography variant="h5" fontWeight="600">
@@ -248,7 +248,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
         >
           <Typography
             variant="h5"
@@ -264,7 +264,7 @@ export const DashboardPage = () => {
         <Box
           gridColumn="span 4"
           gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          backgroundColor={colors.grey[200]}
           padding="30px"
         >
           <Typography
