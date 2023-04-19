@@ -10,23 +10,28 @@ import InputBase from "@mui/material/InputBase";
 
 import { tokens } from "../../theme";
 import { startLogout } from "../../store/auth/thunks";
+import { ProfileMenu } from "./ProfileMenu";
 
 export const TopBar = () => {
 
     const dispatch = useDispatch();
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    
+    
+    const [anchorEl, setAnchorEl] = useState (null);
     const open = Boolean(anchorEl);
-
+    
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
+  
     const handleClose = () => {
-        setAnchorEl(null);
+      setAnchorEl(null);
     };
+  
 
     const onLogout = () => {
         dispatch(startLogout());
@@ -60,20 +65,7 @@ export const TopBar = () => {
                     <PersonOutlinedIcon />
                 </IconButton>
             </Box>
-
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem >Perfil</MenuItem>
-                <MenuItem >Contraseña</MenuItem>
-                <MenuItem onClick={onLogout}>Cerrar sesión</MenuItem>
-            </Menu>
+            <ProfileMenu anchorEl={anchorEl} handleClose={handleClose}  open={open} />
         </Box>
     )
 }
