@@ -8,6 +8,22 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+
+/* ICONOS */
+import PaymentsIcon from '@mui/icons-material/Payments';
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
+import PaidIcon from '@mui/icons-material/Paid';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import HailIcon from '@mui/icons-material/Hail';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import SchoolIcon from '@mui/icons-material/School';
+import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+
+
 import logo from "/logos/LogoERAS.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -17,7 +33,19 @@ import { mockDataMenu } from "../../data/ui/menu/mockDataMenu";
 const iconComp = {
   "HomeOutlinedIcon": <HomeOutlinedIcon />,
   "PieChartOutlineOutlinedIcon": <PieChartOutlineOutlinedIcon />,
-  "CalendarMonthIcon": <CalendarMonthIcon />
+  "CalendarMonthIcon": <CalendarMonthIcon />,
+  "LibraryBooksIcon":<LibraryBooksIcon/>,
+  "PaymentsIcon":<PaymentsIcon/>,
+  "RequestQuoteIcon":<RequestQuoteIcon/>,
+  "PaidIcon":<PaidIcon/>,
+  "AccountBalanceIcon":<AccountBalanceIcon/>,
+  "InventoryIcon":<InventoryIcon/>,
+  "ApartmentIcon":<ApartmentIcon/>,
+  "HailIcon":<HailIcon/>,
+  "ShoppingBagIcon":<ShoppingBagIcon/>,
+  "PointOfSaleIcon":<PointOfSaleIcon/>,
+  "SchoolIcon":<SchoolIcon/>,
+  "LabelImportantIcon":<LabelImportantIcon/>
 }
 
 /* ITEM */

@@ -1,19 +1,23 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
-import PersonAdd from '@mui/icons-material/PersonAdd';
+import HelpIcon from '@mui/icons-material/Help';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import { startChangeCompany } from '../../store/modules/ui/company/thunks';
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
     const { photoURL } = useSelector(state => state.auth);
     const { currentCompany } = useSelector(state => state.companyInfo);
-
+    const dispatch = useDispatch();
+    const onChangeCompany = () => {
+        dispatch(startChangeCompany());
+    }
 
     return (
         <Menu
@@ -56,7 +60,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
                 <Avatar src={photoURL} /> Mi cuenta
             </MenuItem>
             <Divider />
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={onChangeCompany}>
                 <ListItemIcon>
                     <LocationCityIcon />
                 </ListItemIcon>
@@ -65,15 +69,15 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
             <Divider />
             <MenuItem onClick={handleClose}>
                 <ListItemIcon>
-                    <PersonAdd fontSize="small" />
-                </ListItemIcon>
-                Agregar cuenta
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
                     <Settings fontSize="small" />
                 </ListItemIcon>
                 Configuración
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <HelpIcon fontSize="small" />
+                </ListItemIcon>
+                Necesito ayuda
             </MenuItem>
             <MenuItem onClick={onLogout}>
                 <ListItemIcon>

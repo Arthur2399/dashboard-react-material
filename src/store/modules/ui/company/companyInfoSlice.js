@@ -14,7 +14,7 @@ export const companyInfoSlice = createSlice({
         loadingCompanies: (state) => {
             state.status = 'loading';
         },
-        
+
         //Selección de empresa
         gettingCompanies: (state, { payload }) => {
             state.status = 'getting-companies'
@@ -31,8 +31,13 @@ export const companyInfoSlice = createSlice({
             state.currentCompany = payload;
         },
 
-        setCompanies: (state,payload) => {
+        setCompanies: (state, payload) => {
             state.companies = payload;
+        },
+
+        changeCompany: (state) => {
+            state.status = 'no-selected';
+            state.currentCompany = null;
         },
 
         //Salida del sistema
@@ -40,9 +45,18 @@ export const companyInfoSlice = createSlice({
             state.status = 'no-companies';
             state.companies = [];
             state.currentCompany = null;
-        }
+        },
+
 
     }
 });
 
-export const { loadingCompanies, gettingCompanies, unselectedCompany, selectCompany,setCompanies, clearCompany } = companyInfoSlice.actions;
+export const {
+    loadingCompanies,
+    gettingCompanies,
+    unselectedCompany,
+    selectCompany,
+    setCompanies,
+    changeCompany,
+    clearCompany,
+} = companyInfoSlice.actions;
