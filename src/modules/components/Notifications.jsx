@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 
 import perfilFoto from '../../data/img/perfil.jpg'
 
-import {ListItemAvatar, ListItemText, Typography } from '@mui/material';
+import { ListItemAvatar, ListItemText, Typography } from '@mui/material';
 
 
 export const Notifications = ({ anchorNo, openNo, handleClose }) => {
@@ -45,7 +45,7 @@ export const Notifications = ({ anchorNo, openNo, handleClose }) => {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-            <MenuItem alignItems="flex-start">
+            <MenuItem>
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src={perfilFoto} />
                 </ListItemAvatar>
@@ -67,7 +67,7 @@ export const Notifications = ({ anchorNo, openNo, handleClose }) => {
                 />
             </MenuItem>
             <Divider variant="inset" component="li" />
-            <MenuItem alignItems="flex-start">
+            <MenuItem>
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src="" />
                 </ListItemAvatar>
@@ -89,7 +89,7 @@ export const Notifications = ({ anchorNo, openNo, handleClose }) => {
                 />
             </MenuItem>
             <Divider variant="inset" component="li" />
-            <MenuItem alignItems="flex-start">
+            <MenuItem>
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src={perfilFoto} />
                 </ListItemAvatar>
@@ -110,7 +110,7 @@ export const Notifications = ({ anchorNo, openNo, handleClose }) => {
                     }
                 />
             </MenuItem>
-            
+
         </Menu>
     )
 }
