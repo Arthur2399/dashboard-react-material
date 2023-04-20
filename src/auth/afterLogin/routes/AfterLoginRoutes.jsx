@@ -7,7 +7,7 @@ import { AfterLogin } from '../pages/AfterLogin'
 export const AfterLoginRoutes = () => {
 
     const { statusCompany } = useCheckStatus();
-
+    
     return (
         <Routes>
             {(statusCompany === 'selected')

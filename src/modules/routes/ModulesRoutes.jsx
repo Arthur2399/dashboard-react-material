@@ -7,9 +7,8 @@ export const ModulesRoutes = () => {
   return (
     <ModulesLayout>
       <Routes>
-        <Route path="/" element={<DashboardPage/>}>
-
-        </Route>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </ModulesLayout>
   )

@@ -1,7 +1,7 @@
 import { Grid, Typography, useTheme } from "@mui/material"
 import { tokens } from "../../theme";
 
-export const AuthLayout = ({ children, title = '',imgSrc }) => {
+export const AuthLayout = ({ children, title = '', imgSrc }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -17,7 +17,7 @@ export const AuthLayout = ({ children, title = '',imgSrc }) => {
             <Grid
                 className="animate__animated animate__fadeIn"
                 container
-                backgroundColor= {colors.grey[100]}
+                backgroundColor={colors.grey[100]}
                 flexDirection="row"
                 borderRadius={5}
                 overflow="hidden"
@@ -28,7 +28,7 @@ export const AuthLayout = ({ children, title = '',imgSrc }) => {
                     xs={0}
                     sm={0}
                     md={6}
-                    sx={{ display: {sm: "none", xs: "none", md:"block",backgroundColor:colors.primary[400]  } }}
+                    sx={{ display: { sm: "none", xs: "none", md: "block", backgroundColor: colors.primary[400] } }}
                 >
                     <img
                         src={imgSrc}

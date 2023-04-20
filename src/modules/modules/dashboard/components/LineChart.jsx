@@ -14,27 +14,27 @@ export const LineChart = ({ isCustomLineColors = false, isDashboard = false }) =
         axis: {
           domain: {
             line: {
-              stroke: colors.grey[100],
+              stroke: colors.grey[500],
             },
           },
           legend: {
             text: {
-              fill: colors.grey[100],
+              fill: colors.grey[500],
             },
           },
           ticks: {
             line: {
-              stroke: colors.grey[100],
+              stroke: colors.grey[500],
               strokeWidth: 1,
             },
             text: {
-              fill: colors.grey[100],
+              fill: colors.grey[500],
             },
           },
         },
         legends: {
           text: {
-            fill: colors.grey[100],
+            fill: colors.grey[500],
           },
         },
         tooltip: {

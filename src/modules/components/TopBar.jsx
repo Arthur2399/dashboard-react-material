@@ -11,6 +11,7 @@ import InputBase from "@mui/material/InputBase";
 import { tokens } from "../../theme";
 import { startLogout } from "../../store/auth/thunks";
 import { ProfileMenu } from "./ProfileMenu";
+import { Notifications } from "./Notifications";
 
 export const TopBar = () => {
 
@@ -19,19 +20,28 @@ export const TopBar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorNo, setAnchorNo] = useState(null);
     
-    
-    const [anchorEl, setAnchorEl] = useState (null);
     const open = Boolean(anchorEl);
-    
-    const handleClick = (event) => {
+    const openNo = Boolean(anchorNo);
+
+    const handleClickMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
+
+    const handleClickNotification = (event) => {
+        setAnchorNo(event.currentTarget);
     };
-  
+
+
+    const handleClose = () => {
+        setAnchorEl(null);
+        setAnchorNo(null);
+    };
+
 
     const onLogout = () => {
         dispatch(startLogout());
@@ -53,19 +63,17 @@ export const TopBar = () => {
                 </IconButton>
             </Box>
             <Box display="flex">
-                <IconButton>
+                <IconButton onClick={handleClickNotification}>
                     <Badge badgeContent={4} color="primary">
                         <NotificationsOutlinedIcon />
                     </Badge>
                 </IconButton>
-                <IconButton>
-                    <SettingsOutlinedIcon />
-                </IconButton>
-                <IconButton onClick={handleClick}>
+                <IconButton onClick={handleClickMenu}>
                     <PersonOutlinedIcon />
                 </IconButton>
             </Box>
-            <ProfileMenu anchorEl={anchorEl} handleClose={handleClose}  open={open}  onLogout={onLogout}/>
+            <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} open={open} onLogout={onLogout} />
+            <Notifications anchorNo={anchorNo} handleClose={handleClose} openNo={openNo}/>
         </Box>
     )
 }
