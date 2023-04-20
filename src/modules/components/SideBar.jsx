@@ -23,7 +23,7 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import SchoolIcon from '@mui/icons-material/School';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 
-
+import profileImg from "../../data/img/perfil.jpg"
 import logo from "/logos/LogoERAS.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -157,7 +157,7 @@ export const SideBar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`http://192.168.194.52:85/media/usuarios/yojjwkska.jpeg`}
+                  src={profileImg}
                   style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
                 />
               </Box>
