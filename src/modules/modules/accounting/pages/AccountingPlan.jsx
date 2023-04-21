@@ -2,6 +2,8 @@ import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../../../theme/theme";
 import { Header } from "../../dashboard/components/Header";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { planCuentas } from "../../../../data/modules/accounting/mockData";
 
@@ -30,12 +32,31 @@ export const AccountingPlan = () => {
       align: "left",
     },
     {
-      field: "",
+      field: "actions",
       headerName: "Opciones",
-      headerAlign: "left",
-      align: "left",
+      sortable: false,
+      headerAlign:"center",
+      width: "150",
+      disableColumnMenu: true,
+      renderCell: (params) => {
+        const handleEdit = () => {
+          // handle edit logic
+        };
+        const handleDelete = () => {
+          // handle delete logic
+        };
+        return (
+          <>
+            <Button  variant="contained" color="primary"  onClick={handleEdit}>
+              <EditIcon/>
+            </Button>
+            <Button variant="contained" color="error" onClick={handleDelete}>
+              <DeleteIcon/>
+            </Button>
+          </>
+        );
+      },
     },
-
   ];
 
   return (
@@ -73,6 +94,7 @@ export const AccountingPlan = () => {
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: colors.primary[400],
             color: colors.grey[100],
+            fontSize:"14px",
             borderBottom: "none",
           },
           "& .MuiDataGrid-sortIcon": {
@@ -83,10 +105,11 @@ export const AccountingPlan = () => {
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.grey[100],
+            fontSize:"14px",
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary[200],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
