@@ -1,7 +1,8 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../../../theme/theme";
 import { Header } from "../../dashboard/components/Header";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { planCuentas } from "../../../../data/modules/accounting/mockData";
 
 export const AccountingPlan = () => {
@@ -34,15 +35,31 @@ export const AccountingPlan = () => {
       headerAlign: "left",
       align: "left",
     },
-  
+
   ];
 
   return (
     <>
-      <Header
-        title="Plan contable"
-        subtitle="Cree y gestione su plan contable."
-      />
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Header title="Plan contable" subtitle="Cree y gestione su plan contable." />
+        <Box>
+          <Button
+            sx={{
+              backgroundColor: colors.primary[400],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              "&:hover": {
+                backgroundColor: colors.primary[300],
+              }
+            }}
+          >
+            <AddCircleIcon sx={{ mr: "10px" }} />
+            Crear
+          </Button>
+        </Box>
+      </Box>
       <Box
         m="0"
         height="70vh"
@@ -54,8 +71,15 @@ export const AccountingPlan = () => {
             borderBottom: "none",
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.primary[400],
+            color: colors.grey[100],
             borderBottom: "none",
+          },
+          "& .MuiDataGrid-sortIcon": {
+            color: colors.grey[100],
+          },
+          "& .MuiDataGrid-menuIconButton": {
+            color: colors.grey[100],
           },
           "& .MuiDataGrid-virtualScroller": {
             backgroundColor: colors.grey[100],
@@ -75,6 +99,7 @@ export const AccountingPlan = () => {
         <DataGrid
           rows={planCuentas}
           columns={columns}
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
