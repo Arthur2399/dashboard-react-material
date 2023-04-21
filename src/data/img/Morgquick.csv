@@ -1,0 +1,7 @@
+Cuenta,Nombre,Último nivel,Nivel de cuenta,Opciones
+1,Activo,No,1,
+1.01,Activo corriente,No,2,
+1.01.01,Efectivo y equivalente al efectivo,No,3,
+1.01.01.01,Cajas,No,4,
+1.01.01.01.01,Caja general,Si,5,
+1.01.01.01.02,Activo,No,1,
