@@ -66,9 +66,8 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-
             <MenuItem onClick={handleClose}>
-                <Avatar src={profileImg} /> Mi cuenta
+                <Avatar src={profileImg} /> Mi perfil
             </MenuItem>
             <Divider />
             <MenuItem onClick={onChangeCompany}>
