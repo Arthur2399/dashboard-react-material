@@ -17,7 +17,7 @@ export const AuthLayout = ({ children, title = '', imgSrc }) => {
             <Grid
                 className="animate__animated animate__fadeIn"
                 container
-                backgroundColor={colors.grey[100]}
+                backgroundColor="white"
                 flexDirection="row"
                 borderRadius={5}
                 overflow="hidden"

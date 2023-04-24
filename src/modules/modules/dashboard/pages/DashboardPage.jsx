@@ -8,6 +8,7 @@ import { StatBox } from "../components/StatBox";
 import { ProgressCircle } from "../components/ProgressCircle";
 
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -23,7 +24,7 @@ export const DashboardPage = () => {
     <>
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Inicio" subtitle="¡Bienvenido a Morgquick!"/>
+        <Header title="Inicio" subtitle="¡Bienvenido a Morgquick!" />
         <Box>
           <Button
             sx={{
@@ -58,7 +59,7 @@ export const DashboardPage = () => {
         >
           <StatBox
             title="12,361"
-            subtitle="Emails Sent"
+            subtitle="Correos enviados"
             progress="0.75"
             increase="+14%"
             icon={
@@ -78,7 +79,7 @@ export const DashboardPage = () => {
         >
           <StatBox
             title="431,225"
-            subtitle="Sales Obtained"
+            subtitle="Ventas obtenidas"
             progress="0.50"
             increase="+21%"
             icon={
@@ -98,7 +99,7 @@ export const DashboardPage = () => {
         >
           <StatBox
             title="32,441"
-            subtitle="New Clients"
+            subtitle="Nuevos clientes"
             progress="0.30"
             increase="+5%"
             icon={
@@ -118,11 +119,11 @@ export const DashboardPage = () => {
         >
           <StatBox
             title="1,325,134"
-            subtitle="Traffic Received"
+            subtitle="Visitas recibidas"
             progress="0.80"
             increase="+43%"
             icon={
-              <TrafficIcon
+              <VisibilityIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }

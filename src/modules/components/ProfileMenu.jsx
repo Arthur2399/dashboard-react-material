@@ -9,6 +9,8 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { startChangeCompany } from '../../store/modules/ui/company/thunks';
+import profileImg from "../../data/img/perfil.jpg"
+
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
@@ -57,7 +59,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
         >
 
             <MenuItem onClick={handleClose}>
-                <Avatar src={photoURL} /> Mi cuenta
+                <Avatar src={profileImg} /> Mi cuenta
             </MenuItem>
             <Divider />
             <MenuItem onClick={onChangeCompany}>
