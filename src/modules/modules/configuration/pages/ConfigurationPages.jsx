@@ -18,9 +18,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Divider, ListItemIcon, MenuItem } from '@mui/material';
 import { Settings } from '@mui/icons-material';
 import { Header } from '../../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 export const ConfigurationPages = () => {
+
   const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
+
+  const onNavigate = (to ) => {
+    navigate(to);
+  }
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -28,7 +35,7 @@ export const ConfigurationPages = () => {
 
   return (
     <>
-    <Header title="Configuración" subtitle="Adiministra, controla y gestiona tu cuenta personal y de empresa"/>
+      <Header title="Configuración" subtitle="Adiministra, controla y gestiona tu cuenta personal y de empresa" />
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -104,7 +111,7 @@ export const ConfigurationPages = () => {
           <Typography sx={{ color: 'text.secondary' }}>Crea o edita la configuración de tu compañía</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <MenuItem sx={{ ml: 3 }}>
+          <MenuItem sx={{ ml: 3 }} onClick={()=> onNavigate("empresa")}>
             <ListItemIcon>
               <BusinessCenterIcon fontSize="small" />
             </ListItemIcon>
