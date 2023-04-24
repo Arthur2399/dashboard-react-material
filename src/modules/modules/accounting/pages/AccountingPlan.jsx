@@ -1,6 +1,6 @@
+import { Header } from "../../components";
 import { Box, Button, useTheme } from "@mui/material";
 import { tokens } from "../../../../theme/theme";
-import { Header } from "../../dashboard/components/Header";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
