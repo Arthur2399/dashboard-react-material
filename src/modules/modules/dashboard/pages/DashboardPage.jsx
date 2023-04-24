@@ -16,7 +16,7 @@ export const DashboardPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <>
+    <Box className="animate__animated animate__fadeIn">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="Inicio" subtitle="¡Bienvenido a Morgquick!" />
@@ -220,7 +220,7 @@ export const DashboardPage = () => {
           ))}
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 
