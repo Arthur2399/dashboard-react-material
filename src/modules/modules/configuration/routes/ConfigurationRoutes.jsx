@@ -1,5 +1,11 @@
+import { Navigate, Route, Routes } from "react-router-dom"
+import { ConfigurationPages } from "../pages"
+
 export const ConfigurationRoutes = () => {
   return (
-    <div>ConfigurationRoutes</div>
+    <Routes>
+      <Route path="" element={<ConfigurationPages />} />
+      <Route path="/*" element={<Navigate to="/" />} />
+    </Routes>
   )
 }
