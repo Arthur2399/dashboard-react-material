@@ -6,10 +6,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { planCuentas } from "../../../../data/modules/accounting/mockData";
+import { customStyles } from "../../../helpers";
 
 export const AccountingPlan = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { colorDataGrid } = customStyles();
+
 
   const columns = [
     { field: "account", headerName: "Cuenta", flex: 0.5 },
@@ -35,7 +38,7 @@ export const AccountingPlan = () => {
       field: "actions",
       headerName: "Opciones",
       sortable: false,
-      headerAlign:"center",
+      headerAlign: "center",
       width: "150",
       disableColumnMenu: true,
       renderCell: (params) => {
@@ -47,11 +50,11 @@ export const AccountingPlan = () => {
         };
         return (
           <>
-            <Button  variant="contained" color="primary"  onClick={handleEdit}>
-              <EditIcon/>
+            <Button variant="contained" color="primary" onClick={handleEdit}>
+              <EditIcon />
             </Button>
             <Button variant="contained" color="error" onClick={handleDelete}>
-              <DeleteIcon/>
+              <DeleteIcon />
             </Button>
           </>
         );
@@ -84,40 +87,7 @@ export const AccountingPlan = () => {
       <Box
         m="0"
         height="70vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.primary[400],
-            color: colors.grey[100],
-            fontSize:"14px",
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-sortIcon": {
-            color: colors.grey[100],
-          },
-          "& .MuiDataGrid-menuIconButton": {
-            color: colors.grey[100],
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.grey[100],
-            fontSize:"14px",
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.primary[200],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.primary[300]} !important`,
-          },
-        }}
+        sx={colorDataGrid}
       >
         <DataGrid
           rows={planCuentas}
