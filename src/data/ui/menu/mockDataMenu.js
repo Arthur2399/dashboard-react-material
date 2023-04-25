@@ -6,6 +6,36 @@ export const mockDataMenu = [
         icon: "HomeOutlinedIcon",
     },
     {
+        id: 16,
+        titleGroup: "Seguridad comunitaria",
+    },
+    {
+        id: 17,
+        title: "Seguridad",
+        to: "/seguridad",
+        icon: "SystemSecurityUpdateGoodIcon",
+        subItems: [
+            {
+                id: 1,
+                title: "Usuarios",
+                to: "/seguridad/usuarios",
+                icon: "AccountCircleIcon",
+            },
+            {
+                id: 2,
+                title: "Comunidad",
+                to: "/seguridad/comunidad",
+                icon: "Diversity3Icon",
+            },
+            {
+                id: 3,
+                title: "Mapa",
+                to: "/seguridad/mapa    ",
+                icon: "MapIcon",
+            },
+        ]
+    },
+    {
         id: 2,
         titleGroup: "Administración",
     },
@@ -14,7 +44,7 @@ export const mockDataMenu = [
         title: "Contabilidad",
         to: "/contabilidad",
         icon: "LibraryBooksIcon",
-        subItems:[
+        subItems: [
             {
                 id: 1,
                 title: "Tesoreria",

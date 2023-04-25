@@ -23,6 +23,11 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import SchoolIcon from '@mui/icons-material/School';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 
+import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import MapIcon from '@mui/icons-material/Map';
+
 import profileImg from "../../data/img/perfil.jpg"
 import logo from "/logos/LogoERAS.png"
 
@@ -45,7 +50,11 @@ const iconComp = {
   "ShoppingBagIcon":<ShoppingBagIcon/>,
   "PointOfSaleIcon":<PointOfSaleIcon/>,
   "SchoolIcon":<SchoolIcon/>,
-  "LabelImportantIcon":<LabelImportantIcon/>
+  "LabelImportantIcon":<LabelImportantIcon/>,
+  "SystemSecurityUpdateGoodIcon":<SystemSecurityUpdateGoodIcon/>,
+  "AccountCircleIcon":<AccountCircleIcon/>,
+  "Diversity3Icon":<Diversity3Icon/>,
+  "MapIcon":<MapIcon/>,
 }
 
 /* ITEM */
