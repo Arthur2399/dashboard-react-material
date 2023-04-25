@@ -10,15 +10,24 @@ import Logout from '@mui/icons-material/Logout';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { startChangeCompany } from '../../store/modules/ui/company/thunks';
 import profileImg from "../../data/img/perfil.jpg"
+import { useNavigate } from 'react-router-dom';
 
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
     const { photoURL } = useSelector(state => state.auth);
     const { currentCompany } = useSelector(state => state.companyInfo);
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    
     const onChangeCompany = () => {
         dispatch(startChangeCompany());
+    }
+
+
+    const onNavigateConfiguration = () => {
+        navigate("/configuracion")
     }
 
     return (
@@ -57,9 +66,8 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-
             <MenuItem onClick={handleClose}>
-                <Avatar src={profileImg} /> Mi cuenta
+                <Avatar src={profileImg} /> Mi perfil
             </MenuItem>
             <Divider />
             <MenuItem onClick={onChangeCompany}>
@@ -69,7 +77,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
                 Ejercicio fiscal {currentCompany.fiscal_exercise.date}
             </MenuItem>
             <Divider />
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={onNavigateConfiguration}>
                 <ListItemIcon>
                     <Settings fontSize="small" />
                 </ListItemIcon>

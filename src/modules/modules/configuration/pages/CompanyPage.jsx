@@ -1,38 +1,42 @@
-import { Header } from "../../components";
-import { Box, Button, useTheme } from "@mui/material";
-import { tokens } from "../../../../theme/theme";
+import { Box, Button } from "@mui/material"
+import { Header } from "../../components"
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { planCuentas } from "../../../../data/modules/accounting/mockData";
+import { useTheme } from "@emotion/react";
+import { tokens } from "../../../../theme";
 import { customStyles } from "../../../helpers";
 
-export const AccountingPlan = () => {
+export const CompanyPage = () => {
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   const { colorDataGrid } = customStyles();
 
-
   const columns = [
-    { field: "account", headerName: "Cuenta", flex: 0.5 },
+    { field: "company", headerName: "company", flex: 0.5 },
     {
-      field: "name",
-      headerName: "Nombre",
-      flex: 1,
+      field: "ruc",
+      headerName: "RUC",
     },
     {
-      field: "last_level",
-      headerName: "Último nivel",
+      field: "drection",
+      headerName: "Dirección",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "level_account",
-      headerName: "Nivel de cuenta",
-      type: "number",
+      field: "phone",
+      headerName: "Teléfono",
       headerAlign: "left",
-      align: "left",
+    },
+    {
+      field: "phoneTwo",
+      headerName: "Segundo teléfono",
+      headerAlign: "left",
     },
     {
       field: "actions",
@@ -62,10 +66,11 @@ export const AccountingPlan = () => {
     },
   ];
 
+
   return (
-    <>
+    <Box className="animate__animated animate__fadeIn">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Plan contable" subtitle="Cree y gestione su plan contable." />
+        <Header title="Empresa" subtitle="Configure y gestiones todas empresas" />
         <Box>
           <Button
             sx={{
@@ -90,12 +95,12 @@ export const AccountingPlan = () => {
         sx={colorDataGrid}
       >
         <DataGrid
-          rows={planCuentas}
+          rows=""
           columns={columns}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
-    </>
-  );
+    </Box>
+  )
 }

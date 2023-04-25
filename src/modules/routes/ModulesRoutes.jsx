@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { ModulesLayout } from "../layout/ModulesLayout";
-import { DashboardPage } from "../modules/dashboard/pages/DashboardPage";
-import { AccountingRoutes } from "../modules/accounting/routes/AccountingRoutes";
+import { ModulesLayout } from "../layout";
+import { DashboardPage, AccountingRoutes, ConfigurationRoutes } from "../modules";
 
 
 export const ModulesRoutes = () => {
@@ -9,7 +8,8 @@ export const ModulesRoutes = () => {
     <ModulesLayout>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
-        <Route path="/contabilidad/*" element={<AccountingRoutes />} />
+        <Route path="/configuracion/*" element={< ConfigurationRoutes />} />
+        <Route path="/contabilidad/*" element={< AccountingRoutes />} />
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </ModulesLayout>

@@ -53,7 +53,7 @@ export const startGetCompany = () => {
     }
 }
 
-export const startSelectionCompany = ({ id_company, id_fiscal_exercise }) => {
+export const startSelectionCompany = ({ company, fiscalExercise }) => {
     return async (dispatch) => {
 
         /* NOTA
@@ -63,10 +63,10 @@ export const startSelectionCompany = ({ id_company, id_fiscal_exercise }) => {
         */
 
         //Busqueda por id entre la lista de empresas
-        let onlyCompany = companyData.find(obj => obj.id === id_company)
+        let onlyCompany = companyData.find(obj => obj.id === company)
 
         //Busqueda por id entre la lista de ejercicio fiscal de la empresa.
-        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.id === id_fiscal_exercise)
+        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.id === fiscalExercise)
 
         //Aislamiento del atributo fiscal_exercise
         const { fiscal_exercise, ...newOnlyCompany } = onlyCompany; 
