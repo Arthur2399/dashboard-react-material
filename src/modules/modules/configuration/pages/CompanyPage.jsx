@@ -17,24 +17,26 @@ export const CompanyPage = () => {
   const { colorDataGrid } = customStyles();
 
   const columns = [
-    { field: "account", headerName: "Cuenta", flex: 0.5 },
+    { field: "company", headerName: "company", flex: 0.5 },
     {
-      field: "name",
-      headerName: "Nombre",
-      flex: 1,
+      field: "ruc",
+      headerName: "RUC",
     },
     {
-      field: "last_level",
-      headerName: "Último nivel",
+      field: "drection",
+      headerName: "Dirección",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "level_account",
-      headerName: "Nivel de cuenta",
-      type: "number",
+      field: "phone",
+      headerName: "Teléfono",
       headerAlign: "left",
-      align: "left",
+    },
+    {
+      field: "phoneTwo",
+      headerName: "Segundo teléfono",
+      headerAlign: "left",
     },
     {
       field: "actions",
