@@ -3,7 +3,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { startLoginWithUserPassword } from '../../store/auth/thunks';
-import { useForm } from '../../hooks/useForm';
+import TextHelper from '@mui/material/FormHelperText';
+
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import { AuthLayout } from '../layout'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -27,13 +31,6 @@ import {
 import { tokens } from '../../theme';
 
 
-//TODO Borrar los datos iniciales
-const loginData = {
-  username: '',
-  password: '',
-  rememberme: false,
-}
-
 export const LoginPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -45,8 +42,6 @@ export const LoginPage = () => {
   const { status, errorMessage } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
-  // Hook de validación y obtención de data del formulario.
-  const { onInputChange, onInputChangeCheckBox, username, password, rememberme } = useForm(loginData);
 
   // Verificador de estado al ejecutar petición.
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
@@ -60,111 +55,143 @@ export const LoginPage = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   // Función de flecha realiza el dispatch para hacer el POST del login.
-  const onLogin = (e) => {
-    e.preventDefault();
+  const onLogin = (data) => {
     //TODO Buscar funcionalidad para el rememberme.
-    dispatch(startLoginWithUserPassword({ username, password }));
+    dispatch(startLoginWithUserPassword(data));
   }
+
+  //Validaciones
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Ingrese un correo electrónico válido')
+      .required('Ingrese su correo electrónico'),
+    password: Yup.string()
+      .min(8, 'La contraseña debe tener al menos 8 caracteres')
+      .required('Ingrese su contraseña'),
+  });
 
   return (
     <AuthLayout title="Iniciar sesión" imgSrc={loginGif}>
 
       {/* USERNAME */}
-      <Box component="form" onSubmit={onLogin} noValidate sx={{ mt: 2 }}>
-        <TextField
-          autoComplete="username"
-          fullWidth
-          label="Usuario"
-          margin="normal"
-          placeholder="Ingrese su usuario"
-          variant="standard"
-          name="username"
-          value={username}
-          onChange={onInputChange}
-        />
+      <Box sx={{ mt: 2 }}>
 
-        {/* PASSWORD */}
-        <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
-          <InputLabel >Password</InputLabel>
-          <Input
-            placeholder="Ingrese su contraseña"
-            type={showPassword ? 'text' : 'password'}
-            variant="standard"
-            name="password"
-            value={password}
-            autoComplete="current-password"
-            onChange={onInputChange}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-
-        {/* REMEMBERME */}
-        <FormControlLabel
-          control={<Checkbox
-            color="primary"
-            name="rememberme"
-            value={rememberme}
-            onChange={onInputChangeCheckBox}
-          />}
-          label="Recuérdame"
-        />
-
-        {/* ALERT BOX */}
-        <Grid
-          className="animate__animated animate__fadeIn"
-          container
-          display={!!errorMessage ? '' : 'none'}
-          sx={{ mt: 1 }}>
-          <Grid
-            item
-            xs={12}
-          >
-            <Alert severity='error'>{errorMessage}</Alert>
-          </Grid>
-        </Grid>
-
-        {/* LOG IN BUTTON */}
-        <Button
-          disabled={isAuthenticating}
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2, borderRadius: 4, background:colors.primary[400] }}
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => {
+            onLogin(JSON.stringify(values));
+          }}
         >
-          Ingresar
-        </Button>
+          {({ errors, touched }) => (
+            <Form>
 
-        {/* LINKS TO */}
-        <Grid container>
-          <Grid item xs>
-            <Link
-              component={RouterLink}
-              color={colors.primary[400]}
-              to="/auth/password-recovery"
-              sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link
-              color={colors.primary[400]}
-              href="https://www.erassoluciones.com"
-              sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
-            >
-              Contáctanos
-            </Link>
-          </Grid>
-        </Grid>
+              {/* EMAIL */}
+              <Field
+                as={TextField}
+                autoComplete="email"
+                type="email"
+                fullWidth
+                variant="standard"
+                margin="normal"
+                label="Correo electrónico"
+                placeholder="Ingrese su correo"
+                name="email"
+                error={errors.email && touched.email}
+                helperText={errors.email && touched.email && errors.email}
+              />
+
+              {/* PASSWORD */}
+              <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
+                <InputLabel error={!!touched.password && !!errors.password} htmlFor="password">
+                  Contraseña
+                </InputLabel>
+                <Field
+                  as={Input}
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Ingrese su contraseña"
+                  autoComplete="current-password"
+                  variant="standard"
+                  error={touched.password && Boolean(errors.password)}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                <ErrorMessage name="password">
+                  {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
+                </ErrorMessage>
+              </FormControl>
+
+              {/* REMEMBERME */}
+              <FormControlLabel
+                control={<Checkbox
+                  color="primary"
+                  name="rememberme"
+                />}
+                label="Recuérdame"
+              />
+              
+              {/* ALERT BOX */}
+              <Grid
+                className="animate__animated animate__fadeIn"
+                container
+                display={!!errorMessage ? '' : 'none'}
+                sx={{ mt: 1 }}>
+                <Grid
+                  item
+                  xs={12}
+                >
+                  <Alert severity='error'>{errorMessage}</Alert>
+                </Grid>
+              </Grid>
+
+              {/* LOG IN BUTTON */}
+              <Button
+                disabled={isAuthenticating}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, borderRadius: 4, background: colors.primary[400] }}
+              >
+                Ingresar
+              </Button>
+
+              {/* LINKS TO */}
+              <Grid container>
+                <Grid item xs>
+                  <Link
+                    component={RouterLink}
+                    color={colors.primary[400]}
+                    to="/auth/password-recovery"
+                    sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    color={colors.primary[400]}
+                    href="https://www.erassoluciones.com"
+                    sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, }}
+                  >
+                    Contáctanos
+                  </Link>
+                </Grid>
+              </Grid>
+            </Form>
+          )}
+
+        </Formik>
+
       </Box>
     </AuthLayout>
   )
