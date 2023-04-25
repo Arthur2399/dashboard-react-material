@@ -1,7 +1,6 @@
 import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "../../../hooks/useForm";
 import { startLogout } from "../../../store/auth/thunks";
 import { AuthLayout } from "../../layout";
 import afterLoginGif from '/Img/after-login.gif'
@@ -21,10 +20,9 @@ export const AfterLogin = () => {
   const dispatch = useDispatch();
 
 
-  const { onInputChange, onResetForm, formState, id_company, id_fiscal_exercise } = useForm(data)
 
   
-  useEffect(() => {
+/*   useEffect(() => {
     if (formState.id_company != '') {
       setFiscalExerciseList(companies[formState.id_company - 1].fiscal_exercise)
       setIsDisable(false)
@@ -34,7 +32,7 @@ export const AfterLogin = () => {
       setFiscalExerciseList([])
       setIsDisable(true)
     }
-  }, [id_company])
+  }, [id_company]) */
 
 
   const onCompanySelect = (e) => {
@@ -57,8 +55,6 @@ export const AfterLogin = () => {
             id="demo-simple-select-standard"
             label="Empresa"
             name="id_company"
-            value={id_company}
-            onChange={onInputChange}
           >
             <MenuItem value="">
               <em>Seleccione una</em>
@@ -79,8 +75,6 @@ export const AfterLogin = () => {
             label="Age"
             disabled={isDisable}
             name='id_fiscal_exercise'
-            value={id_fiscal_exercise}
-            onChange={onInputChange}
           >
             <MenuItem value="">
               <em>Seleccione uno</em>

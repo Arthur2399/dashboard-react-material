@@ -75,7 +75,6 @@ export const LoginPage = () => {
 
       {/* USERNAME */}
       <Box sx={{ mt: 2 }}>
-
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
