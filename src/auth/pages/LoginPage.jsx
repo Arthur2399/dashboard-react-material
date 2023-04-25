@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import * as Yup from 'yup';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,7 +8,6 @@ import TextHelper from '@mui/material/FormHelperText';
 
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 
 import { AuthLayout } from '../layout'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
