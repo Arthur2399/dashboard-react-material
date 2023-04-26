@@ -3,16 +3,12 @@ import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/materi
 import { Header } from "../../components"
 import { Field, Form, Formik } from "formik";
 import { useState } from 'react';
+import { comunidadesCbx, rolesCbx } from '../../../../data/modules/security/mockDataSecurity';
 
 export const UserForm = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const options = [
-    { value: 1, label: 'Norte' },
-    { value: 2, label: 'Centro' },
-    { value: 3, label: 'Sur' },
-  ];
 
   return (
     <Box className="animate__animated animate__fadeIn">
@@ -89,9 +85,9 @@ export const UserForm = () => {
               />
 
               <Autocomplete
-                options={options}
+                options={comunidadesCbx}
                 getOptionLabel={(option) => option.label}
-                value={options.find((option) => option.value === values.communityId) || null}
+                value={comunidadesCbx.find((option) => option.value === values.communityId) || null}
                 onBlur={() => setFieldTouched('communityId', true)}
                 onChange={(event, newValue) => {
                   setFieldValue('communityId', newValue ? newValue.value : null);
@@ -99,12 +95,33 @@ export const UserForm = () => {
                 sx={{ gridColumn: "span 4" }}
                 renderInput={(params) =>
                   <TextField {...params}
-                    label="Combo box"
+                    label="Comunidad"
+                    placeholder="Busque y escoja una comunidad"
                     name="communityId"
                     error={errors.communityId && touched.communityId}
                     helperText={errors.communityId && touched.communityId && errors.communityId}
                     variant="filled" />}
               />
+
+              <Autocomplete
+                options={rolesCbx}
+                getOptionLabel={(option) => option.label}
+                value={rolesCbx.find((option) => option.value === values.rollId) || null}
+                onBlur={() => setFieldTouched('rollId', true)}
+                onChange={(event, newValue) => {
+                  setFieldValue('rollId', newValue ? newValue.value : null);
+                }}
+                sx={{ gridColumn: "span 4" }}
+                renderInput={(params) =>
+                  <TextField {...params}
+                    label="Rol comunitario"
+                    placeholder="Escoja un rol"
+                    name="rollId"
+                    error={errors.rollId && touched.rollId}
+                    helperText={errors.rollId && touched.rollId && errors.rollId}
+                    variant="filled" />}
+              />
+
             </Box>
             <Button
               type="submit"
@@ -128,6 +145,7 @@ const initialValues = {
   email: "",
   phone: "",
   communityId: null,
+  rollId: null,
 }
 
 const validationSchema = Yup.object().shape({
@@ -146,6 +164,9 @@ const validationSchema = Yup.object().shape({
   communityId: Yup.string()
     .min(1, 'Debe seleccionar una comunidad')
     .required('Debe seleccionar una comunidad'),
+  rollId: Yup.string()
+    .min(1, 'Debe seleccionar un rol')
+    .required('Debe seleccionar un rol'),
 });
 
 const handleKeyPress = (event) => {
