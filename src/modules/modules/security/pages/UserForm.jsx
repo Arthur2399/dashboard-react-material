@@ -1,12 +1,18 @@
 import * as Yup from 'yup';
-import { Autocomplete, Box, TextField, useMediaQuery } from "@mui/material"
+import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material"
 import { Header } from "../../components"
 import { Field, Form, Formik } from "formik";
+import { useState } from 'react';
 
 export const UserForm = () => {
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
+  const options = [
+    { value: 1, label: 'Norte' },
+    { value: 2, label: 'Centro' },
+    { value: 3, label: 'Sur' },
+  ];
 
   return (
     <Box className="animate__animated animate__fadeIn">
@@ -15,10 +21,10 @@ export const UserForm = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          onLogin(JSON.stringify(values));
+          console.log(JSON.stringify(values))
         }}
       >
-        {({ values, errors, touched, handleChange, handleBlur }) => (
+        {({ values, errors, touched, setFieldValue, handleBlur }) => (
           <Form>
             <Box
               display="grid"
@@ -82,7 +88,32 @@ export const UserForm = () => {
                 sx={{ gridColumn: "span 4" }}
               />
 
+              <Autocomplete
+                options={options}
+                getOptionLabel={(option) => option.label}
+                value={options.find((option) => option.value === values.communityId) || null}
+                onBlur={handleBlur}
+                onChange={(event, newValue) => {
+                  setFieldValue('communityId', newValue ? newValue.value : null);
+                }}
+                sx={{ gridColumn: "span 4" }}
+                renderInput={(params) =>
+                  <TextField {...params}
+                    label="Combo box"
+                    name="communityId"
+                    error={errors.communityId && touched.communityId}
+                    helperText={errors.communityId && touched.communityId && errors.communityId}
+                    variant="filled" />}
+              />
             </Box>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 4 }}
+            >
+              Enviar
+            </Button>
           </Form>
         )}
       </Formik>
@@ -96,7 +127,7 @@ const initialValues = {
   lastName: "",
   email: "",
   phone: "",
-  communityId: "",
+  communityId: null,
 }
 
 const validationSchema = Yup.object().shape({
@@ -124,8 +155,3 @@ const handleKeyPress = (event) => {
     event.preventDefault();
   }
 };
-
-const communityOptions = [
-  { label: 'Cofavi - Quito norte', id: 1 },
-  { label: 'Quitumbe - Quito sur', id: 2 },
-];
