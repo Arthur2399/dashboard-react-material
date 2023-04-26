@@ -1,13 +1,25 @@
 import * as Yup from 'yup';
-import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material"
+import { Alert, AlertTitle, Autocomplete, Backdrop, Box, Button, CircularProgress, TextField, Typography, useMediaQuery } from "@mui/material"
 import { Header } from "../../components"
 import { Field, Form, Formik } from "formik";
 import { useState } from 'react';
 import { comunidadesCbx, rolesCbx } from '../../../../data/modules/security/mockDataSecurity';
+import { useNavigate } from 'react-router-dom';
 
 export const UserForm = () => {
 
+  const navigate = useNavigate();
+
+  const [alertMessage, setAlertMessage] = useState(false);
+
   const isNonMobile = useMediaQuery("(min-width:600px)");
+
+
+  const onCreateUser = (data) => {
+    console.log(data)
+    setAlertMessage(!alertMessage)
+    /* navigate("/seguridad/usuarios"); */
+  }
 
 
   return (
@@ -17,7 +29,7 @@ export const UserForm = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(JSON.stringify(values))
+          onCreateUser(JSON.stringify(values))
         }}
       >
         {({ values, errors, touched, setFieldValue, setFieldTouched }) => (
@@ -134,6 +146,25 @@ export const UserForm = () => {
           </Form>
         )}
       </Formik>
+      {alertMessage === true
+        ? <Alert severity="success"
+          className='animate__animated animate__backInRight'
+          sx={{ background: "#c7f1c7", position: "fixed", top: "70px", right: "10px" }}>
+          <AlertTitle>¡Excelente!</AlertTitle>
+          Usuario creado correctamente — <strong>Revísalo</strong>
+        </Alert>
+        : <></>
+      }
+
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open
+      >
+        <Box display="flex" flexDirection="column" alignItems="center" cla >
+          <CircularProgress color="inherit" />
+          <Typography sx={{mt:2}}>Creando usuario ...</Typography>
+        </Box>
+      </Backdrop>
     </Box>
   )
 }
