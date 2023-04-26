@@ -24,7 +24,7 @@ export const UserForm = () => {
           console.log(JSON.stringify(values))
         }}
       >
-        {({ values, errors, touched, setFieldValue, handleBlur }) => (
+        {({ values, errors, touched, setFieldValue, setFieldTouched }) => (
           <Form>
             <Box
               display="grid"
@@ -92,7 +92,7 @@ export const UserForm = () => {
                 options={options}
                 getOptionLabel={(option) => option.label}
                 value={options.find((option) => option.value === values.communityId) || null}
-                onBlur={handleBlur}
+                onBlur={() => setFieldTouched('communityId', true)}
                 onChange={(event, newValue) => {
                   setFieldValue('communityId', newValue ? newValue.value : null);
                 }}
