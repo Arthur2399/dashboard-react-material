@@ -1,22 +1,24 @@
-import * as Yup from 'yup';
-import { Alert, AlertTitle, Autocomplete, Backdrop, Box, Button, CircularProgress, TextField, Typography, useMediaQuery } from "@mui/material"
-import { Header } from "../../components"
-import { Field, Form, Formik } from "formik";
 import { useState } from 'react';
-import { comunidadesCbx, rolesCbx } from '../../../../data/modules/security/mockDataSecurity';
 import { useNavigate } from 'react-router-dom';
+import { Field, Form, Formik } from "formik";
+import * as Yup from 'yup';
+
+import { Header } from "../../components"
+import { Alert, AlertTitle, Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material"
+import { comunidadesCbx, rolesCbx } from '../../../../data/modules/security/mockDataSecurity';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import SaveIcon from '@mui/icons-material/Save';
+
 
 export const UserForm = () => {
 
+  const [alertMessage, setAlertMessage] = useState(false);
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const navigate = useNavigate();
 
-  const [alertMessage, setAlertMessage] = useState(false);
-
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
-
   const onCreateUser = (data) => {
-    console.log(data)
     setAlertMessage(!alertMessage)
     /* navigate("/seguridad/usuarios"); */
   }
@@ -32,7 +34,7 @@ export const UserForm = () => {
           onCreateUser(JSON.stringify(values))
         }}
       >
-        {({ values, errors, touched, setFieldValue, setFieldTouched }) => (
+        {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (
           <Form>
             <Box
               display="grid"
@@ -42,6 +44,8 @@ export const UserForm = () => {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
+
+              {/* NOMBRE */}
               <Field
                 as={TextField}
                 type="text"
@@ -54,6 +58,8 @@ export const UserForm = () => {
                 helperText={errors.name && touched.name && errors.name}
                 sx={{ gridColumn: "span 2" }}
               />
+
+              {/* APELLIDO */}
               <Field
                 as={TextField}
                 type="text"
@@ -66,6 +72,8 @@ export const UserForm = () => {
                 helperText={errors.lastName && touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
               />
+
+              {/* CORREO */}
               <Field
                 as={TextField}
                 type="text"
@@ -78,6 +86,8 @@ export const UserForm = () => {
                 helperText={errors.email && touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
+
+              {/* NUMERO */}
               <Field
                 as={TextField}
                 type="text"
@@ -96,6 +106,7 @@ export const UserForm = () => {
                 sx={{ gridColumn: "span 4" }}
               />
 
+              {/* COMUNIDAD */}
               <Autocomplete
                 options={comunidadesCbx}
                 getOptionLabel={(option) => option.label}
@@ -115,6 +126,7 @@ export const UserForm = () => {
                     variant="filled" />}
               />
 
+              {/* ROL */}
               <Autocomplete
                 options={rolesCbx}
                 getOptionLabel={(option) => option.label}
@@ -135,36 +147,38 @@ export const UserForm = () => {
               />
 
             </Box>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 4 }}
-            >
-              Enviar
-            </Button>
+            <Box display="flex" justifyContent="end" mt="20px">
+              <Button type="button" title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
+                <DeleteIcon />
+              </Button>
+              <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
+                onClick={resetForm}
+              >
+                <RestartAltIcon />
+              </Button>
+              <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
+                <SaveIcon sx={{ mr: 1 }} />
+                Guardar
+              </Button>
+            </Box>
           </Form>
         )}
       </Formik>
-      {alertMessage === true
-        ? <Alert severity="success"
-          className='animate__animated animate__backInRight'
-          sx={{ background: "#c7f1c7", position: "fixed", top: "70px", right: "10px" }}>
-          <AlertTitle>¡Excelente!</AlertTitle>
-          Usuario creado correctamente — <strong>Revísalo</strong>
-        </Alert>
-        : <></>
-      }
 
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open
-      >
-        <Box display="flex" flexDirection="column" alignItems="center" cla >
-          <CircularProgress color="inherit" />
-          <Typography sx={{mt:2}}>Creando usuario ...</Typography>
-        </Box>
-      </Backdrop>
+      <Alert
+        variant="filled"
+        severity="error"
+        className='animate__animated animate__backInRight'
+        onClick={() => { setAlertMessage(!alertMessage) }}
+        sx={alertMessage === false ? { display: "none" }
+          : {
+            position: "fixed",
+            top: "70px",
+            right: "10px"
+          }}>
+        <AlertTitle>¡Error!</AlertTitle>
+        Hubo un problema en el <strong>servidor.</strong>
+      </Alert>
     </Box>
   )
 }
