@@ -29,3 +29,27 @@ export const rolesCbx = [
     { value: 3, label: 'Presidente' },
     { value: 4, label: 'Vicepresidente' },
 ];
+
+export const communityData =[
+    {
+        id:1,
+        name_community:"Cofavi",
+        province: "Pichincha",
+        city:"Quito",
+        address: "Juan B.Leon y Nicolas Arteta",
+    },
+    {
+        id:2,
+        name_community:"Acuarela del Rio",
+        province: "Guayas",
+        city:"Guayaquil",
+        address: "Acuarela y Mariana",
+    },
+    {
+        id:3,
+        name_community:"Villaflora",
+        province: "Pichincha",
+        city:"Quito",
+        address: "Rircardo Jaramillo y Salomon Cardenas",
+    },
+]
