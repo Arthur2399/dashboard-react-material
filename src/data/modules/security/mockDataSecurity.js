@@ -17,18 +17,6 @@ export const userData = [
     },
 ]
 
-export const comunidadesCbx = [
-    { value: 1, label: 'Cofavi - Quito norte' },
-    { value: 2, label: 'Iñaquito - Quito centro' },
-    { value: 3, label: 'Quitumbe - Quito sur' },
-];
-
-export const rolesCbx = [
-    { value: 1, label: 'Usuario estandar' },
-    { value: 2, label: 'Unidad policial' },
-    { value: 3, label: 'Presidente' },
-    { value: 4, label: 'Vicepresidente' },
-];
 
 export const communityData =[
     {
@@ -52,4 +40,36 @@ export const communityData =[
         city:"Quito",
         address: "Rircardo Jaramillo y Salomon Cardenas",
     },
+]
+
+
+export const comunidadesCbx = [
+    { value: 1, label: 'Cofavi - Quito norte' },
+    { value: 2, label: 'Iñaquito - Quito centro' },
+    { value: 3, label: 'Quitumbe - Quito sur' },
+];
+
+export const rolesCbx = [
+    { value: 1, label: 'Usuario estandar' },
+    { value: 2, label: 'Unidad policial' },
+    { value: 3, label: 'Presidente' },
+    { value: 4, label: 'Vicepresidente' },
+];
+
+export const provineCbx =[
+    {value :1, label:"Pichincha"},
+    {value :2, label:"Guayas"},
+    {value :3, label:"Tungurahua"},
+]
+
+export const cityCbx = [
+    {value:1 , label:"Quito"},
+    {value:2 , label:"Guayaquil"},
+    {value:3 , label:"Ambato"},
+]
+
+export const userCbx =[
+    {value:1 , label:"Jordi Fiallos"},
+    {value:2 , label:"Miguel Pino"},
+    {value:3 , label:"Arthur Chavez"},
 ]
