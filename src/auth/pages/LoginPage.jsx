@@ -1,16 +1,14 @@
 import { useMemo, useState } from 'react';
-import * as Yup from 'yup';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
+import TextHelper from '@mui/material/FormHelperText';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { startLoginWithUserPassword } from '../../store/auth/thunks';
-import TextHelper from '@mui/material/FormHelperText';
-
-
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-
 import { AuthLayout } from '../layout'
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import loginGif from '/Img/login.gif';
 import {
   Alert,
@@ -54,21 +52,11 @@ export const LoginPage = () => {
   // Función de flecha para actualizar estado de vista de contraseña
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  // Función de flecha realiza el dispatch para hacer el POST del login.
+
   const onLogin = (data) => {
     //TODO Buscar funcionalidad para el rememberme.
     dispatch(startLoginWithUserPassword(data));
   }
-
-  //Validaciones
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Ingrese un correo electrónico válido')
-      .required('Ingrese su correo electrónico'),
-    password: Yup.string()
-      .min(8, 'La contraseña debe tener al menos 8 caracteres')
-      .required('Ingrese su contraseña'),
-  });
 
   return (
     <AuthLayout title="Iniciar sesión" imgSrc={loginGif}>
@@ -79,7 +67,7 @@ export const LoginPage = () => {
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
           onSubmit={(values) => {
-            onLogin(JSON.stringify(values));
+            onLogin(values);
           }}
         >
           {({ errors, touched }) => (
@@ -138,7 +126,7 @@ export const LoginPage = () => {
                 />}
                 label="Recuérdame"
               />
-              
+
               {/* ALERT BOX */}
               <Grid
                 className="animate__animated animate__fadeIn"
@@ -195,3 +183,14 @@ export const LoginPage = () => {
     </AuthLayout>
   )
 }
+
+
+//Validaciones
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Ingrese un correo electrónico válido')
+    .required('Ingrese su correo electrónico'),
+  password: Yup.string()
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .required('Ingrese su contraseña'),
+});
