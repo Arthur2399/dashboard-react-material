@@ -45,11 +45,14 @@ export const useCheckStatus = () => {
                 de nuevo al estado actual
             */
             if (!token) return dispatch(logout());
-            //TODO El multicompany lo debe enviar el API
-                /* const { data } = await axios.get(`${config.apiUrl}/usuarios/api-token-auth/verify`, { headers: { Authorization: token } })
-                dispatch(login({ ...data, multicompany: true })) */
-            dispatch(login(userData))
 
+            try {
+                const { data } = await axios.get(`${config.apiUrl}/authMorg/auth/token`, { headers: { Authorization: token } })
+                dispatch(login(data))
+
+            } catch (error) {
+                dispatch(logout(data))
+            }
 
             /* Nota
                 En caso de no existir compania en el localStorage debe hacer despacho del metodo 
@@ -59,20 +62,26 @@ export const useCheckStatus = () => {
 
 
             // Valida si existe company en localStorage
-            if (!company) return dispatch(startGetCompany());
+            if (!company) return dispatch(unselectedCompany());
 
             // Setear de nuevo todas las companias
-            //TODO Esto debe enviarse desde el API 
-            dispatch(setCompanies(companyData));
+            try {
+                const { data } = await axios.get(`${config.apiUrl}/company/companyuser/company`, { headers: { Authorization: token } })
+                dispatch(setCompanies(data));
+            } catch (error) {
+                console.log(error)
+            }
+            
 
-            // Desecripta la informacion de compania
+/*             // Desecripta la informacion de compania
             const decryptedData = CryptoJS.AES.decrypt(company, 'uva').toString(CryptoJS.enc.Utf8);
 
             // Transforma en JSON
             const dataCompany = JSON.parse(decryptedData);
 
             // Setea la informacion como empresa seleccionada
-            dispatch(selectCompany(dataCompany));
+            dispatch(selectCompany(dataCompany)); */
+
 
         }
         verifyCredentials();
