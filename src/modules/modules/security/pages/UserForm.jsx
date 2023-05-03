@@ -190,8 +190,8 @@ const initialValues = {
   lastName: "",
   email: "",
   phone: "",
-  communityId: 2,
-  rollId: 4,
+  communityId: null,
+  rollId: null,
 }
 
 const validationSchema = Yup.object().shape({
