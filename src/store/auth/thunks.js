@@ -27,7 +27,6 @@ export const startLoginWithUserPassword = (values) => {
     try {
       //Posteo de las credenciales 
       const { data } = await axios.post(`${config.apiUrl}/authMorg/auth/login`,values)
-      console.log(data);
       
       //Guarda el token de usuario en el sessionStorage del navegador.
       sessionStorage.setItem("Token", data.token );

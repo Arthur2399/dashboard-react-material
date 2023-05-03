@@ -9,6 +9,7 @@ import { userData } from '../data/auth/userData';
 import { companyData } from '../data/ui/companyData';
 import { gettingCompanies, selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
 import config from '../config';
+import { startGetCompany } from '../store/modules/ui/company/thunks';
 
 
 export const useCheckStatus = () => {
@@ -58,7 +59,7 @@ export const useCheckStatus = () => {
 
 
             // Valida si existe company en localStorage
-            if (!company) return dispatch(gettingCompanies(companyData));
+            if (!company) return dispatch(startGetCompany());
 
             // Setear de nuevo todas las companias
             //TODO Esto debe enviarse desde el API 
