@@ -1,29 +1,17 @@
-import { Toolbar } from "@mui/material";
-import { Box } from "@mui/system";
-import { useState } from "react";
-import { NavBar } from "../components/NavBar";
-import { SideBar } from "../components/SideBar";
-
-
+import { Box } from '@mui/material';
+import { SideBar } from '../components/SideBar';
+import { TopBar } from '../components/TopBar';
 
 export const ModulesLayout = ({ children }) => {
-
-  const [menuClose, setMenuClose] = useState(false)
-  const [width, setWith] = useState(260);
-
   return (
-    <Box sx={{ display: 'flex', backgroundColor:"#F5F5F5" , height:"100vh"}}>
-      <NavBar menuClose={menuClose} setMenuClose={setMenuClose} setWith={setWith}/>
-      <SideBar width={width} menuClose={menuClose}/>
-      <Box 
-            component='main'
-            sx={{ flexGrow: 1, p: 3 }}
-        >
-            <Toolbar />
-
-            { children }
-            
+    <Box display="flex" position="relative" width="100%" height="100%">
+      <SideBar />
+      <Box component='main' width="100%" height="100%" sx={{ flexGrow: 1 }}>
+        <TopBar />
+        <Box overflow="auto" padding={2} sx={{ height: "calc(100% - 70px)" }}>
+          {children}
         </Box>
-    </Box>
+      </Box>
+    </Box >
   )
 }

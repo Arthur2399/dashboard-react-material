@@ -6,29 +6,29 @@ export const authSlice = createSlice({
         status: 'checking',
         email: null,
         name: null,
+        job:null,
         photoURL: null,
         token: null,
-        multicompany: false,
         errorMessage: null,
     },
     reducers: {
         login: (state, { payload }) => {
             state.status = 'authenticated';
             state.email = payload.email;
-            state.name = payload.username;
+            state.name = payload.name;
+            state.job = payload.job;
             state.photoURL = payload.photoURL;
             state.token = payload.token;
-            state.multicompany = payload.multicompany; // Vericar nombre con el API
             state.errorMessage = null;
         },
         logout: (state, { payload }) => {
             state.status = 'not-authtenticated';
             state.email = null;
             state.name = null;
+            state.job = null;
             state.photoURL = null;
             state.token = null;
-            state.multicompany = false;
-            state.errorMessage = payload;
+            state.errorMessage = payload?.errorMessage;
         },
         checkingCredentials: (state) => {
             state.status = 'checking'
