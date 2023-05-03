@@ -1,7 +1,7 @@
 import axios from "axios";
 import CryptoJS from 'crypto-js';
-import { companyData } from "../../../../data/ui/companyData";
 import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "./companyInfoSlice";
+import config from "../../../../config";
 
 
 
@@ -21,40 +21,42 @@ export const startGetCompany = () => {
 
         //Extraer token del state de authSlice
         const { token } = getState().auth;
+        try {
+            const { data } = await axios.get(`${config.apiUrl}/company/companyuser/company`, { headers: { Authorization: token } })
+            dispatch(gettingCompanies(data));
 
-        //TODO Realiza la peticción para traer la empresa - NOTA: Poner en un Try - Catch
-            //const { data } = await axios.get(`${config.apiUrl}example/endpoint/companies`, { headers: { Authorization: token } })
-        dispatch(gettingCompanies(companyData));
+            //Validación seleccion de empresa
+            /* NOTA
+                Si el valor de la peticion tiene un listas de objetos superior a uno hara el despacho de
+                unselectedComany() que cambiará el estado a 'no-selected' por el contrario si es menor a 1
+                despachará selectCompany() cambiando el estado a selected.
+            */
+            if (data.length > 1) return dispatch(unselectedCompany());
 
-        //Validación seleccion de empresa
+            //Desfracmetación y aislamiento del atributo fiscal_exercise
+            const { fiscal_exercise, ...newData } = data[0];
 
-        /* NOTA
-            Si el valor de la peticion tiene un listas de objetos superior a uno hara el despacho de
-            unselectedComany() que cambiará el estado a 'no-selected' por el contrario si es menor a 1
-            despachará selectCompany() cambiando el estado a selected.
-        
-        */
-        if (companyData.length > 1) return dispatch(unselectedCompany());
+            //Reconstrucción del objeto con el valor de fiscal_exercise en la posición [0]
+            const companySelected = { ...newData, fiscal_exercise: fiscal_exercise[0] }
 
-        //Desfracmetación y aislamiento del atributo fiscal_exercise
-        const { fiscal_exercise, ...newCompanyData } = companyData[0];
+            //Encriptación de la información
+            const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(companySelected), 'uva').toString();
 
-        //Reconstrucción del objeto con el valor de fiscal_exercise en la posición [0]
-        const companySelected = { ...newCompanyData, fiscal_exercise: fiscal_exercise[0] }
+            //Guardar la información de la empresa seleccionada en el localStorage del navegador
+            localStorage.setItem("Company", encryptedData);
 
-        //Encriptación de la información
-        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(companySelected), 'uva').toString();
+            //Seteo de la informacion en state currentCompany de companyInfoSlice.js
+            dispatch(selectCompany(companySelected));
 
-        //Guardar la información de la empresa seleccionada en el localStorage del navegador
-        localStorage.setItem("Company", encryptedData);
-
-        //Seteo de la informacion en state currentCompany de companyInfoSlice.js
-        dispatch(selectCompany(companySelected));
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
 export const startSelectionCompany = ({ company, fiscalExercise }) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
+        const { companies } = getState().companyInfo;
 
         /* NOTA
             De acuerdo a la selección del usuario en el AfterLogin.jsx se hara una búsqueda
@@ -63,31 +65,31 @@ export const startSelectionCompany = ({ company, fiscalExercise }) => {
         */
 
         //Busqueda por id entre la lista de empresas
-        let onlyCompany = companyData.find(obj => obj.id === company)
+        let onlyCompany = companies.find(obj => obj.id === company)
 
         //Busqueda por id entre la lista de ejercicio fiscal de la empresa.
-        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.id === fiscalExercise)
+        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.value === fiscalExercise)
 
         //Aislamiento del atributo fiscal_exercise
-        const { fiscal_exercise, ...newOnlyCompany } = onlyCompany; 
+        const { fiscal_exercise, ...newOnlyCompany } = onlyCompany;
 
         //Construcción del objeto remplazando las lista de fiscal_exercise por el valor seleccionado
-        const selectedCompany = { ...newOnlyCompany, fiscal_exercise: selectFiscalExercise }; 
+        const selectedCompany = { ...newOnlyCompany, fiscal_exercise: selectFiscalExercise };
 
         //Encriptación de la información
         const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(selectedCompany), 'uva').toString();
 
         //Guardar la información de la empresa seleccionada en el localStorage del navegador
         localStorage.setItem("Company", encryptedData);
-        
+
         //Seteo de la informacion en state currentCompany de companyInfoSlice.js
         dispatch(selectCompany(selectedCompany))
     }
 }
 
-export const startChangeCompany = () =>{
+export const startChangeCompany = () => {
     return async (dispatch) => {
         localStorage.removeItem("Company")
         dispatch(changeCompany())
-    } 
+    }
 }

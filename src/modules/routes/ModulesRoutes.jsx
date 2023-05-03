@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { ModulesLayout } from "../layout";
-import { DashboardPage, AccountingRoutes, ConfigurationRoutes } from "../modules";
+import { DashboardPage, AccountingRoutes, ConfigurationRoutes, SecurityRoutes } from "../modules";
 
 
 export const ModulesRoutes = () => {
@@ -10,6 +10,7 @@ export const ModulesRoutes = () => {
         <Route path="/" element={<DashboardPage />} />
         <Route path="/configuracion/*" element={< ConfigurationRoutes />} />
         <Route path="/contabilidad/*" element={< AccountingRoutes />} />
+        <Route path="/seguridad/*" element={< SecurityRoutes />} />
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </ModulesLayout>

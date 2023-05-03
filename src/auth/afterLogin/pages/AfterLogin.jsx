@@ -109,8 +109,8 @@ export const AfterLogin = () => {
                     <em>Seleccione una</em>
                   </MenuItem>
                   {fiscalExerciseList.map((fiscalExercise) => (
-                    <MenuItem key={fiscalExercise.id} value={fiscalExercise.id}>
-                      {fiscalExercise.date}
+                    <MenuItem key={fiscalExercise.value} value={fiscalExercise.value}>
+                      {fiscalExercise.label}
                     </MenuItem>
                   ))}
                 </Select>

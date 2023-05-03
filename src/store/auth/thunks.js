@@ -1,11 +1,10 @@
 import axios from "axios";
 
-import { startGetCompany} from "../modules/ui/company/thunks";
+import { startGetCompany } from "../modules/ui/company/thunks";
 import { checkingCredentials, login, logout } from "./authSlice"
 import { clearCompany } from "../modules/ui/company/companyInfoSlice";
 
 import config from "../../config";
-import { userData } from "../../data/auth/userData";
 
 
 /* OBJETIVO
@@ -20,48 +19,29 @@ import { userData } from "../../data/auth/userData";
 */
 
 
-export const startLoginWithUserPassword = ({ username, password }) => {
+export const startLoginWithUserPassword = (values) => {
   return async (dispatch) => {
 
     dispatch(checkingCredentials());
 
-    /* NOTA
-      Siendo una funcion asincrona checkingCredentials() cambia el estado de authSlice a "checking"
-      lo que habilita el spinner de carga en las rutas publicas.
-    */
-
-    // Verificación de credenciales.
     try {
       //Posteo de las credenciales 
-          //TODO Cambiar HardCode a realizar la petición del API 
-            //const { data } = await axios.post(`${config.apiUrl}/usuarios/api-token-auth/`, { username, password })
-            const {token} = userData;
-
+      const { data } = await axios.post(`${config.apiUrl}/authMorg/auth/login`,values)
+      
       //Guarda el token de usuario en el sessionStorage del navegador.
-      sessionStorage.setItem("Token", token /* data.token */);
+      sessionStorage.setItem("Token", data.token );
 
       //Seteo de la información al initialState authSlice.
-      dispatch(login(userData))
-
-      /* NOTA
-        El dispatch(login()) cambia el estado a authenticated  lo que da paso a las rutas privadas 
-        en AppRouter.jsx
-      */
+      dispatch(login(data))
 
       // Obbtener información de la o las empresas. 
-      dispatch(startGetCompany()); 
+      dispatch(startGetCompany());
 
     } catch (error) {
 
       //TODO Descomentar esto cuando este haciendo llamado al API
-      /*const { data } = error.response;
-      dispatch(logout(data)); */
-      dispatch(logout(error))
-      
-      /* NOTA
-        Si la petición llega a tener un erro lo atrapa y hace llamado al reduce logout(),
-        el cual espera recibirlo para mostrarlo en pantalla.
-      */
+      const { data } = error.response;
+      dispatch(logout(data)); 
     }
   }
 }
