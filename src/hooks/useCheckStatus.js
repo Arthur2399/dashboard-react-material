@@ -61,11 +61,13 @@ export const useCheckStatus = () => {
             */
 
             // Valida si existe company en localStorage
-            if (!company) return dispatch(unselectedCompany());
 
             // Setear de nuevo todas las companias
             try {
                 const { data } = await axios.get(`${config.apiUrl}/company/companyuser/company`, { headers: { Authorization: token } })
+
+                if (!company) return dispatch(gettingCompanies(data));
+
                 dispatch(setCompanies(data));
 
                 // Desecripta la informacion de compania
@@ -80,7 +82,7 @@ export const useCheckStatus = () => {
                 console.log(error)
             }
         }
-        
+
         verifyCredentials();
 
     }, [])
