@@ -10,6 +10,7 @@ import { companyData } from '../data/ui/companyData';
 import { gettingCompanies, selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
 import config from '../config';
 import { startGetCompany } from '../store/modules/ui/company/thunks';
+import { startLogout } from '../store/auth/thunks';
 
 
 export const useCheckStatus = () => {
@@ -51,7 +52,7 @@ export const useCheckStatus = () => {
                 dispatch(login(data))
 
             } catch (error) {
-                dispatch(logout(data))
+                dispatch(startLogout())
             }
 
             /* Nota
