@@ -74,7 +74,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
                 <ListItemIcon>
                     <LocationCityIcon />
                 </ListItemIcon>
-                Ejercicio fiscal {currentCompany.fiscal_exercise.date}
+                Ejercicio fiscal {currentCompany.fiscal_exercise.label}
             </MenuItem>
             <Divider />
             <MenuItem onClick={onNavigateConfiguration}>

@@ -55,7 +55,8 @@ export const startGetCompany = () => {
 }
 
 export const startSelectionCompany = ({ company, fiscalExercise }) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
+        const { companies } = getState().companyInfo;
 
         /* NOTA
             De acuerdo a la selección del usuario en el AfterLogin.jsx se hara una búsqueda
@@ -64,10 +65,10 @@ export const startSelectionCompany = ({ company, fiscalExercise }) => {
         */
 
         //Busqueda por id entre la lista de empresas
-        let onlyCompany = data.find(obj => obj.id === company)
+        let onlyCompany = companies.find(obj => obj.id === company)
 
         //Busqueda por id entre la lista de ejercicio fiscal de la empresa.
-        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.id === fiscalExercise)
+        const selectFiscalExercise = onlyCompany?.fiscal_exercise.find(obj => obj.value === fiscalExercise)
 
         //Aislamiento del atributo fiscal_exercise
         const { fiscal_exercise, ...newOnlyCompany } = onlyCompany;

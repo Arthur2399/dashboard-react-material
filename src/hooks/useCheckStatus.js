@@ -60,7 +60,6 @@ export const useCheckStatus = () => {
                 la información registrada.
             */
 
-
             // Valida si existe company en localStorage
             if (!company) return dispatch(unselectedCompany());
 
@@ -68,22 +67,20 @@ export const useCheckStatus = () => {
             try {
                 const { data } = await axios.get(`${config.apiUrl}/company/companyuser/company`, { headers: { Authorization: token } })
                 dispatch(setCompanies(data));
+
+                // Desecripta la informacion de compania
+                const decryptedData = CryptoJS.AES.decrypt(company, 'uva').toString(CryptoJS.enc.Utf8);
+
+                // Transforma en JSON
+                const dataCompany = JSON.parse(decryptedData);
+
+                // Setea la informacion como empresa seleccionada
+                dispatch(selectCompany(dataCompany));
             } catch (error) {
                 console.log(error)
             }
-            
-
-/*             // Desecripta la informacion de compania
-            const decryptedData = CryptoJS.AES.decrypt(company, 'uva').toString(CryptoJS.enc.Utf8);
-
-            // Transforma en JSON
-            const dataCompany = JSON.parse(decryptedData);
-
-            // Setea la informacion como empresa seleccionada
-            dispatch(selectCompany(dataCompany)); */
-
-
         }
+        
         verifyCredentials();
 
     }, [])
