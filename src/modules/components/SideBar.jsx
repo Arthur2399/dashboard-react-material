@@ -30,11 +30,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
-import profileImg from "../../data/img/perfil.jpg"
+import profileImg from "/Img/profile.png"
 import logo from "/logos/LogoERAS.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
-import { mockDataMenu } from "../../data/ui/menu/mockDataMenu";
 import { useSelector } from "react-redux";
 
 
@@ -109,9 +108,12 @@ const RenderItem = ({ item, selected, setSelected }) => {
 }
 
 export const SideBar = () => {
+  
+  const { modules } = useSelector(state => state.menu);
+  const { name, job, photoURL } = useSelector(state => state.auth);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { modules } = useSelector(state => state.menu);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 
@@ -172,7 +174,7 @@ export const SideBar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={profileImg}
+                  src={photoURL == null ?profileImg : photoURL}
                   style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
                 />
               </Box>
@@ -183,10 +185,10 @@ export const SideBar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Arthur Chávez
+                  {name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Ing.Sistemas
+                  {job}
                 </Typography>
               </Box>
             </Box>

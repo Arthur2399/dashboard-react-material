@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -9,8 +10,6 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import { startChangeCompany } from '../../store/modules/ui/company/thunks';
-import profileImg from "../../data/img/perfil.jpg"
-import { useNavigate } from 'react-router-dom';
 
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
@@ -20,7 +19,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    
+
     const onChangeCompany = () => {
         dispatch(startChangeCompany());
     }
@@ -67,7 +66,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
             <MenuItem onClick={handleClose}>
-                <Avatar src={profileImg} /> Mi perfil
+                <Avatar src={photoURL} /> Mi perfil
             </MenuItem>
             <Divider />
             <MenuItem onClick={onChangeCompany}>
