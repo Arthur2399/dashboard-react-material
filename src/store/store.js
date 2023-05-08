@@ -6,12 +6,12 @@ export const store = configureStore({
     reducer: {
         //Authentication
         auth: authSlice.reducer,
-
+        
         //UI Interface de usuario menu y seleccion de empresa
         companyInfo: companyInfoSlice.reducer,
+        
+        //Menu dinamico segun el rol
+        menu: menuSlice.reducer,
 
-        /* menu: menuSlice.reducer, */
-
-        //Modulos de la aplicación
     }
 });

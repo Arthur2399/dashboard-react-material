@@ -10,7 +10,7 @@ export const menuSlice = createSlice({
         checkingAccess: (state) => {
             state.status = 'checking';
         },
-        getModules: (state, payload) => {
+        getModules: (state, {payload}) => {
             state.status = 'complete';
             state.modules = payload;
 

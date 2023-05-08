@@ -35,6 +35,7 @@ import logo from "/logos/LogoERAS.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
 import { mockDataMenu } from "../../data/ui/menu/mockDataMenu";
+import { useSelector } from "react-redux";
 
 
 const iconComp = {
@@ -62,7 +63,7 @@ const iconComp = {
 }
 
 /* ITEM */
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, url, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -75,7 +76,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       icon={iconComp[icon]}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
+      <Link to={url} />
     </MenuItem>
   );
 };
@@ -102,7 +103,7 @@ const RenderItem = ({ item, selected, setSelected }) => {
     );
   } else {
     return (
-      <Item key={item.id} title={item.title} to={item.to} icon={item.icon} selected={selected} setSelected={setSelected} />
+      <Item key={item.id} title={item.title} url={item.url} icon={item.icon} selected={selected} setSelected={setSelected} />
     );
   }
 }
@@ -110,6 +111,9 @@ const RenderItem = ({ item, selected, setSelected }) => {
 export const SideBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { modules } = useSelector(state => state.menu);
+
+  console.log(modules)
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 
@@ -191,7 +195,7 @@ export const SideBar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{ cursor: 'default', userSelect: 'none' }}>
-            {mockDataMenu.map((item) => (
+            {modules.map((item) => (
               item.titleGroup ? (
                 <Typography
                   key={item.id}

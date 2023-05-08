@@ -1,21 +1,22 @@
 import axios from "axios"
-import { checkingAccess } from "./menuSlice"
+import { checkingAccess, getModules } from "./menuSlice"
+import { decryptData } from "../../../../hooks/useEncrypData";
 import config from "../../../../config";
 
 
 export const startCreateMenu = () => {
     const companyInfo = localStorage.getItem("Company");
-    const decryptedData = CryptoJS.AES.decrypt(companyInfo, config.secretKey).toString(CryptoJS.enc.Utf8);
-
-    console.log(JSON.parse(decryptedData));
+    const decryptedData = JSON.parse(decryptData(companyInfo));
 
     return async (dispatch, getState) => {
+        const { token } = getState().auth;
         dispatch(checkingAccess())
 
-        /*     try {
-                const { data } = await axios.get(`${config.apiUrl}/menu/asignacion/user`, {headers: {Authorization: token}})
-            } catch (error) {
-                const { data } = error.response;
-            } */
+        try {
+            const { data } = await axios.get(`${config.apiUrl}/menu/asingUser/get/${decryptedData.id}`, { headers: { Authorization: token } })
+            dispatch(getModules(data))
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
