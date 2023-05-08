@@ -22,6 +22,8 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import SchoolIcon from '@mui/icons-material/School';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import MessageIcon from '@mui/icons-material/Message';
 
 import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -55,6 +57,8 @@ const iconComp = {
   "AccountCircleIcon":<AccountCircleIcon/>,
   "Diversity3Icon":<Diversity3Icon/>,
   "MapIcon":<MapIcon/>,
+  "LocalPoliceIcon":<LocalPoliceIcon/>,
+  "MessageIcon":<MessageIcon/>,
 }
 
 /* ITEM */

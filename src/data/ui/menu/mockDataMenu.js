@@ -30,8 +30,26 @@ export const mockDataMenu = [
             {
                 id: 3,
                 title: "Mapa",
-                to: "/seguridad/mapa    ",
+                to: "/seguridad/mapa",
                 icon: "MapIcon",
+            },
+            {
+                id: 4,
+                title: "UPC",
+                to: "/seguridad/policia",
+                icon: "LocalPoliceIcon",
+            },
+            {
+                id: 5,
+                title: "Mensajes",
+                to: "/seguridad/mensajes",
+                icon: "MapIcon",
+            },
+            {
+                id: 6,
+                title: "Combros",
+                to: "/seguridad/cobros",
+                icon: "RequestQuoteIcon",
             },
         ]
     },
