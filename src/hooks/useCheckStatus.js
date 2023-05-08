@@ -6,8 +6,8 @@ import { login, logout } from '../store/auth/authSlice';
 import { gettingCompanies, selectCompany, setCompanies } from '../store/modules/ui/company/companyInfoSlice';
 import { startLogout } from '../store/auth/thunks';
 
-import config from '../config';
 import { decryptData } from './useEncrypData';
+import config from '../config';
 
 
 export const useCheckStatus = () => {
