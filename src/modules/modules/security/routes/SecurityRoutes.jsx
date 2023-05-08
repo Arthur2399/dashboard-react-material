@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { UserPages, UserForm, CommunityPage, CommunityForm, MapPage, PolicePage } from '../pages'
+import { UserPages, UserForm, CommunityPage, CommunityForm, MapPage, PolicePage, PoliceForm } from '../pages'
 
 export const SecurityRoutes = () => {
     return (
@@ -15,7 +15,7 @@ export const SecurityRoutes = () => {
 
             {/* UPC */}
             <Route path="policia" element={<PolicePage/>} />
-            <Route path="policia/crear" element={<PolicePage/>} />
+            <Route path="policia/crear" element={<PoliceForm/>} />
 
 
             {/* MAPA */}
