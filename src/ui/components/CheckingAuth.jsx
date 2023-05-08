@@ -15,7 +15,7 @@ export const CheckingAuth = ({msg='Cargando ...'}) => {
                 justifyContent='center'
                 alignItems="center"
             >
-                <CircularProgress sx={{color:"third.main", mb:2}} />
+                <CircularProgress sx={{color:"white", mb:2}} />
                 <Typography color="white">{msg}</Typography>
             </Grid>
         </Grid>

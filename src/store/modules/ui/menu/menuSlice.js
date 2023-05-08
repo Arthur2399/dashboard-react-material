@@ -9,16 +9,16 @@ export const menuSlice = createSlice({
     reducers: {
         checkingAccess: (state) => {
             state.status = 'checking';
-            state.modules = [];
         },
         getModules: (state, payload) => {
             state.status = 'complete';
+            state.modules = payload;
+
         },
         clearModule: (state) => {
             state.status = 'not-complete';
             state.modules = [];
         }
-
     }
 });
 

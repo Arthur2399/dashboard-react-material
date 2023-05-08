@@ -1,16 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
-import CryptoJS from 'crypto-js';
-
 
 import { login, logout } from '../store/auth/authSlice';
-import { userData } from '../data/auth/userData';
-import { companyData } from '../data/ui/companyData';
-import { gettingCompanies, selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
-import config from '../config';
-import { startGetCompany } from '../store/modules/ui/company/thunks';
+import { gettingCompanies, selectCompany, setCompanies } from '../store/modules/ui/company/companyInfoSlice';
 import { startLogout } from '../store/auth/thunks';
+
+import config from '../config';
+import { decryptData } from './useEncrypData';
 
 
 export const useCheckStatus = () => {
@@ -72,7 +69,7 @@ export const useCheckStatus = () => {
                 dispatch(setCompanies(data));
 
                 // Desecripta la informacion de compania
-                const decryptedData = CryptoJS.AES.decrypt(company, 'uva').toString(CryptoJS.enc.Utf8);
+                const decryptedData = decryptData(company);
 
                 // Transforma en JSON
                 const dataCompany = JSON.parse(decryptedData);

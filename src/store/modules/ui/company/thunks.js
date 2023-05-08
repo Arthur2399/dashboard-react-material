@@ -1,7 +1,8 @@
 import axios from "axios";
-import CryptoJS from 'crypto-js';
 import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "./companyInfoSlice";
+import { startCreateMenu } from "../menu/thunks";
 import config from "../../../../config";
+import { encrypData } from "../../../../hooks/useEncrypData";
 
 
 
@@ -40,7 +41,7 @@ export const startGetCompany = () => {
             const companySelected = { ...newData, fiscal_exercise: fiscal_exercise[0] }
 
             //Encriptación de la información
-            const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(companySelected), 'uva').toString();
+            const encryptedData = encrypData(companySelected);
 
             //Guardar la información de la empresa seleccionada en el localStorage del navegador
             localStorage.setItem("Company", encryptedData);
@@ -77,13 +78,16 @@ export const startSelectionCompany = ({ company, fiscalExercise }) => {
         const selectedCompany = { ...newOnlyCompany, fiscal_exercise: selectFiscalExercise };
 
         //Encriptación de la información
-        const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(selectedCompany), 'uva').toString();
+        const encryptedData = encrypData(selectedCompany);
 
         //Guardar la información de la empresa seleccionada en el localStorage del navegador
         localStorage.setItem("Company", encryptedData);
 
         //Seteo de la informacion en state currentCompany de companyInfoSlice.js
         dispatch(selectCompany(selectedCompany))
+
+        //Crear menu
+        dispatch(startCreateMenu())
     }
 }
 
