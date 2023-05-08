@@ -20,7 +20,6 @@ export const UserForm = () => {
 
   const onCreateUser = (data) => {
     setAlertMessage(!alertMessage)
-    console.log(data)
     /* navigate("/seguridad/usuarios"); */
   }
 

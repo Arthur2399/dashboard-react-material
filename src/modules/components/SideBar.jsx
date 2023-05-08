@@ -112,8 +112,6 @@ export const SideBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { modules } = useSelector(state => state.menu);
-
-  console.log(modules)
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 

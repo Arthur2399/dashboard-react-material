@@ -19,7 +19,6 @@ export const PoliceForm = () => {
                 initialValues={initialValues}
                 /* validationSchema={validationSchema} */
                 onSubmit={(values) => {
-                    console.log(JSON.stringify(values))
                 }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (

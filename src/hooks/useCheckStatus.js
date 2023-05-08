@@ -8,6 +8,7 @@ import { startLogout } from '../store/auth/thunks';
 
 import { decryptData } from './useEncrypData';
 import config from '../config';
+import { getModules } from '../store/modules/ui/menu/menuSlice';
 
 
 export const useCheckStatus = () => {
@@ -39,7 +40,7 @@ export const useCheckStatus = () => {
             /* NOTA
                 Si no encuentra un Token en el localStore hara el llamado al reducer de logout(),
                 donde borrará el localStore y seteará los datos null por default, si existe el token 
-                y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará
+                y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará 
                 de nuevo al estado actual
             */
             if (!token) return dispatch(logout());
@@ -73,6 +74,10 @@ export const useCheckStatus = () => {
 
                 // Transforma en JSON
                 const dataCompany = JSON.parse(decryptedData);
+
+                // Peticion del Menu
+                const { data:menuData } = await axios.get(`${config.apiUrl}/menu/asingUser/get/${dataCompany.id}`, { headers: { Authorization: token } })
+                dispatch(getModules(menuData))
 
                 // Setea la informacion como empresa seleccionada
                 dispatch(selectCompany(dataCompany));
