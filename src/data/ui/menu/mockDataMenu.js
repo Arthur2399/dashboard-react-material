@@ -29,27 +29,27 @@ export const mockDataMenu = [
             },
             {
                 id: 3,
-                title: "Mapa",
-                to: "/seguridad/mapa",
-                icon: "MapIcon",
-            },
-            {
-                id: 4,
                 title: "UPC",
                 to: "/seguridad/policia",
                 icon: "LocalPoliceIcon",
             },
             {
-                id: 5,
+                id: 4,
                 title: "Mensajes",
                 to: "/seguridad/mensajes",
-                icon: "MapIcon",
+                icon: "MessageIcon",
+            },
+            {
+                id: 5,
+                title: "Cobros",
+                to: "/seguridad/cobros",
+                icon: "RequestQuoteIcon",
             },
             {
                 id: 6,
-                title: "Combros",
-                to: "/seguridad/cobros",
-                icon: "RequestQuoteIcon",
+                title: "Mapa",
+                to: "/seguridad/mapa",
+                icon: "MapIcon",
             },
         ]
     },
