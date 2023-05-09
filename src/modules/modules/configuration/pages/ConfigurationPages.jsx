@@ -58,7 +58,7 @@ export const ConfigurationPages = () => {
             Mi perfil
           </MenuItem>
           <Divider />
-          <MenuItem sx={{ ml: 3 }}>
+          <MenuItem sx={{ ml: 3 }} onClick={() => onNavigate("cambiarContrasena")}>
             <ListItemIcon>
               <LockIcon fontSize="small" />
             </ListItemIcon>
