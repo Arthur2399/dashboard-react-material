@@ -49,6 +49,26 @@ export const CommunityForm = () => {
                                 sx={{ gridColumn: "span 4" }}
                             />
 
+                            {/* CIUDAD */}
+                            <Autocomplete
+                                options={provineCbx}
+                                getOptionLabel={(option) => option.label}
+                                value={provineCbx.find((option) => option.value === values.country) || null}
+                                onBlur={() => setFieldTouched('country', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('country', newValue ? newValue.value : null);
+                                }}
+                                sx={{ gridColumn: "span 4" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Pais"
+                                        placeholder="Busque y escoja un pais"
+                                        name="country"
+                                        error={errors.country && touched.country}
+                                        helperText={errors.country && touched.country && errors.country}
+                                        variant="filled" />}
+                            />
+
                             {/* PROVINCIA */}
                             <Autocomplete
                                 options={provineCbx}
@@ -191,6 +211,7 @@ export const CommunityForm = () => {
 
 const initialValues = {
     communityName: "",
+    country:null,
     province: null,
     city: null,
     address: "",

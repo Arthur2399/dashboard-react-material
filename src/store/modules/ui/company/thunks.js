@@ -49,6 +49,9 @@ export const startGetCompany = () => {
             //Seteo de la informacion en state currentCompany de companyInfoSlice.js
             dispatch(selectCompany(companySelected));
 
+            //Crear menu
+            dispatch(startCreateMenu())
+
         } catch (error) {
             console.log(error)
         }
