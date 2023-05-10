@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Alert, AlertTitle, Box, Button, FilledInput, FormControl, IconButton, InputAdornment, InputLabel, useMediaQuery } from "@mui/material"
+import { Alert, AlertTitle, Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FilledInput, FormControl, IconButton, InputAdornment, InputLabel, Typography, useMediaQuery } from "@mui/material"
 import TextHelper from '@mui/material/FormHelperText';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -179,7 +179,45 @@ export const PasswordChange = () => {
         <AlertTitle>¡Hubo un error en el servidor!</AlertTitle>
         {serverErrorMessage}
       </Alert>
+
+      <Dialog
+        PaperProps={{
+          sx: {
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            elevation: 0,
+            boxShadow: 'none',
+          },
+        }}
+        open={isSaving}
+      >
+        <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+          <CircularProgress sx={{ color: "white" }} />
+          <Typography sx={{ mt: 2, color: "white" }}>Cargando por favor espere...</Typography>
+        </Box>
+      </Dialog>
+
+      <Dialog
+        open={false}
+        /* onClose={handleClose} */
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Contraseña cambiada correctamente"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Por su seguridad vamos a cerrar la sesión en todos los dispositivos, por favor vuelva a ingresar con las nuevas credenciales
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" variant="contained">
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
+
   )
 }
 
