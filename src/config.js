@@ -4,7 +4,7 @@ const config = {
     /* apiUrl: 'http://154.12.236.19:128', */
 
     //PRUEBAS
-    apiUrl: 'http://192.168.194.52:8001',
+    apiUrl: 'http://mangel-pc.local:8001',
     secretKey: 'uva'
   };
   

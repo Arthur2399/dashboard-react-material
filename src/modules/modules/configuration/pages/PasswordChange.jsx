@@ -1,36 +1,44 @@
-import { useState } from "react";
+import * as Yup from 'yup';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Alert, AlertTitle, Box, Button, FilledInput, FormControl, IconButton, Input, InputAdornment, InputLabel, useMediaQuery } from "@mui/material"
+import { Alert, AlertTitle, Box, Button, FilledInput, FormControl, IconButton, InputAdornment, InputLabel, useMediaQuery } from "@mui/material"
+import TextHelper from '@mui/material/FormHelperText';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 
 import { Header } from "../../components"
+import { startChangePassowrd } from "../../../../store/modules/configuration/changePassword/thunks";
+import { clearValues } from "../../../../store/modules/configuration/changePassword/changePasswordSlice";
 
 export const PasswordChange = () => {
 
   const [showPassword, setShowPassword] = useState(false);
-  const [alertMessage, setAlertMessage] = useState(false);
-
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const { isSaving, messageError, serverErrorMessage } = useSelector(state => state.changePassword);
+  const dispatch = useDispatch();
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onChangePassword = () => {
+  useEffect(() => {
+    dispatch(clearValues())
+  }, [])
 
+  const onChangePassword = (value) => {
+    dispatch(startChangePassowrd(value))
   }
-
 
   return (
     <Box className="animate__animated animate__fadeIn">
       <Header title="Cambiar contraseña" subtitle="Cambie la contraseña para poder acceder al sistema." />
       <Formik
         initialValues={initialValues}
-        //TODO hacer validaciones
-        v/* alidationSchema={validationSchema} */
+        validationSchema={validationSchema}
         onSubmit={(values) => {
-          onChangePassword(JSON.stringify(values))
+          onChangePassword(values)
         }}
       >
         {({ values, errors, touched, resetForm }) => (
@@ -46,13 +54,13 @@ export const PasswordChange = () => {
 
               {/* CONTRASEÑA ACTUAL */}
               <FormControl sx={{ gridColumn: "span 4 " }} variant="filled">
-                <InputLabel htmlFor="current-password">Contraseña actual</InputLabel>
+                <InputLabel error={!!touched.ant_pass && !!errors.ant_pass} htmlFor="ant_pass">Contraseña actual</InputLabel>
                 < Field
                   as={FilledInput}
-                  id="current-password"
+                  id="ant_pass"
                   placeholder="Escriba su contraseña"
                   type={showPassword ? 'text' : 'password'}
-                  error={touched.password && Boolean(errors.password)}
+                  error={touched.ant_pass && Boolean(errors.ant_pass)}
                   name="ant_pass"
                   endAdornment={
                     <InputAdornment position="end">
@@ -66,12 +74,64 @@ export const PasswordChange = () => {
                     </InputAdornment>
                   }
                 />
-                <ErrorMessage name="password">
+                <ErrorMessage name="ant_pass">
                   {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
                 </ErrorMessage>
               </FormControl>
 
+              {/* NUEVA CONTRASEÑA */}
+              <FormControl sx={{ gridColumn: "span 4 " }} variant="filled">
+                <InputLabel error={!!touched.new_pass && !!errors.new_pass} htmlFor="new_pass">Nueva contraseña</InputLabel>
+                < Field
+                  as={FilledInput}
+                  id="new_pass"
+                  placeholder="Escriba su nueva contraseña"
+                  type={showPassword ? 'text' : 'password'}
+                  error={touched.new_pass && Boolean(errors.new_pass)}
+                  name="new_pass"
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                <ErrorMessage name="new_pass">
+                  {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
+                </ErrorMessage>
+              </FormControl>
 
+              {/*REPETIR CONTRASEÑA */}
+              <FormControl sx={{ gridColumn: "span 4 " }} variant="filled">
+                <InputLabel error={!!touched.confirm_pass && !!errors.confirm_pass} htmlFor="confirm_pass">Repetir contraseña</InputLabel>
+                < Field
+                  as={FilledInput}
+                  id="confirm_pass"
+                  placeholder="Repita la contraseña"
+                  type={showPassword ? 'text' : 'password'}
+                  error={touched.confirm_pass && Boolean(errors.confirm_pass)}
+                  name="confirm_pass"
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                <ErrorMessage name="confirm_pass">
+                  {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
+                </ErrorMessage>
+              </FormControl>
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -96,15 +156,28 @@ export const PasswordChange = () => {
         variant="filled"
         severity="error"
         className='animate__animated animate__backInRight'
-        onClick={() => { setAlertMessage(!alertMessage) }}
-        sx={alertMessage === false ? { display: "none" }
-          : {
-            position: "fixed",
-            top: "70px",
-            right: "10px"
-          }}>
-        <AlertTitle>¡Error!</AlertTitle>
-        Hubo un problema en el <strong>servidor.</strong>
+        sx={!!messageError ? {
+          position: "fixed",
+          top: "70px",
+          right: "10px"
+        } : { display: "none" }
+        }>
+        <AlertTitle>¡Ha ocurrido un error!</AlertTitle>
+        {messageError}
+      </Alert>
+
+      <Alert
+        variant="filled"
+        severity="warning"
+        className='animate__animated animate__backInRight'
+        sx={!!serverErrorMessage ? {
+          position: "fixed",
+          top: "70px",
+          right: "10px"
+        } : { display: "none" }
+        }>
+        <AlertTitle>¡Hubo un error en el servidor!</AlertTitle>
+        {serverErrorMessage}
       </Alert>
     </Box>
   )
@@ -115,5 +188,17 @@ const initialValues = {
   ant_pass: "",
   new_pass: "",
   confirm_pass: "",
-
 }
+
+//Validaciones
+const validationSchema = Yup.object().shape({
+  ant_pass: Yup.string()
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .required('Ingrese la contraseña actual'),
+  new_pass: Yup.string()
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
+    .required('Ingrese su  nueva contraseña'),
+  confirm_pass: Yup.string()
+    .oneOf([Yup.ref('new_pass'), null], 'Los campos deben ser iguales')
+    .required('Repita la nueva contraseña contraseña'),
+});

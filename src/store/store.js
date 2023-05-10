@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./auth";
 import { companyInfoSlice, menuSlice } from "./modules";
+import { changePasswordSlice } from "./modules/configuration/changePassword/changePasswordSlice";
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,9 @@ export const store = configureStore({
         
         //Menu dinamico segun el rol
         menu: menuSlice.reducer,
+
+        changePassword: changePasswordSlice.reducer,
+        
 
     }
 });
