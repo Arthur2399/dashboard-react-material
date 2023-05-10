@@ -53,6 +53,7 @@ export const PasswordChange = () => {
                   placeholder="Escriba su contraseña"
                   type={showPassword ? 'text' : 'password'}
                   error={touched.password && Boolean(errors.password)}
+                  name="ant_pass"
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -69,6 +70,8 @@ export const PasswordChange = () => {
                   {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
                 </ErrorMessage>
               </FormControl>
+
+
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
@@ -109,8 +112,8 @@ export const PasswordChange = () => {
 
 
 const initialValues = {
-  ant_pass: "12345678",
-  new_pass: "1Q2w3e4r",
-  confirm_pass: "1Q2w",
+  ant_pass: "",
+  new_pass: "",
+  confirm_pass: "",
 
 }
