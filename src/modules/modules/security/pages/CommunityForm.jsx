@@ -6,13 +6,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import { cityCbx, provineCbx } from "../../../../data/modules/security/mockDataSecurity";
-import { useSelector } from "react-redux";
 
 export const CommunityForm = () => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
-    const { currentCompany } = useSelector(state => state.companyInfo);
-    const company_id = currentCompany.id;
 
 
     return (
@@ -22,7 +19,7 @@ export const CommunityForm = () => {
                 initialValues={initialValues}
                 /* validationSchema={validationSchema} */
                 onSubmit={(values) => {
-                    console.log({ ...values, company_id: company_id })
+                    console.log(values)
                 }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (

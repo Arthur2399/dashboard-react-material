@@ -1,14 +1,18 @@
-import { Box, Button, useTheme } from "@mui/material";
-import { tokens } from "../../../../theme";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { customStyles } from "../../../helpers";
+import { useDispatch } from "react-redux";
 
+import { tokens } from "../../../../theme";
+import { customStyles } from "../../../helpers";
+import { Box, Button, useTheme } from "@mui/material";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+
+import { startGetCompanies } from "../../../../store/modules/security/community/thunks";
+import { communityData } from "../../../../data/modules/security/mockDataSecurity";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Header } from "../../components";
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { communityData } from "../../../../data/modules/security/mockDataSecurity";
 
 
 export const CommunityPage = () => {
@@ -17,6 +21,15 @@ export const CommunityPage = () => {
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(startGetCompanies())
+    }, [])
+
+    const onClickNewNote = () => {
+        navigate("crear")
+    }
 
     const { colorDataGrid } = customStyles();
 
@@ -76,7 +89,7 @@ export const CommunityPage = () => {
                 <Header title="Comunidad" subtitle="Cree y gestione las comunidades." />
                 <Box>
                     <Button
-                        onClick={() => { navigate("crear") }}
+                        onClick={onClickNewNote}
                         sx={{
                             backgroundColor: colors.primary[400],
                             color: colors.grey[100],
