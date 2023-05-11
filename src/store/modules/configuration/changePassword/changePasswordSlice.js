@@ -6,6 +6,7 @@ export const changePasswordSlice = createSlice({
     initialState: {
         isSaving: false,
         messageError: null,
+        confirm: false,
         serverErrorMessage: null,
     },
     reducers: {
@@ -22,14 +23,17 @@ export const changePasswordSlice = createSlice({
             state.isSaving = false;
             state.serverErrorMessage = payload;
         },
-
-        clearValues:(state)=>{
+        confirmLogout: (state) => {
+            state.confirm = true;
+        },
+        clearValues: (state) => {
             state.isSaving = false;
+            state.confirmLogout = false;
             state.messageError = null;
-            state.serverErrorMessage = null; 
+            state.serverErrorMessage = null;
         }
     }
 
 })
 
-export const { savingChanges, sendErrorMessage, sendServerErrorMessage, clearValues } = changePasswordSlice.actions;
+export const { savingChanges, sendErrorMessage, sendServerErrorMessage, clearValues, confirmLogout } = changePasswordSlice.actions;

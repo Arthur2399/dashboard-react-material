@@ -3,22 +3,25 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Alert, AlertTitle, Backdrop, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FilledInput, FormControl, IconButton, InputAdornment, InputLabel, Typography, useMediaQuery } from "@mui/material"
+import { Box, Button, FilledInput, FormControl, IconButton, InputAdornment, InputLabel, useMediaQuery } from "@mui/material"
 import TextHelper from '@mui/material/FormHelperText';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 
 import { Header } from "../../components"
 import { startChangePassowrd } from "../../../../store/modules/configuration/changePassword/thunks";
 import { clearValues } from "../../../../store/modules/configuration/changePassword/changePasswordSlice";
+import { LoadingSpinner } from '../../../components/LoadingSpinner';
+import { AlertMessage } from '../../../components/AlertMessage';
+import { startLogout } from '../../../../store/auth/thunks';
+import { AlertConfirm } from '../../../components/AlertConfirm';
 
 export const PasswordChange = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const { isSaving, messageError, serverErrorMessage } = useSelector(state => state.changePassword);
+
+  const { isSaving, messageError, serverErrorMessage, confirm } = useSelector(state => state.changePassword);
   const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,6 +32,10 @@ export const PasswordChange = () => {
 
   const onChangePassword = (value) => {
     dispatch(startChangePassowrd(value))
+  }
+
+  const confirmLogout = () => {
+    dispatch(startLogout())
   }
 
   return (
@@ -135,14 +142,6 @@ export const PasswordChange = () => {
 
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="button" title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
-                <DeleteIcon />
-              </Button>
-              <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
-                onClick={resetForm}
-              >
-                <RestartAltIcon />
-              </Button>
               <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
                 <SaveIcon sx={{ mr: 1 }} />
                 Guardar
@@ -152,75 +151,18 @@ export const PasswordChange = () => {
         )}
       </Formik>
 
-      <Alert
-        variant="filled"
-        severity="error"
-        className='animate__animated animate__backInRight'
-        sx={!!messageError ? {
-          position: "fixed",
-          top: "70px",
-          right: "10px"
-        } : { display: "none" }
-        }>
-        <AlertTitle>¡Ha ocurrido un error!</AlertTitle>
-        {messageError}
-      </Alert>
-
-      <Alert
-        variant="filled"
-        severity="warning"
-        className='animate__animated animate__backInRight'
-        sx={!!serverErrorMessage ? {
-          position: "fixed",
-          top: "70px",
-          right: "10px"
-        } : { display: "none" }
-        }>
-        <AlertTitle>¡Hubo un error en el servidor!</AlertTitle>
-        {serverErrorMessage}
-      </Alert>
-
-      <Dialog
-        PaperProps={{
-          sx: {
-            backgroundColor: 'rgba(0, 0, 0, 0)',
-            elevation: 0,
-            boxShadow: 'none',
-          },
-        }}
-        open={isSaving}
-      >
-        <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center">
-          <CircularProgress sx={{ color: "white" }} />
-          <Typography sx={{ mt: 2, color: "white" }}>Cargando por favor espere...</Typography>
-        </Box>
-      </Dialog>
-
-      <Dialog
-        open={false}
-        /* onClose={handleClose} */
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Contraseña cambiada correctamente"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Por su seguridad vamos a cerrar la sesión en todos los dispositivos, por favor vuelva a ingresar con las nuevas credenciales
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button color="primary" variant="contained">
-            Aceptar
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <AlertMessage severity="warning" title="¡Hubo un error en el servidor!" message={serverErrorMessage} />
+      <AlertMessage severity="error" title="¡Ha ocurrido un error!!" message={messageError} />
+      <LoadingSpinner isSaving={isSaving} message={"Cambiando contraseña, por favor espere."} />
+      <AlertConfirm
+        title="Contraseña cambiada correctamente"
+        message="Por su seguridad vamos a cerrar la sesión en todos los dispositivos, por favor vuelva a ingresar con las nuevas credenciales"
+        confirm={confirm}
+        buttonConfirm={confirmLogout}
+      />
     </Box>
-
   )
 }
-
 
 const initialValues = {
   ant_pass: "",

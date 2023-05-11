@@ -1,7 +1,6 @@
 import axios from "axios";
 import config from "../../../../config";
-import { startLogout } from "../../../auth/thunks"
-import { savingChanges, sendErrorMessage, sendServerErrorMessage } from "./changePasswordSlice";
+import { confirmLogout, savingChanges, sendErrorMessage, sendServerErrorMessage } from "./changePasswordSlice";
 
 export const startChangePassowrd = (value) => {
     return async (dispatch, getState) => {
@@ -9,7 +8,7 @@ export const startChangePassowrd = (value) => {
         dispatch(savingChanges());
         try {
             await axios.post(`${config.apiUrl}/authMorg/user/changePass`, value, { headers: { Authorization: token } })
-            /* dispatch(startLogout()); */
+            dispatch(confirmLogout())
         }
         catch (error) {
             if (error.response.status == 400) {
@@ -19,8 +18,6 @@ export const startChangePassowrd = (value) => {
             } else {
                 dispatch(sendServerErrorMessage(error.response.data.error))
             }
-
         }
-
     }
 }
