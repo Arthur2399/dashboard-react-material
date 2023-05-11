@@ -43,12 +43,12 @@ export const ConfigurationPages = () => {
           id="panel1bh-header"
         >
           <ListItemIcon sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Settings fontSize="small" />
+            <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
           <Typography sx={{ width: '40%', flexShrink: 0 }}>
-            Configuraciones generales
+            Usuarios
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>Edita tu perfil, cambia tu contraseña o elimina tu cuenta</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>Crea o edita usuarios y sus provilegios</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <MenuItem sx={{ ml: 3 }}>
@@ -64,38 +64,9 @@ export const ConfigurationPages = () => {
             </ListItemIcon>
             Cambiar contraseña
           </MenuItem>
-          <Divider />
-          <MenuItem sx={{ ml: 3 }}>
-            <ListItemIcon>
-              <DeleteIcon fontSize="small" />
-            </ListItemIcon>
-            Eliminar cuenta
-          </MenuItem>
         </AccordionDetails>
       </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <ListItemIcon sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <AccountCircleIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography sx={{ width: '40%', flexShrink: 0 }}>
-            Usuarios
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>Crea o edita usuarios y sus provilegios</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <MenuItem sx={{ ml: 3 }}>
-            <ListItemIcon>
-              <PersonIcon fontSize="small" />
-            </ListItemIcon>
-            Gestionar usuarios
-          </MenuItem>
-        </AccordionDetails>
-      </Accordion>
+
       <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
