@@ -1,6 +1,6 @@
 import axios from "axios";
 import config from "../../../../config";
-import { savingChanges } from "./communitySlice";
+import { getCommunities, savingChanges } from "./communitySlice";
 
 export const startGetCompanies = () => {
     return async (dispatch, getState) => {
@@ -10,7 +10,7 @@ export const startGetCompanies = () => {
         dispatch(savingChanges());
         try {
             const { data } = await axios.get(`${config.apiUrl}/security/comunity/get/${idCompany}`,{ headers: { Authorization: token } })
-            console.log(data)
+            dispatch(getCommunities(data))
         } catch (error) {
             console.log(error)
         }

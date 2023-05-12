@@ -15,6 +15,7 @@ export const communitySlice = createSlice({
         },
 
         getCommunities: (state,{payload}) => {
+            state.isSaving = false;
             state.comunities =  payload;
         },
 
