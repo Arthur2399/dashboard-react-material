@@ -70,10 +70,10 @@ export const CommunityPage = () => {
                 };
                 return (
                     <>
-                        <Button variant="contained" color="primary" onClick={handleEdit}>
+                        <Button variant="contained" sx={{ mr: 1 }} color="primary" onClick={handleEdit}>
                             <EditIcon />
                         </Button>
-                        <Button variant="contained" color="error" onClick={handleDelete}>
+                        <Button variant="contained" sx={{ mr: 1 }} color="error" onClick={handleDelete}>
                             <DeleteIcon />
                         </Button>
                     </>
