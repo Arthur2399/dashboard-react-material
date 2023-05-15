@@ -18,12 +18,12 @@ export const AppRouter = () => {
     const { status, statusCompany } = useCheckStatus();
 
     // Caso uno: Verificación de credenciales
-    if (status === 'checking') {
+    if (status === "checking") {
         return <CheckingAuth msg="Validando credenciales ..." />
     }
 
     // Caso dos: Obtención de datos de la empresa o empresas
-    if (status === 'authenticated' && statusCompany === 'no-companies' || statusCompany === 'loading') {
+    if (status === "authenticated" && statusCompany === "no-companies" || statusCompany === 'loading') {
         return <CheckingAuth msg="Cargando información de la empresa ..." />
     }
 
@@ -34,14 +34,14 @@ export const AppRouter = () => {
                     Si el valor de status es 'authenticated' dar paso a rutas privadas
                     caso contrario vuelva a redireccionar a /auth/login de AuthRoutes
                 */
-                (status === 'authenticated')
+                (status === "authenticated")
                     ? <>
                         {
                             /*
-                                Si el valor de statusCompany es 'selected' direcciona 
+                                Si el valor de statusCompany es "selected" direcciona 
                                 a dashboard del sistema caso contrar manda al AfterLogin
                             */
-                            (statusCompany === 'selected')
+                            (statusCompany === "selected")
                                 ? < Route path="/*" element={<ModulesRoutes />} />
                                 : < Route path="/*" element={<AfterLoginRoutes />} />
                         }

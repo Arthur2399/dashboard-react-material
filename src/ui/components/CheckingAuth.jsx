@@ -1,6 +1,6 @@
-import { CircularProgress, Grid, Typography } from "@mui/material"
+import { CircularProgress, Grid, Typography } from '@mui/material';
 
-export const CheckingAuth = ({msg='Cargando ...'}) => {
+export const CheckingAuth = ({ msg = "Cargando ..." }) => {
     return (
         <Grid
             container
@@ -8,14 +8,14 @@ export const CheckingAuth = ({msg='Cargando ...'}) => {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
+            sx={{ minHeight: "100vh", backgroundColor: "primary.main", padding: 4 }}
         >
             <Grid container
-                direction='column'
-                justifyContent='center'
+                direction="column"
+                justifyContent="center"
                 alignItems="center"
             >
-                <CircularProgress sx={{color:"white", mb:2}} />
+                <CircularProgress sx={{ color: "white", mb: 2 }} />
                 <Typography color="white">{msg}</Typography>
             </Grid>
         </Grid>

@@ -3,10 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
 import TextHelper from '@mui/material/FormHelperText';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-
 import { startLoginWithUserPassword } from '../../store/auth/thunks';
 import { AuthLayout } from '../layout'
 import loginGif from '/Img/login.gif';
@@ -30,7 +28,7 @@ import { tokens } from '../../theme';
 
 
 export const LoginPage = () => {
-  
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -177,14 +175,11 @@ export const LoginPage = () => {
               </Grid>
             </Form>
           )}
-
         </Formik>
-
       </Box>
     </AuthLayout>
   )
 }
-
 
 //Validaciones
 const validationSchema = Yup.object().shape({

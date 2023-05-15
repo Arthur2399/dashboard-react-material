@@ -16,7 +16,6 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { Box, Divider, ListItemIcon, MenuItem } from '@mui/material';
-import { Settings } from '@mui/icons-material';
 import { Header } from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 

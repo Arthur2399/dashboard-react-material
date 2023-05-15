@@ -1,6 +1,6 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { ConfigurationPages,CompanyPage } from "../pages"
-import { PasswordChange } from "../pages/PasswordChange"
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { ConfigurationPages, CompanyPage } from '../pages';
+import { PasswordChange } from '../pages/PasswordChange';
 
 export const ConfigurationRoutes = () => {
   return (
@@ -12,4 +12,3 @@ export const ConfigurationRoutes = () => {
     </Routes>
   )
 }
-  
