@@ -4,7 +4,6 @@ import { startGetCompany } from "../modules/ui/company/thunks";
 import { checkingCredentials, login, logout } from "./authSlice"
 import { clearCompany } from "../modules/ui/company/companyInfoSlice";
 
-import config from "../../config";
 
 
 /* OBJETIVO

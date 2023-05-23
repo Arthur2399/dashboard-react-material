@@ -7,7 +7,6 @@ import { gettingCompanies, selectCompany, setCompanies } from '../store/modules/
 import { startLogout } from '../store/auth/thunks';
 
 import { decryptData } from './useEncrypData';
-import config from '../config';
 import { getModules } from '../store/modules/ui/menu/menuSlice';
 
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "./companyInfoSlice";
 import { startCreateMenu } from "../menu/thunks";
-import config from "../../../../config";
 import { encrypData } from "../../../../hooks/useEncrypData";
 
 

@@ -1,5 +1,4 @@
 import CryptoJS from 'crypto-js';
-import config from '../config';
 
 
 export const encrypData = ( value ) => {

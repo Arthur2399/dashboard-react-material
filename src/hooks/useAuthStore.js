@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { checkingCredentials } from "../store/auth/authSlice";
+import { checkingCredentials, clearErrorMessage, login, logout } from "../store/auth/authSlice";
 import morgquickApi from "../api/morgquickApi";
 
 export const useAuthStore = () => {
@@ -11,12 +11,15 @@ export const useAuthStore = () => {
         dispatch(checkingCredentials())
         try {
             const { data } = await morgquickApi.post('/authMorg/auth/login', { email, password });
-            console.log(data)
+            sessionStorage.setItem("Token", data.token);
+            dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }))
+            /* dispatch(startGetCompany()); */
         } catch (error) {
-            console.log(error);
-
+            dispatch(logout("Credenciales incorrectas."));
+            setTimeout(() => {
+                dispatch(clearErrorMessage());
+            }, 5000);
         }
-
     }
 
     return {

@@ -1,5 +1,4 @@
 import axios from "axios";
-import config from "../../../../config";
 import { confirmLogout, savingChanges, sendErrorMessage, sendServerErrorMessage } from "./changePasswordSlice";
 
 export const startChangePassowrd = (value) => {

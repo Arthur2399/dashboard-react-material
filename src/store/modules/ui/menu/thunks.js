@@ -1,7 +1,6 @@
 import axios from "axios"
 import { checkingAccess, getModules } from "./menuSlice"
 import { decryptData } from "../../../../hooks/useEncrypData";
-import config from "../../../../config";
 
 
 export const startCreateMenu = () => {
