@@ -4,6 +4,7 @@ import { useCheckStatus } from '../hooks';
 import { ModulesRoutes } from '../modules';
 import { AuthRoutes } from '../auth';
 import { CheckingAuth } from '../ui';
+import { getEnvironments } from '../helpers/getEnvironments';
 
 export const AppRouter = () => {
 
