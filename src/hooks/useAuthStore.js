@@ -11,8 +11,8 @@ export const useAuthStore = () => {
         dispatch(checkingCredentials())
         try {
             const { data } = await morgquickApi.post('/authMorg/auth/login', { email, password });
-            sessionStorage.setItem("Token", data.token);
-            dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }))
+            sessionStorage.setItem("token", data.token);
+            dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }));
             /* dispatch(startGetCompany()); */
         } catch (error) {
             dispatch(logout("Credenciales incorrectas."));
@@ -20,6 +20,29 @@ export const useAuthStore = () => {
                 dispatch(clearErrorMessage());
             }, 5000);
         }
+    }
+
+    const checkAuthToken = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) return dispatch(logout());
+
+        try {
+            const { data } = await morgquickApi.get('/authMorg/auth/token');
+            sessionStorage.setItem("token", data.token);
+            dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }));
+        } catch (error) {
+            localStorage.clear();
+            dispatch(logout());
+        }
+    }
+
+    const startLogout = () => {
+        /*         
+        localStorage.clear();
+        sessionStorage.clear();
+        dispatch( onLogoutCalendar() );
+        dispatch( onLogout() ); 
+        */
     }
 
     return {
@@ -33,6 +56,8 @@ export const useAuthStore = () => {
         errorMessage,
 
         // Metodos
-        startLogin
+        startLogin,
+        checkAuthToken,
+        startLogout
     }
 }

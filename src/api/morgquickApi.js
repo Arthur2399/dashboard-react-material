@@ -9,16 +9,16 @@ const morgquickApi = axios.create({
 });
 
 // Todo: configurar interceptores
-/* morgquickApi.interceptors.request.use( config => {
+morgquickApi.interceptors.request.use( config => {
 
     config.headers = {
         ...config.headers,
-        'x-token': localStorage.getItem('token')
+        'Authorization': sessionStorage.getItem('token')
     }
 
     return config;
 })
 
- */
+
 export default morgquickApi;
 

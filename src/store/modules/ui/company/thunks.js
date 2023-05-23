@@ -3,8 +3,6 @@ import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, unsel
 import { startCreateMenu } from "../menu/thunks";
 import { encrypData } from "../../../../hooks/useEncrypData";
 
-
-
 /* OBJETIVO
     Este thunk cumplicará la siguientes tareas:
         1. Pedir el token de acceso al SessionStorage
