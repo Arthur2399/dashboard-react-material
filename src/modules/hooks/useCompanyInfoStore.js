@@ -1,54 +1,44 @@
-import { useDispatch } from "react-redux";
-import { loadingCompanies } from "../../store/modules/ui/company/companyInfoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
+import morgquickApi from "../../api/morgquickApi";
 
 export const useCompanyInfoStore = () => {
 
+    const { status, companies, currentCompany } = useSelector(state => state.companyInfo)
     const dispatch = useDispatch();
 
 
-    const startGetCompany = () => {
+    const startGetCompany = async () => {
+        dispatch(loadingCompanies());
+        try {
+            const { data } = await morgquickApi.get('/company/companyuser/company');
+            dispatch(gettingCompanies(data));
 
-        return async (dispatch, getState) => {
-            //Cambia el estado a 'Loading'
-            dispatch(loadingCompanies());
+            if (data.length > 1) return dispatch(unselectedCompany());
 
-            //Extraer token del state de authSlice
-            const { token } = getState().auth;
-            try {
-                const { data } = await axios.get(`${config.apiUrl}/company/companyuser/company`, { headers: { Authorization: token } })
-                dispatch(gettingCompanies(data));
+            //Desfracmetación y aislamiento del atributo fiscal_exercise
+            const { fiscal_exercise, ...newData } = data[0];
 
-                //Validación seleccion de empresa
-                /* NOTA
-                    Si el valor de la peticion tiene un listas de objetos superior a uno hara el despacho de
-                    unselectedComany() que cambiará el estado a 'no-selected' por el contrario si es menor a 1
-                    despachará selectCompany() cambiando el estado a selected.
-                */
-                if (data.length > 1) return dispatch(unselectedCompany());
+            //Reconstrucción del objeto con el valor de fiscal_exercise en la posición [0]
+            const companySelected = { ...newData, fiscal_exercise: fiscal_exercise[0] }
 
-                //Desfracmetación y aislamiento del atributo fiscal_exercise
-                const { fiscal_exercise, ...newData } = data[0];
+            //Encriptación de la información
+            const encryptedData = encrypData(companySelected);
 
-                //Reconstrucción del objeto con el valor de fiscal_exercise en la posición [0]
-                const companySelected = { ...newData, fiscal_exercise: fiscal_exercise[0] }
+            //Guardar la información de la empresa seleccionada en el localStorage del navegador
+            localStorage.setItem("Company", encryptedData);
 
-                //Encriptación de la información
-                const encryptedData = encrypData(companySelected);
+            //Seteo de la informacion en state currentCompany de companyInfoSlice.js
+            dispatch(selectCompany(companySelected));
 
-                //Guardar la información de la empresa seleccionada en el localStorage del navegador
-                localStorage.setItem("Company", encryptedData);
+            //Crear menu
+            /* dispatch(startCreateMenu()) */
 
-                //Seteo de la informacion en state currentCompany de companyInfoSlice.js
-                dispatch(selectCompany(companySelected));
-
-                //Crear menu
-                dispatch(startCreateMenu())
-
-            } catch (error) {
-                console.log(error)
-            }
+        } catch (error) {
+            console.log(error)
         }
     }
+
 
     const startSelectionCompany = ({ company, fiscalExercise }) => {
         return async (dispatch, getState) => {
@@ -97,7 +87,9 @@ export const useCompanyInfoStore = () => {
 
     return {
         //Atributos
-
+        status,
+        companies,
+        currentCompany,
 
 
         //Métodos

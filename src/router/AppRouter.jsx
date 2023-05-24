@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AfterLoginRoutes } from '../auth/afterLogin/routes';
-import { useAuthStore, useCheckStatus } from '../hooks';
+import { useAuthStore } from '../hooks';
 import { ModulesRoutes } from '../modules';
 import { AuthRoutes } from '../auth';
 import { CheckingAuth } from '../ui';
-import { getEnvironments } from '../helpers/getEnvironments';
-import { useEffect } from 'react';
+import { useCompanyInfoStore } from '../modules/hooks/useCompanyInfoStore';
 
 export const AppRouter = () => {
 
@@ -16,16 +16,13 @@ export const AppRouter = () => {
             privadas y públicas.
     */
 
-    // Hook verificador de estado
-    //const { status, statusCompany } = useCheckStatus();
-
-
     const { status, checkAuthToken } = useAuthStore();
+    const { status: statusCompany } = useCompanyInfoStore();
 
     useEffect(() => {
         checkAuthToken();
     }, [])
-    
+
 
     // Caso uno: Verificación de credenciales
     if (status === "checking") {
