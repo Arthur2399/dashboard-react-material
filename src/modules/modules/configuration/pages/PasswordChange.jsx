@@ -13,13 +13,16 @@ import { clearValues } from "../../../../store/modules/configuration/changePassw
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
 import { AlertMessage } from '../../../components/AlertMessage';
 import { AlertConfirm } from '../../../components/AlertConfirm';
+import { usePasswordChangeStore } from '../hooks/usePasswordChangeStore';
+import { useAuthStore } from '../../../../hooks/useAuthStore';
 
 export const PasswordChange = () => {
 
+  const { isSaving, messageError, serverErrorMessage, confirm, startChangePassword } = usePasswordChangeStore();
+  const { startLogout } = useAuthStore();
   const [showPassword, setShowPassword] = useState(false);
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const { isSaving, messageError, serverErrorMessage, confirm } = useSelector(state => state.changePassword);
   const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -29,11 +32,7 @@ export const PasswordChange = () => {
   }, [])
 
   const onChangePassword = (value) => {
-    /* dispatch(startChangePassowrd(value)) */
-  }
-
-  const confirmLogout = () => {
-    /* dispatch(startLogout()) */
+    startChangePassword(value);
   }
 
   return (
@@ -156,7 +155,7 @@ export const PasswordChange = () => {
         title="Contraseña cambiada correctamente"
         message="Por su seguridad vamos a cerrar la sesión en todos los dispositivos, por favor vuelva a ingresar con las nuevas credenciales"
         confirm={confirm}
-        buttonConfirm={confirmLogout}
+        buttonConfirm={startLogout}
       />
     </Box>
   )
