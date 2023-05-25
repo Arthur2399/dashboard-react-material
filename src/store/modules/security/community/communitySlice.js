@@ -3,25 +3,27 @@ import { createSlice } from "@reduxjs/toolkit";
 export const communitySlice = createSlice({
     name: 'community',
     initialState: {
-        isSaving: false,
-        errorMessage: null,
-        serverMessage: null,
+        isLoadingCommunity: true,
         comunities: [],
-        active: null
+        active: null,
+        serverMessage: null,
+        errorMessage: null,
     },
     reducers: {
-        savingChanges: (state) => {
-            state.isSaving = true;
-        },
 
-        getCommunities: (state,{payload}) => {
-            state.isSaving = false;
-            state.comunities =  payload;
-        },
+        onLoadCommunities: (state, { payload = [] }) => {
+            state.isLoadingCommunity = false;
+            payload.forEach( community => {
+                const exists = state.comunities.some( dbCommunity => dbCommunity.id === community.id );
+                if ( !exists ) {
+                    state.comunities.push( community )
+                }
+            })
+        },        
 
-        addNewCommunity: (state) => {
-        },
+
+
     }
 })
 
-export const { savingChanges, addNewCommunity, getCommunities} = communitySlice.actions;
+export const { onLoadCommunities} = communitySlice.actions;
