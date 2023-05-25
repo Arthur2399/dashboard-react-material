@@ -6,7 +6,7 @@ import { useCompanyInfoStore } from "../modules/hooks/useCompanyInfoStore";
 export const useAuthStore = () => {
 
     const { status, email, name, job, photoURL, token, errorMessage } = useSelector(state => state.auth)
-    const {startGetCompany} = useCompanyInfoStore();
+    const { startGetCompany } = useCompanyInfoStore();
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
@@ -38,12 +38,9 @@ export const useAuthStore = () => {
     }
 
     const startLogout = () => {
-        /*         
         localStorage.clear();
         sessionStorage.clear();
-        dispatch( onLogoutCalendar() );
-        dispatch( onLogout() ); 
-        */
+        dispatch(logout());
     }
 
     return {
