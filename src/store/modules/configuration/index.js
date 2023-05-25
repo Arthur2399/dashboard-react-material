@@ -1,1 +1,1 @@
-export * from './changePassword/thunks'; 
+export * from './changePassword/changePasswordSlice'; 

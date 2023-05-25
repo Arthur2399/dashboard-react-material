@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -7,7 +6,6 @@ import { customStyles } from "../../../helpers";
 import { Box, Button, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
-import { startGetCompanies } from "../../../../store/modules/security/community/thunks";
 import { communityData } from "../../../../data/modules/security/mockDataSecurity";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -22,10 +20,6 @@ export const CommunityPage = () => {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(startGetCompanies())
-    }, [])
 
     const onClickNewNote = () => {
         navigate("crear")
