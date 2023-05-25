@@ -27,10 +27,10 @@ export const changePasswordSlice = createSlice({
             state.confirm = true;
         },
         clearValues: (state) => {
-            state.isSaving = false;
-            state.confirmLogout = false;
-            state.messageError = null;
-            state.serverErrorMessage = null;
+            state.isSaving= false;
+            state.messageError= null;
+            state.confirm= false;
+            state.serverErrorMessage= null;
         }
     }
 

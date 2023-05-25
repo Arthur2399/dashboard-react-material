@@ -77,7 +77,7 @@ export const PasswordChange = () => {
                       </IconButton>
                     </InputAdornment>
                   }
-                />
+              />
                 <ErrorMessage name="ant_pass">
                   {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
                 </ErrorMessage>
