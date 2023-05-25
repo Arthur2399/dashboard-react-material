@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import morgquickApi from "../../api/morgquickApi";
 import { encrypData } from "../../hooks/useEncrypData";
 import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
+import { useMenuStore } from "./useMenuStore";
 
 export const useCompanyInfoStore = () => {
 
     const { status, companies, currentCompany } = useSelector(state => state.companyInfo)
+    const { startCreateMenu } = useMenuStore();
     const dispatch = useDispatch();
-
 
     const startGetCompany = async () => {
         dispatch(loadingCompanies());
@@ -33,7 +34,7 @@ export const useCompanyInfoStore = () => {
             dispatch(selectCompany(companySelected));
 
             //Crear menu
-            /* dispatch(startCreateMenu()) */
+            startCreateMenu();
 
         } catch (error) {
             console.log(error)
