@@ -1,11 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ModulesRoutes } from '../../../modules/routes/ModulesRoutes';
 import { AfterLogin } from '../pages/AfterLogin';
-import { useCheckStatus } from '../../../hooks';
+import { useCompanyInfoStore } from '../../../modules/hooks/useCompanyInfoStore';
 
 export const AfterLoginRoutes = () => {
 
-    const { statusCompany } = useCheckStatus();
+    const { statusCompany } = useCompanyInfoStore();
 
     return (
         <Routes>

@@ -66,7 +66,7 @@ export const useCompanyInfoStore = () => {
         dispatch(selectCompany(selectedCompany))
 
         //Crear menu
-        dispatch(startCreateMenu())
+        startCreateMenu();
     }
 
     const checkingCompany = async () => {
