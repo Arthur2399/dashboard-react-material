@@ -85,8 +85,7 @@ export const useCompanyInfoStore = () => {
             const dataCompany = JSON.parse(decryptedData);
 
             // Peticion del Menu
-/*             const { data:menuData } = await morgquickApi.get(`${config.apiUrl}/menu/asingUser/get/${dataCompany.id}`, { headers: { Authorization: token } })
-            dispatch(getModules(menuData)) */
+            startCreateMenu();
 
             // Setea la informacion como empresa seleccionada
             dispatch(selectCompany(dataCompany));

@@ -21,8 +21,6 @@ export const useMenuStore = () => {
         }
     }
 
-
-
     return {
 
         /* Atributos */
