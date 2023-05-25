@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { confirmLogout, sendErrorMessage, sendServerErrorMessage } from "../../../../store/modules/configuration/changePassword/changePasswordSlice";
-import { savingChanges } from "../../../../store/modules";
+import { confirmLogout, sendErrorMessage, sendServerErrorMessage, savingChanges } from "../../../../store/modules/configuration/changePassword/changePasswordSlice";
 import morgquickApi from "../../../../api/morgquickApi";
 
 export const usePasswordChangeStore = () => {

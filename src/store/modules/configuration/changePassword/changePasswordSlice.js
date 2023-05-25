@@ -12,8 +12,6 @@ export const changePasswordSlice = createSlice({
     reducers: {
         savingChanges: (state) => {
             state.isSaving = true;
-            state.messageError = null;
-            state.serverErrorMessage = null;
         },
         sendErrorMessage: (state, { payload }) => {
             state.isSaving = false;
