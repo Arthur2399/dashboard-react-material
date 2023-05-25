@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
 import morgquickApi from "../../api/morgquickApi";
+import { encrypData } from "../../hooks/useEncrypData";
+import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
 
 export const useCompanyInfoStore = () => {
 
@@ -13,18 +14,18 @@ export const useCompanyInfoStore = () => {
         try {
             const { data } = await morgquickApi.get('/company/companyuser/company');
             dispatch(gettingCompanies(data));
-
+            
             if (data.length > 1) return dispatch(unselectedCompany());
-
+            
             //Desfracmetación y aislamiento del atributo fiscal_exercise
             const { fiscal_exercise, ...newData } = data[0];
 
             //Reconstrucción del objeto con el valor de fiscal_exercise en la posición [0]
             const companySelected = { ...newData, fiscal_exercise: fiscal_exercise[0] }
-
+            
             //Encriptación de la información
             const encryptedData = encrypData(companySelected);
-
+            
             //Guardar la información de la empresa seleccionada en el localStorage del navegador
             localStorage.setItem("Company", encryptedData);
 
@@ -33,7 +34,7 @@ export const useCompanyInfoStore = () => {
 
             //Crear menu
             /* dispatch(startCreateMenu()) */
-
+            
         } catch (error) {
             console.log(error)
         }

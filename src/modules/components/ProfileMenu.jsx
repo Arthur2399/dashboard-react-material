@@ -9,7 +9,6 @@ import HelpIcon from '@mui/icons-material/Help';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
-import { startChangeCompany } from '../../store/modules/ui/company/thunks';
 
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {

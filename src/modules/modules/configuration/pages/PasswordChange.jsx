@@ -9,11 +9,9 @@ import TextHelper from '@mui/material/FormHelperText';
 import SaveIcon from '@mui/icons-material/Save';
 
 import { Header } from "../../components"
-import { startChangePassowrd } from "../../../../store/modules/configuration/changePassword/thunks";
 import { clearValues } from "../../../../store/modules/configuration/changePassword/changePasswordSlice";
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
 import { AlertMessage } from '../../../components/AlertMessage';
-import { startLogout } from '../../../../store/auth/thunks';
 import { AlertConfirm } from '../../../components/AlertConfirm';
 
 export const PasswordChange = () => {
@@ -31,11 +29,11 @@ export const PasswordChange = () => {
   }, [])
 
   const onChangePassword = (value) => {
-    dispatch(startChangePassowrd(value))
+    /* dispatch(startChangePassowrd(value)) */
   }
 
   const confirmLogout = () => {
-    dispatch(startLogout())
+    /* dispatch(startLogout()) */
   }
 
   return (

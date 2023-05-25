@@ -15,7 +15,7 @@ export const useAuthStore = () => {
             const { data } = await morgquickApi.post('/authMorg/auth/login', { email, password });
             sessionStorage.setItem("token", data.token);
             dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }));
-            dispatch(startGetCompany());
+            startGetCompany();
         } catch (error) {
             dispatch(logout("Credenciales incorrectas."));
             setTimeout(() => {

@@ -3,12 +3,10 @@ import * as Yup from 'yup';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux";
-import { startLogout } from "../../../store/auth/thunks";
 import { AuthLayout } from "../../layout";
 import afterLoginGif from '/Img/after-login.gif'
 import TextHelper from '@mui/material/FormHelperText';
 
-import { startSelectionCompany } from "../../../store/modules/ui/company/thunks";
 
 export const AfterLogin = () => {
 
@@ -33,11 +31,11 @@ export const AfterLogin = () => {
 
 
   const onCompanySelect = (data) => {
-    dispatch(startSelectionCompany({...data}))
+    /* dispatch(startSelectionCompany({...data})) */
   }
 
   const onLogout = () => {
-    dispatch(startLogout())
+   /*  dispatch(startLogout()) */
   }
 
   const validationSchema = Yup.object().shape({

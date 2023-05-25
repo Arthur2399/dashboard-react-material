@@ -9,7 +9,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 
 import { tokens } from "../../theme";
-import { startLogout } from "../../store/auth/thunks";
 import { ProfileMenu } from "./ProfileMenu";
 import { Notifications } from "./Notifications";
 
@@ -44,7 +43,7 @@ export const TopBar = () => {
 
 
     const onLogout = () => {
-        dispatch(startLogout());
+        /* dispatch(startLogout()); */
     }
 
 

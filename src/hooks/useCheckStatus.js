@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
 
 import { login, logout } from '../store/auth/authSlice';
 import { gettingCompanies, selectCompany, setCompanies } from '../store/modules/ui/company/companyInfoSlice';
-import { startLogout } from '../store/auth/thunks';
 
 import { decryptData } from './useEncrypData';
 import { getModules } from '../store/modules/ui/menu/menuSlice';
@@ -32,7 +30,6 @@ export const useCheckStatus = () => {
             7. Volver a guardar empresa seleccionada en localStorage encryptado
     */
 
-    useEffect(() => {
 
         const verifyCredentials = async () => {
 
@@ -85,9 +82,7 @@ export const useCheckStatus = () => {
             }
         }
 
-        verifyCredentials();
 
-    }, [])
 
     return {
         status,
