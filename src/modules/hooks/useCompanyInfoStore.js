@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import morgquickApi from "../../api/morgquickApi";
-import { encrypData } from "../../hooks/useEncrypData";
-import { gettingCompanies, loadingCompanies, selectCompany, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
+import { decryptData, encrypData } from "../../hooks/useEncrypData";
+import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, setCompanies, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
 import { useMenuStore } from "./useMenuStore";
 
 export const useCompanyInfoStore = () => {
@@ -69,11 +69,35 @@ export const useCompanyInfoStore = () => {
         dispatch(startCreateMenu())
     }
 
-    const startChangeCompany = () => {
-        return async (dispatch) => {
-            localStorage.removeItem("Company")
-            dispatch(changeCompany())
+    const checkingCompany = async () => {
+        const company = localStorage.getItem("Company");
+        try {
+            const { data } = await morgquickApi.get(`/company/companyuser/company`)
+
+            if (!company) return dispatch(gettingCompanies(data));
+
+            dispatch(setCompanies(data));
+
+            // Desecripta la informacion de compania
+            const decryptedData = decryptData(company);
+
+            // Transforma en JSON
+            const dataCompany = JSON.parse(decryptedData);
+
+            // Peticion del Menu
+/*             const { data:menuData } = await morgquickApi.get(`${config.apiUrl}/menu/asingUser/get/${dataCompany.id}`, { headers: { Authorization: token } })
+            dispatch(getModules(menuData)) */
+
+            // Setea la informacion como empresa seleccionada
+            dispatch(selectCompany(dataCompany));
+        } catch (error) {
+            console.log(error)
         }
+    }
+
+    const startChangeCompany = () => {
+        localStorage.removeItem("Company")
+        dispatch(changeCompany())
     }
 
 
@@ -85,6 +109,7 @@ export const useCompanyInfoStore = () => {
         currentCompany,
         //Métodos
         startGetCompany,
+        checkingCompany,
         startSelectionCompany,
         startChangeCompany,
     }

@@ -9,18 +9,12 @@ import { useCompanyInfoStore } from '../modules/hooks/useCompanyInfoStore';
 
 export const AppRouter = () => {
 
-    /*  
-        PUNTO DE INICIO DE LA APLICACIÓN
-            En estan parte se valida el estado de dos slice el authSlice y 
-            companyInfoSlice donde segun su valor da paso o no a las rutas
-            privadas y públicas.
-    */
-
     const { status, checkAuthToken } = useAuthStore();
-    const { status: statusCompany } = useCompanyInfoStore();
+    const { status: statusCompany, checkingCompany } = useCompanyInfoStore();
 
     useEffect(() => {
         checkAuthToken();
+        checkingCompany();
     }, [])
 
 

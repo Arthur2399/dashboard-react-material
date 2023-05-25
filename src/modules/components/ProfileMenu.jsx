@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAuthStore } from '../../hooks/useAuthStore';
+import { useCompanyInfoStore } from '../hooks/useCompanyInfoStore';
+
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,16 +15,10 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
-    const { photoURL } = useSelector(state => state.auth);
-    const { currentCompany } = useSelector(state => state.companyInfo);
+    const { photoURL } = useAuthStore();
+    const { currentCompany,startChangeCompany } = useCompanyInfoStore();
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const onChangeCompany = () => {
-        dispatch(startChangeCompany());
-    }
-
 
     const onNavigateConfiguration = () => {
         navigate("/configuracion")
@@ -68,7 +64,7 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
                 <Avatar src={photoURL} /> Mi perfil
             </MenuItem>
             <Divider />
-            <MenuItem onClick={onChangeCompany}>
+            <MenuItem onClick={startChangeCompany}>
                 <ListItemIcon>
                     <LocationCityIcon />
                 </ListItemIcon>
