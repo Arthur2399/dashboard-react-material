@@ -16,7 +16,6 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { Box, Divider, ListItemIcon, MenuItem } from '@mui/material';
-import { Settings } from '@mui/icons-material';
 import { Header } from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,43 +42,6 @@ export const ConfigurationPages = () => {
           id="panel1bh-header"
         >
           <ListItemIcon sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          <Typography sx={{ width: '40%', flexShrink: 0 }}>
-            Configuraciones generales
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>Edita tu perfil, cambia tu contraseña o elimina tu cuenta</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <MenuItem sx={{ ml: 3 }}>
-            <ListItemIcon>
-              <PersonIcon fontSize="small" />
-            </ListItemIcon>
-            Mi perfil
-          </MenuItem>
-          <Divider />
-          <MenuItem sx={{ ml: 3 }}>
-            <ListItemIcon>
-              <LockIcon fontSize="small" />
-            </ListItemIcon>
-            Cambiar contraseña
-          </MenuItem>
-          <Divider />
-          <MenuItem sx={{ ml: 3 }}>
-            <ListItemIcon>
-              <DeleteIcon fontSize="small" />
-            </ListItemIcon>
-            Eliminar cuenta
-          </MenuItem>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <ListItemIcon sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <AccountCircleIcon fontSize="small" />
           </ListItemIcon>
           <Typography sx={{ width: '40%', flexShrink: 0 }}>
@@ -92,10 +54,18 @@ export const ConfigurationPages = () => {
             <ListItemIcon>
               <PersonIcon fontSize="small" />
             </ListItemIcon>
-            Gestionar usuarios
+            Mi perfil
+          </MenuItem>
+          <Divider />
+          <MenuItem sx={{ ml: 3 }} onClick={() => onNavigate("cambiarContrasena")}>
+            <ListItemIcon>
+              <LockIcon fontSize="small" />
+            </ListItemIcon>
+            Cambiar contraseña
           </MenuItem>
         </AccordionDetails>
       </Accordion>
+
       <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

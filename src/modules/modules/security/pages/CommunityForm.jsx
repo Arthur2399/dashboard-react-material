@@ -1,16 +1,14 @@
-import { Alert, AlertTitle, Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material";
+import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material";
 import { Header } from "../../components";
 import { Field, Form, Formik } from "formik";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
-import { useState } from "react";
-import { cityCbx, provineCbx, userCbx } from "../../../../data/modules/security/mockDataSecurity";
+import { cityCbx, provineCbx } from "../../../../data/modules/security/mockDataSecurity";
 
 export const CommunityForm = () => {
 
-    const [alertMessage, setAlertMessage] = useState(false);
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
 
@@ -21,7 +19,7 @@ export const CommunityForm = () => {
                 initialValues={initialValues}
                 /* validationSchema={validationSchema} */
                 onSubmit={(values) => {
-                    console.log(JSON.stringify(values))
+                    console.log(values)
                 }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (
@@ -43,29 +41,49 @@ export const CommunityForm = () => {
                                 variant="filled"
                                 label="Nombre de comunidad"
                                 placeholder="Ingrese el nombre de la comunidad"
-                                name="communityName"
-                                error={errors.communityName && touched.communityName}
-                                helperText={errors.communityName && touched.communityName && errors.communityName}
+                                name="name_community"
+                                error={errors.name_community && touched.name_community}
+                                helperText={errors.name_community && touched.name_community && errors.name_community}
                                 sx={{ gridColumn: "span 4" }}
+                            />
+
+                            {/* PAIS */}
+                            <Autocomplete
+                                options={provineCbx}
+                                getOptionLabel={(option) => option.label}
+                                value={provineCbx.find((option) => option.value === values.country_id) || null}
+                                onBlur={() => setFieldTouched('country_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('country_id', newValue ? newValue.value : null);
+                                }}
+                                sx={{ gridColumn: "span 4" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Pais"
+                                        placeholder="Busque y escoja un pais"
+                                        name="country_id"
+                                        error={errors.country_id && touched.country_id}
+                                        helperText={errors.country_id && touched.country_id && errors.country_id}
+                                        variant="filled" />}
                             />
 
                             {/* PROVINCIA */}
                             <Autocomplete
                                 options={provineCbx}
                                 getOptionLabel={(option) => option.label}
-                                value={provineCbx.find((option) => option.value === values.province) || null}
-                                onBlur={() => setFieldTouched('province', true)}
+                                value={provineCbx.find((option) => option.value === values.province_id) || null}
+                                onBlur={() => setFieldTouched('province_id', true)}
                                 onChange={(event, newValue) => {
-                                    setFieldValue('province', newValue ? newValue.value : null);
+                                    setFieldValue('province_id', newValue ? newValue.value : null);
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Provincia"
                                         placeholder="Busque y escoja una provincia"
-                                        name="province"
-                                        error={errors.province && touched.province}
-                                        helperText={errors.province && touched.province && errors.province}
+                                        name="province_id"
+                                        error={errors.province_id && touched.province_id}
+                                        helperText={errors.province_id && touched.province_id && errors.province_id}
                                         variant="filled" />}
                             />
 
@@ -73,19 +91,19 @@ export const CommunityForm = () => {
                             <Autocomplete
                                 options={cityCbx}
                                 getOptionLabel={(option) => option.label}
-                                value={cityCbx.find((option) => option.value === values.city) || null}
-                                onBlur={() => setFieldTouched('city', true)}
+                                value={cityCbx.find((option) => option.value === values.city_id) || null}
+                                onBlur={() => setFieldTouched('city_id', true)}
                                 onChange={(event, newValue) => {
-                                    setFieldValue('city', newValue ? newValue.value : null);
+                                    setFieldValue('city_id', newValue ? newValue.value : null);
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Ciudad"
                                         placeholder="Busque y escoja una ciudad"
-                                        name="city"
-                                        error={errors.city && touched.city}
-                                        helperText={errors.city && touched.city && errors.city}
+                                        name="city_id"
+                                        error={errors.city_id && touched.city_id}
+                                        helperText={errors.city_id && touched.city_id && errors.city_id}
                                         variant="filled" />}
                             />
 
@@ -113,9 +131,9 @@ export const CommunityForm = () => {
                                 label="Mensaje de prioridad baja"
                                 minRows={5}
                                 placeholder="Ingrese mensaje de prioridad baja"
-                                name="messageGreen"
-                                error={errors.messageGreen && touched.messageGreen}
-                                helperText={errors.messageGreen && touched.messageGreen && errors.messageGreen}
+                                name="low_message"
+                                error={errors.low_message && touched.low_message}
+                                helperText={errors.low_message && touched.low_message && errors.low_message}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -129,9 +147,9 @@ export const CommunityForm = () => {
                                 label="Mensaje de prioridad media"
                                 minRows={5}
                                 placeholder="Ingrese mensaje de prioridad media"
-                                name="messageYellow"
-                                error={errors.messageYellow && touched.messageYellow}
-                                helperText={errors.messageYellow && touched.messageYellow && errors.messageYellow}
+                                name="med_message"
+                                error={errors.med_message && touched.med_message}
+                                helperText={errors.med_message && touched.med_message && errors.med_message}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -145,9 +163,9 @@ export const CommunityForm = () => {
                                 label="Mensaje de prioridad alta"
                                 minRows={5}
                                 placeholder="Ingrese mensaje de prioridad alta"
-                                name="messageRed"
-                                error={errors.messageRed && touched.messageRed}
-                                helperText={errors.messageRed && touched.messageRed && errors.messageRed}
+                                name="high_message"
+                                error={errors.high_message && touched.high_message}
+                                helperText={errors.high_message && touched.high_message && errors.high_message}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -169,32 +187,19 @@ export const CommunityForm = () => {
                     </Form>
                 )}
             </Formik>
-
-            <Alert
-                variant="filled"
-                severity="error"
-                className='animate__animated animate__backInRight'
-                /* onClick={() => { setAlertMessage(!alertMessage) }} */
-                sx={alertMessage === false ? { display: "none" }
-                    : {
-                        position: "fixed",
-                        top: "70px",
-                        right: "10px"
-                    }}>
-                <AlertTitle>¡Error!</AlertTitle>
-                Hubo un problema en el <strong>servidor.</strong>
-            </Alert>
         </Box>
     )
 }
 
 
 const initialValues = {
-    communityName: "",
-    province: null,
-    city: null,
+    company_id: null,
+    name_community: "",
+    country_id: null,
+    province_id: null,
+    city_id: null,
     address: "",
-    messageGreen: "",
-    messageYellow: "",
-    messageRed: "",
+    low_message: "",
+    med_message: "",
+    high_message: "",
 }

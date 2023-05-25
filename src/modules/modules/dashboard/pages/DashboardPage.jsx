@@ -1,15 +1,16 @@
 
-import { Header } from "../../components";
-import { LineChart, StatBox } from "../components/";
+import { Header } from '../../components';
+import { LineChart, StatBox } from '../components/';
+import { tokens } from '../../../../theme';
 
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import { Box, Button, IconButton, Typography, useTheme } from '@mui/material';
+import { mockTransactions } from '../../../../data/modules/dashboard/mockData';
+
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { tokens } from "../../../../theme";
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { mockTransactions } from "../../../../data/modules/dashboard/mockData";
+import EmailIcon from '@mui/icons-material/Email';
+import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 export const DashboardPage = () => {
@@ -124,7 +125,6 @@ export const DashboardPage = () => {
             }
           />
         </Box>
-
 
         {/* ROW 2 */}
         <Box

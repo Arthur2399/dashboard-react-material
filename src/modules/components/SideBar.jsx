@@ -22,17 +22,19 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import SchoolIcon from '@mui/icons-material/School';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import MessageIcon from '@mui/icons-material/Message';
 
 import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
-import profileImg from "../../data/img/perfil.jpg"
+import profileImg from "/Img/profile.png"
 import logo from "/logos/LogoERAS.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
-import { mockDataMenu } from "../../data/ui/menu/mockDataMenu";
+import { useSelector } from "react-redux";
 
 
 const iconComp = {
@@ -55,10 +57,12 @@ const iconComp = {
   "AccountCircleIcon":<AccountCircleIcon/>,
   "Diversity3Icon":<Diversity3Icon/>,
   "MapIcon":<MapIcon/>,
+  "LocalPoliceIcon":<LocalPoliceIcon/>,
+  "MessageIcon":<MessageIcon/>,
 }
 
 /* ITEM */
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, url, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -71,7 +75,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       icon={iconComp[icon]}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
+      <Link to={url} />
     </MenuItem>
   );
 };
@@ -98,12 +102,16 @@ const RenderItem = ({ item, selected, setSelected }) => {
     );
   } else {
     return (
-      <Item key={item.id} title={item.title} to={item.to} icon={item.icon} selected={selected} setSelected={setSelected} />
+      <Item key={item.id} title={item.title} url={item.url} icon={item.icon} selected={selected} setSelected={setSelected} />
     );
   }
 }
 
 export const SideBar = () => {
+  
+  const { modules } = useSelector(state => state.menu);
+  const { name, job, photoURL } = useSelector(state => state.auth);
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -166,7 +174,7 @@ export const SideBar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={profileImg}
+                  src={photoURL == null ?profileImg : photoURL}
                   style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
                 />
               </Box>
@@ -177,17 +185,17 @@ export const SideBar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Arthur Chávez
+                  {name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Ing.Sistemas
+                  {job}
                 </Typography>
               </Box>
             </Box>
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{ cursor: 'default', userSelect: 'none' }}>
-            {mockDataMenu.map((item) => (
+            {modules.map((item) => (
               item.titleGroup ? (
                 <Typography
                   key={item.id}

@@ -20,7 +20,6 @@ export const UserForm = () => {
 
   const onCreateUser = (data) => {
     setAlertMessage(!alertMessage)
-    console.log(data)
     /* navigate("/seguridad/usuarios"); */
   }
 
@@ -190,8 +189,8 @@ const initialValues = {
   lastName: "",
   email: "",
   phone: "",
-  communityId: 2,
-  rollId: 4,
+  communityId: null,
+  rollId: null,
 }
 
 const validationSchema = Yup.object().shape({

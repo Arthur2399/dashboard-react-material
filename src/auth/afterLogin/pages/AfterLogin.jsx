@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select } from "@mui/material"
-import { useDispatch, useSelector } from "react-redux";
-import { startLogout } from "../../../store/auth/thunks";
 import { AuthLayout } from "../../layout";
 import afterLoginGif from '/Img/after-login.gif'
 import TextHelper from '@mui/material/FormHelperText';
+import { useCompanyInfoStore } from "../../../modules/hooks/useCompanyInfoStore";
+import { useAuthStore } from "../../../hooks/useAuthStore";
 
-import { startSelectionCompany } from "../../../store/modules/ui/company/thunks";
 
 export const AfterLogin = () => {
 
-  const { companies } = useSelector(state => state.companyInfo);
-  const [idCompany, setidCompany] = useState('');
+  const {companies, startSelectionCompany} = useCompanyInfoStore();
+  const {startLogout} = useAuthStore();
+
   const [fiscalExerciseList, setFiscalExerciseList] = useState([]);
+  const [idCompany, setidCompany] = useState('');
   const [isDisable, setIsDisable] = useState(true);
 
-  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -33,11 +33,7 @@ export const AfterLogin = () => {
 
 
   const onCompanySelect = (data) => {
-    dispatch(startSelectionCompany({...data}))
-  }
-
-  const onLogout = () => {
-    dispatch(startLogout())
+    startSelectionCompany({...data});
   }
 
   const validationSchema = Yup.object().shape({
@@ -150,7 +146,7 @@ export const AfterLogin = () => {
                 </Grid>
                 <Grid item>
                   <Link
-                    onClick={onLogout}
+                    onClick={startLogout}
                     color='inherit'
                     sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" }, cursor: "pointer" }}
                   >

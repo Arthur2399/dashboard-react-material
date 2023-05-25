@@ -1,16 +1,11 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios';
-import CryptoJS from 'crypto-js';
-
 
 import { login, logout } from '../store/auth/authSlice';
-import { userData } from '../data/auth/userData';
-import { companyData } from '../data/ui/companyData';
-import { gettingCompanies, selectCompany, setCompanies, unselectedCompany } from '../store/modules/ui/company/companyInfoSlice';
-import config from '../config';
-import { startGetCompany } from '../store/modules/ui/company/thunks';
-import { startLogout } from '../store/auth/thunks';
+import { gettingCompanies, selectCompany, setCompanies } from '../store/modules/ui/company/companyInfoSlice';
+
+import { decryptData } from './useEncrypData';
+import { getModules } from '../store/modules/ui/menu/menuSlice';
 
 
 export const useCheckStatus = () => {
@@ -35,14 +30,13 @@ export const useCheckStatus = () => {
             7. Volver a guardar empresa seleccionada en localStorage encryptado
     */
 
-    useEffect(() => {
 
         const verifyCredentials = async () => {
 
             /* NOTA
                 Si no encuentra un Token en el localStore hara el llamado al reducer de logout(),
                 donde borrará el localStore y seteará los datos null por default, si existe el token 
-                y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará
+                y es válido volverá a consultar la informacion del menu y lo datos del usuario y lo enviará 
                 de nuevo al estado actual
             */
             if (!token) return dispatch(logout());
@@ -72,10 +66,14 @@ export const useCheckStatus = () => {
                 dispatch(setCompanies(data));
 
                 // Desecripta la informacion de compania
-                const decryptedData = CryptoJS.AES.decrypt(company, 'uva').toString(CryptoJS.enc.Utf8);
+                const decryptedData = decryptData(company);
 
                 // Transforma en JSON
                 const dataCompany = JSON.parse(decryptedData);
+
+                // Peticion del Menu
+                const { data:menuData } = await axios.get(`${config.apiUrl}/menu/asingUser/get/${dataCompany.id}`, { headers: { Authorization: token } })
+                dispatch(getModules(menuData))
 
                 // Setea la informacion como empresa seleccionada
                 dispatch(selectCompany(dataCompany));
@@ -84,9 +82,7 @@ export const useCheckStatus = () => {
             }
         }
 
-        verifyCredentials();
 
-    }, [])
 
     return {
         status,

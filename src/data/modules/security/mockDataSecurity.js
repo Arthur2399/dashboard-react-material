@@ -42,6 +42,29 @@ export const communityData =[
     },
 ]
 
+export const upcData =[
+    {
+        id:1,
+        upcName:"Cofavi",
+        province: "Pichincha",
+        city:"Quito",
+        address: "Juan B.Leon y Nicolas Arteta",
+    },
+    {
+        id:2,
+        upcName:"Acuarela del Rio",
+        province: "Guayas",
+        city:"Guayaquil",
+        address: "Acuarela y Mariana",
+    },
+    {
+        id:3,
+        upcName:"Villaflora",
+        province: "Pichincha",
+        city:"Quito",
+        address: "Rircardo Jaramillo y Salomon Cardenas",
+    },
+]
 
 export const comunidadesCbx = [
     { value: 1, label: 'Cofavi - Quito norte' },
