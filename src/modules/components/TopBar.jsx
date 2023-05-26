@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Badge, Box, IconButton, useTheme } from "@mui/material";
+import { Badge, Box, IconButton, Typography, useTheme } from "@mui/material";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
 
 import { tokens } from "../../theme";
 import { ProfileMenu } from "./ProfileMenu";
@@ -44,27 +42,23 @@ export const TopBar = () => {
 
 
     return (
-        <Box display="flex" justifyContent="space-between" p={2}>
+        <Box display="flex" justifyContent="space-between" p={2} sx={{background:colors.blueAccent[800]}}>
             <Box
                 width="50%"
                 display="flex"
-                backgroundColor={colors.grey[100]}
                 borderRadius="3px"
                 sx={{ cursor: 'default', userSelect: 'none', }}
             >
-                <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Buscar..." />
-                <IconButton type="button" sx={{ p: 1 }}>
-                    <SearchIcon />
-                </IconButton>
+                <Typography variant="h3" sx={{color:colors.grey[100]}}>Eras Soluciones Integrales Cia Ltda</Typography>
             </Box>
             <Box display="flex">
                 <IconButton onClick={handleClickNotification}>
-                    <Badge badgeContent={4} color="primary">
-                        <NotificationsOutlinedIcon />
+                    <Badge badgeContent={4} color='secondary'>
+                        <NotificationsOutlinedIcon sx={{color:colors.grey[100]}}/>
                     </Badge>
                 </IconButton>
                 <IconButton onClick={handleClickMenu}>
-                    <PersonOutlinedIcon />
+                    <PersonOutlinedIcon sx={{color:colors.grey[100]}}/>
                 </IconButton>
             </Box>
             <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} open={open} onLogout={onLogout} />

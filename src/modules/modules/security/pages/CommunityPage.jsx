@@ -20,7 +20,7 @@ export const CommunityPage = () => {
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
-    const { startLoadingCommunity, comunities, isLoadingCommunity } = useCommunityStore();
+    const { startLoadingCommunity, startSetActiveCommunity, comunities, isLoadingCommunity } = useCommunityStore();
 
 
     useEffect(() => {
@@ -29,6 +29,17 @@ export const CommunityPage = () => {
 
 
     const onClickNewNote = () => {
+        startSetActiveCommunity({
+            company_id: null,
+            name_community: "",
+            country_id: null,
+            province_id: null,
+            city_id: null,
+            address: "",
+            low_message: "",
+            med_message: "",
+            high_message: "",
+        });
         navigate("crear")
     }
 

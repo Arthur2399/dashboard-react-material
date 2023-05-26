@@ -35,6 +35,8 @@ import logo from "/logos/LogoERAS.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { useMenuStore } from "../hooks/useMenuStore";
 
 
 const iconComp = {
@@ -109,8 +111,8 @@ const RenderItem = ({ item, selected, setSelected }) => {
 
 export const SideBar = () => {
   
-  const { modules } = useSelector(state => state.menu);
-  const { name, job, photoURL } = useSelector(state => state.auth);
+  const { modules } = useMenuStore();
+  const { user } = useAuthStore();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -174,7 +176,7 @@ export const SideBar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={photoURL == null ?profileImg : photoURL}
+                  src={user.photoURL == null ?profileImg : user.photoURL}
                   style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
                 />
               </Box>
@@ -185,10 +187,10 @@ export const SideBar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {name}
+                  {user.name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  {job}
+                  {user.job}
                 </Typography>
               </Box>
             </Box>

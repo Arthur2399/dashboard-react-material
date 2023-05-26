@@ -5,7 +5,7 @@ import { useCompanyInfoStore } from "../modules/hooks/useCompanyInfoStore";
 
 export const useAuthStore = () => {
 
-    const { status, email, name, job, photoURL, token, errorMessage } = useSelector(state => state.auth)
+    const { status, user, errorMessage } = useSelector(state => state.auth)
     const { startGetCompany } = useCompanyInfoStore();
     const dispatch = useDispatch();
 
@@ -46,11 +46,7 @@ export const useAuthStore = () => {
     return {
         // Propiedades
         status,
-        email,
-        name,
-        job,
-        photoURL,
-        token,
+        user,
         errorMessage,
 
         // Metodos

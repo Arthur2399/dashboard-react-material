@@ -129,7 +129,7 @@ export const CommunityForm = () => {
                                 multiline
                                 variant="filled"
                                 label="Mensaje de prioridad baja"
-                                minRows={5}
+                                minRows={1}
                                 placeholder="Ingrese mensaje de prioridad baja"
                                 name="low_message"
                                 error={errors.low_message && touched.low_message}
@@ -145,7 +145,7 @@ export const CommunityForm = () => {
                                 multiline
                                 variant="filled"
                                 label="Mensaje de prioridad media"
-                                minRows={5}
+                                minRows={1}
                                 placeholder="Ingrese mensaje de prioridad media"
                                 name="med_message"
                                 error={errors.med_message && touched.med_message}
@@ -161,7 +161,7 @@ export const CommunityForm = () => {
                                 multiline
                                 variant="filled"
                                 label="Mensaje de prioridad alta"
-                                minRows={5}
+                                minRows={1}
                                 placeholder="Ingrese mensaje de prioridad alta"
                                 name="high_message"
                                 error={errors.high_message && touched.high_message}
