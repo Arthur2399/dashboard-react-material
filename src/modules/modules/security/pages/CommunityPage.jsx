@@ -75,7 +75,8 @@ export const CommunityPage = () => {
             disableColumnMenu: true,
             renderCell: (params) => {
                 const handleEdit = () => {
-                    // handle edit logic
+                    startSetActiveCommunity(params.row)
+                    navigate("crear")
                 };
                 const handleDelete = () => {
                     // handle delete logic

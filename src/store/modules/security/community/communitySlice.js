@@ -22,7 +22,7 @@ export const communitySlice = createSlice({
         },
 
         onSetActiveCommunity: (state, { payload }) => {
-            state.activeEvent = payload;
+            state.active = payload;
         },
 
         onAddNewCommunity: (state, { payload }) => {

@@ -6,20 +6,61 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import { cityCbx, provineCbx } from "../../../../data/modules/security/mockDataSecurity";
+import { useState } from "react";
+import { useCommunityStore } from "../../../../store/modules/security/hooks/useCommunityStore";
+import { useEffect } from "react";
+import { useGetComboBox } from "../helpers/useGetComboBox";
 
 export const CommunityForm = () => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
+
+    const { active } = useCommunityStore();
+    const { country, province,city, startProvince, startGetCity } = useGetComboBox();
+
+    const [idCountry, setIdCountry] = useState('');
+    const [idProvince, setIdProvince] = useState('');
+
+    console.log(idCountry)
+
+    useEffect(() => {
+        startProvince(idCountry)
+        startGetCity(idProvince)
+    }, [idCountry,idProvince])
+
+    const [initialState, setInitialState] = useState({
+        company_id: null,
+        name_community: "",
+        country_id: null,
+        province_id: null,
+        city_id: null,
+        address: "",
+        low_message: "",
+        med_message: "",
+        high_message: "",
+    })
+
+    useEffect(() => {
+        if (active !== null) {
+            setInitialState({ ...active });
+            setIdCountry(active.country_id)
+            setIdProvince(active.province_id)
+        }
+
+    }, [active])
+
+
 
 
     return (
         <Box className="animate__animated animate__fadeIn">
             <Header title="Crear comunidad" subtitle="Crea la comunidad para organizar a los usuarios." />
             <Formik
-                initialValues={initialValues}
+                initialValues={initialState}
+                enableReinitialize
                 /* validationSchema={validationSchema} */
                 onSubmit={(values) => {
-                    console.log(values)
+                    console.log(values);
                 }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (
@@ -49,12 +90,13 @@ export const CommunityForm = () => {
 
                             {/* PAIS */}
                             <Autocomplete
-                                options={provineCbx}
+                                options={country}
                                 getOptionLabel={(option) => option.label}
-                                value={provineCbx.find((option) => option.value === values.country_id) || null}
+                                value={country.find((option) => option.value === values.country_id) || null}
                                 onBlur={() => setFieldTouched('country_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('country_id', newValue ? newValue.value : null);
+                                    setIdCountry(newValue.value)
                                 }}
                                 sx={{ gridColumn: "span 4" }}
                                 renderInput={(params) =>
@@ -69,12 +111,13 @@ export const CommunityForm = () => {
 
                             {/* PROVINCIA */}
                             <Autocomplete
-                                options={provineCbx}
+                                options={province}
                                 getOptionLabel={(option) => option.label}
-                                value={provineCbx.find((option) => option.value === values.province_id) || null}
+                                value={province.find((option) => option.value === values.province_id) || null}
                                 onBlur={() => setFieldTouched('province_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('province_id', newValue ? newValue.value : null);
+                                    setIdProvince(newValue.value)
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
@@ -89,9 +132,9 @@ export const CommunityForm = () => {
 
                             {/* CIUDAD */}
                             <Autocomplete
-                                options={cityCbx}
+                                options={city}
                                 getOptionLabel={(option) => option.label}
-                                value={cityCbx.find((option) => option.value === values.city_id) || null}
+                                value={city.find((option) => option.value === values.city_id) || null}
                                 onBlur={() => setFieldTouched('city_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('city_id', newValue ? newValue.value : null);
@@ -99,8 +142,8 @@ export const CommunityForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                        label="Ciudad"
-                                        placeholder="Busque y escoja una ciudad"
+                                        label="Cantón"
+                                        placeholder="Busque y escoja un cantón"
                                         name="city_id"
                                         error={errors.city_id && touched.city_id}
                                         helperText={errors.city_id && touched.city_id && errors.city_id}
@@ -189,17 +232,4 @@ export const CommunityForm = () => {
             </Formik>
         </Box>
     )
-}
-
-
-const initialValues = {
-    company_id: null,
-    name_community: "",
-    country_id: null,
-    province_id: null,
-    city_id: null,
-    address: "",
-    low_message: "",
-    med_message: "",
-    high_message: "",
 }
