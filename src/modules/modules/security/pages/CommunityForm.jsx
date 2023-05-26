@@ -1,32 +1,33 @@
+import { useEffect } from "react";
+import { Field, Form, Formik } from "formik";
+import * as Yup from 'yup';
+
 import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material";
 import { Header } from "../../components";
-import { Field, Form, Formik } from "formik";
-
-import DeleteIcon from '@mui/icons-material/Delete';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import SaveIcon from '@mui/icons-material/Save';
-import { cityCbx, provineCbx } from "../../../../data/modules/security/mockDataSecurity";
 import { useState } from "react";
 import { useCommunityStore } from "../../../../store/modules/security/hooks/useCommunityStore";
-import { useEffect } from "react";
 import { useGetComboBox } from "../helpers/useGetComboBox";
+
+import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const CommunityForm = () => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
-    const { active } = useCommunityStore();
-    const { country, province,city, startProvince, startGetCity } = useGetComboBox();
+    const { active, startSavingCommunity,isLoadingCommunity } = useCommunityStore();
+    const { country, province, city, startProvince, startGetCity } = useGetComboBox();
+
 
     const [idCountry, setIdCountry] = useState('');
     const [idProvince, setIdProvince] = useState('');
 
-    console.log(idCountry)
-
     useEffect(() => {
         startProvince(idCountry)
         startGetCity(idProvince)
-    }, [idCountry,idProvince])
+    }, [idCountry, idProvince])
 
     const [initialState, setInitialState] = useState({
         company_id: null,
@@ -50,7 +51,9 @@ export const CommunityForm = () => {
     }, [active])
 
 
-
+    const onSubmit = async(communityData) =>{
+        await startSavingCommunity(communityData);
+    }
 
     return (
         <Box className="animate__animated animate__fadeIn">
@@ -58,9 +61,9 @@ export const CommunityForm = () => {
             <Formik
                 initialValues={initialState}
                 enableReinitialize
-                /* validationSchema={validationSchema} */
+                validationSchema={validationSchema}
                 onSubmit={(values) => {
-                    console.log(values);
+                    onSubmit(values);
                 }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (
@@ -73,7 +76,6 @@ export const CommunityForm = () => {
                                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                             }}
                         >
-
                             {/* NOMBRE DE COMUNIDAD */}
                             <Field
                                 as={TextField}
@@ -211,7 +213,6 @@ export const CommunityForm = () => {
                                 helperText={errors.high_message && touched.high_message && errors.high_message}
                                 sx={{ gridColumn: "span 4" }}
                             />
-
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
@@ -230,6 +231,26 @@ export const CommunityForm = () => {
                     </Form>
                 )}
             </Formik>
+            <LoadingSpinner isSaving={isLoadingCommunity} message={"Cargando, por favor espere..."} />
         </Box>
     )
 }
+
+const validationSchema = Yup.object().shape({
+    name_community: Yup.string()
+        .required('Este campo es obligatorio'),
+    country_id: Yup.string()
+        .required('Este campo es obligatorio'),
+    province_id: Yup.string()
+        .required('Este campo es obligatorio'),
+    city_id: Yup.string()
+        .required('Este campo es obligatorio'),
+    address: Yup.string()
+        .required('Este campo es obligatorio'),
+    low_message: Yup.string()
+        .required('Este campo es obligatorio'),
+    med_message: Yup.string()
+        .required('Este campo es obligatorio'),
+    high_message: Yup.string()
+        .required('Este campo es obligatorio'),
+});
