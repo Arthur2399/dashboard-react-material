@@ -7,6 +7,7 @@ import { tokens } from "../../theme";
 import { ProfileMenu } from "./ProfileMenu";
 import { Notifications } from "./Notifications";
 import { useAuthStore } from "../../hooks/useAuthStore";
+import { useCompanyInfoStore } from "../hooks/useCompanyInfoStore";
 
 export const TopBar = () => {
 
@@ -17,6 +18,8 @@ export const TopBar = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [anchorNo, setAnchorNo] = useState(null);
+
+    const { currentCompany } = useCompanyInfoStore();
 
     const open = Boolean(anchorEl);
     const openNo = Boolean(anchorNo);
@@ -42,23 +45,20 @@ export const TopBar = () => {
 
 
     return (
-        <Box display="flex" justifyContent="space-between" p={2} sx={{background:colors.blueAccent[800]}}>
-            <Box
-                width="50%"
-                display="flex"
-                borderRadius="3px"
-                sx={{ cursor: 'default', userSelect: 'none', }}
-            >
-                <Typography variant="h3" sx={{color:colors.grey[100]}}>Eras Soluciones Integrales Cia Ltda</Typography>
-            </Box>
+        <Box display="flex" justifyContent="space-between" p={2} sx={{ background: colors.primary[400] }}>
+
+            <img src={currentCompany.logoUrl} alt="logo" style={{
+                width: 'auto', height: '40px', objectFit: 'cover'
+            }} />
+            <Typography variant="h3" sx={{ color: colors.grey[100] }}>{currentCompany.name}</Typography>
             <Box display="flex">
                 <IconButton onClick={handleClickNotification}>
                     <Badge badgeContent={4} color='secondary'>
-                        <NotificationsOutlinedIcon sx={{color:colors.grey[100]}}/>
+                        <NotificationsOutlinedIcon sx={{ color: colors.grey[100] }} />
                     </Badge>
                 </IconButton>
                 <IconButton onClick={handleClickMenu}>
-                    <PersonOutlinedIcon sx={{color:colors.grey[100]}}/>
+                    <PersonOutlinedIcon sx={{ color: colors.grey[100] }} />
                 </IconButton>
             </Box>
             <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} open={open} onLogout={onLogout} />

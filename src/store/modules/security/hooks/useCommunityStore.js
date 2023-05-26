@@ -8,7 +8,7 @@ export const useCommunityStore = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isLoadingCommunity, comunities, active, serverMessage, errorMessage } = useSelector(state => state.community);
+    const { isLoadingCommunity, comunities, currentCompany, serverMessage, errorMessage } = useSelector(state => state.community);
 
     const startLoadingCommunity = async () => {
         const companyInfo = localStorage.getItem("Company");
@@ -56,7 +56,7 @@ export const useCommunityStore = () => {
         /* Propiedades */
         isLoadingCommunity,
         comunities,
-        active,
+        currentCompany,
         serverMessage,
         errorMessage,
 

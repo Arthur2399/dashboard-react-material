@@ -31,7 +31,7 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
 import profileImg from "/Img/profile.png"
-import logo from "/logos/LogoERAS.png"
+import logo from "/logos/logo.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -143,7 +143,7 @@ export const SideBar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "0px",
               color: colors.grey[100],
             }}
           >
@@ -153,12 +153,12 @@ export const SideBar = () => {
                 justifyContent="space-between"
                 alignItems="center"
                 ml="15px"
-                sx={{ cursor: 'default', userSelect: 'none' }}
+                sx={{ cursor: 'default', userSelect: 'none', margin:0}}
               >
                 <img
                   src={logo}
                   alt="logo"
-                  style={{ width: "140px" }}
+                  style={{ width: "100px", marginLeft:'40px' }}
                 />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon style={{
@@ -171,17 +171,8 @@ export const SideBar = () => {
 
           {!isCollapsed && (
             <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={user.photoURL == null ?profileImg : user.photoURL}
-                  style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
-                />
-              </Box>
               <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <Typography
+{/*                 <Typography
                   variant="h3"
                   color={colors.grey[100]}
                   fontWeight="bold"
@@ -191,7 +182,7 @@ export const SideBar = () => {
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
                   {user.job}
-                </Typography>
+                </Typography> */}
               </Box>
             </Box>
           )}
