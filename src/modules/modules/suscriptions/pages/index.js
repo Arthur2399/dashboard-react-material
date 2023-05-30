@@ -5,4 +5,5 @@ export * from './PlansDetailsForm';
 export * from './PlansForm';
 export * from './PlansPages';
 export * from './PaymentTerm';
+export * from './PaymentTermForm';
 export * from './SuscriptionsPage';

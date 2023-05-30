@@ -6,12 +6,12 @@ import { tokens } from "../../../../theme";
 import { Header } from "../../components";
 
 import { Box, Button } from "@mui/material";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { clients } from "../../../../data/modules/suscriptions/mockSuscriptions";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { clients } from "../../../../data/modules/suscriptions/mockSuscriptions";
 
 export const ClientsPages = () => {
     const theme = useTheme();
