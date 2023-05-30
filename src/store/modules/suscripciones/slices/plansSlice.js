@@ -4,7 +4,7 @@ export const plansSlice = createSlice({
     name: 'plans',
     initialState: {
         isLoading: false,
-        comunities: [],
+        plans: [],
         active: null,
         serverMessage: null,
         errorMessage: null,
@@ -21,7 +21,7 @@ export const plansSlice = createSlice({
 
         onClearValues: (state) => {
             state.isLoading = false;
-            state.comunities = [];
+            state.plans = [];
             state.active = null;
             state.serverMessage = null;
             state.errorMessage = null;

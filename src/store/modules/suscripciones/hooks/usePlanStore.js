@@ -4,7 +4,7 @@ import { onSetPlan } from "../slices/plansSlice";
 export const usePlanStore = () => {
 
     const dispatch = useDispatch();
-    const { isLoading, comunities, active, serverMessage, errorMessage } = useSelector(state => state.plans);
+    const { isLoading, plans, active, serverMessage, errorMessage } = useSelector(state => state.plans);
 
     const startSetPlanDetail = (details) => {
         dispatch(onSetPlan(details))
@@ -13,7 +13,7 @@ export const usePlanStore = () => {
     return {
         /* ATRIBUTOS */
         isLoading,
-        comunities,
+        plans,
         active,
         serverMessage,
         errorMessage,

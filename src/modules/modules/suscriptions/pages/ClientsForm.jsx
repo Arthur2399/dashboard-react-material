@@ -15,7 +15,6 @@ export const ClientsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
 
-
     const typeCIb = [
         {
             label: 'ci',
@@ -26,7 +25,6 @@ export const ClientsForm = () => {
             value: 0
         }
     ]
-
 
     return (
         <Box className="animate__animated animate__fadeIn">
@@ -77,6 +75,7 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                             />
 
+
                             {/* TIPO DE DOCUMENTO */}
                             <Autocomplete
                                 options={typeCIb}
@@ -90,7 +89,7 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                        label="Tipo de documento"
+                                        label="Tipo de identificación"
                                         placeholder="Busque y tipo de identificacion"
                                         name="country_id"
                                         error={errors.country_id && touched.country_id}
@@ -111,6 +110,38 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2 " }}
                             />
 
+                            {/* CELULAR */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Celular"
+                                placeholder="Ingrese el celular"
+                                name="lastName"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 4" }}
+                            />
+
+                            {/* DIRECCIÓN */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Dirección"
+                                placeholder="Ingrese la dirección"
+                                name="phone"
+                                error={errors.phone && touched.phone}
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                helperText={errors.phone && touched.phone && errors.phone}
+                                sx={{ gridColumn: "span 4" }}
+                            />
 
                             {/* CORREO ELECTRONICO */}
                             <Field
@@ -125,27 +156,7 @@ export const ClientsForm = () => {
                                 helperText={errors.email && touched.email && errors.email}
                                 sx={{ gridColumn: "span 4" }}
                             />
-
-                            {/* NUMERO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Número de celular"
-                                placeholder="Ingrese el número de celular"
-                                name="phone"
-                                error={errors.phone && touched.phone}
-                                inputProps={{
-                                    pattern: "[0-9]*",
-                                    maxLength: 10,
-                                    onKeyPress: handleKeyPress,
-                                }}
-                                helperText={errors.phone && touched.phone && errors.phone}
-                                sx={{ gridColumn: "span 4" }}
-                            />
                         </Box>
-
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" onClick={() => { navigate(-1) }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
                                 <DeleteIcon />
