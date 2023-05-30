@@ -3,12 +3,15 @@ import { tokens } from "../../../../theme/theme";
 import { useNavigate } from "react-router-dom";
 import { customStyles } from "../../../helpers";
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { Header } from "../../components";
+import { plansData } from "../../../../data/modules/suscriptions/mockSuscriptions";
+
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DehazeIcon from '@mui/icons-material/Dehaze';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const PlansPages = () => {
 
@@ -54,10 +57,22 @@ export const PlansPages = () => {
                 const handleDelete = () => {
                     // handle delete logic
                 };
+                const handleDetail = () => {
+                    navigate('detalle')
+                    console.log(params)
+                };
                 return (
                     <>
-                        <EditIcon onClick={handleEdit} />
-                        <DeleteIcon onClick={handleDelete} />
+                        <IconButton title="Editar">
+                            <EditIcon sx={{color:colors.primary[400]}}/>
+                        </IconButton>
+                        <IconButton title="Detalle" onClick={handleDetail}>
+                            <DehazeIcon sx={{color:colors.primary[400]}}/>
+                        </IconButton>
+                        <IconButton title="Archivar" >
+                            <ArchiveIcon sx={{color:colors.primary[400]}}/>
+                        </IconButton>
+
                     </>
                 );
             },
@@ -66,7 +81,7 @@ export const PlansPages = () => {
 
 
     return (
-         <Box className="animate__animated animate__fadeIn">
+        <Box className="animate__animated animate__fadeIn">
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Header title="Planes" subtitle="Crea los planes de los servicios que vas a ofrecer." />
                 <Box>
@@ -94,7 +109,7 @@ export const PlansPages = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={[]}
+                    rows={plansData}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
