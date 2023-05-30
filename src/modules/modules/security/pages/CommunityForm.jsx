@@ -1,25 +1,69 @@
+import { useEffect } from "react";
+import { Field, Form, Formik } from "formik";
+import * as Yup from 'yup';
+
 import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material";
 import { Header } from "../../components";
-import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+import { useCommunityStore } from "../../../../store/modules/security/hooks/useCommunityStore";
+import { useGetComboBox } from "../helpers/useGetComboBox";
 
+import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import SaveIcon from '@mui/icons-material/Save';
-import { cityCbx, provineCbx } from "../../../../data/modules/security/mockDataSecurity";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const CommunityForm = () => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
+    const { active, startSavingCommunity,isLoadingCommunity } = useCommunityStore();
+    const { country, province, city, startProvince, startGetCity } = useGetComboBox();
+
+
+    const [idCountry, setIdCountry] = useState('');
+    const [idProvince, setIdProvince] = useState('');
+
+    useEffect(() => {
+        startProvince(idCountry)
+        startGetCity(idProvince)
+    }, [idCountry, idProvince])
+
+    const [initialState, setInitialState] = useState({
+        company_id: null,
+        name_community: "",
+        country_id: null,
+        province_id: null,
+        city_id: null,
+        address: "",
+        low_message: "",
+        med_message: "",
+        high_message: "",
+    })
+
+    useEffect(() => {
+        if (active !== null) {
+            setInitialState({ ...active });
+            setIdCountry(active.country_id)
+            setIdProvince(active.province_id)
+        }
+
+    }, [active])
+
+
+    const onSubmit = async(communityData) =>{
+        await startSavingCommunity(communityData);
+    }
 
     return (
         <Box className="animate__animated animate__fadeIn">
             <Header title="Crear comunidad" subtitle="Crea la comunidad para organizar a los usuarios." />
             <Formik
-                initialValues={initialValues}
-                /* validationSchema={validationSchema} */
+                initialValues={initialState}
+                enableReinitialize
+                validationSchema={validationSchema}
                 onSubmit={(values) => {
-                    console.log(values)
+                    onSubmit(values);
                 }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (
@@ -32,7 +76,6 @@ export const CommunityForm = () => {
                                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                             }}
                         >
-
                             {/* NOMBRE DE COMUNIDAD */}
                             <Field
                                 as={TextField}
@@ -49,12 +92,13 @@ export const CommunityForm = () => {
 
                             {/* PAIS */}
                             <Autocomplete
-                                options={provineCbx}
+                                options={country}
                                 getOptionLabel={(option) => option.label}
-                                value={provineCbx.find((option) => option.value === values.country_id) || null}
+                                value={country.find((option) => option.value === values.country_id) || null}
                                 onBlur={() => setFieldTouched('country_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('country_id', newValue ? newValue.value : null);
+                                    setIdCountry(newValue.value)
                                 }}
                                 sx={{ gridColumn: "span 4" }}
                                 renderInput={(params) =>
@@ -69,12 +113,13 @@ export const CommunityForm = () => {
 
                             {/* PROVINCIA */}
                             <Autocomplete
-                                options={provineCbx}
+                                options={province}
                                 getOptionLabel={(option) => option.label}
-                                value={provineCbx.find((option) => option.value === values.province_id) || null}
+                                value={province.find((option) => option.value === values.province_id) || null}
                                 onBlur={() => setFieldTouched('province_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('province_id', newValue ? newValue.value : null);
+                                    setIdProvince(newValue.value)
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
@@ -89,9 +134,9 @@ export const CommunityForm = () => {
 
                             {/* CIUDAD */}
                             <Autocomplete
-                                options={cityCbx}
+                                options={city}
                                 getOptionLabel={(option) => option.label}
-                                value={cityCbx.find((option) => option.value === values.city_id) || null}
+                                value={city.find((option) => option.value === values.city_id) || null}
                                 onBlur={() => setFieldTouched('city_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('city_id', newValue ? newValue.value : null);
@@ -99,8 +144,8 @@ export const CommunityForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                        label="Ciudad"
-                                        placeholder="Busque y escoja una ciudad"
+                                        label="Cantón"
+                                        placeholder="Busque y escoja un cantón"
                                         name="city_id"
                                         error={errors.city_id && touched.city_id}
                                         helperText={errors.city_id && touched.city_id && errors.city_id}
@@ -129,7 +174,7 @@ export const CommunityForm = () => {
                                 multiline
                                 variant="filled"
                                 label="Mensaje de prioridad baja"
-                                minRows={5}
+                                minRows={1}
                                 placeholder="Ingrese mensaje de prioridad baja"
                                 name="low_message"
                                 error={errors.low_message && touched.low_message}
@@ -145,7 +190,7 @@ export const CommunityForm = () => {
                                 multiline
                                 variant="filled"
                                 label="Mensaje de prioridad media"
-                                minRows={5}
+                                minRows={1}
                                 placeholder="Ingrese mensaje de prioridad media"
                                 name="med_message"
                                 error={errors.med_message && touched.med_message}
@@ -161,14 +206,13 @@ export const CommunityForm = () => {
                                 multiline
                                 variant="filled"
                                 label="Mensaje de prioridad alta"
-                                minRows={5}
+                                minRows={1}
                                 placeholder="Ingrese mensaje de prioridad alta"
                                 name="high_message"
                                 error={errors.high_message && touched.high_message}
                                 helperText={errors.high_message && touched.high_message && errors.high_message}
                                 sx={{ gridColumn: "span 4" }}
                             />
-
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
@@ -187,19 +231,26 @@ export const CommunityForm = () => {
                     </Form>
                 )}
             </Formik>
+            <LoadingSpinner isSaving={isLoadingCommunity} message={"Cargando, por favor espere..."} />
         </Box>
     )
 }
 
-
-const initialValues = {
-    company_id: null,
-    name_community: "",
-    country_id: null,
-    province_id: null,
-    city_id: null,
-    address: "",
-    low_message: "",
-    med_message: "",
-    high_message: "",
-}
+const validationSchema = Yup.object().shape({
+    name_community: Yup.string()
+        .required('Este campo es obligatorio'),
+    country_id: Yup.string()
+        .required('Este campo es obligatorio'),
+    province_id: Yup.string()
+        .required('Este campo es obligatorio'),
+    city_id: Yup.string()
+        .required('Este campo es obligatorio'),
+    address: Yup.string()
+        .required('Este campo es obligatorio'),
+    low_message: Yup.string()
+        .required('Este campo es obligatorio'),
+    med_message: Yup.string()
+        .required('Este campo es obligatorio'),
+    high_message: Yup.string()
+        .required('Este campo es obligatorio'),
+});

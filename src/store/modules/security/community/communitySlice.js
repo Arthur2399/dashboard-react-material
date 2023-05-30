@@ -3,25 +3,50 @@ import { createSlice } from "@reduxjs/toolkit";
 export const communitySlice = createSlice({
     name: 'community',
     initialState: {
-        isSaving: false,
-        errorMessage: null,
-        serverMessage: null,
+        isLoadingCommunity: false,
         comunities: [],
-        active: null
+        active: null,
+        serverMessage: null,
+        errorMessage: null,
     },
     reducers: {
-        savingChanges: (state) => {
-            state.isSaving = true;
+
+        onIsLoading: (state)=>{
+            state.isLoadingCommunity=true;
         },
 
-        getCommunities: (state,{payload}) => {
-            state.isSaving = false;
-            state.comunities =  payload;
+        onLoadCommunities: (state, { payload = [] }) => {
+            state.isLoadingCommunity = false;
+            payload.forEach(community => {
+                const exists = state.comunities.some(dbCommunity => dbCommunity.id === community.id);
+                if (!exists) {
+                    state.comunities.push(community)
+                }
+            })
         },
 
-        addNewCommunity: (state) => {
+        onSetActiveCommunity: (state, { payload }) => {
+            state.active = payload;
         },
+
+        onAddNewCommunity: (state, { payload }) => {
+            state.isLoadingCommunity= false;
+            state.comunities.push(payload);
+            state.active = null;
+        },
+
+        onUpdateCommunity: (state, { payload }) => {
+            state.isLoadingCommunity= false;
+            state.comunities = state.comunities.map(community => {
+                if (community.id === payload.id) {
+                    return payload;
+                }
+
+                return community;
+            });
+        },
+
     }
 })
 
-export const { savingChanges, addNewCommunity, getCommunities} = communitySlice.actions;
+export const { onLoadCommunities, onSetActiveCommunity, onAddNewCommunity, onUpdateCommunity,onIsLoading } = communitySlice.actions;

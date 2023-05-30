@@ -1,16 +1,17 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import { tokens } from "../../../../theme";
 import { customStyles } from "../../../helpers";
 import { Box, Button, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
-import { communityData } from "../../../../data/modules/security/mockDataSecurity";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Header } from "../../components";
+import { useCommunityStore } from "../../../../store/modules/security/hooks/useCommunityStore";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 
 export const CommunityPage = () => {
@@ -19,9 +20,26 @@ export const CommunityPage = () => {
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
-    const dispatch = useDispatch();
+    const { startLoadingCommunity, startSetActiveCommunity, comunities, isLoadingCommunity } = useCommunityStore();
+
+
+    useEffect(() => {
+        startLoadingCommunity();
+    }, [])
+
 
     const onClickNewNote = () => {
+        startSetActiveCommunity({
+            company_id: null,
+            name_community: "",
+            country_id: null,
+            province_id: null,
+            city_id: null,
+            address: "",
+            low_message: "",
+            med_message: "",
+            high_message: "",
+        });
         navigate("crear")
     }
 
@@ -57,7 +75,8 @@ export const CommunityPage = () => {
             disableColumnMenu: true,
             renderCell: (params) => {
                 const handleEdit = () => {
-                    // handle edit logic
+                    startSetActiveCommunity(params.row)
+                    navigate("crear")
                 };
                 const handleDelete = () => {
                     // handle delete logic
@@ -106,12 +125,13 @@ export const CommunityPage = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={communityData}
+                    rows={comunities}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
                 />
             </Box>
+            <LoadingSpinner isSaving={isLoadingCommunity} message={"Cargando, por favor espere..."} />
         </Box>
     )
 }

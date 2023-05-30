@@ -23,12 +23,12 @@ export const UserForm = () => {
     /* navigate("/seguridad/usuarios"); */
   }
 
-
   return (
     <Box className="animate__animated animate__fadeIn">
       <Header title="Crear usuario" subtitle="Crea los usuarios para que tengan acceso al aplicativo movil." />
       <Formik
         initialValues={initialValues}
+        enableReinitialize
         validationSchema={validationSchema}
         onSubmit={(values) => {
           onCreateUser(JSON.stringify(values))

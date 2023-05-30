@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, InputBase, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -31,34 +31,36 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
 import profileImg from "/Img/profile.png"
-import logo from "/logos/LogoERAS.png"
+import logo from "/logos/logo.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
-import { useSelector } from "react-redux";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { useMenuStore } from "../hooks/useMenuStore";
+import SearchIcon from "@mui/icons-material/Search";
 
 
 const iconComp = {
   "HomeOutlinedIcon": <HomeOutlinedIcon />,
   "PieChartOutlineOutlinedIcon": <PieChartOutlineOutlinedIcon />,
   "CalendarMonthIcon": <CalendarMonthIcon />,
-  "LibraryBooksIcon":<LibraryBooksIcon/>,
-  "PaymentsIcon":<PaymentsIcon/>,
-  "RequestQuoteIcon":<RequestQuoteIcon/>,
-  "PaidIcon":<PaidIcon/>,
-  "AccountBalanceIcon":<AccountBalanceIcon/>,
-  "InventoryIcon":<InventoryIcon/>,
-  "ApartmentIcon":<ApartmentIcon/>,
-  "HailIcon":<HailIcon/>,
-  "ShoppingBagIcon":<ShoppingBagIcon/>,
-  "PointOfSaleIcon":<PointOfSaleIcon/>,
-  "SchoolIcon":<SchoolIcon/>,
-  "LabelImportantIcon":<LabelImportantIcon/>,
-  "SystemSecurityUpdateGoodIcon":<SystemSecurityUpdateGoodIcon/>,
-  "AccountCircleIcon":<AccountCircleIcon/>,
-  "Diversity3Icon":<Diversity3Icon/>,
-  "MapIcon":<MapIcon/>,
-  "LocalPoliceIcon":<LocalPoliceIcon/>,
-  "MessageIcon":<MessageIcon/>,
+  "LibraryBooksIcon": <LibraryBooksIcon />,
+  "PaymentsIcon": <PaymentsIcon />,
+  "RequestQuoteIcon": <RequestQuoteIcon />,
+  "PaidIcon": <PaidIcon />,
+  "AccountBalanceIcon": <AccountBalanceIcon />,
+  "InventoryIcon": <InventoryIcon />,
+  "ApartmentIcon": <ApartmentIcon />,
+  "HailIcon": <HailIcon />,
+  "ShoppingBagIcon": <ShoppingBagIcon />,
+  "PointOfSaleIcon": <PointOfSaleIcon />,
+  "SchoolIcon": <SchoolIcon />,
+  "LabelImportantIcon": <LabelImportantIcon />,
+  "SystemSecurityUpdateGoodIcon": <SystemSecurityUpdateGoodIcon />,
+  "AccountCircleIcon": <AccountCircleIcon />,
+  "Diversity3Icon": <Diversity3Icon />,
+  "MapIcon": <MapIcon />,
+  "LocalPoliceIcon": <LocalPoliceIcon />,
+  "MessageIcon": <MessageIcon />,
 }
 
 /* ITEM */
@@ -108,9 +110,9 @@ const RenderItem = ({ item, selected, setSelected }) => {
 }
 
 export const SideBar = () => {
-  
-  const { modules } = useSelector(state => state.menu);
-  const { name, job, photoURL } = useSelector(state => state.auth);
+
+  const { modules } = useMenuStore();
+  const { user } = useAuthStore();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -141,7 +143,7 @@ export const SideBar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "0px",
               color: colors.grey[100],
             }}
           >
@@ -150,13 +152,13 @@ export const SideBar = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
-                sx={{ cursor: 'default', userSelect: 'none' }}
+                mt="-10px"
+                sx={{ cursor: 'default', userSelect: 'none', margin: 0 }}
               >
                 <img
                   src={logo}
                   alt="logo"
-                  style={{ width: "140px" }}
+                  style={{ width: "100px", marginLeft: '60px' }}
                 />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon style={{
@@ -169,27 +171,32 @@ export const SideBar = () => {
 
           {!isCollapsed && (
             <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={photoURL == null ?profileImg : photoURL}
-                  style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
-                />
-              </Box>
               <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <Typography
+                {/*                 <Typography
                   variant="h3"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {name}
+                  {user.name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  {job}
-                </Typography>
+                  {user.job}
+                </Typography> */}
+
+                <Box
+                  width="85%"
+                  display="flex"
+                  margin="20px"
+                  backgroundColor={colors.primary[200]}
+                  borderRadius="3px"
+                  sx={{ cursor: 'default', userSelect: 'none', }}
+                >
+                  <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Buscar..." />
+                  <IconButton type="button" sx={{ p: 1 }}>
+                    <SearchIcon />
+                  </IconButton>
+                </Box>
               </Box>
             </Box>
           )}
@@ -201,7 +208,7 @@ export const SideBar = () => {
                   key={item.id}
                   variant="h6"
                   color={colors.grey[300]}
-                  sx={!isCollapsed?{ m: "15px 0 5px 20px" } :{ display:"none"} }
+                  sx={!isCollapsed ? { m: "15px 0 5px 20px" } : { display: "none" }}
                 >
                   {item.titleGroup}
                 </Typography>
