@@ -8,10 +8,13 @@ import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
+import { useNavigate } from 'react-router-dom';
 
 
 export const ClientsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
+    const navigate = useNavigate();
+
 
     const typeCIb = [
         {
@@ -144,7 +147,7 @@ export const ClientsForm = () => {
                         </Box>
 
                         <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="button" title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
+                            <Button type="button" onClick={() => { navigate(-1) }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
                                 <DeleteIcon />
                             </Button>
                             <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
@@ -152,7 +155,7 @@ export const ClientsForm = () => {
                             >
                                 <RestartAltIcon />
                             </Button>
-                            <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
+                            <Button /* type="submit" */ onClick={() => { navigate(-1) }} title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
                                 <SaveIcon sx={{ mr: 1 }} />
                                 Guardar
                             </Button>

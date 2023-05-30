@@ -5,10 +5,12 @@ import { Field, Form, Formik } from "formik";
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
+import { useNavigate } from "react-router-dom";
 
 
 export const PlansDetailsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
+    const navigate = useNavigate();
 
     const servCBX = [
         {
@@ -130,7 +132,7 @@ export const PlansDetailsForm = () => {
                         </Box>
 
                         <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="button" title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
+                            <Button type="button" onClick={() => { navigate(-1) }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
                                 <DeleteIcon />
                             </Button>
                             <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
@@ -138,7 +140,7 @@ export const PlansDetailsForm = () => {
                             >
                                 <RestartAltIcon />
                             </Button>
-                            <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
+                            <Button /* type="submit" */ onClick={() => { navigate(-1) }} type='button' title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
                                 <SaveIcon sx={{ mr: 1 }} />
                                 Guardar
                             </Button>

@@ -64,13 +64,13 @@ export const PlansPages = () => {
                 return (
                     <>
                         <IconButton title="Editar">
-                            <EditIcon sx={{color:colors.primary[400]}}/>
+                            <EditIcon sx={{ color: colors.primary[400] }} />
                         </IconButton>
                         <IconButton title="Detalle" onClick={handleDetail}>
-                            <DehazeIcon sx={{color:colors.primary[400]}}/>
+                            <DehazeIcon sx={{ color: colors.primary[400] }} />
                         </IconButton>
                         <IconButton title="Archivar" >
-                            <ArchiveIcon sx={{color:colors.primary[400]}}/>
+                            <ArchiveIcon sx={{ color: colors.primary[400] }} />
                         </IconButton>
 
                     </>

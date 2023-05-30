@@ -82,12 +82,12 @@ export const PlansDetails = () => {
       },
     },
   ];
-
+const hola ='hola'
 
   return (
     <Box className="animate__animated animate__fadeIn">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Detalle planes" subtitle="Edite cada uno del detalle de planes." />
+        <Header title={`Detalle de ${hola}`} subtitle="Edite cada uno del detalle de planes." />
         <Box>
           <Button
             onClick={() => { navigate("formulario") }}
