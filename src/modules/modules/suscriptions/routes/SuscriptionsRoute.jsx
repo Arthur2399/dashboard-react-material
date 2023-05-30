@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { PlansDetails, PlansDetailsForm, ClientsForm, ClientsPages, PaymentTerm, PaymentTermForm, PlansForm, PlansPages, Services, ServiceForm } from "../pages"
+import { PlansDetails, PlansDetailsForm, ClientsForm, ClientsPages, PaymentTerm, PaymentTermForm, PlansForm, PlansPages, Services, ServiceForm, Contract } from "../pages"
 
 export const SuscriptionsRoute = () => {
     return (
@@ -22,6 +22,9 @@ export const SuscriptionsRoute = () => {
             {/* SERVICIOS */}
             <Route path="configuracion/servicios" element={< Services />} />
             <Route path="configuracion/servicios/Formulario" element={< ServiceForm />} />
+
+            {/* CONTRATO */}
+            <Route path="contratos" element={<Contract/>} />
 
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
