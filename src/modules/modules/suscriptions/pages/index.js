@@ -7,4 +7,5 @@ export * from './PlansDetailsForm';
 export * from './PlansForm';
 export * from './PlansPages';
 export * from './Services';
+export * from './ServiceForm';
 export * from './SuscriptionsPage';
