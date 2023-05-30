@@ -172,7 +172,8 @@ export const SideBar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                {/*                 <Typography
+                {/*
+                <Typography
                   variant="h3"
                   color={colors.grey[100]}
                   fontWeight="bold"
