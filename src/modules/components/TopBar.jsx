@@ -48,9 +48,9 @@ export const TopBar = () => {
         <Box display="flex" justifyContent="space-between" p={2} sx={{ background: colors.primary[400] }}>
 
             <img src={currentCompany.logoUrl} alt="logo" style={{
-                width: 'auto', height: '40px', objectFit: 'cover'
+                width: 'auto', height: '40px', objectFit: 'cover', marginLeft:'20px',filter: 'grayscale(100%) brightness(200%)',
             }} />
-            <Typography variant="h3" sx={{ color: colors.grey[100] }}>{currentCompany.name}</Typography>
+            <Typography variant="h3" sx={{ color: colors.grey[100] }}> <strong>{currentCompany.name}</strong></Typography>
             <Box display="flex">
                 <IconButton onClick={handleClickNotification}>
                     <Badge badgeContent={4} color='secondary'>
