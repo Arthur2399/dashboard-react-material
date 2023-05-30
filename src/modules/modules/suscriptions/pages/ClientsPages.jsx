@@ -32,6 +32,16 @@ export const ClientsPages = () => {
             flex: 1,
         },
         {
+            field: "type_document",
+            headerName: "Tipo de documento",
+            flex: 1,
+        },
+        {
+            field: "ci",
+            headerName: "Cedula",
+            flex: 1,
+        },
+        {
             field: "phone",
             headerName: "Número de celular",
             flex: 1,

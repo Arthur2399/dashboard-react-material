@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 
 import { Header } from '../../components';
 
-import { Box, Button, TextField, useMediaQuery } from '@mui/material';
+import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -13,6 +13,16 @@ import SaveIcon from '@mui/icons-material/Save';
 export const ClientsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
+    const typeCIb = [
+        {
+            label: 'ci',
+            value: 0
+        }
+        , {
+            label: 'ruc',
+            value: 0
+        }
+    ]
 
 
     return (
@@ -63,6 +73,41 @@ export const ClientsForm = () => {
                                 helperText={errors.name && touched.name && errors.name}
                                 sx={{ gridColumn: "span 2" }}
                             />
+
+                            {/* TIPO DE DOCUMENTO */}
+                            <Autocomplete
+                                options={typeCIb}
+                                getOptionLabel={(option) => option.label}
+                                /* value={typeCIb.find((option) => option.value === values.country_id) || null} */
+                                onBlur={() => setFieldTouched('country_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('country_id', newValue ? newValue.value : null);
+                                    setIdCountry(newValue.value)
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Tipo de documento"
+                                        placeholder="Busque y tipo de identificacion"
+                                        name="country_id"
+                                        error={errors.country_id && touched.country_id}
+                                        helperText={errors.country_id && touched.country_id && errors.country_id}
+                                        variant="filled" />}
+                            />
+                            {/* CEDULA */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Cedula"
+                                placeholder="Ingrese el numero de cédula"
+                                name="lastName"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
+
 
                             {/* CORREO ELECTRONICO */}
                             <Field
