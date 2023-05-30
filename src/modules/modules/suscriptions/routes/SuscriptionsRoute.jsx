@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { PlansDetails, PlansDetailsForm, ClientsForm, ClientsPages, PaymentTerm, PaymentTermForm, PlansForm, PlansPages } from "../pages"
+import { PlansDetails, PlansDetailsForm, ClientsForm, ClientsPages, PaymentTerm, PaymentTermForm, PlansForm, PlansPages, Services } from "../pages"
 
 export const SuscriptionsRoute = () => {
     return (
@@ -19,6 +19,8 @@ export const SuscriptionsRoute = () => {
             <Route path="configuracion/plazospago" element={< PaymentTerm />} />
             <Route path="configuracion/plazospago/formulario" element={< PaymentTermForm />} />
 
+            {/* SERVICIOS */}
+            <Route path="configuracion/servicios" element={< Services />} />
 
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
