@@ -12,12 +12,15 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
+import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
 
 export const PlansPages = () => {
 
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
+
+    const {startSetPlanDetail} = usePlanStore();
 
 
     const { colorDataGrid } = customStyles();
@@ -58,8 +61,8 @@ export const PlansPages = () => {
                     // handle delete logic
                 };
                 const handleDetail = () => {
+                    startSetPlanDetail(params.row)
                     navigate('detalle')
-                    console.log(params)
                 };
                 return (
                     <>

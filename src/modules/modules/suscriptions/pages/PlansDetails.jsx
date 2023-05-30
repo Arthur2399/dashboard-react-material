@@ -12,11 +12,14 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
 import { customStyles } from "../../../helpers";
 import { plansDetails } from "../../../../data/modules/suscriptions/mockSuscriptions";
+import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
 
 export const PlansDetails = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
+
+  const {active} = usePlanStore();
 
   const { colorDataGrid } = customStyles();
 
@@ -87,7 +90,7 @@ const hola ='hola'
   return (
     <Box className="animate__animated animate__fadeIn">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title={`Detalle de ${hola}`} subtitle="Edite cada uno del detalle de planes." />
+        <Header title={`Detalle del plan ${active.name}`} subtitle="Edite cada uno del detalle de planes." />
         <Box>
           <Button
             onClick={() => { navigate("formulario") }}

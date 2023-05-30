@@ -90,3 +90,60 @@ export const plansDetails = [
 		"total": 5
 	}
 ]
+
+export const clients = [
+	{
+		"id": 1,
+		"name": "Axel Puckett",
+		"last_name": "Fox",
+		"type_document": "Pasaporte",
+		"ci": 531215,
+		"phone": "(720) 296-9830",
+		"email": "odio.etiam.ligula@outlook.net"
+	},
+	{
+		"id": 2,
+		"name": "Malcolm Cervantes",
+		"last_name": "Rutledge",
+		"type_document": "Papeleta de votación",
+		"ci": 531215,
+		"phone": "1-672-504-9166",
+		"email": "lacus.vestibulum.lorem@yahoo.com"
+	},
+	{
+		"id": 3,
+		"name": "Chastity Shepherd",
+		"last_name": "Buckley",
+		"type_document": "Cédula",
+		"ci": "0985632514",
+		"phone": "(716) 519-5190",
+		"email": "mauris@hotmail.ca"
+	},
+	{
+		"id": 4,
+		"name": "Sophia Martinez",
+		"last_name": "Bowers",
+		"type_document": "Papeleta de votación",
+		"ci": 1751573518,
+		"phone": "1-404-343-1393",
+		"email": "varius.ultrices@outlook.net"
+	},
+	{
+		"id": 5,
+		"name": "Zeph Mclaughlin",
+		"last_name": "Daugherty",
+		"type_document": "Papeleta de votación",
+		"ci": 1751573518,
+		"phone": "1-418-854-2535",
+		"email": "pede@aol.com"
+	},
+	{
+		"id": 6,
+		"name": "Vivien Silva",
+		"last_name": "Allison",
+		"type_document": "Pasaporte",
+		"ci": "0985632514",
+		"phone": "(528) 893-6362",
+		"email": "mauris.nulla@outlook.net"
+	}
+]

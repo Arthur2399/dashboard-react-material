@@ -1,14 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./auth";
-import { communitySlice, companyInfoSlice, menuSlice } from "./modules";
+import { communitySlice, companyInfoSlice, menuSlice, plansSlice } from "./modules";
 import { changePasswordSlice } from "./modules/configuration/changePassword/changePasswordSlice";
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
+        menu: menuSlice.reducer,
+        companyInfo: companyInfoSlice.reducer,
         changePassword: changePasswordSlice.reducer,
         community: communitySlice.reducer,
-        companyInfo: companyInfoSlice.reducer,
-        menu: menuSlice.reducer,
+        plans: plansSlice.reducer,
     }
 });

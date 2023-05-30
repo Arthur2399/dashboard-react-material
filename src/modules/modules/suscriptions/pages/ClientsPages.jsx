@@ -11,6 +11,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { clients } from "../../../../data/modules/suscriptions/mockSuscriptions";
 
 export const ClientsPages = () => {
     const theme = useTheme();
@@ -105,7 +106,7 @@ export const ClientsPages = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={[]}
+                    rows={clients}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
