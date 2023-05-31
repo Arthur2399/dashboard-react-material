@@ -82,7 +82,7 @@ export const ClientsPages = () => {
     const onCreateClient = () => {
         startSetActiveClient({
             identification_type: '',
-            identification_type_id: 1,
+            identification_type_id: null,
             name: '',
             comercial_name: '',
             email: '',

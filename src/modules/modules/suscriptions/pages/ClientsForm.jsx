@@ -12,6 +12,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useClientStore } from '../../../../store/modules/suscripciones/hooks/useClientStore';
+import { useGetComboxBox } from '../helpers/useGetComboxBox';
 
 
 export const ClientsForm = () => {
@@ -19,6 +20,7 @@ export const ClientsForm = () => {
     const navigate = useNavigate();
 
     const {active} = useClientStore();
+    const {typeIdentification} = useGetComboxBox();
 
     const [initialState, setInitialState] = useState({
         address: '',
@@ -86,9 +88,9 @@ export const ClientsForm = () => {
 
                             {/* TIPO DE DOCUMENTO */}
                             <Autocomplete
-                                options={typeCIb}
+                                options={typeIdentification}
                                 getOptionLabel={(option) => option.label}
-                                 value={typeCIb.find((option) => option.value === values.identification_type_id) || null} 
+                                 value={typeIdentification.find((option) => option.value === values.identification_type_id) || null} 
                                 onBlur={() => setFieldTouched('identification_type_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('identification_type_id', newValue ? newValue.value : null);
