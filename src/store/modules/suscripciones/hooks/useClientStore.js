@@ -19,8 +19,8 @@ export const useClientStore = () => {
         } catch (error) {
             console.log(error)
         }
-
     }
+
 
   return {
     /* ATRIBUTOS */

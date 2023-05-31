@@ -1,19 +1,18 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "@emotion/react";
 import { customStyles } from "../../../helpers";
 import { tokens } from "../../../../theme";
 import { Header } from "../../components";
+import { useClientStore } from "../../../../store/modules/suscripciones/hooks/useClientStore";
 
 import { Box, Button } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
-
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useEffect } from "react";
-import { useClientStore } from "../../../../store/modules/suscripciones/hooks/useClientStore";
 
 export const ClientsPages = () => {
     const theme = useTheme();
