@@ -14,12 +14,13 @@ import { useEffect } from 'react';
 import { useClientStore } from '../../../../store/modules/suscripciones/hooks/useClientStore';
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
+import { AlertMessage } from '../../../components/AlertMessage';
 
 
 export const ClientsForm = () => {
 
     const [initialState, setInitialState] = useState({
-        id:0,
+        id: 0,
         address: '',
         comercial_name: '',
         email: '',
@@ -33,7 +34,7 @@ export const ClientsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
 
-    const { active, startSavingClient, isLoading } = useClientStore();
+    const { active, startSavingClient, isLoading, serverMessage, errorMessage } = useClientStore();
     const { typeIdentification } = useGetComboxBox();
 
     const onSaveClient = (client) => {
@@ -53,7 +54,7 @@ export const ClientsForm = () => {
             <Formik
                 initialValues={initialState}
                 enableReinitialize
-                /*validationSchema={validationSchema}*/
+                validationSchema={validationSchema}
                 onSubmit={(values) => {
                     onSaveClient(values)
                 }}
@@ -90,7 +91,6 @@ export const ClientsForm = () => {
                                 onBlur={() => setFieldTouched('identification_type_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('identification_type_id', newValue ? newValue.value : null);
-                                    /* setIdCountry(newValue.value) */
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
@@ -125,6 +125,11 @@ export const ClientsForm = () => {
                                 label="Celular"
                                 placeholder="Ingrese el celular"
                                 name="phone"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
                                 error={errors.phone && touched.phone}
                                 helperText={errors.phone && touched.phone && errors.phone}
                                 sx={{ gridColumn: "span 4" }}
@@ -176,6 +181,8 @@ export const ClientsForm = () => {
                 )}
             </Formik>
             <LoadingSpinner isSaving={isLoading} message={"Guardando cambios, por favor espere..."} />
+            <AlertMessage severity="error" title="¡Ha ocurrido un error!" message={errorMessage} />
+            <AlertMessage severity="warning" title="¡Hubo un error en el servidor!" message={serverMessage} />
         </Box>
     )
 }
@@ -187,3 +194,24 @@ const handleKeyPress = (event) => {
         event.preventDefault();
     }
 };
+
+const validationSchema = Yup.object().shape({
+    name: Yup.string()
+        .min(8, 'El nombre debe tener al menos dos caracteres')
+        .required('Ingrese un nombre'),
+    phone: Yup.string()
+        .min(8, 'El debe tener al menos 10 digitos')
+        .required('Este campo es obligatorio ingrese su número de celular'),
+    identification_number: Yup.string()
+        .required('Este campo es obligatorio debe seleccionar el tipo de identificación'),
+    identification_number: Yup.string()
+        .min(10, 'Ingrese un numero de cedula valido')
+        .required('Este campo es obligatorio ingrese la cedula'),
+    address: Yup.string()
+        .required('Este campo es obligatorio ingrese la dirección'),
+    email: Yup.string()
+        .email('Ingrese un correo válido.')
+        .required('El email no puede estar vacío.'),
+    identification_type_id: Yup.string()
+        .required('Este campo es obligatorio seleccione el tipo de identificación'),
+});

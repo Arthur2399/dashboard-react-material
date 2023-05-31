@@ -149,7 +149,7 @@ export const PasswordChange = () => {
       </Formik>
 
       <AlertMessage severity="warning" title="¡Hubo un error en el servidor!" message={serverErrorMessage} />
-      <AlertMessage severity="error" title="¡Ha ocurrido un error!!" message={messageError} />
+      <AlertMessage severity="error" title="¡Ha ocurrido un error!" message={messageError} />
       <LoadingSpinner isSaving={isSaving} message={"Cambiando contraseña, por favor espere."} />
       <AlertConfirm
         title="Contraseña cambiada correctamente"

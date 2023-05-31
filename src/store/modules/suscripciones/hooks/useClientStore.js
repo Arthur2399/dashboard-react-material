@@ -1,8 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { decryptData } from "../../../../hooks/useEncrypData";
-import { onAddNewClient, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient } from "../slices/clientSlice";
 import morgquickApi from "../../../../api/morgquickApi";
-import { useNavigate } from "react-router-dom";
+import { onAddNewClient, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
 
 export const useClientStore = () => {
 
@@ -47,7 +47,13 @@ export const useClientStore = () => {
       dispatch(onAddNewClient(values));
       navigate('/suscripciones/clientes');
     } catch (error) {
-      console.log(error);
+      if (error.response.status == 400) {
+        var claves = Object.keys(error.response.data);
+        var firstValue = error.response.data[claves[0]];
+        dispatch(sendErrorMessage(firstValue[0]))
+      } else {
+        dispatch(sendServerErrorMessage(error.response.data.error))
+      }
     }
   }
 

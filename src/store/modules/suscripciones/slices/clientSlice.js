@@ -6,8 +6,8 @@ export const clientSlice = createSlice({
         isLoading: false,
         clients: [],
         active: null,
-        serverMessage: null,
         errorMessage: null,
+        serverMessage: null,
     },
     reducers: {
         onIsLoading: (state) => {
@@ -42,6 +42,15 @@ export const clientSlice = createSlice({
                 return client;
             });
         },
+
+        sendErrorMessage: (state, { payload }) => {
+            state.isLoading = false;
+            state.errorMessage = payload;
+        },
+        sendServerErrorMessage: (state, { payload }) => {
+            state.isLoading = false;
+            state.serverMessage = payload;
+        },
         /*       onDeleteEvent: ( state ) => {
                if ( state.activeEvent ) {
                    state.events = state.events.filter( event => event.id !== state.activeEvent.id );
@@ -64,4 +73,6 @@ export const {
     onSetActiveClient,
     onAddNewClient,
     onUpdateClient,
+    sendErrorMessage,
+    sendServerErrorMessage,
 } = clientSlice.actions;
