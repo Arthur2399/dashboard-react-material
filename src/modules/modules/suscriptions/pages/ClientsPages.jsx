@@ -81,6 +81,7 @@ export const ClientsPages = () => {
 
     const onCreateClient = () => {
         startSetActiveClient({
+            id:0,
             identification_type: '',
             identification_type_id: null,
             name: '',
@@ -131,6 +132,7 @@ export const ClientsPages = () => {
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
+                    getRowId={(row) => row.id} 
                 />
             </Box>
             <LoadingSpinner isSaving={isLoading} message={"Cargando clientes, por favor espere..."} />

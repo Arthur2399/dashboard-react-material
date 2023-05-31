@@ -13,25 +13,32 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useClientStore } from '../../../../store/modules/suscripciones/hooks/useClientStore';
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
+import { LoadingSpinner } from '../../../components/LoadingSpinner';
 
 
 export const ClientsForm = () => {
-    const isNonMobile = useMediaQuery("(min-width:600px)");
-    const navigate = useNavigate();
-
-    const {active} = useClientStore();
-    const {typeIdentification} = useGetComboxBox();
 
     const [initialState, setInitialState] = useState({
+        id:0,
         address: '',
         comercial_name: '',
         email: '',
-        identification_number:'',
+        identification_number: '',
         identification_type_id: null,
         identification_type: '',
         name: '',
         phone: '',
-    })
+    });
+
+    const isNonMobile = useMediaQuery("(min-width:600px)");
+    const navigate = useNavigate();
+
+    const { active, startSavingClient, isLoading } = useClientStore();
+    const { typeIdentification } = useGetComboxBox();
+
+    const onSaveClient = (client) => {
+        startSavingClient(client);
+    }
 
     useEffect(() => {
         if (active !== null) {
@@ -40,27 +47,16 @@ export const ClientsForm = () => {
 
     }, [active])
 
-    const typeCIb = [
-        {
-            label: 'ci',
-            value: 0
-        }
-        , {
-            label: 'ruc',
-            value: 0
-        }
-    ]
-
     return (
         <Box className="animate__animated animate__fadeIn">
             <Header title="Crear cliente" subtitle="Crea los clientes de tu negocio." />
             <Formik
-             initialValues={initialState}
-            enableReinitialize
-            /*validationSchema={validationSchema}
-            onSubmit={(values) => {
-                onCreateUser(JSON.stringify(values))
-            }} */
+                initialValues={initialState}
+                enableReinitialize
+                /*validationSchema={validationSchema}*/
+                onSubmit={(values) => {
+                    onSaveClient(values)
+                }}
             >
                 {({ values, errors, touched, setFieldValue, setFieldTouched, resetForm }) => (
                     <Form>
@@ -90,7 +86,7 @@ export const ClientsForm = () => {
                             <Autocomplete
                                 options={typeIdentification}
                                 getOptionLabel={(option) => option.label}
-                                 value={typeIdentification.find((option) => option.value === values.identification_type_id) || null} 
+                                value={typeIdentification.find((option) => option.value === values.identification_type_id) || null}
                                 onBlur={() => setFieldTouched('identification_type_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('identification_type_id', newValue ? newValue.value : null);
@@ -144,11 +140,6 @@ export const ClientsForm = () => {
                                 placeholder="Ingrese la dirección"
                                 name="address"
                                 error={errors.address && touched.address}
-                                inputProps={{
-                                    pattern: "[0-9]*",
-                                    maxLength: 10,
-                                    onKeyPress: handleKeyPress,
-                                }}
                                 helperText={errors.address && touched.address && errors.address}
                                 sx={{ gridColumn: "span 4" }}
                             />
@@ -176,7 +167,7 @@ export const ClientsForm = () => {
                             >
                                 <RestartAltIcon />
                             </Button>
-                            <Button /* type="submit" */ onClick={() => { navigate(-1) }} title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
+                            <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
                                 <SaveIcon sx={{ mr: 1 }} />
                                 Guardar
                             </Button>
@@ -184,6 +175,7 @@ export const ClientsForm = () => {
                     </Form>
                 )}
             </Formik>
+            <LoadingSpinner isSaving={isLoading} message={"Guardando cambios, por favor espere..."} />
         </Box>
     )
 }

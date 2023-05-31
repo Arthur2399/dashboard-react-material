@@ -29,6 +29,7 @@ export const clientSlice = createSlice({
         },
 
         onAddNewClient: (state, { payload }) => {
+            if(payload.id === 0) return;
             state.clients.push(payload);
             state.active = null;
         },
