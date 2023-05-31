@@ -18,7 +18,7 @@ export const clientSlice = createSlice({
             state.active = payload;
         },
         onLoadClients: (state, { payload = [] }) => {
-            state.isLoadingEvents = false;
+            state.isLoading = false;
             // state.events = payload;
             payload.forEach(client => {
                 const exists = state.clients.some(dbClient => dbClient.id === client.id);
@@ -28,34 +28,39 @@ export const clientSlice = createSlice({
             })
         },
 
+        onAddNewClient: (state, { payload }) => {
+            state.clients.push(payload);
+            state.active = null;
+        },
 
-        /*       onAddNewEvent: ( state, { payload }) => {
-                  state.events.push( payload );
-                  state.activeEvent = null;
-              },
-              onUpdateEvent: ( state, { payload } ) => {
-                  state.events = state.events.map( event => {
-                      if ( event.id === payload.id ) {
-                          return payload;
-                      }
-      
-                      return event;
-                  });
-              },
-              onDeleteEvent: ( state ) => {
-                  if ( state.activeEvent ) {
-                      state.events = state.events.filter( event => event.id !== state.activeEvent.id );
-                      state.activeEvent = null;
-                  }
-              },
-      
-              onLogoutCalendar: ( state ) => {
-                  state.isLoadingEvents = true,
-                  state.events      = []
-                  state.activeEvent = null
-              } */
+        onUpdateClient: (state, { payload }) => {
+            state.clients = state.clients.map(client => {
+                if (client.id === payload.id) {
+                    return payload;
+                }
+                return client;
+            });
+        },
+        /*       onDeleteEvent: ( state ) => {
+               if ( state.activeEvent ) {
+                   state.events = state.events.filter( event => event.id !== state.activeEvent.id );
+                   state.activeEvent = null;
+               }
+           },
+   
+           onLogoutCalendar: ( state ) => {
+               state.isLoadingEvents = true,
+               state.events      = []
+               state.activeEvent = null
+           } */
 
     }
 })
 
-export const { onIsLoading, onLoadClients, onSetActiveClient } = clientSlice.actions;
+export const {
+    onIsLoading,
+    onLoadClients,
+    onSetActiveClient,
+    onAddNewClient,
+    onUpdateClient,
+} = clientSlice.actions;

@@ -9,11 +9,34 @@ import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useClientStore } from '../../../../store/modules/suscripciones/hooks/useClientStore';
 
 
 export const ClientsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
+
+    const {active} = useClientStore();
+
+    const [initialState, setInitialState] = useState({
+        address: '',
+        comercial_name: '',
+        email: '',
+        identification_number:'',
+        identification_type_id: null,
+        identification_type: '',
+        name: '',
+        phone: '',
+    })
+
+    useEffect(() => {
+        if (active !== null) {
+            setInitialState({ ...active });
+        }
+
+    }, [active])
 
     const typeCIb = [
         {
@@ -30,9 +53,9 @@ export const ClientsForm = () => {
         <Box className="animate__animated animate__fadeIn">
             <Header title="Crear cliente" subtitle="Crea los clientes de tu negocio." />
             <Formik
-            /* initialValues={initialValues}
+             initialValues={initialState}
             enableReinitialize
-            validationSchema={validationSchema}
+            /*validationSchema={validationSchema}
             onSubmit={(values) => {
                 onCreateUser(JSON.stringify(values))
             }} */
@@ -58,42 +81,27 @@ export const ClientsForm = () => {
                                 name="name"
                                 error={errors.name && touched.name}
                                 helperText={errors.name && touched.name && errors.name}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{ gridColumn: "span 4 " }}
                             />
-
-                            {/* APELLIDO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Apellido"
-                                placeholder="Ingrese el apellido"
-                                name="lastName"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
 
                             {/* TIPO DE DOCUMENTO */}
                             <Autocomplete
                                 options={typeCIb}
                                 getOptionLabel={(option) => option.label}
-                                /* value={typeCIb.find((option) => option.value === values.country_id) || null} */
-                                onBlur={() => setFieldTouched('country_id', true)}
+                                 value={typeCIb.find((option) => option.value === values.identification_type_id) || null} 
+                                onBlur={() => setFieldTouched('identification_type_id', true)}
                                 onChange={(event, newValue) => {
-                                    setFieldValue('country_id', newValue ? newValue.value : null);
-                                    setIdCountry(newValue.value)
+                                    setFieldValue('identification_type_id', newValue ? newValue.value : null);
+                                    /* setIdCountry(newValue.value) */
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Tipo de identificación"
                                         placeholder="Busque y tipo de identificacion"
-                                        name="country_id"
-                                        error={errors.country_id && touched.country_id}
-                                        helperText={errors.country_id && touched.country_id && errors.country_id}
+                                        name="identification_type_id"
+                                        error={errors.identification_type_id && touched.identification_type_id}
+                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id}
                                         variant="filled" />}
                             />
                             {/* CEDULA */}
@@ -104,9 +112,9 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Cedula"
                                 placeholder="Ingrese el numero de cédula"
-                                name="lastName"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="identification_number"
+                                error={errors.identification_number && touched.identification_number}
+                                helperText={errors.identification_number && touched.identification_number && errors.identification_number}
                                 sx={{ gridColumn: "span 2 " }}
                             />
 
@@ -118,9 +126,9 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Celular"
                                 placeholder="Ingrese el celular"
-                                name="lastName"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="phone"
+                                error={errors.phone && touched.phone}
+                                helperText={errors.phone && touched.phone && errors.phone}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -132,14 +140,14 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Dirección"
                                 placeholder="Ingrese la dirección"
-                                name="phone"
-                                error={errors.phone && touched.phone}
+                                name="address"
+                                error={errors.address && touched.address}
                                 inputProps={{
                                     pattern: "[0-9]*",
                                     maxLength: 10,
                                     onKeyPress: handleKeyPress,
                                 }}
-                                helperText={errors.phone && touched.phone && errors.phone}
+                                helperText={errors.address && touched.address && errors.address}
                                 sx={{ gridColumn: "span 4" }}
                             />
 

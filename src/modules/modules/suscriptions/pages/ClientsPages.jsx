@@ -7,19 +7,20 @@ import { tokens } from "../../../../theme";
 import { Header } from "../../components";
 import { useClientStore } from "../../../../store/modules/suscripciones/hooks/useClientStore";
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const ClientsPages = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
-    const { startonLoadingClients, clients } = useClientStore()
+    const { startonLoadingClients,startSetActiveClient, clients, isLoading  } = useClientStore()
 
     const { colorDataGrid } = customStyles();
 
@@ -58,20 +59,39 @@ export const ClientsPages = () => {
             disableColumnMenu: true,
             renderCell: (params) => {
                 const handleEdit = () => {
-                    // handle edit logic
+                    startSetActiveClient(params.row);
+                    navigate("formulario");
                 };
                 const handleDelete = () => {
                     // handle delete logic
                 };
                 return (
                     <>
-                        <EditIcon onClick={handleEdit} />
-                        <DeleteIcon onClick={handleDelete} />
+                        <IconButton onClick={handleEdit} >
+                            <EditIcon />
+                        </IconButton>
+                        <IconButton onClick={handleDelete}>
+                            <DeleteIcon />
+                        </IconButton>
                     </>
                 );
             },
         },
     ];
+
+    const onCreateClient = () => {
+        startSetActiveClient({
+            identification_type: '',
+            identification_type_id: 1,
+            name: '',
+            comercial_name: '',
+            email: '',
+            phone: '',
+            address: '',
+            identification_number:''
+        })
+        navigate("formulario");
+    }
 
     useEffect(() => {
         startonLoadingClients();
@@ -84,7 +104,7 @@ export const ClientsPages = () => {
                 <Header title="Clientes" subtitle="Crea los clientes de tu negocio." />
                 <Box>
                     <Button
-                        onClick={() => { navigate("formulario") }}
+                        onClick={onCreateClient}
                         sx={{
                             backgroundColor: colors.primary[400],
                             color: colors.grey[100],
@@ -113,6 +133,7 @@ export const ClientsPages = () => {
                     components={{ Toolbar: GridToolbar }}
                 />
             </Box>
+            <LoadingSpinner isSaving={isLoading} message={"Cargando clientes, por favor espere..."} />
         </Box>
     )
 }
