@@ -10,23 +10,64 @@ export const plansSlice = createSlice({
         errorMessage: null,
     },
     reducers: {
-
         onIsLoading: (state) => {
             state.isLoading = true;
         },
 
-        onSetPlan: (state, { payload }) => {
+        onSetActivePlan: (state, { payload }) => {
             state.active = payload;
         },
-
-        onClearValues: (state) => {
+        onLoadPlans: (state, { payload = [] }) => {
             state.isLoading = false;
-            state.plans = [];
-            state.active = null;
-            state.serverMessage = null;
-            state.errorMessage = null;
+            payload.forEach(plan => {
+                const exists = state.plans.some(dbPlan => dbPlan.id === plan.id);
+                if (!exists) {
+                    state.plans.push(plan)
+                }
+            })
         },
+        onAddNewPlan: (state, { payload }) => {
+            if (payload.id === 0) return;
+            state.plans.push(payload);
+            state.active = null;
+        },
+
+        onUpdatePlan: (state, { payload }) => {
+            state.plans = state.plans.map(plan => {
+                if (plan.id === payload.id) {
+                    return payload;
+                }
+                return plan;
+            });
+        },
+
+        onConfirmDelete: (state,) => {
+            state.confirm = true
+        },
+        sendErrorMessage: (state, { payload }) => {
+            state.isLoading = false;
+            state.errorMessage = payload;
+        },
+        sendServerErrorMessage: (state, { payload }) => {
+            state.isLoading = false;
+            state.serverMessage = payload;
+        },
+        clearMessage: (state) => {
+            state.errorMessage = null;
+            state.serverMessage = null;
+            state.confirm = false;
+        }
     }
 })
 
-export const { onIsLoading, onSetPlan, onClearValues } = plansSlice.actions;
+export const {
+    onIsLoading,
+    onSetActivePlan,
+    onLoadPlans,
+    onAddNewPlan,
+    onUpdatePlan,
+    onConfirmDelete,
+    sendErrorMessage,
+    sendServerErrorMessage,
+    clearMessage,
+} = plansSlice.actions;

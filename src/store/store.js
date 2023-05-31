@@ -5,12 +5,12 @@ import { changePasswordSlice } from "./modules/configuration/changePassword/chan
 
 export const store = configureStore({
     reducer: {
+        plans: plansSlice.reducer,
         auth: authSlice.reducer,
         menu: menuSlice.reducer,
         companyInfo: companyInfoSlice.reducer,
         changePassword: changePasswordSlice.reducer,
         community: communitySlice.reducer,
-        plans: plansSlice.reducer,
         client: clientSlice.reducer,
     }
 });

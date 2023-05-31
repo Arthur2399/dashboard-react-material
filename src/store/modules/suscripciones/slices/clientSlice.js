@@ -44,20 +44,6 @@ export const clientSlice = createSlice({
             });
         },
 
-
-        /*       onDeleteEvent: ( state ) => {
-               if ( state.activeEvent ) {
-                   state.events = state.events.filter( event => event.id !== state.activeEvent.id );
-                   state.activeEvent = null;
-               }
-           },
-   
-           onLogoutCalendar: ( state ) => {
-               state.isLoadingEvents = true,
-               state.events      = []
-               state.activeEvent = null
-           } */
-
         onConfirmDelete: (state,) => {
             state.confirm = true
         },
@@ -74,6 +60,19 @@ export const clientSlice = createSlice({
             state.serverMessage = null;
             state.confirm = false;
         }
+
+        /*       onDeleteEvent: ( state ) => {
+       if ( state.activeEvent ) {
+           state.events = state.events.filter( event => event.id !== state.activeEvent.id );
+           state.activeEvent = null;
+       }
+   },
+ 
+   onLogoutCalendar: ( state ) => {
+       state.isLoadingEvents = true,
+       state.events      = []
+       state.activeEvent = null
+   } */
     }
 })
 

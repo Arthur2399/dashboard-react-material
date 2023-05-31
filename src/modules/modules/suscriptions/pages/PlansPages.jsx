@@ -13,6 +13,8 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
 import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
+import { useEffect } from "react";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const PlansPages = () => {
 
@@ -20,7 +22,7 @@ export const PlansPages = () => {
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
-    const {startSetPlanDetail} = usePlanStore();
+    const { isLoading, plans, startonLoadingPlans, startSetActivePlan } = usePlanStore();
 
 
     const { colorDataGrid } = customStyles();
@@ -45,6 +47,7 @@ export const PlansPages = () => {
             field: "state",
             headerName: "Estado",
             flex: 1,
+            valueGetter: (params) => (params.value === 1 ? 'Activo' : 'Inactivo'),
         },
         {
             field: "actions",
@@ -55,7 +58,8 @@ export const PlansPages = () => {
             disableColumnMenu: true,
             renderCell: (params) => {
                 const handleEdit = () => {
-                    // handle edit logic
+                    startSetActivePlan(params.row);
+                    navigate('formulario')
                 };
                 const handleDelete = () => {
                     // handle delete logic
@@ -66,7 +70,7 @@ export const PlansPages = () => {
                 };
                 return (
                     <>
-                        <IconButton title="Editar">
+                        <IconButton title="Editar" onClick={handleEdit}>
                             <EditIcon sx={{ color: colors.primary[400] }} />
                         </IconButton>
                         <IconButton title="Detalle" onClick={handleDetail}>
@@ -82,6 +86,25 @@ export const PlansPages = () => {
         },
     ];
 
+    const onCreatePlan = () => {
+        startSetActivePlan({
+            id: 0,
+            company: '',
+            company_id: null,
+            code: '',
+            value: '',
+            name: '',
+            state: null,
+            created_at: '',
+            updated_at: ''
+        })
+        navigate("formulario");
+    }
+
+    useEffect(() => {
+        startonLoadingPlans();
+    }, [])
+
 
     return (
         <Box className="animate__animated animate__fadeIn">
@@ -89,7 +112,7 @@ export const PlansPages = () => {
                 <Header title="Planes" subtitle="Crea los planes de los servicios que vas a ofrecer." />
                 <Box>
                     <Button
-                        onClick={() => { navigate("formulario") }}
+                        onClick={onCreatePlan}
                         sx={{
                             backgroundColor: colors.primary[400],
                             color: colors.grey[100],
@@ -112,12 +135,14 @@ export const PlansPages = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={plansData}
+                    rows={plans}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
                 />
             </Box>
+
+            <LoadingSpinner isSaving={isLoading} message={"Cargando planes, por favor espere..."} />
         </Box>
     )
 }
