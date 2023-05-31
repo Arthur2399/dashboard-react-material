@@ -7,38 +7,36 @@ import { Header } from "../../components";
 
 import { Box, Button } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { clients } from "../../../../data/modules/suscriptions/mockSuscriptions";
+
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useEffect } from "react";
+import { useClientStore } from "../../../../store/modules/suscripciones/hooks/useClientStore";
 
 export const ClientsPages = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
+    const { startonLoadingClients, clients } = useClientStore()
 
     const { colorDataGrid } = customStyles();
 
     const columns = [
         {
             field: "name",
-            headerName: "Nombre",
+            headerName: "Nombre completo",
             flex: 1
         },
         {
-            field: "last_name",
-            headerName: "Apellido",
-            flex: 1,
-        },
-        {
-            field: "type_document",
+            field: "identification_type",
             headerName: "Tipo de documento",
             flex: 1,
         },
         {
-            field: "ci",
+            field: "identification_number",
             headerName: "Cedula",
             flex: 1,
         },
@@ -75,6 +73,10 @@ export const ClientsPages = () => {
             },
         },
     ];
+
+    useEffect(() => {
+        startonLoadingClients();
+    }, [])
 
 
     return (
