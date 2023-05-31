@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { decryptData } from "../../../../hooks/useEncrypData";
 import morgquickApi from "../../../../api/morgquickApi";
-import { clearMessage, onAddNewClient, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
+import { clearMessage, onAddNewClient, onConfirmDelete, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
 
 export const useClientStore = () => {
 
-  const { isLoading, clients, active, serverMessage, errorMessage } = useSelector(state => state.client)
+  const { isLoading, clients, active, serverMessage, errorMessage,confirm } = useSelector(state => state.client)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -57,8 +57,23 @@ export const useClientStore = () => {
     }
   }
 
+  const startDeletingClient = async() => {
+    // Todo: Llegar al backend
+    try {
+        await calendarApi.delete(`/events/${ activeEvent.id }` );
+        dispatch( onDeleteEvent() );
+    } catch (error) {
+        console.log(error);
+        Swal.fire('Error al eliminar', error.response.data.msg, 'error');
+    }
+}
+
   const startClearMessage = () => {
     dispatch(clearMessage());
+  }
+
+  const startConfirmDelete = () => {
+    dispatch(onConfirmDelete());
   }
 
 
@@ -66,14 +81,17 @@ export const useClientStore = () => {
     /* ATRIBUTOS */
     isLoading,
     clients,
+    confirm,
     active,
     serverMessage,
     errorMessage,
 
     /* METODOS */
+    startDeletingClient,
     startonLoadingClients,
     startSetActiveClient,
     startSavingClient,
-    startClearMessage
+    startClearMessage,
+    startConfirmDelete
   }
 }

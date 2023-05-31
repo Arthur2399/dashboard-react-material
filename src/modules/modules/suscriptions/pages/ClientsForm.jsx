@@ -15,6 +15,7 @@ import { useClientStore } from '../../../../store/modules/suscripciones/hooks/us
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
 import { AlertMessage } from '../../../components/AlertMessage';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export const ClientsForm = () => {
@@ -170,8 +171,8 @@ export const ClientsForm = () => {
                             />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
-                            <Button type="button" onClick={() => { navigate(-1) }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
-                                <DeleteIcon />
+                            <Button type="button" onClick={() => { navigate('/suscripciones/clientes') }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
+                                <ArrowBackIcon />
                             </Button>
                             <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
                                 onClick={resetForm}

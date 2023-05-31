@@ -5,6 +5,7 @@ export const clientSlice = createSlice({
     initialState: {
         isLoading: false,
         clients: [],
+        confirm: false,
         active: null,
         errorMessage: null,
         serverMessage: null,
@@ -29,7 +30,7 @@ export const clientSlice = createSlice({
         },
 
         onAddNewClient: (state, { payload }) => {
-            if(payload.id === 0) return;
+            if (payload.id === 0) return;
             state.clients.push(payload);
             state.active = null;
         },
@@ -43,14 +44,7 @@ export const clientSlice = createSlice({
             });
         },
 
-        sendErrorMessage: (state, { payload }) => {
-            state.isLoading = false;
-            state.errorMessage = payload;
-        },
-        sendServerErrorMessage: (state, { payload }) => {
-            state.isLoading = false;
-            state.serverMessage = payload;
-        },
+
         /*       onDeleteEvent: ( state ) => {
                if ( state.activeEvent ) {
                    state.events = state.events.filter( event => event.id !== state.activeEvent.id );
@@ -64,11 +58,22 @@ export const clientSlice = createSlice({
                state.activeEvent = null
            } */
 
-           clearMessage: (state) => {
-               state.errorMessage = null;
-               state.serverMessage = null;
-           }
-
+        onConfirmDelete: (state,) => {
+            state.confirm = true
+        },
+        sendErrorMessage: (state, { payload }) => {
+            state.isLoading = false;
+            state.errorMessage = payload;
+        },
+        sendServerErrorMessage: (state, { payload }) => {
+            state.isLoading = false;
+            state.serverMessage = payload;
+        },
+        clearMessage: (state) => {
+            state.errorMessage = null;
+            state.serverMessage = null;
+            state.confirm = false;
+        }
     }
 })
 
@@ -80,5 +85,6 @@ export const {
     onUpdateClient,
     sendErrorMessage,
     sendServerErrorMessage,
-    clearMessage
+    clearMessage,
+    onConfirmDelete
 } = clientSlice.actions;
