@@ -64,6 +64,11 @@ export const clientSlice = createSlice({
                state.activeEvent = null
            } */
 
+           clearMessage: (state) => {
+               state.errorMessage = null;
+               state.serverMessage = null;
+           }
+
     }
 })
 
@@ -75,4 +80,5 @@ export const {
     onUpdateClient,
     sendErrorMessage,
     sendServerErrorMessage,
+    clearMessage
 } = clientSlice.actions;

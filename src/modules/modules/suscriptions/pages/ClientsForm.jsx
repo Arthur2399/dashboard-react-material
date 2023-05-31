@@ -34,12 +34,18 @@ export const ClientsForm = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
 
-    const { active, startSavingClient, isLoading, serverMessage, errorMessage } = useClientStore();
+    const { active, startSavingClient, startClearMessage, isLoading, serverMessage, errorMessage } = useClientStore();
     const { typeIdentification } = useGetComboxBox();
 
     const onSaveClient = (client) => {
         startSavingClient(client);
     }
+
+
+    useEffect(() => {
+        startClearMessage();
+    }, [])
+
 
     useEffect(() => {
         if (active !== null) {

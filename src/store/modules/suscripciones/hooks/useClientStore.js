@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { decryptData } from "../../../../hooks/useEncrypData";
 import morgquickApi from "../../../../api/morgquickApi";
-import { onAddNewClient, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
+import { clearMessage, onAddNewClient, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
 
 export const useClientStore = () => {
 
@@ -57,6 +57,9 @@ export const useClientStore = () => {
     }
   }
 
+  const startClearMessage = () => {
+    dispatch(clearMessage());
+  }
 
 
   return {
@@ -70,6 +73,7 @@ export const useClientStore = () => {
     /* METODOS */
     startonLoadingClients,
     startSetActiveClient,
-    startSavingClient
+    startSavingClient,
+    startClearMessage
   }
 }
