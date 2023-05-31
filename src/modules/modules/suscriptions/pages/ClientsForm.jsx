@@ -9,7 +9,7 @@ import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/materi
 import DeleteIcon from '@mui/icons-material/Delete';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useEffect } from 'react';
 import { useClientStore } from '../../../../store/modules/suscripciones/hooks/useClientStore';
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
@@ -47,6 +47,10 @@ export const ClientsForm = () => {
         startClearMessage();
     }, [])
 
+    const titleForm = useMemo(() => {
+        if ( active.id !=0 ) return `Editar a ${active.name}`;
+        return 'Crear cliente';
+    }, [ active ])
 
     useEffect(() => {
         if (active !== null) {
@@ -57,7 +61,7 @@ export const ClientsForm = () => {
 
     return (
         <Box className="animate__animated animate__fadeIn">
-            <Header title="Crear cliente" subtitle="Crea los clientes de tu negocio." />
+            <Header title={titleForm} subtitle="Crea los clientes de tu negocio." />
             <Formik
                 initialValues={initialState}
                 enableReinitialize
