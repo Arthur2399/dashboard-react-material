@@ -7,21 +7,19 @@ import { Header } from "../../components";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DehazeIcon from '@mui/icons-material/Dehaze';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
 import { customStyles } from "../../../helpers";
-import { plansDetails } from "../../../../data/modules/suscriptions/mockSuscriptions";
-import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
+import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
+import { useEffect } from "react";
 
 export const PlansDetails = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { colorDataGrid } = customStyles();
   const navigate = useNavigate();
 
-  const {active} = usePlanStore();
-
-  const { colorDataGrid } = customStyles();
+  const { headerPlan, startonLoadingPlansDetails, details, startSetActivePlanDetails } = usePlanDetailsStore();
 
   const columns = [
     {
@@ -30,7 +28,7 @@ export const PlansDetails = () => {
       flex: 1
     },
     {
-      field: "service",
+      field: "product",
       headerName: "Servicio",
       flex: 1,
     },
@@ -40,18 +38,13 @@ export const PlansDetails = () => {
       flex: 1,
     },
     {
-      field: "iva",
+      field: "tax",
       headerName: "IVA",
       flex: 1,
     },
     {
       field: "total",
       headerName: "Total",
-      flex: 1,
-    },
-    {
-      field: "state",
-      headerName: "Estado",
       flex: 1,
     },
     {
@@ -63,18 +56,15 @@ export const PlansDetails = () => {
       disableColumnMenu: true,
       renderCell: (params) => {
         const handleEdit = () => {
-          // handle edit logic
+          startSetActivePlanDetails(params.row);
+          navigate("formulario");
         };
         const handleDelete = () => {
           // handle delete logic
         };
-        const handleDetail = () => {
-          navigate('detalle')
-          console.log(params)
-        };
         return (
           <>
-            <IconButton title="Editar">
+            <IconButton  onClick={handleEdit} title="Editar">
               <EditIcon sx={{ color: colors.primary[400] }} />
             </IconButton>
             <IconButton title="Archivar" >
@@ -85,15 +75,39 @@ export const PlansDetails = () => {
       },
     },
   ];
-const hola ='hola'
+
+
+  const onSavePlanDetails = () => {
+    startSetActivePlanDetails({
+      id:0,
+		  plan_header: "",
+		  plan_header_id:"",
+		  product: "",
+		  product_id:"",
+		  tax: "",
+		  tax_id:"",
+		  quantity: "",
+		  value: "",
+		  sub_total: '',
+		  vat_total: '',
+		  total: '',
+		  code: '',
+    })
+    navigate("formulario");
+  }
+
+  useEffect(() => {
+    startonLoadingPlansDetails();
+  }, [])
+
 
   return (
     <Box className="animate__animated animate__fadeIn">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title={`Detalle del plan ${active.name}`} subtitle="Edite cada uno del detalle de planes." />
+        <Header title={`Detalle del plan ${headerPlan.name}`} subtitle="Edite cada uno del detalle de planes." />
         <Box>
           <Button
-            onClick={() => { navigate("formulario") }}
+            onClick={onSavePlanDetails}
             sx={{
               backgroundColor: colors.primary[400],
               color: colors.grey[100],
@@ -116,7 +130,7 @@ const hola ='hola'
         sx={colorDataGrid}
       >
         <DataGrid
-          rows={plansDetails}
+          rows={details}
           columns={columns}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           components={{ Toolbar: GridToolbar }}

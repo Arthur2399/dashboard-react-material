@@ -15,6 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
 import { useEffect } from "react";
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
+import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
 
 export const PlansPages = () => {
 
@@ -23,6 +24,8 @@ export const PlansPages = () => {
     const navigate = useNavigate();
 
     const { isLoading, plans, startonLoadingPlans, startSetActivePlan } = usePlanStore();
+    const { startSetHeaderPlan } = usePlanDetailsStore();
+
 
 
     const { colorDataGrid } = customStyles();
@@ -65,7 +68,7 @@ export const PlansPages = () => {
                     // handle delete logic
                 };
                 const handleDetail = () => {
-                    startSetPlanDetail(params.row)
+                    startSetHeaderPlan(params.row)
                     navigate('detalle')
                 };
                 return (

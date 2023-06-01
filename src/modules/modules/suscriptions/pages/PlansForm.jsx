@@ -39,7 +39,7 @@ export const PlansForm = () => {
     }
     const titleForm = useMemo(() => {
         if (active.id != 0) return `Editar a ${active.name}`;
-        return 'Crear cliente';
+        return 'Crear plan';
     }, [active])
 
     useEffect(() => {

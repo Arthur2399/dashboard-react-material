@@ -1,41 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const clientSlice = createSlice({
-    name: 'client',
+export const plansDetailsSlice = createSlice({
+    name: 'plansDetails',
     initialState: {
         isLoading: false,
-        clients: [],
-        confirm: false,
+        headerPlan:null,
+        details: [],
         active: null,
-        errorMessage: null,
         serverMessage: null,
+        errorMessage: null,
     },
     reducers: {
         onIsLoading: (state) => {
             state.isLoading = true;
         },
-
-        onSetActiveClient: (state, { payload }) => {
+    
+        onSetHeaderPlan: (state, { payload }) => {
+          state.headerPlan= payload;  
+        },
+        onSetActivePlanDetails: (state, { payload }) => {
             state.active = payload;
         },
-        onLoadClients: (state, { payload = [] }) => {
+        onLoadPlansDetails: (state, { payload = [] }) => {
             state.isLoading = false;
-            // state.events = payload;
-            state.clients = payload
+            state.details = payload;
         },
-
-        onAddNewClient: (state, { payload }) => {
+        onAddNewPlanDetails: (state, { payload }) => {
             if (payload.id === 0) return;
-            state.clients.push(payload);
+            state.details.push(payload);
             state.active = null;
         },
 
-        onUpdateClient: (state, { payload }) => {
-            state.clients = state.clients.map(client => {
-                if (client.id === payload.id) {
+        onUpdatePlanDetails: (state, { payload }) => {
+            state.details = state.details.map(detail => {
+                if (detail.id === payload.id) {
                     return payload;
                 }
-                return client;
+                return detail;
             });
         },
 
@@ -55,30 +56,18 @@ export const clientSlice = createSlice({
             state.serverMessage = null;
             state.confirm = false;
         }
-
-        /*       onDeleteEvent: ( state ) => {
-       if ( state.activeEvent ) {
-           state.events = state.events.filter( event => event.id !== state.activeEvent.id );
-           state.activeEvent = null;
-       }
-   },
- 
-   onLogoutCalendar: ( state ) => {
-       state.isLoadingEvents = true,
-       state.events      = []
-       state.activeEvent = null
-   } */
     }
 })
 
 export const {
+    clearMessage,
+    onAddNewPlanDetails,
+    onConfirmDelete,
     onIsLoading,
-    onLoadClients,
-    onSetActiveClient,
-    onAddNewClient,
-    onUpdateClient,
+    onLoadPlansDetails,
+    onSetActivePlanDetails,
+    onSetHeaderPlan,
+    onUpdatePlanDetails,
     sendErrorMessage,
     sendServerErrorMessage,
-    clearMessage,
-    onConfirmDelete
-} = clientSlice.actions;
+} = plansDetailsSlice.actions;

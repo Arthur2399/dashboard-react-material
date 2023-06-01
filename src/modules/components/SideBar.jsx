@@ -39,6 +39,15 @@ import { useMenuStore } from "../hooks/useMenuStore";
 import SearchIcon from "@mui/icons-material/Search";
 
 
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions'; 'subcripciones'
+import PeopleIcon from '@mui/icons-material/People'; 'Clienes'
+import SettingsIcon from '@mui/icons-material/Settings'; 'configuracion'
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'; 'planes'
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'; 'plazos de pago'
+import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined'; 'servicios'
+import RequestPageIcon from '@mui/icons-material/RequestPage'; 
+
+
 const iconComp = {
   "HomeOutlinedIcon": <HomeOutlinedIcon />,
   "PieChartOutlineOutlinedIcon": <PieChartOutlineOutlinedIcon />,
@@ -61,6 +70,13 @@ const iconComp = {
   "MapIcon": <MapIcon />,
   "LocalPoliceIcon": <LocalPoliceIcon />,
   "MessageIcon": <MessageIcon />,
+  "SubscriptionsIcon":<SubscriptionsIcon/>,
+  "PeopleIcon":<PeopleIcon/>,
+  "SettingsIcon":<SettingsIcon/>,
+  "PhoneAndroidIcon":<PhoneAndroidIcon/>,
+  "CurrencyExchangeIcon":<CurrencyExchangeIcon/>,
+  "DesignServicesOutlinedIcon":<DesignServicesOutlinedIcon/>,
+  "RequestPageIcon":<RequestPageIcon/>,
 }
 
 /* ITEM */
