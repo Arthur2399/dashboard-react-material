@@ -15,6 +15,7 @@ export const usePlanDetailsStore = () => {
 
     const startonLoadingPlansDetails = async () => {
         dispatch(onIsLoading())
+        if(headerPlan ==  null) return navigate('/suscripciones/configuracion/planes');
         try {
             const { data } = await morgquickApi.get(`/plans/PlansDetail/get/${headerPlan.id}`);
             console.log(data)

@@ -214,8 +214,6 @@ const validationSchema = Yup.object().shape({
         .min(8, 'El debe tener al menos 10 digitos')
         .required('Este campo es obligatorio ingrese su número de celular'),
     identification_number: Yup.string()
-        .required('Este campo es obligatorio debe seleccionar el tipo de identificación'),
-    identification_number: Yup.string()
         .min(10, 'Ingrese un numero de cedula valido')
         .required('Este campo es obligatorio ingrese la cedula'),
     address: Yup.string()

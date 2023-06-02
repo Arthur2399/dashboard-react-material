@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { customStyles } from "../../../helpers";
 import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
 import { useEffect } from "react";
+import { useMemo } from "react";
 
 export const PlansDetails = () => {
   const theme = useTheme();
@@ -96,6 +97,14 @@ export const PlansDetails = () => {
     navigate("formulario");
   }
 
+  const headerTitle  = useMemo(() => {
+    if(headerPlan == null){
+      return '';
+    }
+    return headerPlan.name;
+  }, [])
+
+
   useEffect(() => {
     startonLoadingPlansDetails();
   }, [])
@@ -104,7 +113,7 @@ export const PlansDetails = () => {
   return (
     <Box className="animate__animated animate__fadeIn">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title={`Detalle del plan ${headerPlan.name}`} subtitle="Edite cada uno del detalle de planes." />
+        <Header title={`Detalle del plan ${headerTitle}`} subtitle="Edite cada uno del detalle de planes." />
         <Box>
           <Button
             onClick={onSavePlanDetails}

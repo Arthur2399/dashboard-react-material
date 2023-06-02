@@ -3,12 +3,14 @@ import morgquickApi from "../../../../api/morgquickApi";
 import { decryptData } from "../../../../hooks/useEncrypData";
 import { clearMessage, onAddNewPlan, onIsLoading, onLoadPlans, onSetActivePlan, onUpdatePlan, sendErrorMessage, sendServerErrorMessage } from "../slices/plansSlice";
 import { useNavigate } from "react-router-dom";
+import { usePlanDetailsStore } from "./usePlanDetailsStore";
 
 export const usePlanStore = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isLoading, plans, active, serverMessage, errorMessage } = useSelector(state => state.plans);
+    const { startSetHeaderPlan } = usePlanDetailsStore();
 
 
     const startonLoadingPlans = async () => {
@@ -40,9 +42,11 @@ export const usePlanStore = () => {
                 return;
             }
             // Creando
-            await morgquickApi.post('/plans/PlansHeader/post', {...values, state:1});
+            const { data } = await morgquickApi.post('/plans/PlansHeader/post', { ...values, state: 1 });
             dispatch(onAddNewPlan(values));
-            navigate('/suscripciones/configuracion/planes');
+            startSetHeaderPlan(data)
+            navigate('/suscripciones/configuracion/planes/detalle');
+
         } catch (error) {
             if (error.response.status == 400) {
                 var claves = Object.keys(error.response.data);
