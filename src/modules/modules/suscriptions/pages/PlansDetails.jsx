@@ -1,18 +1,21 @@
+import { useEffect, useMemo } from "react";
+
 import { useTheme } from "@emotion/react";
 import { tokens } from "../../../../theme";
 import { useNavigate } from "react-router-dom";
 
-import { Box, Button, IconButton } from "@mui/material";
 import { Header } from "../../components";
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
+import { Box, Button, IconButton } from "@mui/material";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { customStyles } from "../../../helpers";
+import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
-import { customStyles } from "../../../helpers";
-import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
-import { useEffect } from "react";
-import { useMemo } from "react";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const PlansDetails = () => {
   const theme = useTheme();
@@ -20,7 +23,7 @@ export const PlansDetails = () => {
   const { colorDataGrid } = customStyles();
   const navigate = useNavigate();
 
-  const { headerPlan, startonLoadingPlansDetails, details, startSetActivePlanDetails } = usePlanDetailsStore();
+  const { headerPlan, startonLoadingPlansDetails, details, startSetActivePlanDetails, isLoading } = usePlanDetailsStore();
 
   const columns = [
     {
@@ -65,7 +68,7 @@ export const PlansDetails = () => {
         };
         return (
           <>
-            <IconButton  onClick={handleEdit} title="Editar">
+            <IconButton onClick={handleEdit} title="Editar">
               <EditIcon sx={{ color: colors.primary[400] }} />
             </IconButton>
             <IconButton title="Archivar" >
@@ -77,32 +80,35 @@ export const PlansDetails = () => {
     },
   ];
 
+  const onBackPlan = () => {
+    navigate("/suscripciones/configuracion/planes/");
+  }
 
   const onSavePlanDetails = () => {
     startSetActivePlanDetails({
-      id:0,
-		  plan_header: "",
-		  plan_header_id:"",
-		  product: "",
-		  product_id:"",
-		  tax: "",
-		  tax_id:"",
-		  quantity: "",
-		  value: "",
-		  sub_total: '',
-		  vat_total: '',
-		  total: '',
-		  code: '',
+      id: 0,
+      plan_header: "",
+      plan_header_id: "",
+      product: "",
+      product_id: "",
+      tax: "",
+      tax_id: "",
+      quantity: "",
+      value: "",
+      sub_total: '',
+      vat_total: '',
+      total: '',
+      code: '',
     })
     navigate("formulario");
   }
 
-  const headerTitle  = useMemo(() => {
-    if(headerPlan == null){
+  const headerTitle = useMemo(() => {
+    if (headerPlan == null) {
       return '';
     }
     return headerPlan.name;
-  }, [])
+  }, [headerPlan])
 
 
   useEffect(() => {
@@ -115,6 +121,19 @@ export const PlansDetails = () => {
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title={`Detalle del plan ${headerTitle}`} subtitle="Edite cada uno del detalle de planes." />
         <Box>
+          <Button
+            color="primary" variant="outlined"
+            onClick={onBackPlan}
+            sx={{
+              fontSize: "14px",
+              fontWeight: "bold",
+              mr: "10px",
+              padding: "10px 20px",
+            }}
+          >
+            <ArrowBackIcon sx={{ mr: "10px" }} />
+            Regresar
+          </Button>
           <Button
             onClick={onSavePlanDetails}
             sx={{
@@ -145,6 +164,7 @@ export const PlansDetails = () => {
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
+      <LoadingSpinner isSaving={isLoading} message={"Cargando detalle, por favor espere..."} />
     </Box>
   )
 }

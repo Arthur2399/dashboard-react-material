@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onAddNewPlanDetails, onIsLoading, onLoadPlansDetails, onSetActivePlanDetails, onSetHeaderPlan, onUpdatePlanDetails, sendErrorMessage, sendServerErrorMessage } from "../slices/plansDetailsSlice";
 import morgquickApi from "../../../../api/morgquickApi";
+import { encrypData } from "../../../../hooks/useEncrypData";
+import { decryptData } from "../../../../hooks/useEncrypData";
 
 export const usePlanDetailsStore = () => {
 
@@ -10,14 +12,24 @@ export const usePlanDetailsStore = () => {
     const { isLoading, headerPlan, details, active, serverMessage, errorMessage } = useSelector(state => state.plansDetails);
 
     const startSetHeaderPlan = (headerPlan) => {
+        const encryptedData = encrypData(headerPlan);
+        localStorage.setItem("HeaderPlan", encryptedData);
         dispatch(onSetHeaderPlan(headerPlan));
     }
 
     const startonLoadingPlansDetails = async () => {
+       
         dispatch(onIsLoading())
-        if(headerPlan ==  null) return navigate('/suscripciones/configuracion/planes');
+        let idHeader = headerPlan?.id
+
+        if (headerPlan == null) {
+            let HeaderDescrip = JSON.parse(decryptData(localStorage.getItem("HeaderPlan")));
+            dispatch(onSetHeaderPlan(HeaderDescrip));
+            idHeader = HeaderDescrip.id
+        }
+
         try {
-            const { data } = await morgquickApi.get(`/plans/PlansDetail/get/${headerPlan.id}`);
+            const { data } = await morgquickApi.get(`/plans/PlansDetail/get/${idHeader}`);
             console.log(data)
             dispatch(onLoadPlansDetails(data))
         } catch (error) {
@@ -32,8 +44,8 @@ export const usePlanDetailsStore = () => {
     const startSavingPlanDetail = async (planData) => {
 
         console.log(planData);
-     dispatch(onIsLoading())
-       try {
+        dispatch(onIsLoading())
+        try {
             if (planData.id) {
                 // Actualizando
                 await morgquickApi.put(`/plans/PlansDetail/update/${planData.id}`, { ...planData, plan_header_id: headerPlan.id });
@@ -42,7 +54,7 @@ export const usePlanDetailsStore = () => {
                 return;
             }
             // Creando
-            await morgquickApi.post('/plans/PlansDetail/post', { ...planData, plan_header_id: headerPlan.id, sub_total:100, vat_total:20 ,total:100 });
+            await morgquickApi.post('/plans/PlansDetail/post', { ...planData, plan_header_id: headerPlan.id, sub_total: 100, vat_total: 20, total: 100 });
             dispatch(onAddNewPlanDetails(planData));
             navigate('/suscripciones/configuracion/planes/detalle');
         } catch (error) {

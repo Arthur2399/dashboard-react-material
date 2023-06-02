@@ -6,16 +6,16 @@ import { customStyles } from "../../../helpers";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { Box, Button, IconButton } from "@mui/material";
 import { Header } from "../../components";
-import { plansData } from "../../../../data/modules/suscriptions/mockSuscriptions";
+
+import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
+import { useEffect } from "react";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
+import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import EditIcon from '@mui/icons-material/Edit';
-import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
-import { useEffect } from "react";
-import { LoadingSpinner } from "../../../components/LoadingSpinner";
-import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
 
 export const PlansPages = () => {
 
