@@ -1,8 +1,8 @@
-import { Autocomplete, Box, Button, TextField, useMediaQuery } from "@mui/material";
+import { Autocomplete, Box, Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { Header } from "../../components";
 import { Field, Form, Formik } from "formik";
 
-import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import { useNavigate } from "react-router-dom";
@@ -65,7 +65,7 @@ export const PlansDetailsForm = () => {
                             gap="30px"
                             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                             sx={{
-                                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                                "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
                             }}
                         >
 
@@ -78,7 +78,7 @@ export const PlansDetailsForm = () => {
                                 onChange={(event, newValue) => {
                                     setFieldValue('product_id', newValue ? newValue.value : null);
                                 }}
-                                sx={{ gridColumn: "span 4" }}
+                                sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Servicios"
@@ -95,11 +95,12 @@ export const PlansDetailsForm = () => {
                                 fullWidth
                                 variant="filled"
                                 label="Cantidad"
+                                value={service.quantity}
                                 placeholder="Ingrese la cantidad"
                                 name="quantity"
                                 error={errors.quantity && touched.quantity}
                                 helperText={errors.quantity && touched.quantity && errors.quantity}
-                                sx={{ gridColumn: "span 4" }}
+                                sx={{ gridColumn: "span 2" }}
                             />
 
                             {/* VALOR*/}
@@ -113,7 +114,7 @@ export const PlansDetailsForm = () => {
                                 name="value"
                                 error={errors.value && touched.value}
                                 helperText={errors.value && touched.value && errors.value}
-                                sx={{ gridColumn: "span 4" }}
+                                sx={{ gridColumn: "span 2" }}
                             />
 
 
@@ -126,7 +127,7 @@ export const PlansDetailsForm = () => {
                                 onChange={(event, newValue) => {
                                     setFieldValue('tax_id', newValue ? newValue.value : null);
                                 }}
-                                sx={{ gridColumn: "span 4" }}
+                                sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="IVA"
@@ -138,9 +139,16 @@ export const PlansDetailsForm = () => {
                             />
                         </Box>
 
+                        <Box display="flex" justifyContent="end"  alignItems="end" flexDirection='column' mt="20px">
+                            <Typography variant="h4"><strong>Subtotal:</strong>  </Typography>
+                            <Typography variant="h4"><strong>IVA:</strong>       </Typography>
+                            <Typography variant="h4"><strong>Total:</strong>     </Typography>
+
+                        </Box>
+
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" onClick={() => { navigate(-1) }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
-                                <DeleteIcon />
+                                <ArrowBackIcon />
                             </Button>
                             <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
                                 onClick={resetForm}
