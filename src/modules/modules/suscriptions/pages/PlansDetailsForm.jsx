@@ -2,29 +2,45 @@ import { Autocomplete, Box, Button, TextField, Typography, useMediaQuery } from 
 import { Header } from "../../components";
 import { Field, Form, Formik } from "formik";
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import SaveIcon from '@mui/icons-material/Save';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
 import { useGetComboxBox } from "../helpers/useGetComboxBox";
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
 import { AlertMessage } from "../../../components/AlertMessage";
+import { useTheme } from "@emotion/react";
+import { tokens } from "../../../../theme";
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 export const PlansDetailsForm = () => {
 
-    const { active, startSavingPlanDetail, isLoading, errorMessage, serverMessage } = usePlanDetailsStore();
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+    const isNonMobile = useMediaQuery("(min-width:600px)");
+    const navigate = useNavigate();
 
+    const { active, startSavingPlanDetail, isLoading, errorMessage, serverMessage, startClearMessage } = usePlanDetailsStore();
+    const { service, tax, serviceData, startGetServicesData } = useGetComboxBox()
+
+
+    const [subTotal, setSubTotal] = useState(0);
+
+    const [iva, setIvA] = useState(0);
+    const [total, setTotal] = useState(0);
+
+    const [idService, setIdService] = useState(null);
     const [initialState, setInitialState] = useState({
-        id:0,
+        id: 0,
         plan_header: "",
-        plan_header_id:"",
+        plan_header_id: "",
         product: "",
-        product_id:"",
+        product_id: "",
         tax: "",
-        tax_id:"",
+        tax_id: "",
         quantity: "",
         value: "",
         sub_total: '',
@@ -32,10 +48,9 @@ export const PlansDetailsForm = () => {
         total: '',
         code: '',
     })
-    const isNonMobile = useMediaQuery("(min-width:600px)");
-    const navigate = useNavigate();
 
-    const { service, tax } = useGetComboxBox()
+    console.log(initialState)
+
 
     useEffect(() => {
         if (active !== null) {
@@ -43,9 +58,35 @@ export const PlansDetailsForm = () => {
         }
     }, [active])
 
+    useEffect(() => {
+        if (idService != null) {
+            startGetServicesData(idService);
+        }
+    }, [idService])
+
+    useEffect(() => {
+        if (serviceData != null) {
+            setInitialState({ ...active, product_id: serviceData.id, value: serviceData.price, tax_id: serviceData.tax_id, });
+        }
+    }, [serviceData])
+
+
+/*     useEffect(() => {
+      const subtotalValue = parseFloat(initialState.value) * parseFloat(initialState.quantity);
+      setSubTotal(subtotalValue)
+    }, [initialState])
+     */
+
+
+    useEffect(() => {
+        startClearMessage();
+    }, [])
+
     const onSavePlanDetail = (detail) => {
         startSavingPlanDetail(detail)
     }
+
+
 
     return (
         <Box className="animate__animated animate__fadeIn">
@@ -77,6 +118,7 @@ export const PlansDetailsForm = () => {
                                 onBlur={() => setFieldTouched('product_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('product_id', newValue ? newValue.value : null);
+                                    setIdService(newValue.value);
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
@@ -95,7 +137,6 @@ export const PlansDetailsForm = () => {
                                 fullWidth
                                 variant="filled"
                                 label="Cantidad"
-                                value={service.quantity}
                                 placeholder="Ingrese la cantidad"
                                 name="quantity"
                                 error={errors.quantity && touched.quantity}
@@ -139,10 +180,28 @@ export const PlansDetailsForm = () => {
                             />
                         </Box>
 
-                        <Box display="flex" justifyContent="end"  alignItems="end" flexDirection='column' mt="20px">
-                            <Typography variant="h4"><strong>Subtotal:</strong>  </Typography>
-                            <Typography variant="h4"><strong>IVA:</strong>       </Typography>
-                            <Typography variant="h4"><strong>Total:</strong>     </Typography>
+
+                        <Box display='flex' justifyContent='end' alignContent='end'>
+                            <Box mt="20px"
+                                sx={{
+                                    padding: '20px',
+                                    width: '200px',
+                                    borderRadius: '5px',
+                                    backgroundColor: colors.grey[100],
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(2, 1fr)',
+                                    gridTemplateRows: 'repeat(3, 1fr)',
+                                    gap: '10px',
+                                }}
+                            >
+                                <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>Subtotal:</strong></Typography>
+                                <Typography variant="h4">$ {subTotal}</Typography>
+                                <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>IVA:</strong></Typography>
+                                <Typography variant="h4">$ {iva}</Typography>
+                                <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>Total:</strong></Typography>
+                                <Typography variant="h4">$ {total}</Typography>
+
+                            </Box>
 
                         </Box>
 

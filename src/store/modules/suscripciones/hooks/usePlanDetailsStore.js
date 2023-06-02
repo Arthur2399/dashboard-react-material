@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { onAddNewPlanDetails, onIsLoading, onLoadPlansDetails, onSetActivePlanDetails, onSetHeaderPlan, onUpdatePlanDetails, sendErrorMessage, sendServerErrorMessage } from "../slices/plansDetailsSlice";
+import { clearMessage, onAddNewPlanDetails, onIsLoading, onLoadPlansDetails, onSetActivePlanDetails, onSetHeaderPlan, onUpdatePlanDetails, sendErrorMessage, sendServerErrorMessage } from "../slices/plansDetailsSlice";
 import morgquickApi from "../../../../api/morgquickApi";
 import { encrypData } from "../../../../hooks/useEncrypData";
 import { decryptData } from "../../../../hooks/useEncrypData";
@@ -18,7 +18,7 @@ export const usePlanDetailsStore = () => {
     }
 
     const startonLoadingPlansDetails = async () => {
-       
+
         dispatch(onIsLoading())
         let idHeader = headerPlan?.id
 
@@ -30,7 +30,6 @@ export const usePlanDetailsStore = () => {
 
         try {
             const { data } = await morgquickApi.get(`/plans/PlansDetail/get/${idHeader}`);
-            console.log(data)
             dispatch(onLoadPlansDetails(data))
         } catch (error) {
             console.log(error)
@@ -42,8 +41,6 @@ export const usePlanDetailsStore = () => {
     }
 
     const startSavingPlanDetail = async (planData) => {
-
-        console.log(planData);
         dispatch(onIsLoading())
         try {
             if (planData.id) {
@@ -85,5 +82,6 @@ export const usePlanDetailsStore = () => {
         startSetActivePlanDetails,
         startSavingPlanDetail,
         startonLoadingPlansDetails,
+        startClearMessage,
     }
 }

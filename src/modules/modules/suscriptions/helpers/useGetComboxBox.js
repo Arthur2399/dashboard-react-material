@@ -6,6 +6,9 @@ export const useGetComboxBox = () => {
 
     const [typeIdentification, setTypeIdentification] = useState([])
     const [service, setService] = useState([])
+    const [serviceData, setServiceData] = useState(null)
+
+
     const [tax, setTaxes] = useState([])
     const startGetCountry = async () => {
         try {
@@ -27,6 +30,15 @@ export const useGetComboxBox = () => {
         }
     }
 
+    const startGetServicesData = async (id) => {
+        try {
+            const { data } = await morgquickApi.get(`/inventory/products/update/${id}`);
+            setServiceData(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const startGetTaxes = async () => {
         try {
             const { data } = await morgquickApi.get(`/inventory_tables/cbx/VatRate`);
@@ -42,11 +54,14 @@ export const useGetComboxBox = () => {
         startGetTaxes();
     }, [])
 
-  return {
-    /* Atributos */
-    service,
-    tax,
-    typeIdentification,
+    return {
+        /* Atributos */
+        service,
+        serviceData,
+        tax,
+        typeIdentification,
+        /* Metodos */
+        startGetServicesData,
 
-  }
+    }
 }
