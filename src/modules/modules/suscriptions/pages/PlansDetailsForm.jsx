@@ -207,7 +207,7 @@ export const PlansDetailsForm = () => {
                             <Box mt="20px"
                                 sx={{
                                     padding: '20px',
-                                    width: '300px',
+                                    width: 'auto',
                                     borderRadius: '5px',
                                     backgroundColor: colors.grey[100],
                                     display: 'grid',
@@ -217,11 +217,11 @@ export const PlansDetailsForm = () => {
                                 }}
                             >
                                 <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>Subtotal:</strong></Typography>
-                                <Typography variant="h4">$ {isNaN(subTotal) ? 0 : subTotal}</Typography>
+                                <Typography variant="h4">$ {isNaN(subTotal) ? 0 : subTotal.toFixed(2)}</Typography>
                                 <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>IVA:</strong></Typography>
-                                <Typography variant="h4">$ {isNaN(iva) ? 0 : iva}</Typography>
+                                <Typography variant="h4">$ {isNaN(iva) ? 0 : iva.toFixed(2)}</Typography>
                                 <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>Total:</strong></Typography>
-                                <Typography variant="h4">$ {isNaN(total) ? 0 : total}</Typography>
+                                <Typography variant="h4">$ {isNaN(total) ? 0 : total.toFixed(2)}</Typography>
 
                             </Box>
 

@@ -29,33 +29,44 @@ export const PlansDetails = () => {
     {
       field: "code",
       headerName: "Codigo",
+      headerAlign: 'center',
+      align: 'center',
       flex: 1
     },
     {
       field: "product",
       headerName: "Servicio",
-      flex: 1,
+      headerAlign: 'center',
+      align: 'center',
+      flex: 2,
     },
     {
       field: "value",
       headerName: "valor",
       flex: 1,
+      headerAlign: 'center',
+      align: 'right'
     },
     {
       field: "tax",
       headerName: "IVA",
       flex: 1,
+      align: 'right',
+      headerAlign: 'center',
     },
     {
       field: "total",
       headerName: "Total",
       flex: 1,
+      headerAlign: 'center',
+      align: 'right'
     },
     {
       field: "actions",
       headerName: "Opciones",
       sortable: false,
       headerAlign: "center",
+      align: "center",
       width: "150",
       disableColumnMenu: true,
       renderCell: (params) => {
@@ -111,6 +122,32 @@ export const PlansDetails = () => {
   }, [headerPlan])
 
 
+  const calculateTotalSum = (rows) => {
+    let sum = 0;
+    rows.forEach((row) => {
+      sum += row.total;
+    });
+    return sum;
+  }
+
+  const totalSum = calculateTotalSum(details);
+
+  const rows = [
+    ...details.map((row) => ({
+      ...row,
+      value: row.value.toFixed(2),
+      total: row.total.toFixed(2),
+    })),
+    {
+      id: 'totalSum',
+      code: '',
+      product: '',
+      value: '',
+      tax: 'TOTAL',
+      total: totalSum.toFixed(2),
+    },
+  ];
+
   useEffect(() => {
     startonLoadingPlansDetails();
   }, [])
@@ -158,7 +195,7 @@ export const PlansDetails = () => {
         sx={colorDataGrid}
       >
         <DataGrid
-          rows={details}
+          rows={rows}
           columns={columns}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           components={{ Toolbar: GridToolbar }}

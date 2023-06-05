@@ -44,17 +44,22 @@ export const PlansPages = () => {
         {
             field: "value",
             headerName: "valor",
+            align:'right',
+            headerAlign: 'center',
             flex: 1,
         },
         {
             field: "state",
+            headerAlign: 'center',
             headerName: "Estado",
             flex: 1,
+            align:'center',
             valueGetter: (params) => (params.value === 1 ? 'Activo' : 'Inactivo'),
         },
         {
             field: "actions",
             headerName: "Opciones",
+            align:'right',
             sortable: false,
             headerAlign: "center",
             width: "150",
@@ -104,6 +109,31 @@ export const PlansPages = () => {
         navigate("formulario");
     }
 
+    const calculateTotalSum = (rows) => {
+        let sum = 0;
+        rows.forEach((row) => {
+          sum += row.value;
+        });
+        return sum;
+      }
+    
+      const totalSum = calculateTotalSum(plans);
+    
+      const rows = [
+        ...plans.map((row) => ({
+          ...row,
+          value: row.value.toFixed(2),
+        })),
+        {
+          id: 'totalSum',
+          code: '',
+          name: 'TOTAL',
+          value: totalSum.toFixed(2),
+          state: '',
+          actions:'',
+        },
+      ];
+
     useEffect(() => {
         startonLoadingPlans();
     }, [])
@@ -138,7 +168,7 @@ export const PlansPages = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={plans}
+                    rows={rows}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
