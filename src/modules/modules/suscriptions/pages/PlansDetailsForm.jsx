@@ -27,12 +27,16 @@ export const PlansDetailsForm = () => {
     const { service, tax, serviceData, startGetServicesData } = useGetComboxBox()
 
 
-    const [subTotal, setSubTotal] = useState(0);
+    const [idService, setIdService] = useState(null);
 
+    const [quantity, setQuantity] = useState('')
+    const [value, setValue] = useState('')
+    const [taxes, setTaxes] = useState('')
+
+    const [subTotal, setSubTotal] = useState(0);
     const [iva, setIvA] = useState(0);
     const [total, setTotal] = useState(0);
 
-    const [idService, setIdService] = useState(null);
     const [initialState, setInitialState] = useState({
         id: 0,
         plan_header: "",
@@ -48,8 +52,6 @@ export const PlansDetailsForm = () => {
         total: '',
         code: '',
     })
-
-    console.log(initialState)
 
 
     useEffect(() => {
@@ -67,15 +69,24 @@ export const PlansDetailsForm = () => {
     useEffect(() => {
         if (serviceData != null) {
             setInitialState({ ...active, product_id: serviceData.id, value: serviceData.price, tax_id: serviceData.tax_id, });
+            setValue(serviceData.price)
+            setTaxes(serviceData.tax_id)
         }
     }, [serviceData])
 
 
-/*     useEffect(() => {
-      const subtotalValue = parseFloat(initialState.value) * parseFloat(initialState.quantity);
-      setSubTotal(subtotalValue)
-    }, [initialState])
-     */
+    useEffect(() => {
+
+        const taxValue = parseFloat(tax.find((tax) => tax.value === taxes)?.vat_value)
+
+        const subtotalValue = value * parseFloat(quantity);
+        const ivaValue = (subtotalValue * taxValue) / 100;
+        const totalValue = subtotalValue + ivaValue;
+        setSubTotal(subtotalValue)
+        setIvA(ivaValue)
+        setTotal(totalValue)
+    }, [quantity,value,taxes])
+
 
 
     useEffect(() => {
@@ -83,7 +94,7 @@ export const PlansDetailsForm = () => {
     }, [])
 
     const onSavePlanDetail = (detail) => {
-        startSavingPlanDetail(detail)
+        startSavingPlanDetail({...detail,sub_total: subTotal, vat_total: iva, total: total})
     }
 
 
@@ -139,6 +150,11 @@ export const PlansDetailsForm = () => {
                                 label="Cantidad"
                                 placeholder="Ingrese la cantidad"
                                 name="quantity"
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+                                    setFieldValue("quantity", newValue); // Actualiza el valor en Formik
+                                    setQuantity(event.target.value);
+                                }}
                                 error={errors.quantity && touched.quantity}
                                 helperText={errors.quantity && touched.quantity && errors.quantity}
                                 sx={{ gridColumn: "span 2" }}
@@ -153,6 +169,11 @@ export const PlansDetailsForm = () => {
                                 label="Valor"
                                 placeholder="Ingrese el valor"
                                 name="value"
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+                                    setFieldValue("value", newValue); // Actualiza el valor en Formik
+                                    setValue(event.target.value);
+                                }}
                                 error={errors.value && touched.value}
                                 helperText={errors.value && touched.value && errors.value}
                                 sx={{ gridColumn: "span 2" }}
@@ -167,6 +188,7 @@ export const PlansDetailsForm = () => {
                                 onBlur={() => setFieldTouched('tax_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('tax_id', newValue ? newValue.value : null);
+                                    setTaxes(newValue.value);
                                 }}
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
@@ -185,7 +207,7 @@ export const PlansDetailsForm = () => {
                             <Box mt="20px"
                                 sx={{
                                     padding: '20px',
-                                    width: '200px',
+                                    width: '300px',
                                     borderRadius: '5px',
                                     backgroundColor: colors.grey[100],
                                     display: 'grid',
@@ -195,11 +217,11 @@ export const PlansDetailsForm = () => {
                                 }}
                             >
                                 <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>Subtotal:</strong></Typography>
-                                <Typography variant="h4">$ {subTotal}</Typography>
+                                <Typography variant="h4">$ {isNaN(subTotal) ? 0 : subTotal}</Typography>
                                 <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>IVA:</strong></Typography>
-                                <Typography variant="h4">$ {iva}</Typography>
+                                <Typography variant="h4">$ {isNaN(iva) ? 0 : iva}</Typography>
                                 <Typography variant="h4" sx={{ justifySelf: 'end' }}><strong>Total:</strong></Typography>
-                                <Typography variant="h4">$ {total}</Typography>
+                                <Typography variant="h4">$ {isNaN(total) ? 0 : total}</Typography>
 
                             </Box>
 

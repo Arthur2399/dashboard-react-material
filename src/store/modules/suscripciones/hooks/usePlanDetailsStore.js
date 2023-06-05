@@ -51,7 +51,7 @@ export const usePlanDetailsStore = () => {
                 return;
             }
             // Creando
-            await morgquickApi.post('/plans/PlansDetail/post', { ...planData, plan_header_id: headerPlan.id, sub_total: 100, vat_total: 20, total: 100 });
+            await morgquickApi.post('/plans/PlansDetail/post', { ...planData, plan_header_id: headerPlan.id });
             dispatch(onAddNewPlanDetails(planData));
             navigate('/suscripciones/configuracion/planes/detalle');
         } catch (error) {
