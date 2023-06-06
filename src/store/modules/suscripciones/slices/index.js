@@ -1,4 +1,5 @@
-export* from './plansSlice';
 export* from './clientSlice';
-export* from './plansDetailsSlice';
 export* from './paymentTermSlice';
+export* from './plansDetailsSlice';
+export* from './plansSlice';
+export* from './servicesSlice';
