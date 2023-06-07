@@ -4,7 +4,6 @@ import { getEnvironments } from '../helpers/getEnvironments';
 const { VITE_SECRET_KEY } = getEnvironments();
 
 export const encrypData = ( value ) => {
-    console.log(VITE_SECRET_KEY)
     const encryptedData = CryptoJS.AES.encrypt(JSON.stringify(value), VITE_SECRET_KEY).toString();
     return encryptedData;
 }

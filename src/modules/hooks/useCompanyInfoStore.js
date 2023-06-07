@@ -44,8 +44,6 @@ export const useCompanyInfoStore = () => {
 
     const startSelectionCompany = ({ company, fiscalExercise }) => {
 
-        console.log({company, fiscalExercise});
-
          //Busqueda por id entre la lista de empresas
         let onlyCompany = companies.find(obj => obj.id === company)
 
