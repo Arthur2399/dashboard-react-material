@@ -1,10 +1,9 @@
 export const getEnvironments = () => {
 
-    import.meta.env;
-
-    return {
-        ...import.meta.env
+        return {
+            VITE_MODE: import.meta.env.VITE_MODE,
+            VITE_API_URL: import.meta.env.VITE_API_URL,
+        }
     }
-
-
-}
+    
+    

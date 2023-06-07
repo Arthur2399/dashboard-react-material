@@ -1,16 +1,19 @@
-import { useTheme } from "@emotion/react";
-import { tokens } from "../../../../theme";
 import { useNavigate } from "react-router-dom";
+
+import { Header } from "../../components";
+import { tokens } from "../../../../theme";
 import { customStyles } from "../../../helpers";
+
+import { useTheme } from "@emotion/react";
+import { Box, Button, IconButton } from "@mui/material";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Button } from "@mui/material";
-import { Header } from "../../components";
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
 export const Contract = () => {
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
@@ -79,14 +82,21 @@ export const Contract = () => {
         };
         return (
           <>
-            <EditIcon onClick={handleEdit} />
-            <DeleteIcon onClick={handleDelete} />
+            <IconButton>
+              <EditIcon onClick={handleEdit} />
+            </IconButton>
+            <IconButton>
+              <DeleteIcon onClick={handleDelete} />
+            </IconButton>
           </>
         );
       },
     },
   ];
 
+  const onCreateContract = () => {
+    navigate('formulario');
+  }
 
   return (
     <Box className="animate__animated animate__fadeIn">
@@ -94,7 +104,7 @@ export const Contract = () => {
         <Header title="Contrato" subtitle="Crea contratos para tus clientes." />
         <Box>
           <Button
-            onClick={() => { navigate("formulario") }}
+            onClick={onCreateContract}
             sx={{
               backgroundColor: colors.primary[400],
               color: colors.grey[100],

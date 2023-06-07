@@ -74,6 +74,7 @@ export const Services = () => {
             headerName: "Opciones",
             sortable: false,
             headerAlign: "center",
+            align: "center",
             width: "150",
             disableColumnMenu: true,
             renderCell: (params) => {

@@ -1,6 +1,7 @@
 export * from './ClientsForm';
 export * from './ClientsPages';
 export * from './Contract';
+export * from './ContractForm';
 export * from './PaymentTerm';
 export * from './PaymentTermForm';
 export * from './PlansDetails';
