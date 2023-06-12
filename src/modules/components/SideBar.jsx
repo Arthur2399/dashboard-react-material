@@ -30,14 +30,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
-import profileImg from "/Img/profile.png"
 import logo from "/logos/logo.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
 import { useAuthStore } from "../../hooks/useAuthStore";
 import { useMenuStore } from "../hooks/useMenuStore";
 import SearchIcon from "@mui/icons-material/Search";
-
 
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions'; 'subcripciones'
 import PeopleIcon from '@mui/icons-material/People'; 'Clienes'
@@ -46,7 +44,7 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'; 'planes'
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'; 'plazos de pago'
 import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined'; 'servicios'
 import RequestPageIcon from '@mui/icons-material/RequestPage'; 
-
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const iconComp = {
   "HomeOutlinedIcon": <HomeOutlinedIcon />,
@@ -77,6 +75,7 @@ const iconComp = {
   "CurrencyExchangeIcon":<CurrencyExchangeIcon/>,
   "DesignServicesOutlinedIcon":<DesignServicesOutlinedIcon/>,
   "RequestPageIcon":<RequestPageIcon/>,
+  "CancelIcon":<CancelIcon/>
 }
 
 /* ITEM */
