@@ -139,6 +139,15 @@ export const SideBar = () => {
     setSearchTerm("");
   };
 
+  const filterModules = (modules, searchTerm) => {
+    return modules.filter((module) => {
+      const isMatch = module.title && module.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const hasMatchingSubItems = module.subItems && filterModules(module.subItems, searchTerm).length > 0;
+      return isMatch || hasMatchingSubItems;
+    });
+  };
+
+  const filteredModules = filterModules(modules, searchTerm);
   
   return (
     <Box
@@ -217,21 +226,20 @@ export const SideBar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{ cursor: 'default', userSelect: 'none' }}>
-            {modules
-              .filter((item) => item.title && item.title.toLowerCase().includes(searchTerm.toLowerCase()))
-              .map((item) => (
-                item.titleGroup ? (
-                  <Typography
-                    key={item.id}
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={!isCollapsed ? { m: "15px 0 5px 20px" } : { display: "none" }}
-                  >
-                    {item.titleGroup}
-                  </Typography>
-                )
-                  : <RenderItem key={item.id} item={item} selected={selected} setSelected={setSelected} />
-              ))}
+          {filteredModules.map((item) => (
+          item.titleGroup ? (
+            <Typography
+              key={item.id}
+              variant="h6"
+              color={colors.grey[300]}
+              sx={!isCollapsed ? { m: "15px 0 5px 20px" } : { display: "none" }}
+            >
+              {item.titleGroup}
+            </Typography>
+          ) : (
+            <RenderItem key={item.id} item={item} selected={selected} setSelected={setSelected} />
+          )
+        ))}
           </Box>
         </Menu>
       </ProSidebar>
