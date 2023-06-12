@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Avatar, Badge, Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Avatar, Badge, Box, Hidden, IconButton, Typography, useTheme } from "@mui/material";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 
 import { tokens } from "../../theme";
@@ -10,7 +10,7 @@ import { useCompanyInfoStore } from "../hooks/useCompanyInfoStore";
 
 export const TopBar = () => {
 
-    const {user} = useAuthStore();
+    const { user } = useAuthStore();
     const { startLogout } = useAuthStore();
 
     const theme = useTheme();
@@ -47,9 +47,19 @@ export const TopBar = () => {
     return (
         <Box display="flex" justifyContent="space-between" p={2} sx={{ background: colors.primary[400] }}>
 
-            <img src={currentCompany.logoUrl} alt="logo" style={{
-                width: 'auto', height: '40px', objectFit: 'cover', marginLeft:'20px',filter: 'grayscale(100%) brightness(200%)',
-            }} />
+            <Hidden smDown>
+                <img
+                    src={currentCompany.logoUrl}
+                    alt="logo"
+                    style={{
+                        width: 'auto',
+                        height: '40px',
+                        objectFit: 'cover',
+                        marginLeft: '20px',
+                        filter: 'grayscale(100%) brightness(200%)',
+                    }}
+                />
+            </Hidden>
             <Typography variant="h3" sx={{ color: colors.grey[100] }}> <strong>{currentCompany.name}</strong></Typography>
             <Box display="flex">
                 <IconButton onClick={handleClickNotification}>
@@ -58,11 +68,11 @@ export const TopBar = () => {
                     </Badge>
                 </IconButton>
                 <Avatar
-                 src={user.photoURL} 
-                 onClick={handleClickMenu}
-                 sx={{
-                    ml:"20px"
-                 }}
+                    src={user.photoURL}
+                    onClick={handleClickMenu}
+                    sx={{
+                        ml: "20px"
+                    }}
                 />
             </Box>
             <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} open={open} onLogout={onLogout} />
