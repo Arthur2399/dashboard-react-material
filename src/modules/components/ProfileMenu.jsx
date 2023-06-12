@@ -16,7 +16,7 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
     const { photoURL } = useAuthStore();
-    const { currentCompany,startChangeCompany } = useCompanyInfoStore();
+    const { currentCompany, startChangeCompany } = useCompanyInfoStore();
 
     const navigate = useNavigate();
 
@@ -61,7 +61,10 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
             <MenuItem onClick={handleClose}>
-                <Avatar src={photoURL} /> Mi perfil
+                <ListItemIcon>
+                    <LocationCityIcon />
+                </ListItemIcon>
+                Mi perfil
             </MenuItem>
             <Divider />
             <MenuItem onClick={startChangeCompany}>

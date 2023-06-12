@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Badge, Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Avatar, Badge, Box, IconButton, Typography, useTheme } from "@mui/material";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 
 import { tokens } from "../../theme";
 import { ProfileMenu } from "./ProfileMenu";
@@ -11,6 +10,7 @@ import { useCompanyInfoStore } from "../hooks/useCompanyInfoStore";
 
 export const TopBar = () => {
 
+    const {user} = useAuthStore();
     const { startLogout } = useAuthStore();
 
     const theme = useTheme();
@@ -57,9 +57,13 @@ export const TopBar = () => {
                         <NotificationsOutlinedIcon sx={{ color: colors.grey[100] }} />
                     </Badge>
                 </IconButton>
-                <IconButton onClick={handleClickMenu}>
-                    <PersonOutlinedIcon sx={{ color: colors.grey[100] }} />
-                </IconButton>
+                <Avatar
+                 src={user.photoURL} 
+                 onClick={handleClickMenu}
+                 sx={{
+                    ml:"20px"
+                 }}
+                />
             </Box>
             <ProfileMenu anchorEl={anchorEl} handleClose={handleClose} open={open} onLogout={onLogout} />
             <Notifications anchorNo={anchorNo} handleClose={handleClose} openNo={openNo} />
