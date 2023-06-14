@@ -1,4 +1,4 @@
-import { useEffect ,useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -47,9 +47,9 @@ export const ClientsForm = () => {
     }, [])
 
     const titleForm = useMemo(() => {
-        if ( active.id !=0 ) return `Editar a ${active.name}`;
+        if (active.id != 0) return `Editar a ${active.name}`;
         return 'Crear cliente';
-    }, [ active ])
+    }, [active])
 
     useEffect(() => {
         if (active !== null) {
@@ -90,9 +90,88 @@ export const ClientsForm = () => {
                                 name="name"
                                 error={errors.name && touched.name}
                                 helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
+                            {/* NOMBRE */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Segundo nombre"
+                                placeholder="Ingrese el segudno nombre"
+                                name="name"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
+                            {/* APELLIDO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Apellido"
+                                placeholder="Ingrese el apellido paterno"
+                                name="name"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
+                            {/* APELLIDO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Segundo apellido"
+                                placeholder="Ingrese el apellido materno"
+                                name="name"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
+                            {/* RZON SOCIAL */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Razon social"
+                                placeholder="Ingrese la razon social"
+                                name="name"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
                                 sx={{ gridColumn: "span 4 " }}
                             />
 
+                            {/* FECHA DE NACIMIENTO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Fecha de nacimiento"
+                                placeholder="Ingrese la fecha de nacimiento"
+                                name="name"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
+
+                            {/* SEXO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Sexo"
+                                placeholder="Ingrese el sexo"
+                                name="name"
+                                error={errors.name && touched.name}
+                                helperText={errors.name && touched.name && errors.name}
+                                sx={{ gridColumn: "span 2 " }}
+                            />
                             {/* TIPO DE DOCUMENTO */}
                             <Autocomplete
                                 options={typeIdentification}
