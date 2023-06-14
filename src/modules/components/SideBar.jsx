@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, InputBase, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -22,43 +22,64 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import SchoolIcon from '@mui/icons-material/School';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import MessageIcon from '@mui/icons-material/Message';
 
 import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
-import profileImg from "../../data/img/perfil.jpg"
-import logo from "/logos/LogoERAS.png"
+import logo from "/logos/logo.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
-import { mockDataMenu } from "../../data/ui/menu/mockDataMenu";
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { useMenuStore } from "../hooks/useMenuStore";
+import SearchIcon from "@mui/icons-material/Search";
 
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions'; 'subcripciones'
+import PeopleIcon from '@mui/icons-material/People'; 'Clienes'
+import SettingsIcon from '@mui/icons-material/Settings'; 'configuracion'
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'; 'planes'
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'; 'plazos de pago'
+import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined'; 'servicios'
+import RequestPageIcon from '@mui/icons-material/RequestPage';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const iconComp = {
   "HomeOutlinedIcon": <HomeOutlinedIcon />,
   "PieChartOutlineOutlinedIcon": <PieChartOutlineOutlinedIcon />,
   "CalendarMonthIcon": <CalendarMonthIcon />,
-  "LibraryBooksIcon":<LibraryBooksIcon/>,
-  "PaymentsIcon":<PaymentsIcon/>,
-  "RequestQuoteIcon":<RequestQuoteIcon/>,
-  "PaidIcon":<PaidIcon/>,
-  "AccountBalanceIcon":<AccountBalanceIcon/>,
-  "InventoryIcon":<InventoryIcon/>,
-  "ApartmentIcon":<ApartmentIcon/>,
-  "HailIcon":<HailIcon/>,
-  "ShoppingBagIcon":<ShoppingBagIcon/>,
-  "PointOfSaleIcon":<PointOfSaleIcon/>,
-  "SchoolIcon":<SchoolIcon/>,
-  "LabelImportantIcon":<LabelImportantIcon/>,
-  "SystemSecurityUpdateGoodIcon":<SystemSecurityUpdateGoodIcon/>,
-  "AccountCircleIcon":<AccountCircleIcon/>,
-  "Diversity3Icon":<Diversity3Icon/>,
-  "MapIcon":<MapIcon/>,
+  "LibraryBooksIcon": <LibraryBooksIcon />,
+  "PaymentsIcon": <PaymentsIcon />,
+  "RequestQuoteIcon": <RequestQuoteIcon />,
+  "PaidIcon": <PaidIcon />,
+  "AccountBalanceIcon": <AccountBalanceIcon />,
+  "InventoryIcon": <InventoryIcon />,
+  "ApartmentIcon": <ApartmentIcon />,
+  "HailIcon": <HailIcon />,
+  "ShoppingBagIcon": <ShoppingBagIcon />,
+  "PointOfSaleIcon": <PointOfSaleIcon />,
+  "SchoolIcon": <SchoolIcon />,
+  "LabelImportantIcon": <LabelImportantIcon />,
+  "SystemSecurityUpdateGoodIcon": <SystemSecurityUpdateGoodIcon />,
+  "AccountCircleIcon": <AccountCircleIcon />,
+  "Diversity3Icon": <Diversity3Icon />,
+  "MapIcon": <MapIcon />,
+  "LocalPoliceIcon": <LocalPoliceIcon />,
+  "MessageIcon": <MessageIcon />,
+  "SubscriptionsIcon": <SubscriptionsIcon />,
+  "PeopleIcon": <PeopleIcon />,
+  "SettingsIcon": <SettingsIcon />,
+  "PhoneAndroidIcon": <PhoneAndroidIcon />,
+  "CurrencyExchangeIcon": <CurrencyExchangeIcon />,
+  "DesignServicesOutlinedIcon": <DesignServicesOutlinedIcon />,
+  "RequestPageIcon": <RequestPageIcon />,
+  "CancelIcon": <CancelIcon />
 }
 
 /* ITEM */
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, url, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -71,7 +92,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       icon={iconComp[icon]}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
+      <Link to={url} />
     </MenuItem>
   );
 };
@@ -98,17 +119,36 @@ const RenderItem = ({ item, selected, setSelected }) => {
     );
   } else {
     return (
-      <Item key={item.id} title={item.title} to={item.to} icon={item.icon} selected={selected} setSelected={setSelected} />
+      <Item key={item.id} title={item.title} url={item.url} icon={item.icon} selected={selected} setSelected={setSelected} />
     );
   }
 }
 
 export const SideBar = () => {
+
+  const { modules } = useMenuStore();
+  const [searchTerm, setSearchTerm] = useState("");
+
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 
+  const handleSearch = () => {
+    setSearchTerm("");
+  };
+
+  const filterModules = (modules, searchTerm) => {
+    return modules.filter((module) => {
+      const isMatch = module.title && module.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const hasMatchingSubItems = module.subItems && filterModules(module.subItems, searchTerm).length > 0;
+      return isMatch || hasMatchingSubItems;
+    });
+  };
+
+  const filteredModules = filterModules(modules, searchTerm);
+  
   return (
     <Box
       sx={{
@@ -133,7 +173,7 @@ export const SideBar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
-              margin: "10px 0 20px 0",
+              margin: "0px",
               color: colors.grey[100],
             }}
           >
@@ -142,13 +182,13 @@ export const SideBar = () => {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
-                sx={{ cursor: 'default', userSelect: 'none' }}
+                mt="-10px"
+                sx={{ cursor: 'default', userSelect: 'none', margin: 0 }}
               >
                 <img
                   src={logo}
                   alt="logo"
-                  style={{ width: "140px" }}
+                  style={{ width: "100px", marginLeft: '60px' }}
                 />
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon style={{
@@ -161,45 +201,45 @@ export const SideBar = () => {
 
           {!isCollapsed && (
             <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={profileImg}
-                  style={{ borderRadius: "50%", objectFit: "cover", userSelect: 'none' }}
-                />
-              </Box>
               <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <Typography
-                  variant="h3"
-                  color={colors.grey[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
+                <Box
+                  width="85%"
+                  display="flex"
+                  margin="20px"
+                  backgroundColor={colors.primary[200]}
+                  borderRadius="3px"
+                  sx={{ cursor: 'default', userSelect: 'none', }}
                 >
-                  Arthur Chávez
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Ing.Sistemas
-                </Typography>
+
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Buscar..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <IconButton type="button" sx={{ p: 1 }} onClick={() => handleSearch()}>
+                    <SearchIcon />
+                  </IconButton>
+                </Box>
               </Box>
             </Box>
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{ cursor: 'default', userSelect: 'none' }}>
-            {mockDataMenu.map((item) => (
-              item.titleGroup ? (
-                <Typography
-                  key={item.id}
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={!isCollapsed?{ m: "15px 0 5px 20px" } :{ display:"none"} }
-                >
-                  {item.titleGroup}
-                </Typography>
-              )
-                : <RenderItem key={item.id} item={item} selected={selected} setSelected={setSelected} />
-            ))}
+          {filteredModules.map((item) => (
+          item.titleGroup ? (
+            <Typography
+              key={item.id}
+              variant="h6"
+              color={colors.grey[300]}
+              sx={!isCollapsed ? { m: "15px 0 5px 20px" } : { display: "none" }}
+            >
+              {item.titleGroup}
+            </Typography>
+          ) : (
+            <RenderItem key={item.id} item={item} selected={selected} setSelected={setSelected} />
+          )
+        ))}
           </Box>
         </Menu>
       </ProSidebar>

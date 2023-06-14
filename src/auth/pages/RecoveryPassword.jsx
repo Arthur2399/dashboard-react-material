@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { Alert, Box, Button, Grid, Link, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Grid, Link, TextField, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from "../layout"
 import passwordImg from '/Img/password.png';

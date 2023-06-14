@@ -4,7 +4,7 @@ import { red } from "@mui/material/colors";
 
 export const tokens = () => ({
     grey: {
-        100: "#e0e0e0",
+        100: "#f0efef",
         200: "#c2c2c2",
         300: "#a3a3a3",
         400: "#858585",

@@ -1,13 +1,13 @@
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { useCheckStatus } from '../../../hooks'
-import { ModulesRoutes } from '../../../modules/routes/ModulesRoutes'
-import { AfterLogin } from '../pages/AfterLogin'
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import { AfterLogin } from '../pages/AfterLogin';
+import { ModulesRoutes } from '../../../modules/routes/ModulesRoutes';
+import { useCompanyInfoStore } from '../../../modules/hooks/useCompanyInfoStore';
 
 export const AfterLoginRoutes = () => {
 
-    const { statusCompany } = useCheckStatus();
-    
+    const { statusCompany } = useCompanyInfoStore();
+
     return (
         <Routes>
             {(statusCompany === 'selected')

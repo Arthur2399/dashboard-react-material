@@ -1,13 +1,14 @@
-import { Box, Button } from "@mui/material"
-import { Header } from "../../components"
+import { Header } from '../../components'
+import { Box, Button } from '@mui/material'
+
+import { useTheme } from '@emotion/react';
+import { tokens } from '../../../../theme';
+import { customStyles } from '../../../helpers';
+import { DataGrid, GridToolbar, esES } from '@mui/x-data-grid';
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { useTheme } from "@emotion/react";
-import { tokens } from "../../../../theme";
-import { customStyles } from "../../../helpers";
 
 export const CompanyPage = () => {
 
@@ -65,7 +66,6 @@ export const CompanyPage = () => {
       },
     },
   ];
-
 
   return (
     <Box className="animate__animated animate__fadeIn">
