@@ -103,19 +103,23 @@ export const Contract = () => {
         const handleDelete = () => {
           // handle delete logic
         };
+        const handleSing = () => {
+          navigate("firmar")
+
+        }
         return (
           <>
             <IconButton title="Editar" onClick={handleEdit}>
-              <EditIcon  />
+              <EditIcon />
             </IconButton>
             <IconButton title="Detalle" >
-              <DehazeIcon  />
+              <DehazeIcon />
             </IconButton>
-            <IconButton title="Firmar">
+            <IconButton title="Firmar" onClick={handleSing}>
               <GestureIcon />
             </IconButton>
             <IconButton title="Archivar" onClick={handleDelete} >
-              <DeleteIcon  />
+              <DeleteIcon />
             </IconButton>
           </>
         );
