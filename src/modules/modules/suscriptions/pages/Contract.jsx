@@ -11,6 +11,7 @@ import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { contract } from "../../../../data/modules/suscriptions/mockSuscriptions";
 
 export const Contract = () => {
 
@@ -127,7 +128,7 @@ export const Contract = () => {
         sx={colorDataGrid}
       >
         <DataGrid
-          rows={[]}
+          rows={contract}
           columns={columns}
           localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           components={{ Toolbar: GridToolbar }}

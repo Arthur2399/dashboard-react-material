@@ -147,3 +147,42 @@ export const clients = [
 		"email": "mauris.nulla@outlook.net"
 	}
 ]
+
+export const contract = [
+	{
+		"id":1,
+		"code":"Q1-05",
+		"client": "Miguel Angel Pino Andrade",
+		"date_contract": "12/06/2023",
+		"date_end":"12/06/2023",
+		"total":"300",
+		"sing":"Sin firmar",
+		"close_reason": "No existe",
+		"ren_aut":"Si",
+		"pay_form":"Mensual",
+	},
+	{
+		"id":2,
+		"code":"Q1-05",
+		"client": "Jordi Andres Fiallos Torres",
+		"date_contract": "12/06/2023",
+		"date_end":"12/06/2023",
+		"total":"300",
+		"sing":"Sin firmar",
+		"close_reason": "No existe",
+		"ren_aut":"Si",
+		"pay_form":"Mensual",
+	},
+	{
+		"id":3,
+		"code":"Q1-05",
+		"client": "Leonel Ricardo Gutierrez Rosario",
+		"date_contract": "12/06/2023",
+		"date_end":"12/06/2023",
+		"total":"300",
+		"sing":"Sin firmar",
+		"close_reason": "No existe",
+		"ren_aut":"Si",
+		"pay_form":"Mensual",
+	}
+]
