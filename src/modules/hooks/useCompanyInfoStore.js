@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import morgquickApi from "../../api/morgquickApi";
-import { decryptData, encrypData } from "../../hooks/useEncrypData";
 import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, setCompanies, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
 import { useMenuStore } from "./useMenuStore";
+import { decryptData, encrypData } from "../../hooks/useEncrypData";
 
 export const useCompanyInfoStore = () => {
 
@@ -44,7 +44,7 @@ export const useCompanyInfoStore = () => {
 
     const startSelectionCompany = ({ company, fiscalExercise }) => {
 
-        //Busqueda por id entre la lista de empresas
+         //Busqueda por id entre la lista de empresas
         let onlyCompany = companies.find(obj => obj.id === company)
 
         //Busqueda por id entre la lista de ejercicio fiscal de la empresa.
@@ -66,7 +66,7 @@ export const useCompanyInfoStore = () => {
         dispatch(selectCompany(selectedCompany))
 
         //Crear menu
-        startCreateMenu();
+        startCreateMenu(); 
     }
 
     const checkingCompany = async () => {

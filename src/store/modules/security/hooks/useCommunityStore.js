@@ -18,7 +18,6 @@ export const useCommunityStore = () => {
             const { data } = await morgquickApi.get(`/security/comunity/get/${decryptedData.id}`);
             dispatch(onLoadCommunities(data));
         } catch (error) {
-            console.log('Error cargando comunidades');
             console.log(error)
         }
     }

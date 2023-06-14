@@ -31,7 +31,7 @@ export const companyInfoSlice = createSlice({
             state.currentCompany = payload;
         },
 
-        setCompanies: (state, {payload}) => {
+        setCompanies: (state, { payload }) => {
             state.companies = payload;
         },
 

@@ -17,12 +17,7 @@ export const communitySlice = createSlice({
 
         onLoadCommunities: (state, { payload = [] }) => {
             state.isLoadingCommunity = false;
-            payload.forEach(community => {
-                const exists = state.comunities.some(dbCommunity => dbCommunity.id === community.id);
-                if (!exists) {
-                    state.comunities.push(community)
-                }
-            })
+            state.comunities = payload;
         },
 
         onSetActiveCommunity: (state, { payload }) => {

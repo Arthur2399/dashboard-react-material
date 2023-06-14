@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
-import * as Yup from 'yup';
 import { Formik, Form, ErrorMessage } from 'formik';
-import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select } from "@mui/material"
+import * as Yup from 'yup';
+
 import { AuthLayout } from "../../layout";
-import afterLoginGif from '/Img/after-login.gif'
-import TextHelper from '@mui/material/FormHelperText';
-import { useCompanyInfoStore } from "../../../modules/hooks/useCompanyInfoStore";
 import { useAuthStore } from "../../../hooks/useAuthStore";
+import { useCompanyInfoStore } from "../../../modules/hooks/useCompanyInfoStore";
+
+import { Box, Button, FormControl, Grid, InputLabel, Link, MenuItem, Select } from "@mui/material"
+import TextHelper from '@mui/material/FormHelperText';
+import afterLoginGif from '/Img/after-login.gif'
 
 
 export const AfterLogin = () => {
 
-  const {companies, startSelectionCompany} = useCompanyInfoStore();
-  const {startLogout} = useAuthStore();
+  const { companies, startSelectionCompany } = useCompanyInfoStore();
+  const { startLogout } = useAuthStore();
 
   const [fiscalExerciseList, setFiscalExerciseList] = useState([]);
-  const [idCompany, setidCompany] = useState('');
   const [isDisable, setIsDisable] = useState(true);
+  const [idCompany, setidCompany] = useState('');
 
-
+  const onCompanySelect = (values) => {
+    startSelectionCompany({ ...values });
+  }
 
   useEffect(() => {
     if (idCompany != '') {
@@ -32,22 +36,8 @@ export const AfterLogin = () => {
   }, [idCompany])
 
 
-  const onCompanySelect = (data) => {
-    startSelectionCompany({...data});
-  }
-
-  const validationSchema = Yup.object().shape({
-    company: Yup.string()
-      .min(1, 'Debe seleccionar una empresa')
-      .required('Debe seleccionar una empresa'),
-    fiscalExercise: Yup.string()
-      .min(1, 'Debe seleccionar el ejercicio fiscal')
-      .required('Debe seleccionar el ejercicio fiscal'),
-  });
-
   return (
     <AuthLayout title="Seleccionar empresa" imgSrc={afterLoginGif}>
-
       <Box sx={{ mt: 2 }}>
         <Formik
           initialValues={{ company: '', fiscalExercise: '' }}
@@ -161,3 +151,12 @@ export const AfterLogin = () => {
     </AuthLayout>
   )
 }
+
+const validationSchema = Yup.object().shape({
+  company: Yup.string()
+    .min(1, 'Debe seleccionar una empresa')
+    .required('Debe seleccionar una empresa'),
+  fiscalExercise: Yup.string()
+    .min(1, 'Debe seleccionar el ejercicio fiscal')
+    .required('Debe seleccionar el ejercicio fiscal'),
+});

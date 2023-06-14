@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { ModulesRoutes } from '../../../modules/routes/ModulesRoutes';
+
 import { AfterLogin } from '../pages/AfterLogin';
+import { ModulesRoutes } from '../../../modules/routes/ModulesRoutes';
 import { useCompanyInfoStore } from '../../../modules/hooks/useCompanyInfoStore';
 
 export const AfterLoginRoutes = () => {

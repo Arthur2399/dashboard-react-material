@@ -11,12 +11,13 @@ import HelpIcon from '@mui/icons-material/Help';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
 
-    const { photoURL } = useAuthStore();
-    const { currentCompany,startChangeCompany } = useCompanyInfoStore();
+    const { user } = useAuthStore();
+    const { currentCompany, startChangeCompany } = useCompanyInfoStore();
 
     const navigate = useNavigate();
 
@@ -61,7 +62,10 @@ export const ProfileMenu = ({ handleClose, open, anchorEl, onLogout }) => {
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
             <MenuItem onClick={handleClose}>
-                <Avatar src={photoURL} /> Mi perfil
+                <ListItemIcon>
+                    <AccountCircleIcon />
+                </ListItemIcon>
+                {user.name}
             </MenuItem>
             <Divider />
             <MenuItem onClick={startChangeCompany}>

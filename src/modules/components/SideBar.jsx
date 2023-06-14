@@ -30,7 +30,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import MapIcon from '@mui/icons-material/Map';
 
-import profileImg from "/Img/profile.png"
 import logo from "/logos/logo.png"
 
 import "react-pro-sidebar/dist/css/styles.css";
@@ -38,6 +37,14 @@ import { useAuthStore } from "../../hooks/useAuthStore";
 import { useMenuStore } from "../hooks/useMenuStore";
 import SearchIcon from "@mui/icons-material/Search";
 
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions'; 'subcripciones'
+import PeopleIcon from '@mui/icons-material/People'; 'Clienes'
+import SettingsIcon from '@mui/icons-material/Settings'; 'configuracion'
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'; 'planes'
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'; 'plazos de pago'
+import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined'; 'servicios'
+import RequestPageIcon from '@mui/icons-material/RequestPage';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const iconComp = {
   "HomeOutlinedIcon": <HomeOutlinedIcon />,
@@ -61,6 +68,14 @@ const iconComp = {
   "MapIcon": <MapIcon />,
   "LocalPoliceIcon": <LocalPoliceIcon />,
   "MessageIcon": <MessageIcon />,
+  "SubscriptionsIcon": <SubscriptionsIcon />,
+  "PeopleIcon": <PeopleIcon />,
+  "SettingsIcon": <SettingsIcon />,
+  "PhoneAndroidIcon": <PhoneAndroidIcon />,
+  "CurrencyExchangeIcon": <CurrencyExchangeIcon />,
+  "DesignServicesOutlinedIcon": <DesignServicesOutlinedIcon />,
+  "RequestPageIcon": <RequestPageIcon />,
+  "CancelIcon": <CancelIcon />
 }
 
 /* ITEM */
@@ -112,13 +127,28 @@ const RenderItem = ({ item, selected, setSelected }) => {
 export const SideBar = () => {
 
   const { modules } = useMenuStore();
-  const { user } = useAuthStore();
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 
+  const handleSearch = () => {
+    setSearchTerm("");
+  };
+
+  const filterModules = (modules, searchTerm) => {
+    return modules.filter((module) => {
+      const isMatch = module.title && module.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const hasMatchingSubItems = module.subItems && filterModules(module.subItems, searchTerm).length > 0;
+      return isMatch || hasMatchingSubItems;
+    });
+  };
+
+  const filteredModules = filterModules(modules, searchTerm);
+  
   return (
     <Box
       sx={{
@@ -172,18 +202,6 @@ export const SideBar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                {/*                 <Typography
-                  variant="h3"
-                  color={colors.grey[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  {user.name}
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  {user.job}
-                </Typography> */}
-
                 <Box
                   width="85%"
                   display="flex"
@@ -192,8 +210,14 @@ export const SideBar = () => {
                   borderRadius="3px"
                   sx={{ cursor: 'default', userSelect: 'none', }}
                 >
-                  <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Buscar..." />
-                  <IconButton type="button" sx={{ p: 1 }}>
+
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Buscar..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <IconButton type="button" sx={{ p: 1 }} onClick={() => handleSearch()}>
                     <SearchIcon />
                   </IconButton>
                 </Box>
@@ -202,19 +226,20 @@ export const SideBar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{ cursor: 'default', userSelect: 'none' }}>
-            {modules.map((item) => (
-              item.titleGroup ? (
-                <Typography
-                  key={item.id}
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={!isCollapsed ? { m: "15px 0 5px 20px" } : { display: "none" }}
-                >
-                  {item.titleGroup}
-                </Typography>
-              )
-                : <RenderItem key={item.id} item={item} selected={selected} setSelected={setSelected} />
-            ))}
+          {filteredModules.map((item) => (
+          item.titleGroup ? (
+            <Typography
+              key={item.id}
+              variant="h6"
+              color={colors.grey[300]}
+              sx={!isCollapsed ? { m: "15px 0 5px 20px" } : { display: "none" }}
+            >
+              {item.titleGroup}
+            </Typography>
+          ) : (
+            <RenderItem key={item.id} item={item} selected={selected} setSelected={setSelected} />
+          )
+        ))}
           </Box>
         </Menu>
       </ProSidebar>
