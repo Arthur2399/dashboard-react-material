@@ -9,8 +9,11 @@ import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import GestureIcon from '@mui/icons-material/Gesture';
+
 import { contract } from "../../../../data/modules/suscriptions/mockSuscriptions";
 
 export const Contract = () => {
@@ -25,53 +28,72 @@ export const Contract = () => {
     {
       field: "code",
       headerName: "Código",
-      flex: 1
+      flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "client",
       headerName: "Cliente",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "date_contract",
       headerName: "Fecha de contrato",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "date_end",
       headerName: "Fecha de cierre",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "total",
       headerName: "Total",
       flex: 1,
+      align: 'right',
+      headerAlign: 'center',
     },
     {
       field: "sing",
       headerName: "Firma",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "close_reason",
       headerName: "Razon de cierre",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "ren_aut",
       headerName: "Renovación automática",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "pay_form",
       headerName: "Forma de pago",
       flex: 1,
+      align: 'center',
+      headerAlign: 'center',
     },
     {
       field: "actions",
       headerName: "Opciones",
       sortable: false,
-      headerAlign: "center",
+      align: 'center',
+      headerAlign: 'center',
       width: "150",
       disableColumnMenu: true,
       renderCell: (params) => {
@@ -83,11 +105,17 @@ export const Contract = () => {
         };
         return (
           <>
-            <IconButton>
-              <EditIcon onClick={handleEdit} />
+            <IconButton title="Editar" onClick={handleEdit}>
+              <EditIcon  />
             </IconButton>
-            <IconButton>
-              <DeleteIcon onClick={handleDelete} />
+            <IconButton title="Detalle" >
+              <DehazeIcon  />
+            </IconButton>
+            <IconButton title="Firmar">
+              <GestureIcon />
+            </IconButton>
+            <IconButton title="Archivar" onClick={handleDelete} >
+              <DeleteIcon  />
             </IconButton>
           </>
         );
