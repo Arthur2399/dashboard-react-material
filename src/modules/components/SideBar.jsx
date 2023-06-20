@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 
 import { tokens } from "../../theme";
@@ -17,6 +17,8 @@ const icons = getIcons();
 const Item = ({ title, url, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
+
   return (
     <MenuItem
       active={selected === title}
@@ -35,18 +37,25 @@ const Item = ({ title, url, icon, selected, setSelected }) => {
 const RenderItem = ({ item, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
+
   if (item.subItems) {
     return (
       <SubMenu
         key={item.id}
         title={item.title}
         icon={icons[item.icon]()}
+        onClick={()=>{
+          if(item.url !=  selected)
+          navigate(item.url)
+          setSelected(item.url)
+        }}
         style={{
           cursor: 'default',
           userSelect: 'none',
           color: colors.grey[100],
         }}
-      >
+        >
         {item.subItems.map((subitem) => (
           <RenderItem key={subitem.id} item={subitem} selected={selected} setSelected={setSelected} />
         ))}
@@ -61,12 +70,13 @@ const RenderItem = ({ item, selected, setSelected }) => {
 
 export const SideBar = () => {
 
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [selected, setSelected] = useState("Inicio");
+
   const { modules } = useMenuStore();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Inicio");
 
   return (
     <Box
@@ -136,7 +146,7 @@ export const SideBar = () => {
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"} sx={{ cursor: 'default', userSelect: 'none' }}>
+          <Box paddingLeft={isCollapsed ? undefined : "5%"} sx={{ cursor: 'default', userSelect: 'none' }}>
             {modules.map((item) => (
               item.titleGroup ? (
                 <Typography
