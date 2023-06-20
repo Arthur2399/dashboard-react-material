@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { Form, Formik } from 'formik';
 
 import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
 
 import { Header } from '../../components';
 import { getIcons } from '../../../../helpers';
@@ -34,8 +35,8 @@ export const ContractForm = () => {
     }
 
     const titleForm = useMemo(() => {
-        if (active.id != 0) return `Editar a ${active.name}`;
-        return 'Crear plan';
+        if (active.id != 0) return `Editar contrato ${active.name}`;
+        return 'Crear nuevo contrato';
     }, [active])
 
     useEffect(() => {
@@ -51,7 +52,7 @@ export const ContractForm = () => {
 
     return (
         <Box className="animate__animated animate__fadeIn">
-            <Header title={titleForm} subtitle="Crea los clientes de tu negocio." />
+            <Header title={titleForm} subtitle="Cree un nuevo contrato para tus clientes." />
             <Formik
                 initialValues={initialState}
                 enableReinitialize
@@ -87,7 +88,8 @@ export const ContractForm = () => {
                                         name="client_id"
                                         error={errors.client_id && touched.client_id}
                                         helperText={errors.client_id && touched.client_id && errors.client_id}
-                                        variant="filled" />}
+                                        variant="filled"
+                                    />}
                             />
 
                             {/* Plazos de pago*/}
@@ -107,10 +109,20 @@ export const ContractForm = () => {
                                         name="payment_places_id"
                                         error={errors.payment_places_id && touched.payment_places_id}
                                         helperText={errors.payment_places_id && touched.payment_places_id && errors.payment_places_id}
-                                        variant="filled" />}
+                                        variant="filled"
+                                    />}
                             />
-
-
+                            {/* Fecha de incio */}
+                            <DatePicker
+                                label="Fecha de inicio"
+                                slotProps={{ textField: { variant: 'filled' } }}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+                            <DatePicker
+                                label="Fecha de finalización"
+                                slotProps={{ textField: { variant: 'filled' } }}
+                                sx={{ gridColumn: "span 2" }}
+                            />
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" onClick={() => { navigate('/suscripciones/contratos') }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
