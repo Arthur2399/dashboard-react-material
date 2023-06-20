@@ -45,11 +45,6 @@ const RenderItem = ({ item, selected, setSelected }) => {
         key={item.id}
         title={item.title}
         icon={icons[item.icon]()}
-        onClick={()=>{
-          if(item.url !=  selected)
-          navigate(item.url)
-          setSelected(item.url)
-        }}
         style={{
           cursor: 'default',
           userSelect: 'none',
