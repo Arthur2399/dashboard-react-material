@@ -4,7 +4,7 @@ import { getEnvironments } from '../helpers/getEnvironments';
 const { VITE_API_URL } = getEnvironments();
 
 
-const morgquickApi = axios.create({
+export const morgquickApi = axios.create({
     baseURL: VITE_API_URL
 });
 
@@ -18,7 +18,3 @@ morgquickApi.interceptors.request.use( config => {
 
     return config;
 })
-
-
-export default morgquickApi;
-

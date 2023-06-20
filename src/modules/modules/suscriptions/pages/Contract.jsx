@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Header } from "../../components";
 import { tokens } from "../../../../theme";
 import { customStyles } from "../../../helpers";
+import { useContractStore } from "../../../../store/";
 
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
@@ -14,14 +16,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import GestureIcon from '@mui/icons-material/Gesture';
 
-import { contract } from "../../../../data/modules/suscriptions/mockSuscriptions";
 
 export const Contract = () => {
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const navigate = useNavigate();
 
+  const {contract, startLoadContracts} = useContractStore();
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const { colorDataGrid } = customStyles();
 
   const columns = [
@@ -130,6 +133,11 @@ export const Contract = () => {
   const onCreateContract = () => {
     navigate('formulario');
   }
+
+  useEffect(() => {
+    startLoadContracts();
+  }, [])
+  
 
   return (
     <Box className="animate__animated animate__fadeIn">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { decryptData } from "../../../../hooks/useEncrypData";
 
 export const useGetComboxBox = () => {

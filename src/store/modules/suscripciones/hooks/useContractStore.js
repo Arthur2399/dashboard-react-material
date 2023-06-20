@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { decryptData } from "../../../../hooks";
 import {
     onAddNewContract,
@@ -10,17 +10,20 @@ import {
     onSetActiveContract,
     onUpdateContract
 } from "../slices";
+import 
+{ morgquickApi } from "../../../../api";
 
 export const useContractStore = () => {
+
     const { isLoading, contract, active, serverMessage, errorMessage } = useSelector(state => state.contract);
+    const dispatch = useDispatch();
 
-
-    const startLoadingContracts = async () => {
+    const startLoadContracts = async () => {
         const companyInfo = localStorage.getItem("Company");
         const decryptedData = JSON.parse(decryptData(companyInfo));
         dispatch(onIsLoadingContracts())
         try {
-            const { data } = await morgquickApi.get(`/plans/PlansHeader/get/${decryptedData.id}`);
+            const { data } = await morgquickApi.get(`/subscriptions/Contracts/Header/get/${decryptedData.id}`);
             dispatch(onLoadContract(data))
         } catch (error) {
             console.log(error)
@@ -76,7 +79,7 @@ export const useContractStore = () => {
         errorMessage,
 
         /* Metodos */
-        startLoadingContracts,
+        startLoadContracts,
         startSavingContract,
         startSetActiveContract,
         startClearMessageContract,
