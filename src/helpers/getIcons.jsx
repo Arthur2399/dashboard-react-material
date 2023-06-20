@@ -1,10 +1,16 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import DehazeIcon from '@mui/icons-material/Dehaze';
+import DeleteIcon from '@mui/icons-material/Delete';
 import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import EditIcon from '@mui/icons-material/Edit';
+import GestureIcon from '@mui/icons-material/Gesture';
 import HailIcon from '@mui/icons-material/Hail';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -29,15 +35,24 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
 
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import SaveIcon from '@mui/icons-material/Save';
+
 export const getIcons = () => {
   const icons = {
+    "ArrowBackIcon": (props) => < ArrowBackIcon {...props}/>,
     "AccountCircleIcon": (props) => <AccountCircleIcon {...props} />,
+    "AddCircleIcon": (props) => < AddCircleIcon {...props} />,
     "ApartmentIcon": (props) => <ApartmentIcon {...props} />,
     "CalendarMonthIcon": (props) => <CalendarMonthIcon {...props} />,
     "CancelIcon": (props) => <CancelIcon {...props} />,
     "CurrencyExchangeIcon": (props) => <CurrencyExchangeIcon {...props} />,
+    "DehazeIcon": (props) => < DehazeIcon {...props} />,
+    "DeleteIcon": (props) => < DeleteIcon {...props} />,
     "DesignServicesOutlinedIcon": (props) => <DesignServicesOutlinedIcon {...props} />,
     "Diversity3Icon": (props) => <Diversity3Icon {...props} />,
+    "EditIcon": (props) => < EditIcon {...props} />,
+    "GestureIcon": (props) => < GestureIcon {...props} />,
     "HailIcon": (props) => <HailIcon {...props} />,
     "HomeOutlinedIcon": (props) => <HomeOutlinedIcon {...props} />,
     "InventoryIcon": (props) => <InventoryIcon {...props} />,
@@ -61,6 +76,8 @@ export const getIcons = () => {
     "ShoppingBagIcon": (props) => <ShoppingBagIcon {...props} />,
     "SubscriptionsIcon": (props) => <SubscriptionsIcon {...props} />,
     "SystemSecurityUpdateGoodIcon": (props) => <SystemSecurityUpdateGoodIcon {...props} />,
+    "RestartAltIcon": (props) => <RestartAltIcon {...props} />, 
+    "SaveIcon": (props) => <SaveIcon {...props} />, 
   }
   return icons;
 }

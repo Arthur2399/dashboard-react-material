@@ -42,15 +42,15 @@ export const useContractStore = () => {
                 // Actualizando
                 await morgquickApi.put(`/plans/PlansHeader/update/${data.id}`, values);
                 dispatch(onUpdateContract(values));
-                navigate('/suscripciones/configuracion/planes');
+                navigate('/suscripciones/contratos/');
                 return;
             }
             // Creando
-            const { data } = await morgquickApi.post('/plans/PlansHeader/post', { ...values, state: 1 });
+            const { data } = await morgquickApi.post('/subscriptions/Contracts/Header/post', values);
             dispatch(onAddNewContract(values));
+            //TODO SETEAR LOS DATOS PARA HACER EL DETALLE
             /* startSetHeaderPlan(data) */
-            navigate('/suscripciones/configuracion/planes/detalle');
-
+            navigate('/suscripciones/contratos/');
         } catch (error) {
             if (error.response.status == 400) {
                 var claves = Object.keys(error.response.data);

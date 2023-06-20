@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Header } from "../../components";
 import { tokens } from "../../../../theme";
+import { getIcons } from "../../../../helpers";
 import { customStyles } from "../../../helpers";
 import { useContractStore } from "../../../../store/";
 
@@ -10,26 +11,19 @@ import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DehazeIcon from '@mui/icons-material/Dehaze';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import GestureIcon from '@mui/icons-material/Gesture';
-
-
 export const Contract = () => {
-
-  const navigate = useNavigate();
-
-  const {contract, startLoadContracts} = useContractStore();
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { colorDataGrid } = customStyles();
+  const navigate = useNavigate();
+
+  const { contract, startLoadContracts, startSetActiveContract } = useContractStore();
+  const icons = getIcons();
 
   const columns = [
     {
-      field: "code",
+      field: "sig_tip",
       headerName: "Código",
       flex: 1,
       align: 'center',
@@ -43,7 +37,7 @@ export const Contract = () => {
       headerAlign: 'center',
     },
     {
-      field: "date_contract",
+      field: "date_start",
       headerName: "Fecha de contrato",
       flex: 1,
       align: 'center',
@@ -57,14 +51,14 @@ export const Contract = () => {
       headerAlign: 'center',
     },
     {
-      field: "total",
+      field: "vat_total",
       headerName: "Total",
       flex: 1,
       align: 'right',
       headerAlign: 'center',
     },
     {
-      field: "sing",
+      field: "signature",
       headerName: "Firma",
       flex: 1,
       align: 'center',
@@ -85,7 +79,7 @@ export const Contract = () => {
       headerAlign: 'center',
     },
     {
-      field: "pay_form",
+      field: "payment_places",
       headerName: "Forma de pago",
       flex: 1,
       align: 'center',
@@ -113,16 +107,16 @@ export const Contract = () => {
         return (
           <>
             <IconButton title="Editar" onClick={handleEdit}>
-              <EditIcon />
+              {icons['EditIcon']()}
             </IconButton>
             <IconButton title="Detalle" >
-              <DehazeIcon />
+              {icons['DehazeIcon']()}
             </IconButton>
             <IconButton title="Firmar" onClick={handleSing}>
-              <GestureIcon />
+              {icons['GestureIcon']()}
             </IconButton>
             <IconButton title="Archivar" onClick={handleDelete} >
-              <DeleteIcon />
+              {icons['DeleteIcon']()}
             </IconButton>
           </>
         );
@@ -131,13 +125,21 @@ export const Contract = () => {
   ];
 
   const onCreateContract = () => {
+    startSetActiveContract({
+      id: 0,
+      client_id: null,
+      company_id: null,
+      date_end: "",
+      date_start: "",
+      payment_places_id: null,
+    })
     navigate('formulario');
   }
 
   useEffect(() => {
     startLoadContracts();
   }, [])
-  
+
 
   return (
     <Box className="animate__animated animate__fadeIn">
@@ -157,7 +159,7 @@ export const Contract = () => {
               }
             }}
           >
-            <AddCircleIcon sx={{ mr: "10px" }} />
+            {icons['AddCircleIcon']({ sx: { mr: "10px" } })}
             Crear
           </Button>
         </Box>

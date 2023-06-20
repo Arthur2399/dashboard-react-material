@@ -8,9 +8,12 @@ export const useGetComboxBox = () => {
     const [typeIdentification, setTypeIdentification] = useState([])
     const [service, setService] = useState([])
     const [serviceData, setServiceData] = useState(null)
-
-
     const [tax, setTaxes] = useState([])
+    const [user, setUser] = useState([])
+
+    const companyInfo = localStorage.getItem("Company");
+    const decryptedData = JSON.parse(decryptData(companyInfo));
+
     const startGetCountry = async () => {
         try {
             const { data } = await morgquickApi.get(`/client/IdentificationType/get`);
@@ -21,8 +24,7 @@ export const useGetComboxBox = () => {
     }
 
     const startGetServices = async () => {
-        const companyInfo = localStorage.getItem("Company");
-        const decryptedData = JSON.parse(decryptData(companyInfo));
+
         try {
             const { data } = await morgquickApi.get(`/inventory/products/cbx/${decryptedData.id}`);
             setService(data);
@@ -49,6 +51,15 @@ export const useGetComboxBox = () => {
         }
     }
 
+    const startGetClients = async () => {
+        try {
+            const { data } = await morgquickApi.get(`/client/cbx/${decryptedData.id}`);
+            setUser(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         startGetCountry();
         startGetServices();
@@ -61,8 +72,11 @@ export const useGetComboxBox = () => {
         serviceData,
         tax,
         typeIdentification,
+        user,
+        
         /* Metodos */
         startGetServicesData,
+        startGetClients,
 
     }
 }
