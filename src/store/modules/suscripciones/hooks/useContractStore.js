@@ -12,12 +12,15 @@ import {
     onSetActiveContract,
     onUpdateContract,
 } from "../slices";
+import { useContractDetailsStore } from "./useContractDetailsStore";
 
 export const useContractStore = () => {
 
-    const { isLoading, contract, active, serverMessage, errorMessage } = useSelector(state => state.contract);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { isLoading, contract, active, serverMessage, errorMessage } = useSelector(state => state.contract);
+    const {startSetHeaderContract} = useContractDetailsStore();
 
     const startLoadContracts = async () => {
         const companyInfo = localStorage.getItem("Company");
@@ -49,6 +52,7 @@ export const useContractStore = () => {
             // Creando
             const { data } = await morgquickApi.post('/subscriptions/Contracts/Header/post', values);
             dispatch(onAddNewContract(values));
+            startSetHeaderContract(data);
             navigate('/suscripciones/contratos/');
         } catch (error) {
             if (error.response.status == 400) {
