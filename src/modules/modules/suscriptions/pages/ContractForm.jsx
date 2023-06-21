@@ -10,6 +10,8 @@ import { useContractStore } from '../../../../store';
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
 import { AlertMessage } from '../../../components/AlertMessage';
+import { DatePicker } from '@mui/x-date-pickers';
+import { format, parse } from 'date-fns';
 
 export const ContractForm = () => {
 
@@ -20,17 +22,22 @@ export const ContractForm = () => {
         id: 0,
         client_id: null,
         company_id: null,
-        date_end: "",
-        date_start: "",
+        date_end: new Date(),
+        date_start: new Date(),
         payment_places_id: null,
     }])
 
     const { active, isLoading, errorMessage, serverMessage, startSavingContract } = useContractStore();
-    const { startGetClients, user } = useGetComboxBox();
+    const { user, payForm, startGetClients, startGetPayForm } = useGetComboxBox();
     const icons = getIcons();
 
+    const [startDate, setstartDate] = useState()
+
+    console.log(startDate);
+
     const onSaveContract = (values) => {
-        startSavingContract(values);
+        /* startSavingContract(values); */
+        console.log(values);
     }
 
     const titleForm = useMemo(() => {
@@ -46,6 +53,7 @@ export const ContractForm = () => {
 
     useEffect(() => {
         startGetClients();
+        startGetPayForm();
     }, [])
 
 
@@ -93,9 +101,9 @@ export const ContractForm = () => {
 
                             {/* Plazos de pago*/}
                             <Autocomplete
-                                options={user}
+                                options={payForm}
                                 getOptionLabel={(option) => option.label}
-                                value={user.find((option) => option.value === values.client_id) || null}
+                                value={payForm.find((option) => option.value === values.payment_places_id) || null}
                                 onBlur={() => setFieldTouched('payment_places_id', true)}
                                 onChange={(event, newValue) => {
                                     setFieldValue('payment_places_id', newValue ? newValue.value : null);
@@ -116,12 +124,33 @@ export const ContractForm = () => {
                                 label="Fecha de inicio"
                                 slotProps={{ textField: { variant: 'filled' } }}
                                 sx={{ gridColumn: "span 2" }}
+                                format="yyyy/MM/dd"
+                                name='date_start'
+                                value={parse(values.date_start, 'yyyy/MM/dd', new Date())}
+                                onChange={(event) => {
+                                    const newDate = format(new Date(event), 'yyyy/MM/dd') 
+                                    setFieldValue('date_start', newDate); 
+                                }}
+                                error={errors.date_start && touched.date_start}
+                                helperText={errors.date_start && touched.date_start && errors.date_start}
                             />
+
+                            {/* Fecha fin */}
                             <DatePicker
-                                label="Fecha de finalización"
+                                label="Fecha de finalización"
                                 slotProps={{ textField: { variant: 'filled' } }}
                                 sx={{ gridColumn: "span 2" }}
+                                format="yyyy/MM/dd"
+                                name='date_end'
+                                value={parse(values.date_end, 'yyyy/MM/dd', new Date())}
+                                onChange={(event) => {
+                                    const newDate = format(new Date(event), 'yyyy/MM/dd') 
+                                    setFieldValue('date_end', newDate); 
+                                }}
+                                error={errors.date_end && touched.date_end}
+                                helperText={errors.date_end && touched.date_end && errors.date_end}
                             />
+
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" onClick={() => { navigate('/suscripciones/contratos') }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>

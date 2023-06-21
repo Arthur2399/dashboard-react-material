@@ -10,6 +10,7 @@ import { useContractStore } from "../../../../store/";
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { format } from "date-fns";
 
 export const Contract = () => {
 
@@ -125,12 +126,14 @@ export const Contract = () => {
   ];
 
   const onCreateContract = () => {
+    const date = new Date();
+    const dateString = format(new Date(date), 'yyyy/MM/dd').toString();
     startSetActiveContract({
       id: 0,
       client_id: null,
       company_id: null,
-      date_end: "",
-      date_start: "",
+      date_end: dateString ,
+      date_start: dateString ,
       payment_places_id: null,
     })
     navigate('formulario');
