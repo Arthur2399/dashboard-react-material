@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const Contract = () => {
 
@@ -19,7 +20,7 @@ export const Contract = () => {
   const { colorDataGrid } = customStyles();
   const navigate = useNavigate();
 
-  const { contract, startLoadContracts, startSetActiveContract } = useContractStore();
+  const { contract, isLoading, startLoadContracts, startSetActiveContract } = useContractStore();
   const { startSetHeaderContract } = useContractDetailsStore();
 
   const icons = getIcons();
@@ -98,7 +99,8 @@ export const Contract = () => {
       disableColumnMenu: true,
       renderCell: (params) => {
         const handleEdit = () => {
-          // handle edit logic
+          startSetActiveContract(params.row)
+          navigate("formulario");
         };
         const handleDelete = () => {
           // handle delete logic
@@ -108,6 +110,7 @@ export const Contract = () => {
           navigate("detalle");
         }
         const handleSing = () => {
+          startSetHeaderContract(params.row)
           navigate("firmar")
 
         }
@@ -185,6 +188,7 @@ export const Contract = () => {
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
+      <LoadingSpinner isSaving={isLoading} />
     </Box>
   )
 }
