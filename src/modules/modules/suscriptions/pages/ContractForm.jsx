@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router';
 import { Form, Formik } from 'formik';
 
 import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
 
 import { Header } from '../../components';
 import { getIcons } from '../../../../helpers';
