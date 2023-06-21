@@ -7,10 +7,10 @@ import { getIcons } from "../../../../helpers";
 import { customStyles } from "../../../helpers";
 import { useContractDetailsStore, useContractStore } from "../../../../store/";
 
+import { format } from "date-fns";
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { format } from "date-fns";
 
 export const Contract = () => {
 

@@ -1,15 +1,15 @@
-import { useDispatch } from "react-redux";
-import { useStore } from "react-redux/es"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { onIsLoadingDetailsContract, onLoadDetailsContract, onSetHeaderContract } from "../slices/contractDetailsSlice";
-import { encrypData } from "../../../../hooks/useEncrypData";
+import { decryptData, encrypData } from "../../../../hooks/useEncrypData";
+import { morgquickApi } from "../../../../api/morgquickApi";
 
 export const useContractDetailsStore = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { isLoading, headerContract, details, active, serverMessage, errorMessage } = useStore(state => state.contractDetails)
+    const { isLoading, headerContract, details, active, serverMessage, errorMessage } = useSelector(state => state.contractDetails)
 
     const startSetHeaderContract = (headerContract) => {
         const encryptedData = encrypData(headerContract);
@@ -25,7 +25,7 @@ export const useContractDetailsStore = () => {
 
         if (headerContract == null) {
             let HeaderContractDecrip = JSON.parse(decryptData(localStorage.getItem("HeaderContract")));
-            dispatch(onSetHeaderPlan(HeaderContractDecrip));
+            dispatch(onSetHeaderContract(HeaderContractDecrip));
             idHeader = HeaderContractDecrip.id
         }
 
