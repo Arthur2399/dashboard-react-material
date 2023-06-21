@@ -127,7 +127,7 @@ export const Contract = () => {
 
   const onCreateContract = () => {
     const date = new Date();
-    const dateString = format(new Date(date), 'yyyy/MM/dd').toString();
+    const dateString = format(new Date(date), 'yyyy-MM-dd').toString();
     startSetActiveContract({
       id: 0,
       client_id: null,

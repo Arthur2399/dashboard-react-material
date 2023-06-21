@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router";
 import { decryptData } from "../../../../hooks";
+import { morgquickApi } from "../../../../api";
 import {
     onAddNewContract,
     onClearMessageContract,
@@ -8,15 +10,14 @@ import {
     onSendErrorMessageContract,
     onSendServerErrorMessageContract,
     onSetActiveContract,
-    onUpdateContract
+    onUpdateContract,
 } from "../slices";
-import 
-{ morgquickApi } from "../../../../api";
 
 export const useContractStore = () => {
 
     const { isLoading, contract, active, serverMessage, errorMessage } = useSelector(state => state.contract);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const startLoadContracts = async () => {
         const companyInfo = localStorage.getItem("Company");
@@ -30,17 +31,17 @@ export const useContractStore = () => {
         }
     }
 
-    const startSavingContract = async (data) => {
+    const startSavingContract = async (contractData) => {
 
         const companyInfo = localStorage.getItem("Company");
         const decryptedData = JSON.parse(decryptData(companyInfo));
-        const values = { ...data, company_id: decryptedData.id }
+        const values = { ...contractData, company_id: decryptedData.id }
 
-        dispatch(onIsLoadingContracts())
+        dispatch(onIsLoadingContracts());
         try {
-            if (data.id) {
+            if (contractData.id) {
                 // Actualizando
-                await morgquickApi.put(`/plans/PlansHeader/update/${data.id}`, values);
+                await morgquickApi.put(`/plans/PlansHeader/update/${contractData.id}`, values);
                 dispatch(onUpdateContract(values));
                 navigate('/suscripciones/contratos/');
                 return;
@@ -48,8 +49,6 @@ export const useContractStore = () => {
             // Creando
             const { data } = await morgquickApi.post('/subscriptions/Contracts/Header/post', values);
             dispatch(onAddNewContract(values));
-            //TODO SETEAR LOS DATOS PARA HACER EL DETALLE
-            /* startSetHeaderPlan(data) */
             navigate('/suscripciones/contratos/');
         } catch (error) {
             if (error.response.status == 400) {

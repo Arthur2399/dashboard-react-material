@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Form, Formik } from 'formik';
+import { DatePicker } from '@mui/x-date-pickers';
+import { format, parse } from 'date-fns';
 
 import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/material';
 
@@ -10,8 +12,6 @@ import { useContractStore } from '../../../../store';
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
 import { LoadingSpinner } from '../../../components/LoadingSpinner';
 import { AlertMessage } from '../../../components/AlertMessage';
-import { DatePicker } from '@mui/x-date-pickers';
-import { format, parse } from 'date-fns';
 
 export const ContractForm = () => {
 
@@ -31,13 +31,8 @@ export const ContractForm = () => {
     const { user, payForm, startGetClients, startGetPayForm } = useGetComboxBox();
     const icons = getIcons();
 
-    const [startDate, setstartDate] = useState()
-
-    console.log(startDate);
-
-    const onSaveContract = (values) => {
-        /* startSavingContract(values); */
-        console.log(values);
+    const onSaveContract = (contractData) => {
+        startSavingContract(contractData);
     }
 
     const titleForm = useMemo(() => {
@@ -124,12 +119,12 @@ export const ContractForm = () => {
                                 label="Fecha de inicio"
                                 slotProps={{ textField: { variant: 'filled' } }}
                                 sx={{ gridColumn: "span 2" }}
-                                format="yyyy/MM/dd"
+                                format="yyyy-MM-dd"
                                 name='date_start'
-                                value={parse(values.date_start, 'yyyy/MM/dd', new Date())}
+                                value={parse(values.date_start, 'yyyy-MM-dd', new Date())}
                                 onChange={(event) => {
-                                    const newDate = format(new Date(event), 'yyyy/MM/dd') 
-                                    setFieldValue('date_start', newDate); 
+                                    const newDate = format(new Date(event), 'yyyy-MM-dd')
+                                    setFieldValue('date_start', newDate);
                                 }}
                                 error={errors.date_start && touched.date_start}
                                 helperText={errors.date_start && touched.date_start && errors.date_start}
@@ -140,12 +135,12 @@ export const ContractForm = () => {
                                 label="Fecha de finalización"
                                 slotProps={{ textField: { variant: 'filled' } }}
                                 sx={{ gridColumn: "span 2" }}
-                                format="yyyy/MM/dd"
+                                format="yyyy-MM-dd"
                                 name='date_end'
-                                value={parse(values.date_end, 'yyyy/MM/dd', new Date())}
+                                value={parse(values.date_end, 'yyyy-MM-dd', new Date())}
                                 onChange={(event) => {
-                                    const newDate = format(new Date(event), 'yyyy/MM/dd') 
-                                    setFieldValue('date_end', newDate); 
+                                    const newDate = format(new Date(event), 'yyyy-MM-dd')
+                                    setFieldValue('date_end', newDate);
                                 }}
                                 error={errors.date_end && touched.date_end}
                                 helperText={errors.date_end && touched.date_end && errors.date_end}
