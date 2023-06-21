@@ -24,64 +24,57 @@ export const ContractDetail = () => {
 
   const columns = [
     {
-      field: "sig_tip",
-      headerName: "Código",
-      flex: 1,
+      field: "plan",
+      headerName: "Plan",
+      flex: 2,
       align: 'center',
       headerAlign: 'center',
     },
     {
       field: "client",
-      headerName: "Cliente",
+      headerName: "Desde",
       flex: 1,
       align: 'center',
       headerAlign: 'center',
     },
     {
       field: "date_start",
-      headerName: "Fecha de contrato",
+      headerName: "Hasta",
       flex: 1,
       align: 'center',
       headerAlign: 'center',
     },
     {
       field: "date_end",
-      headerName: "Fecha de cierre",
-      flex: 1,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: "vat_total",
-      headerName: "Total",
-      flex: 1,
-      align: 'right',
-      headerAlign: 'center',
-    },
-    {
-      field: "signature",
-      headerName: "Firma",
-      flex: 1,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: "close_reason",
       headerName: "Razon de cierre",
       flex: 1,
       align: 'center',
       headerAlign: 'center',
     },
     {
-      field: "ren_aut",
-      headerName: "Renovación automática",
+      field: "vat_total",
+      headerName: "Valor",
+      flex: 1,
+      align: 'right',
+      headerAlign: 'center',
+    },
+    {
+      field: "sub_total",
+      headerName: "Subtotal",
       flex: 1,
       align: 'center',
       headerAlign: 'center',
     },
     {
-      field: "payment_places",
-      headerName: "Forma de pago",
+      field: "total",
+      headerName: "Total",
+      flex: 1,
+      align: 'center',
+      headerAlign: 'center',
+    },
+    {
+      field: "status",
+      headerName: "Estado",
       flex: 1,
       align: 'center',
       headerAlign: 'center',
@@ -101,24 +94,10 @@ export const ContractDetail = () => {
         const handleDelete = () => {
           // handle delete logic
         };
-        const handleDetail = () => {
-          startSetHeaderContract(params.row)
-          navigate("detalle");
-        }
-        const handleSing = () => {
-          navigate("firmar")
-
-        }
         return (
           <>
             <IconButton title="Editar" onClick={handleEdit}>
               {icons['EditIcon']()}
-            </IconButton>
-            <IconButton title="Detalle" onClick={handleDetail}>
-              {icons['DehazeIcon']()}
-            </IconButton>
-            <IconButton title="Firmar" onClick={handleSing}>
-              {icons['GestureIcon']()}
             </IconButton>
             <IconButton title="Archivar" onClick={handleDelete} >
               {icons['DeleteIcon']()}
