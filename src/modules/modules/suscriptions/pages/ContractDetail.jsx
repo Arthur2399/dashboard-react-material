@@ -120,8 +120,8 @@ export const ContractDetail = () => {
     navigate("/suscripciones/contratos/");
   }
 
-  const onSaveContractDetails = () => {
-
+  const onCreateDetail = () => {
+    navigate("formulario");
   }
 
   useEffect(() => {
@@ -148,7 +148,7 @@ export const ContractDetail = () => {
             Regresar
           </Button>
           <Button
-            onClick={onSaveContractDetails}
+            onClick={onCreateDetail}
             sx={{
               backgroundColor: colors.primary[400],
               color: colors.grey[100],

@@ -11,6 +11,7 @@ export const useGetComboxBox = () => {
     const [tax, setTaxes] = useState([])
     const [user, setUser] = useState([])
     const [payForm, setPayForm] = useState([])
+    const [plans, setPlans] = useState([])
 
     const companyInfo = localStorage.getItem("Company");
     const decryptedData = JSON.parse(decryptData(companyInfo));
@@ -70,6 +71,16 @@ export const useGetComboxBox = () => {
         }
     }
 
+
+    const startGetPlans = async () => {
+        try {
+            const { data } = await morgquickApi.get(`/plans/PlansHeader/cbx/${decryptedData.id}`);
+            setPlans(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         startGetCountry();
         startGetServices();
@@ -84,11 +95,13 @@ export const useGetComboxBox = () => {
         typeIdentification,
         user,
         payForm,
+        plans,
         
         /* Metodos */
         startGetServicesData,
         startGetClients,
         startGetPayForm,
+        startGetPlans,
 
     }
 }
