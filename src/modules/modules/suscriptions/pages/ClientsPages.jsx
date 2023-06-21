@@ -28,7 +28,7 @@ export const ClientsPages = () => {
 
     const columns = [
         {
-            field: "name",
+            field: "first_name",
             headerName: "Nombre completo",
             flex: 1
         },
