@@ -5,7 +5,7 @@ import { Header } from "../../components";
 import { tokens } from "../../../../theme";
 import { getIcons } from "../../../../helpers";
 import { customStyles } from "../../../helpers";
-import { useContractStore } from "../../../../store/";
+import { useContractDetailsStore, useContractStore } from "../../../../store/";
 
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
@@ -20,6 +20,8 @@ export const Contract = () => {
   const navigate = useNavigate();
 
   const { contract, startLoadContracts, startSetActiveContract } = useContractStore();
+  const { startSetHeaderContract } = useContractDetailsStore();
+
   const icons = getIcons();
 
   const columns = [
@@ -101,6 +103,10 @@ export const Contract = () => {
         const handleDelete = () => {
           // handle delete logic
         };
+        const handleDetail = () => {
+          startSetHeaderContract(params.row)
+          navigate("detalle");
+        }
         const handleSing = () => {
           navigate("firmar")
 
@@ -110,7 +116,7 @@ export const Contract = () => {
             <IconButton title="Editar" onClick={handleEdit}>
               {icons['EditIcon']()}
             </IconButton>
-            <IconButton title="Detalle" >
+            <IconButton title="Detalle" onClick={handleDetail}>
               {icons['DehazeIcon']()}
             </IconButton>
             <IconButton title="Firmar" onClick={handleSing}>
@@ -132,8 +138,8 @@ export const Contract = () => {
       id: 0,
       client_id: null,
       company_id: null,
-      date_end: dateString ,
-      date_start: dateString ,
+      date_end: dateString,
+      date_start: dateString,
       payment_places_id: null,
     })
     navigate('formulario');

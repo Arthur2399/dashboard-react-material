@@ -14,7 +14,7 @@ export const useContractDetailsStore = () => {
     const startSetHeaderContract = (headerContract) => {
         const encryptedData = encrypData(headerContract);
         localStorage.setItem("HeaderContract", encryptedData);
-        dispatch(onSetHeaderContract(headerPlan));
+        dispatch(onSetHeaderContract(headerContract));
     }
 
     
