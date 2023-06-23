@@ -27,7 +27,7 @@ export const Contract = () => {
 
   const columns = [
     {
-      field: "sig_tip",
+      field: "name",
       headerName: "Código",
       flex: 1,
       align: 'center',
@@ -36,7 +36,7 @@ export const Contract = () => {
     {
       field: "client",
       headerName: "Cliente",
-      flex: 1,
+      flex: 2,
       align: 'center',
       headerAlign: 'center',
     },
@@ -93,6 +93,7 @@ export const Contract = () => {
       field: "actions",
       headerName: "Opciones",
       sortable: false,
+      flex: 2,
       align: 'center',
       headerAlign: 'center',
       width: "150",
@@ -109,6 +110,10 @@ export const Contract = () => {
           startSetHeaderContract(params.row)
           navigate("detalle");
         }
+        const handlePrint = () => {
+          startSetHeaderContract(params.row)
+          navigate("imprimir");
+        }
         const handleSing = () => {
           startSetHeaderContract(params.row)
           navigate("firmar")
@@ -124,6 +129,9 @@ export const Contract = () => {
             </IconButton>
             <IconButton title="Firmar" onClick={handleSing}>
               {icons['GestureIcon']()}
+            </IconButton>
+            <IconButton title="Imprimir" onClick={handlePrint}>
+              {icons['PictureAsPdfIcon']()}
             </IconButton>
             <IconButton title="Archivar" onClick={handleDelete} >
               {icons['DeleteIcon']()}

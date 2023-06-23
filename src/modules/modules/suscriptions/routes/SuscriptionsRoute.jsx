@@ -1,5 +1,22 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { PlansDetails, PlansDetailsForm, ClientsForm, ClientsPages, PaymentTerm, PaymentTermForm, PlansForm, PlansPages, Services, ServiceForm, Contract, ContractForm, ContractSing, ContractDetail, ContractDetailForm } from "../pages"
+import {
+    PlansDetails,
+    PlansDetailsForm,
+    ClientsForm,
+    ClientsPages,
+    PaymentTerm,
+    PaymentTermForm,
+    PlansForm,
+    PlansPages,
+    Services,
+    ServiceForm,
+    Contract,
+    ContractForm,
+    ContractSing,
+    ContractDetail,
+    ContractDetailForm,
+    ContractPrint
+} from "../pages"
 
 export const SuscriptionsRoute = () => {
     return (
@@ -24,11 +41,12 @@ export const SuscriptionsRoute = () => {
             <Route path="configuracion/servicios/Formulario" element={< ServiceForm />} />
 
             {/* CONTRATO */}
-            <Route path="contratos" element={<Contract/>} />
-            <Route path="contratos/formulario" element={<ContractForm/>} />
-            <Route path="contratos/detalle" element={<ContractDetail/>} />
-            <Route path="contratos/detalle/formulario" element={<ContractDetailForm/>} />
-            <Route path="contratos/firmar" element={<ContractSing/>} />
+            <Route path="contratos" element={<Contract />} />
+            <Route path="contratos/formulario" element={<ContractForm />} />
+            <Route path="contratos/detalle" element={<ContractDetail />} />
+            <Route path="contratos/detalle/formulario" element={<ContractDetailForm />} />
+            <Route path="contratos/firmar" element={<ContractSing />} />
+            <Route path="contratos/imprimir" element={<ContractPrint />} />
 
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>

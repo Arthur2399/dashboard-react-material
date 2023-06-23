@@ -2,6 +2,7 @@ export * from './ClientsForm';
 export * from './ClientsPages';
 export * from './Contract';
 export * from './ContractDetail';
+export * from './ContractPrint';
 export * from './ContractDetailForm';
 export * from './ContractForm';
 export * from './ContractSing';

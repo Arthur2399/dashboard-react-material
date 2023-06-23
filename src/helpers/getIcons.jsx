@@ -34,13 +34,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 
 export const getIcons = () => {
   const icons = {
-    "ArrowBackIcon": (props) => < ArrowBackIcon {...props}/>,
+    "ArrowBackIcon": (props) => < ArrowBackIcon {...props} />,
     "AccountCircleIcon": (props) => <AccountCircleIcon {...props} />,
     "AddCircleIcon": (props) => < AddCircleIcon {...props} />,
     "ApartmentIcon": (props) => <ApartmentIcon {...props} />,
@@ -76,8 +77,9 @@ export const getIcons = () => {
     "ShoppingBagIcon": (props) => <ShoppingBagIcon {...props} />,
     "SubscriptionsIcon": (props) => <SubscriptionsIcon {...props} />,
     "SystemSecurityUpdateGoodIcon": (props) => <SystemSecurityUpdateGoodIcon {...props} />,
-    "RestartAltIcon": (props) => <RestartAltIcon {...props} />, 
-    "SaveIcon": (props) => <SaveIcon {...props} />, 
+    "RestartAltIcon": (props) => <RestartAltIcon {...props} />,
+    "SaveIcon": (props) => <SaveIcon {...props} />,
+    "PictureAsPdfIcon": (props) => <PictureAsPdfIcon {...props} />
   }
   return icons;
 }
