@@ -44,7 +44,7 @@ export const ContractPrint = () => {
     <Box className="animate__animated animate__fadeIn">
       <Header title={headerTitle} subtitle="Visualiza el contrato y verifica que todo este en orden." />
       <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <Viewer fileUrl={pdfUrl}
+        <Viewer fileUrl="/pdf/test.pdf"
 
           plugins={[
             // Register plugins
