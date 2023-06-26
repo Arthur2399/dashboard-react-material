@@ -5,7 +5,6 @@ import { Header } from "../../components"
 import { useContractDetailsStore } from "../../../../store"
 import { useGetReports } from "../helpers/useGetReports"
 import { useEffect } from "react"
-import { PDFViewers } from "../../../components"
 
 export const ContractPrint = () => {
 
@@ -38,7 +37,6 @@ export const ContractPrint = () => {
   return (
     <Box className="animate__animated animate__fadeIn">
       <Header title={headerTitle} subtitle="Visualiza el contrato y verifica que todo este en orden." />
-      <PDFViewers pdfUrl={pdfUrl} />
     </Box>
   )
 }
