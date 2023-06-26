@@ -5,8 +5,7 @@ import { Header } from "../../components"
 import { useContractDetailsStore } from "../../../../store"
 import { useGetReports } from "../helpers/useGetReports"
 import { useEffect } from "react"
-import PDFViewer from "pdf-viewer-reactjs"
-import { useRef } from "react"
+import { PDFViewers } from "../../../components"
 
 export const ContractPrint = () => {
 
@@ -34,15 +33,12 @@ export const ContractPrint = () => {
   }, [contractPrint])
 
 
-  const pdfCanvasRef = useRef(null);
+  const pdfUrl = 'http://154.12.236.19:128/media/contract/contrato_pdf/CON000000002_1.pdf';
 
   return (
     <Box className="animate__animated animate__fadeIn">
       <Header title={headerTitle} subtitle="Visualiza el contrato y verifica que todo este en orden." />
-      <PDFViewer
-        document={{ url: "https://arxiv.org/pdf/quant-ph/0410100.pdf" }}
-        canvasRef={pdfCanvasRef}
-      />
+      <PDFViewers pdfUrl={pdfUrl} />
     </Box>
   )
 }
