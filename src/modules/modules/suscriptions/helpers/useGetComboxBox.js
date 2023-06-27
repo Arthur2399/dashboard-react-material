@@ -18,6 +18,9 @@ export const useGetComboxBox = () => {
     const [province, setProvince] = useState([])
     const [cantons, setCantons] = useState([])
 
+    const [KindOfPerson, setKindOfPerson] = useState([])
+    const [stratum, setStratum] = useState([])
+
 
 
     const companyInfo = localStorage.getItem("Company");
@@ -126,6 +129,23 @@ export const useGetComboxBox = () => {
         }
     }
 
+    const startGetKindPerson = async () => {
+        try {
+            const { data } = await morgquickApi.get(`/tables/cbx/KindOfPerson`);
+            setKindOfPerson(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const startGetStratum = async () => {
+        try {
+            const { data } = await morgquickApi.get(`/tables/cbx/stratum`);
+            setStratum(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         startGetServices();
@@ -137,11 +157,13 @@ export const useGetComboxBox = () => {
         cantons,
         countries,
         gender,
+        KindOfPerson,
         payForm,
         plans,
         province,
         service,
         serviceData,
+        stratum,
         tax,
         typeIdentification,
         user,
@@ -152,10 +174,12 @@ export const useGetComboxBox = () => {
         startGetCountries,
         startGetGender,
         startGetIdentificationType,
+        startGetKindPerson,
         startGetPayForm,
         startGetPlans,
         startGetProvince,
         startGetServicesData,
+        startGetStratum,
 
     }
 }

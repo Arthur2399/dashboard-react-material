@@ -59,21 +59,25 @@ export const ClientsForm = () => {
         province,
         cantons,
         typeIdentification,
+        KindOfPerson,
+        stratum,
         startGetGender,
         startGetIdentificationType,
         startGetCountries,
         startGetProvince,
         startGetCanton,
+        startGetKindPerson,
+        startGetStratum,
     } = useGetComboxBox();
 
     const onSaveClient = (client) => {
-        /* startSavingClient(client); */
+        startSavingClient(client);
         console.log(client)
     }
 
 
     const titleForm = useMemo(() => {
-        if (active.id != 0) return `Editar a ${active.name}`;
+        if (active.id != 0) return `Editar a ${active.full_name}`;
         return 'Crear cliente';
     }, [active])
 
@@ -81,6 +85,8 @@ export const ClientsForm = () => {
     useEffect(() => {
         if (active !== null) {
             setInitialState({ ...active });
+            setCountryId(active.country_id)
+            setProvinceId(active.province_id)
         }
     }, [active]);
 
@@ -98,7 +104,9 @@ export const ClientsForm = () => {
         startGetCountries();
         startGetIdentificationType();
         startGetGender();
-        startClearMessage();
+        startGetKindPerson();
+        startGetStratum(),
+            startClearMessage();
     }, []);
 
     return (
@@ -107,7 +115,7 @@ export const ClientsForm = () => {
             <Formik
                 initialValues={initialState}
                 enableReinitialize
-                /* validationSchema={validationSchema} */
+                validationSchema={validationSchema}
                 onSubmit={(values) => {
                     onSaveClient(values)
                 }}
@@ -294,6 +302,47 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 1" }}
                             />
 
+                            {/* TIPO DE PERSONA */}
+                            <Autocomplete
+                                options={KindOfPerson}
+                                getOptionLabel={(option) => option.label}
+                                value={KindOfPerson.find((option) => option.value === values.kind_person_id) || null}
+                                onBlur={() => setFieldTouched('kind_person_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('kind_person_id', newValue ? newValue.value : null);
+                                    setCountryId(newValue.value);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Tipo de persona"
+                                        placeholder="Busque y seleccione un tipo de persona"
+                                        name="kind_person_id"
+                                        error={errors.kind_person_id && touched.kind_person_id}
+                                        helperText={errors.kind_person_id && touched.kind_person_id && errors.kind_person_id}
+                                        variant="filled" />}
+                            />
+                            {/* ESTATUS SOCIAL */}
+                            <Autocomplete
+                                options={stratum}
+                                getOptionLabel={(option) => option.label}
+                                value={stratum.find((option) => option.value === values.stratum_id) || null}
+                                onBlur={() => setFieldTouched('stratum_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('stratum_id', newValue ? newValue.value : null);
+                                    setCountryId(newValue.value);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Estatus social"
+                                        placeholder="Busque y seleccione un estatus social"
+                                        name="stratum_id"
+                                        error={errors.stratum_id && touched.stratum_id}
+                                        helperText={errors.stratum_id && touched.stratum_id && errors.stratum_id}
+                                        variant="filled" />}
+                            />
+
                             {/* PAIS */}
                             <Autocomplete
                                 options={countries}
@@ -419,19 +468,62 @@ const handleKeyPress = (event) => {
 
 const validationSchema = Yup.object().shape({
     first_name: Yup.string()
-        .min(8, 'El nombre debe tener al menos dos caracteres')
-        .required('Ingrese un nombre'),
-    phone: Yup.string()
-        .min(8, 'El debe tener al menos 10 digitos')
-        .required('Este campo es obligatorio ingrese su número de celular'),
+        .min(2, 'El nombre debe tener al menos dos caracteres')
+        .required('Este campo es requerido'),
+
+    second_name: Yup.string()
+        .min(2, 'El nombre debe tener al menos dos caracteres')
+        .required('Este campo es requerido'),
+
+    last_name: Yup.string()
+        .min(2, 'El apellido debe tener al menos dos caracteres')
+        .required('Este campo es requerido'),
+
+    second_last_name: Yup.string()
+        .min(2, 'El apellido debe tener al menos dos caracteres')
+        .required('Este campo es requerido'),
+
+    comercial_name: Yup.string()
+        .min(2, 'La razón social debe tener al menos dos caracteres'),
+
+    birthdate: Yup.string()
+        .required('Este campo es requerido'),
+
+    kind_person_id: Yup.string()
+        .required('Este campo es requerido'),
+
+    stratum_id: Yup.string()
+        .required('Este campo es requerido'),
+
+    gender_id: Yup.string()
+        .required('Este campo es requerido'),
+
+    identification_type_id: Yup.string()
+        .required('Este campo es requerido'),
+
     identification_number: Yup.string()
-        .min(10, 'Ingrese un numero de cedula valido')
-        .required('Este campo es obligatorio ingrese la cedula'),
-    address: Yup.string()
-        .required('Este campo es obligatorio ingrese la dirección'),
+        .min(10, 'Ingrese una número de identificación válido')
+        .required('Este campo es requerido'),
+
+    cellphone1: Yup.string()
+        .min(10, 'Ingrese un celular válido'),
+
+    cellphone2: Yup.string()
+        .min(10, 'Ingrese un celular válido'),
+
+    country_id: Yup.string()
+        .required('Este campo es requerido'),
+
+    province_id: Yup.string()
+        .required('Este campo es requerido'),
+
+    cantons_id: Yup.string()
+        .required('Este campo es requerido'),
     email: Yup.string()
         .email('Ingrese un correo válido.')
         .required('El email no puede estar vacío.'),
-    identification_type_id: Yup.string()
-        .required('Este campo es obligatorio seleccione el tipo de identificación'),
+
+    address: Yup.string()
+        .required('Este campo es obligatorio seleccione el tipo de identificación')
+        .min(2, 'La dirección debe tener al menos dos caracteres'),
 });
