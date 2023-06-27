@@ -74,9 +74,8 @@ export const ClientsForm = () => {
         startSavingClient(client);
     }
 
-
-    const titleForm = useMemo(() => {
-        if (active.id != 0) return `Editar a ${active.full_name}`;
+    const titleForm = useMemo(() => {   
+        if (active?.id != 0) return `Editar a ${active?.full_name}`;
         return 'Crear cliente';
     }, [active])
 
@@ -87,6 +86,7 @@ export const ClientsForm = () => {
             setCountryId(active.country_id)
             setProvinceId(active.province_id)
         }
+        else if (active == null) {navigate("/suscripciones/clientes")}
     }, [active]);
 
     useEffect(() => {
