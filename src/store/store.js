@@ -6,12 +6,12 @@ import { changePasswordSlice } from "./modules/configuration/changePassword/chan
 export const store = configureStore({
     reducer: {
 
+        client: clientSlice.reducer,
         contractDetails: contractDetailsSlices.reducer,
         contract: contractSlice.reducer,
 
         auth: authSlice.reducer,
         changePassword: changePasswordSlice.reducer,
-        client: clientSlice.reducer,
         community: communitySlice.reducer,
         companyInfo: companyInfoSlice.reducer,
         menu: menuSlice.reducer,

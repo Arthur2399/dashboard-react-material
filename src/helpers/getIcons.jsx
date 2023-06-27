@@ -15,6 +15,7 @@ import HailIcon from '@mui/icons-material/Hail';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import ArchiveIcon from '@mui/icons-material/Archive';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 import MapIcon from '@mui/icons-material/Map';
@@ -79,7 +80,8 @@ export const getIcons = () => {
     "SystemSecurityUpdateGoodIcon": (props) => <SystemSecurityUpdateGoodIcon {...props} />,
     "RestartAltIcon": (props) => <RestartAltIcon {...props} />,
     "SaveIcon": (props) => <SaveIcon {...props} />,
-    "PictureAsPdfIcon": (props) => <PictureAsPdfIcon {...props} />
+    "PictureAsPdfIcon": (props) => <PictureAsPdfIcon {...props} />,
+    "ArchiveIcon": (props) => <ArchiveIcon {...props}/>
   }
   return icons;
 }

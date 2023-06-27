@@ -12,11 +12,18 @@ export const useGetComboxBox = () => {
     const [user, setUser] = useState([])
     const [payForm, setPayForm] = useState([])
     const [plans, setPlans] = useState([])
+    const [gender, setGender] = useState([])
+
+    const [countries, setContries] = useState([])
+    const [province, setProvince] = useState([])
+    const [cantons, setCantons] = useState([])
+
+
 
     const companyInfo = localStorage.getItem("Company");
     const decryptedData = JSON.parse(decryptData(companyInfo));
 
-    const startGetCountry = async () => {
+    const startGetIdentificationType = async () => {
         try {
             const { data } = await morgquickApi.get(`/client/IdentificationType/get`);
             setTypeIdentification(data);
@@ -24,6 +31,16 @@ export const useGetComboxBox = () => {
             console.log(error)
         }
     }
+
+    const startGetGender = async () => {
+        try {
+            const { data } = await morgquickApi.get(`/tables/cbx/gender`);
+            setGender(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     const startGetServices = async () => {
 
@@ -81,27 +98,64 @@ export const useGetComboxBox = () => {
         }
     }
 
+
+    const startGetCountries = async () => {
+        try {
+            const { data } = await morgquickApi.get(`/tables/cbx/country`);
+            setContries(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const startGetProvince = async (idCountry) => {
+        try {
+            const { data } = await morgquickApi.get(`/tables/cbx/province/${idCountry}`);
+            setProvince(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const startGetCanton = async (idProvince) => {
+        try {
+            const { data } = await morgquickApi.get(`/tables/cbx/cantons/${idProvince}`);
+            setCantons(data);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     useEffect(() => {
-        startGetCountry();
         startGetServices();
         startGetTaxes();
     }, [])
 
     return {
         /* Atributos */
+        cantons,
+        countries,
+        gender,
+        payForm,
+        plans,
+        province,
         service,
         serviceData,
         tax,
         typeIdentification,
         user,
-        payForm,
-        plans,
         
         /* Metodos */
-        startGetServicesData,
+        startGetCanton,
         startGetClients,
+        startGetCountries,
+        startGetGender,
+        startGetIdentificationType,
         startGetPayForm,
         startGetPlans,
+        startGetProvince,
+        startGetServicesData,
 
     }
 }

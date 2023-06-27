@@ -4,9 +4,9 @@ export const clientSlice = createSlice({
     name: 'client',
     initialState: {
         isLoading: false,
+        active: null,
         clients: [],
         confirm: false,
-        active: null,
         errorMessage: null,
         serverMessage: null,
     },

@@ -15,48 +15,90 @@ import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/materi
 import SaveIcon from '@mui/icons-material/Save';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { DatePicker } from '@mui/x-date-pickers';
+import { format, parse } from 'date-fns';
 
 
 export const ClientsForm = () => {
 
-    const [initialState, setInitialState] = useState({
-        id: 0,
-        address: '',
-        comercial_name: '',
-        email: '',
-        identification_number: '',
-        identification_type_id: null,
-        identification_type: '',
-        name: '',
-        phone: '',
-    });
-
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
 
-    const { active, startSavingClient, startClearMessage, isLoading, serverMessage, errorMessage } = useClientStore();
-    const { typeIdentification } = useGetComboxBox();
+    const [initialState, setInitialState] = useState({
+        id: 0,
+        address: "",
+        birthdate: new Date(),
+        cantons_id: "",
+        cellphone1: "",
+        cellphone2: "",
+        comercial_name: "",
+        company_id: "",
+        country_id: "",
+        email: "",
+        first_name: "",
+        gender_id: "",
+        identification_number: "",
+        identification_type_id: "",
+        kind_person_id: "",
+        last_name: "",
+        name: "",
+        phone: "",
+        province_id: "",
+        second_last_name: "",
+        stratum_id: "",
+        second_name: "",
+    });
+
+    const [countryId, setCountryId] = useState("")
+    const [provinceId, setProvinceId] = useState("")
+
+    const { active, isLoading, serverMessage, errorMessage, startSavingClient, startClearMessage, } = useClientStore();
+    const {
+        gender,
+        countries,
+        province,
+        cantons,
+        typeIdentification,
+        startGetGender,
+        startGetIdentificationType,
+        startGetCountries,
+        startGetProvince,
+        startGetCanton,
+    } = useGetComboxBox();
 
     const onSaveClient = (client) => {
         startSavingClient(client);
     }
 
 
-    useEffect(() => {
-        startClearMessage();
-    }, [])
-
     const titleForm = useMemo(() => {
         if (active.id != 0) return `Editar a ${active.name}`;
         return 'Crear cliente';
     }, [active])
 
+
     useEffect(() => {
         if (active !== null) {
             setInitialState({ ...active });
         }
+    }, [active]);
 
-    }, [active])
+    useEffect(() => {
+        if (countryId == "") return;
+        startGetProvince(countryId);
+    }, [countryId])
+
+    useEffect(() => {
+        if (provinceId == "") return;
+        startGetCanton(provinceId);
+    }, [provinceId])
+
+    useEffect(() => {
+        startGetCountries();
+        startGetIdentificationType();
+        startGetGender();
+        startClearMessage();
+    }, []);
 
     return (
         <Box className="animate__animated animate__fadeIn">
@@ -87,12 +129,12 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Nombre"
                                 placeholder="Ingrese el nombre"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="first_name"
+                                error={errors.first_name && touched.first_name}
+                                helperText={errors.first_name && touched.first_name && errors.first_name}
                                 sx={{ gridColumn: "span 2 " }}
                             />
-                            {/* NOMBRE */}
+                            {/* SEGUNDO NOMBRE */}
                             <Field
                                 as={TextField}
                                 type="text"
@@ -100,9 +142,9 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Segundo nombre"
                                 placeholder="Ingrese el segudno nombre"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="second_name"
+                                error={errors.second_name && touched.second_name}
+                                helperText={errors.second_name && touched.second_name && errors.second_name}
                                 sx={{ gridColumn: "span 2 " }}
                             />
                             {/* APELLIDO */}
@@ -113,12 +155,12 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Apellido"
                                 placeholder="Ingrese el apellido paterno"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="last_name"
+                                error={errors.last_name && touched.last_name}
+                                helperText={errors.last_name && touched.last_name && errors.last_name}
                                 sx={{ gridColumn: "span 2 " }}
                             />
-                            {/* APELLIDO */}
+                            {/* SEGUNDO APELLIDO */}
                             <Field
                                 as={TextField}
                                 type="text"
@@ -126,12 +168,12 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Segundo apellido"
                                 placeholder="Ingrese el apellido materno"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="second_last_name"
+                                error={errors.second_last_name && touched.second_last_name}
+                                helperText={errors.second_last_name && touched.second_last_name && errors.second_last_name}
                                 sx={{ gridColumn: "span 2 " }}
                             />
-                            {/* RZON SOCIAL */}
+                            {/* RAZON SOCIAL */}
                             <Field
                                 as={TextField}
                                 type="text"
@@ -139,39 +181,48 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Razon social"
                                 placeholder="Ingrese la razon social"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
+                                name="comercial_name"
+                                error={errors.comercial_name && touched.comercial_name}
+                                helperText={errors.comercial_name && touched.comercial_name && errors.comercial_name}
                                 sx={{ gridColumn: "span 4 " }}
                             />
 
                             {/* FECHA DE NACIMIENTO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
+                            <DatePicker
                                 label="Fecha de nacimiento"
-                                placeholder="Ingrese la fecha de nacimiento"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
-                                sx={{ gridColumn: "span 2 " }}
+                                slotProps={{ textField: { variant: 'filled' } }}
+                                sx={{ gridColumn: "span 2" }}
+                                format="yyyy-MM-dd"
+                                name='birthdate'
+                                value={parse(values.birthdate, 'yyyy-MM-dd', new Date())}
+                                onChange={(event) => {
+                                    const newDate = format(new Date(event), 'yyyy-MM-dd')
+                                    setFieldValue('birthdate', newDate);
+                                }}
+                                error={errors.birthdate && touched.birthdate}
+                                helperText={errors.birthdate && touched.birthdate && errors.birthdate}
                             />
 
                             {/* SEXO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Sexo"
-                                placeholder="Ingrese el sexo"
-                                name="name"
-                                error={errors.name && touched.name}
-                                helperText={errors.name && touched.name && errors.name}
-                                sx={{ gridColumn: "span 2 " }}
+                            <Autocomplete
+                                options={gender}
+                                getOptionLabel={(option) => option.label}
+                                value={gender.find((option) => option.value === values.gender_id) || null}
+                                onBlur={() => setFieldTouched('gender_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('gender_id', newValue ? newValue.value : null);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Sexo"
+                                        placeholder="Busque y seleccione tipo de genero"
+                                        name="gender_id"
+                                        error={errors.gender_id && touched.gender_id}
+                                        helperText={errors.gender_id && touched.gender_id && errors.gender_id}
+                                        variant="filled" />}
                             />
+
                             {/* TIPO DE DOCUMENTO */}
                             <Autocomplete
                                 options={typeIdentification}
@@ -181,7 +232,7 @@ export const ClientsForm = () => {
                                 onChange={(event, newValue) => {
                                     setFieldValue('identification_type_id', newValue ? newValue.value : null);
                                 }}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{ gridColumn: "span 1" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Tipo de identificación"
@@ -197,12 +248,12 @@ export const ClientsForm = () => {
                                 type="text"
                                 fullWidth
                                 variant="filled"
-                                label="Cedula"
+                                label="Cédula"
                                 placeholder="Ingrese el numero de cédula"
                                 name="identification_number"
                                 error={errors.identification_number && touched.identification_number}
                                 helperText={errors.identification_number && touched.identification_number && errors.identification_number}
-                                sx={{ gridColumn: "span 2 " }}
+                                sx={{ gridColumn: "span 1 " }}
                             />
 
                             {/* CELULAR */}
@@ -213,14 +264,107 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Celular"
                                 placeholder="Ingrese el celular"
-                                name="phone"
+                                name="cellphone1"
                                 inputProps={{
                                     pattern: "[0-9]*",
                                     maxLength: 10,
                                     onKeyPress: handleKeyPress,
                                 }}
-                                error={errors.phone && touched.phone}
-                                helperText={errors.phone && touched.phone && errors.phone}
+                                error={errors.cellphone1 && touched.cellphone1}
+                                helperText={errors.cellphone1 && touched.cellphone1 && errors.cellphone1}
+                                sx={{ gridColumn: "span 1" }}
+                            />
+                            {/*SEGUNDO  CELULAR */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Segundo celular"
+                                placeholder="Ingrese el celular"
+                                name="cellphone2"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                error={errors.cellphone2 && touched.cellphone2}
+                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2}
+                                sx={{ gridColumn: "span 1" }}
+                            />
+
+                            {/* PAIS */}
+                            <Autocomplete
+                                options={countries}
+                                getOptionLabel={(option) => option.label}
+                                value={countries.find((option) => option.value === values.country_id) || null}
+                                onBlur={() => setFieldTouched('country_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('country_id', newValue ? newValue.value : null);
+                                    setCountryId(newValue.value);
+                                }}
+                                sx={{ gridColumn: "span 4" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Pais"
+                                        placeholder="Busque y seleccione un pais"
+                                        name="country_id"
+                                        error={errors.country_id && touched.country_id}
+                                        helperText={errors.country_id && touched.country_id && errors.country_id}
+                                        variant="filled" />}
+                            />
+                            {/* PROVINCIA */}
+                            <Autocomplete
+                                options={province}
+                                disabled={countryId == ""}
+                                getOptionLabel={(option) => option.label}
+                                value={province.find((option) => option.value === values.province_id) || null}
+                                onBlur={() => setFieldTouched('province_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('province_id', newValue ? newValue.value : null);
+                                    setProvinceId(newValue.value)
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Provincia"
+                                        placeholder="Busque y seleccione una provincia"
+                                        name="province_id"
+                                        error={errors.province_id && touched.province_id}
+                                        helperText={errors.province_id && touched.province_id && errors.province_id}
+                                        variant="filled" />}
+                            />
+                            {/* CANTON */}
+                            <Autocomplete
+                                options={cantons}
+                                disabled={provinceId == ""}
+                                getOptionLabel={(option) => option.label}
+                                value={cantons.find((option) => option.value === values.cantons_id) || null}
+                                onBlur={() => setFieldTouched('cantons_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('cantons_id', newValue ? newValue.value : null);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Canton"
+                                        placeholder="Busque y seleccione un canton"
+                                        name="cantons_id"
+                                        error={errors.cantons_id && touched.cantons_id}
+                                        helperText={errors.cantons_id && touched.cantons_id && errors.cantons_id}
+                                        variant="filled" />}
+                            />
+                            {/* CORREO ELECTRONICO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Correo electrónico"
+                                placeholder="Ingrese el correo electrónico"
+                                name="email"
+                                error={errors.email && touched.email}
+                                helperText={errors.email && touched.email && errors.email}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -238,19 +382,7 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 4" }}
                             />
 
-                            {/* CORREO ELECTRONICO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Correo electrónico"
-                                placeholder="Ingrese el correo electrónico"
-                                name="email"
-                                error={errors.email && touched.email}
-                                helperText={errors.email && touched.email && errors.email}
-                                sx={{ gridColumn: "span 4" }}
-                            />
+
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" onClick={() => { navigate('/suscripciones/clientes') }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>

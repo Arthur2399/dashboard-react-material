@@ -2,55 +2,70 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useTheme } from "@emotion/react";
-import { customStyles } from "../../../helpers";
-import { tokens } from "../../../../theme";
-import { Header } from "../../components";
-import { useClientStore } from "../../../../store/modules/suscripciones/hooks/useClientStore";
-
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { LoadingSpinner } from "../../../components/LoadingSpinner";
+import { Header } from "../../components";
+import { tokens } from "../../../../theme";
+import { customStyles } from "../../../helpers";
+import { getIcons } from "../../../../helpers/getIcons";
 import { AlertConfirm } from "../../../components/AlertConfirm";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
+import { useClientStore } from "../../../../store/modules/suscripciones/hooks/useClientStore";
+import { format } from "date-fns";
 
 export const ClientsPages = () => {
 
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
-
-    const { startonLoadingClients, startSetActiveClient, startConfirmDelete, clients, isLoading, confirm } = useClientStore()
-
     const { colorDataGrid } = customStyles();
+    const colors = tokens(theme.palette.mode);
+    const icons = getIcons();
+
+    const { 
+        clients,
+        isLoading,
+        confirm,
+        startonLoadingClients,
+        startSetActiveClient,
+        startConfirmDelete
+    } = useClientStore();
 
     const columns = [
         {
-            field: "first_name",
+            field: "full_name",
             headerName: "Nombre completo",
-            flex: 1
+            flex: 1,
+            headerAlign: "center",
+            align: "center"
         },
         {
             field: "identification_type",
             headerName: "Tipo de documento",
             flex: 1,
+            headerAlign: "center",
+            align: "center"
         },
         {
             field: "identification_number",
             headerName: "Cedula",
             flex: 1,
+            headerAlign: "center",
+            align: "center"
         },
         {
             field: "phone",
             headerName: "Número de celular",
             flex: 1,
+            headerAlign: "center",
+            align: "center"
         },
         {
             field: "email",
             headerName: "Correo electrónico",
             flex: 1,
+            headerAlign: "center",
+            align: "center"
         },
         {
             field: "actions",
@@ -59,21 +74,23 @@ export const ClientsPages = () => {
             headerAlign: "center",
             width: "150",
             disableColumnMenu: true,
+            headerAlign: "center",
+            align: "center",
             renderCell: (params) => {
                 const handleEdit = () => {
                     startSetActiveClient(params.row);
                     navigate("formulario");
                 };
                 const handleDelete = () => {
-                    /* startConfirmDelete(); */
+
                 };
                 return (
                     <>
                         <IconButton onClick={handleEdit} >
-                            <EditIcon />
+                            {icons["EditIcon"]()}
                         </IconButton>
                         <IconButton onClick={handleDelete}>
-                            <DeleteIcon />
+                            {icons["ArchiveIcon"]()}
                         </IconButton>
                     </>
                 );
@@ -82,17 +99,7 @@ export const ClientsPages = () => {
     ];
 
     const onCreateClient = () => {
-        startSetActiveClient({
-            id: 0,
-            identification_type: '',
-            identification_type_id: null,
-            name: '',
-            comercial_name: '',
-            email: '',
-            phone: '',
-            address: '',
-            identification_number: ''
-        })
+        startSetActiveClient(initialValues)
         navigate("formulario");
     }
 
@@ -119,7 +126,7 @@ export const ClientsPages = () => {
                             }
                         }}
                     >
-                        <AddCircleIcon sx={{ mr: "10px" }} />
+                        {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
                         Crear
                     </Button>
                 </Box>
@@ -142,8 +149,35 @@ export const ClientsPages = () => {
                 title="¿Desea archivar a este cliente?"
                 message="Esta acción hara que el cliente no este activo para futuros ingresos."
                 confirm={confirm}
-                /* buttonConfirm={startLogout} */
+            /* buttonConfirm={startLogout} */
             />
         </Box>
     )
 }
+const date = new Date();
+const dateString = format(new Date(date), 'yyyy-MM-dd').toString();
+
+const initialValues ={
+    id:0,
+	address: "",
+    birthdate: dateString,
+	cantons_id:"",
+	cellphone1 : "",
+	cellphone2 : "",
+	comercial_name : "",
+	company_id: "",
+	country_id:"",
+	email: "",
+	first_name:"",
+	gender_id : "",
+	identification_number: "",
+	identification_type_id:"" ,
+	kind_person_id:"",
+	last_name: "" ,
+	name: "",
+	phone: "",
+	province_id:"",
+	second_last_name : "",
+	stratum_id:"",
+    second_name : "",
+};

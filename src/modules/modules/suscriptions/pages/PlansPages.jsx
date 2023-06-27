@@ -1,21 +1,18 @@
-import { useTheme } from "@emotion/react";
-import { tokens } from "../../../../theme/theme";
-import { useNavigate } from "react-router-dom";
-import { customStyles } from "../../../helpers";
-
-import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-import { Box, Button, IconButton } from "@mui/material";
-import { Header } from "../../components";
-
-import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useTheme } from "@emotion/react";
+import { Box, Button, IconButton } from "@mui/material";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
+
+import { Header } from "../../components";
+import { customStyles } from "../../../helpers";
+import { tokens } from "../../../../theme/theme";
+import { getIcons } from "../../../../helpers/getIcons";
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
+import { usePlanStore } from "../../../../store/modules/suscripciones/hooks/usePlanStore";
 import { usePlanDetailsStore } from "../../../../store/modules/suscripciones/hooks/usePlanDetailsStore";
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DehazeIcon from '@mui/icons-material/Dehaze';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import EditIcon from '@mui/icons-material/Edit';
 
 export const PlansPages = () => {
 
@@ -26,7 +23,7 @@ export const PlansPages = () => {
     const { isLoading, plans, startonLoadingPlans, startSetActivePlan } = usePlanStore();
     const { startSetHeaderPlan } = usePlanDetailsStore();
 
-
+    const icons = getIcons();
 
     const { colorDataGrid } = customStyles();
 
@@ -44,7 +41,7 @@ export const PlansPages = () => {
         {
             field: "value",
             headerName: "valor",
-            align:'right',
+            align: 'right',
             headerAlign: 'center',
             flex: 1,
         },
@@ -53,13 +50,13 @@ export const PlansPages = () => {
             headerAlign: 'center',
             headerName: "Estado",
             flex: 1,
-            align:'center',
+            align: 'center',
             valueGetter: (params) => (params.value === 1 ? 'Activo' : 'Inactivo'),
         },
         {
             field: "actions",
             headerName: "Opciones",
-            align:'right',
+            align: 'right',
             sortable: false,
             headerAlign: "center",
             width: "150",
@@ -79,13 +76,13 @@ export const PlansPages = () => {
                 return (
                     <>
                         <IconButton title="Editar" onClick={handleEdit}>
-                            <EditIcon sx={{ color: colors.primary[400] }} />
+                            {icons["EditIcon"]()}
                         </IconButton>
                         <IconButton title="Detalle" onClick={handleDetail}>
-                            <DehazeIcon sx={{ color: colors.primary[400] }} />
+                            {icons["DehazeIcon"]()}
                         </IconButton>
                         <IconButton title="Archivar" >
-                            <ArchiveIcon sx={{ color: colors.primary[400] }} />
+                            {icons["ArchiveIcon"]()}
                         </IconButton>
 
                     </>
@@ -112,27 +109,27 @@ export const PlansPages = () => {
     const calculateTotalSum = (rows) => {
         let sum = 0;
         rows.forEach((row) => {
-          sum += row.value;
+            sum += row.value;
         });
         return sum;
-      }
-    
-      const totalSum = calculateTotalSum(plans);
-    
-      const rows = [
+    }
+
+    const totalSum = calculateTotalSum(plans);
+
+    const rows = [
         ...plans.map((row) => ({
-          ...row,
-          value: row.value.toFixed(2),
+            ...row,
+            value: row.value.toFixed(2),
         })),
         {
-          id: 'totalSum',
-          code: '',
-          name: 'TOTAL',
-          value: totalSum.toFixed(2),
-          state: '',
-          actions:'',
+            id: 'totalSum',
+            code: '',
+            name: 'TOTAL',
+            value: totalSum.toFixed(2),
+            state: '',
+            actions: '',
         },
-      ];
+    ];
 
     useEffect(() => {
         startonLoadingPlans();
@@ -157,7 +154,7 @@ export const PlansPages = () => {
                             }
                         }}
                     >
-                        <AddCircleIcon sx={{ mr: "10px" }} />
+                        {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
                         Crear
                     </Button>
                 </Box>
