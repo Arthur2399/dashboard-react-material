@@ -35,7 +35,7 @@ export const ClientsPages = () => {
         {
             field: "full_name",
             headerName: "Nombre completo",
-            flex: 1,
+            flex: 2,
             headerAlign: "center",
             align: "center"
         },
@@ -63,7 +63,7 @@ export const ClientsPages = () => {
         {
             field: "email",
             headerName: "Correo electrónico",
-            flex: 1,
+            flex: 2,
             headerAlign: "center",
             align: "center"
         },

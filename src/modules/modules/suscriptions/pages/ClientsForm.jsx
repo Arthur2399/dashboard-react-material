@@ -72,7 +72,6 @@ export const ClientsForm = () => {
 
     const onSaveClient = (client) => {
         startSavingClient(client);
-        console.log(client)
     }
 
 
@@ -106,7 +105,7 @@ export const ClientsForm = () => {
         startGetGender();
         startGetKindPerson();
         startGetStratum(),
-            startClearMessage();
+        startClearMessage();
     }, []);
 
     return (
@@ -265,6 +264,24 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 1 " }}
                             />
 
+                            {/* TELEFONO */}
+                                <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Teléfono"
+                                placeholder="Ingrese el teléfono"
+                                name="phone"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                error={errors.phone && touched.phone}
+                                helperText={errors.phone && touched.phone && errors.phone}
+                                sx={{ gridColumn: "span 2" }}
+                            />
                             {/* CELULAR */}
                             <Field
                                 as={TextField}
@@ -281,7 +298,7 @@ export const ClientsForm = () => {
                                 }}
                                 error={errors.cellphone1 && touched.cellphone1}
                                 helperText={errors.cellphone1 && touched.cellphone1 && errors.cellphone1}
-                                sx={{ gridColumn: "span 1" }}
+                                sx={{ gridColumn: "span 2" }}
                             />
                             {/*SEGUNDO  CELULAR */}
                             <Field
@@ -299,7 +316,7 @@ export const ClientsForm = () => {
                                 }}
                                 error={errors.cellphone2 && touched.cellphone2}
                                 helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2}
-                                sx={{ gridColumn: "span 1" }}
+                                sx={{ gridColumn: "span 2" }}
                             />
 
                             {/* TIPO DE PERSONA */}
@@ -504,6 +521,9 @@ const validationSchema = Yup.object().shape({
     identification_number: Yup.string()
         .min(10, 'Ingrese una número de identificación válido')
         .required('Este campo es requerido'),
+
+    phone: Yup.string()
+        .min(4, 'Ingrese un celular válido'),
 
     cellphone1: Yup.string()
         .min(10, 'Ingrese un celular válido'),
