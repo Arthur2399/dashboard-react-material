@@ -11,59 +11,51 @@ import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useClosingReasonStore } from "../../../../store/modules/suscripciones/hooks/useClosingReasonStore";
+import { useEffect } from "react";
 
 
 export const ClosingReason = () => {
 
     const theme = useTheme();
+    const { colorDataGrid } = customStyles();
     const colors = tokens(theme.palette.mode);
     const navigate = useNavigate();
 
-    const { colorDataGrid } = customStyles();
+    const { reasons, startonLoadingReasons } = useClosingReasonStore();
 
-    const dataRazone = [
-        {
-            "id":1,
-            "code":"RC-001",
-            "name":"Falta de pagos",
-            "descrip":"El usuario final no ha cancelado el valor en las fechas acordadas",
-        },
-        {
-            "id":2,
-            "code":"RC-002",
-            "name":"Cancelación de servicio",
-            "descrip":"El cliente estaba inconforme con el servicio brindado.",
-        },
-        {
-            "id":3,
-            "code":"RC-003",
-            "name":"Fin de contrato",
-            "descrip":"El cliente cumplio la fecha del contrato y no hizo la renovación.",
-        },
-
-    ]
 
     const columns = [
         {
             field: "code",
             headerName: "Código interno",
-            flex: 1
+            flex: 1,
+            headerAlign: "center",
+            align: "center",
+
         },
         {
             field: "name",
             headerName: "Nombre",
             flex: 1,
+            headerAlign: "center",
+            align: "center",
+
         },
         {
             field: "descrip",
             headerName: "Descripcion",
-            flex: 1,
+            flex: 2,
+            headerAlign: "center",
+            align: "center",
         },
         {
             field: "actions",
             headerName: "Opciones",
             sortable: false,
             headerAlign: "center",
+            align: "center",
+
             width: "150",
             disableColumnMenu: true,
             renderCell: (params) => {
@@ -87,13 +79,19 @@ export const ClosingReason = () => {
         },
     ];
 
+
+    useEffect(() => {
+        startonLoadingReasons();
+    }, [])
+
+
     return (
         <Box className="animate__animated animate__fadeIn">
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Header title="Razon de cierre" subtitle="Crear razon de cierre." />
                 <Box>
                     <Button
-                        onClick={()=>{navigate("formulario")}}
+                        onClick={() => { navigate("formulario") }}
                         sx={{
                             backgroundColor: colors.primary[400],
                             color: colors.grey[100],
@@ -116,7 +114,7 @@ export const ClosingReason = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={dataRazone}
+                    rows={reasons}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}

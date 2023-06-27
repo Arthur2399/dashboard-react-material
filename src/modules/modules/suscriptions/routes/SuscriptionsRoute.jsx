@@ -15,7 +15,9 @@ import {
     ContractSing,
     ContractDetail,
     ContractDetailForm,
-    ContractPrint
+    ContractPrint,
+    ClosingReason,
+    ClosingReasonForm,
 } from "../pages"
 
 export const SuscriptionsRoute = () => {
@@ -39,6 +41,10 @@ export const SuscriptionsRoute = () => {
             {/* SERVICIOS */}
             <Route path="configuracion/servicios" element={< Services />} />
             <Route path="configuracion/servicios/Formulario" element={< ServiceForm />} />
+
+            <Route path="configuracion/razoncierre" element={< ClosingReason />} />
+            <Route path="configuracion/razoncierre" element={< ClosingReasonForm />} />
+
 
             {/* CONTRATO */}
             <Route path="contratos" element={<Contract />} />

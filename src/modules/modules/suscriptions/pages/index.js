@@ -6,6 +6,8 @@ export * from './ContractPrint';
 export * from './ContractDetailForm';
 export * from './ContractForm';
 export * from './ContractSing';
+export * from './ClosingReason';
+export * from './ClosingReasonForm';
 export * from './PaymentTerm';
 export * from './PaymentTermForm';
 export * from './PlansDetails';
