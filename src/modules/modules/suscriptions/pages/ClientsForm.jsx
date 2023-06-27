@@ -67,7 +67,8 @@ export const ClientsForm = () => {
     } = useGetComboxBox();
 
     const onSaveClient = (client) => {
-        startSavingClient(client);
+        /* startSavingClient(client); */
+        console.log(client)
     }
 
 
@@ -106,7 +107,7 @@ export const ClientsForm = () => {
             <Formik
                 initialValues={initialState}
                 enableReinitialize
-                validationSchema={validationSchema}
+                /* validationSchema={validationSchema} */
                 onSubmit={(values) => {
                     onSaveClient(values)
                 }}
@@ -417,7 +418,7 @@ const handleKeyPress = (event) => {
 };
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    first_name: Yup.string()
         .min(8, 'El nombre debe tener al menos dos caracteres')
         .required('Ingrese un nombre'),
     phone: Yup.string()
