@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { onIsLoadingDetailsContract, onLoadDetailsContract, onSetHeaderContract } from "../slices/contractDetailsSlice";
+import { onIsLoadingDetailsContract, onLoadDetailsContract, onSetActiveDetailsContract, onSetHeaderContract } from "../slices/contractDetailsSlice";
 import { decryptData, encrypData } from "../../../../hooks/useEncrypData";
 import { morgquickApi } from "../../../../api/morgquickApi";
 
@@ -37,8 +37,8 @@ export const useContractDetailsStore = () => {
         }
     }
 
-    const startSetActivePlanDetails = (planDetails) => {
-        dispatch(onSetActivePlanDetails(planDetails));
+    const startSetActiveContractDetails = (planDetails) => {
+        dispatch(onSetActiveDetailsContract(planDetails));
     }
 
     const startSavingPlanDetail = async (planData) => {
@@ -80,6 +80,7 @@ export const useContractDetailsStore = () => {
         /* Metodos */
         startLoadContractDetails,
         startSetHeaderContract,
+        startSetActiveContractDetails,
 
     }
 }

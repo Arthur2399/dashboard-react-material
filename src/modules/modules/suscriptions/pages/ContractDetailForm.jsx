@@ -5,6 +5,8 @@ import { Header } from '../../components';
 import { useGetComboxBox } from '../helpers/useGetComboxBox';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import { useContractDetailsStore } from '../../../../store/modules/suscripciones/hooks/useContractDetailsStore';
 
 export const ContractDetailForm = () => {
 
@@ -12,8 +14,14 @@ export const ContractDetailForm = () => {
 
     const {startGetPlans, plans} = useGetComboxBox();
     const isNonMobile = useMediaQuery("(min-width:600px)");
-
     const navigate = useNavigate();
+    
+    const {headerContract}= useContractDetailsStore()
+
+    const [initialValues, setInitialValues] = useState({
+        contract_header_id: headerContract.id,
+        plan_id: ""
+    })
 
     useEffect(() => {
         startGetPlans();
@@ -26,7 +34,7 @@ export const ContractDetailForm = () => {
             <Formik
                 /* initialValues={initialState} */
                 enableReinitialize
-                initialValues={{detailPlan:''}}
+                initialValues={initialValues}
                 onSubmit={(values) => {
                     onSaveContract(values)
                 }}
@@ -46,19 +54,19 @@ export const ContractDetailForm = () => {
                             <Autocomplete
                                 options={plans}
                                 getOptionLabel={(option) => option.label}
-                                value={plans.find((option) => option.value === values.detailPlan) || null}
-                                onBlur={() => setFieldTouched('detailPlan', true)}
+                                value={plans.find((option) => option.value === values.plan_id) || null}
+                                onBlur={() => setFieldTouched('plan_id', true)}
                                 onChange={(event, newValue) => {
-                                    setFieldValue('detailPlan', newValue ? newValue.value : null);
+                                    setFieldValue('plan_id', newValue ? newValue.value : null);
                                 }}
                                 sx={{ gridColumn: "span 4 " }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Planes"
                                         placeholder="Busque y seleccione un plan"
-                                        name="detailPlan"
-                                        error={errors.detailPlan && touched.detailPlan}
-                                        helperText={errors.detailPlan && touched.detailPlan && errors.detailPlan}
+                                        name="plan_id"
+                                        error={errors.plan_id && touched.plan_id}
+                                        helperText={errors.plan_id && touched.plan_id && errors.plan_id}
                                         variant="filled"
                                     />}
                             />

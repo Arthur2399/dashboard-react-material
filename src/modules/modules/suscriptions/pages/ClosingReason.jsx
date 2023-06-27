@@ -43,7 +43,7 @@ export const ClosingReason = () => {
 
         },
         {
-            field: "descrip",
+            field: "description",
             headerName: "Descripcion",
             flex: 2,
             headerAlign: "center",

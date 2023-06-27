@@ -55,7 +55,7 @@ export const Contract = () => {
       headerAlign: 'center',
     },
     {
-      field: "vat_total",
+      field: "value",
       headerName: "Total",
       flex: 1,
       align: 'right',

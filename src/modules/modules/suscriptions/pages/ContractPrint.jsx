@@ -70,8 +70,7 @@ export const ContractPrint = () => {
               }
             }}
           >
-            {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
-            Crear
+            Compartir
           </Button>
         </Box>
       </Box>

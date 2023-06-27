@@ -19,7 +19,7 @@ export const ContractDetail = () => {
   const { colorDataGrid } = customStyles();
   const navigate = useNavigate();
 
-  const { headerContract, details, startLoadContractDetails } = useContractDetailsStore();
+  const { headerContract, details, startLoadContractDetails, startSetActiveContractDetails } = useContractDetailsStore();
   const icons = getIcons();
 
   const columns = [
@@ -107,7 +107,10 @@ export const ContractDetail = () => {
       },
     },
   ];
-
+  const initialValue = {
+    contract_header_id: headerContract.id,
+    plan_id: ""
+  }
   const headerTitle = useMemo(() => {
     if (headerContract == null) {
       return '';
@@ -121,6 +124,7 @@ export const ContractDetail = () => {
   }
 
   const onCreateDetail = () => {
+    startSetActiveContractDetails(initialValue);
     navigate("formulario");
   }
 
@@ -180,3 +184,4 @@ export const ContractDetail = () => {
     </Box>
   )
 }
+

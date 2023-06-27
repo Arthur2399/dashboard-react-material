@@ -74,7 +74,7 @@ export const ClientsForm = () => {
         startSavingClient(client);
     }
 
-    const titleForm = useMemo(() => {   
+    const titleForm = useMemo(() => {
         if (active?.id != 0) return `Editar a ${active?.full_name}`;
         return 'Crear cliente';
     }, [active])
@@ -86,7 +86,7 @@ export const ClientsForm = () => {
             setCountryId(active.country_id)
             setProvinceId(active.province_id)
         }
-        else if (active == null) {navigate("/suscripciones/clientes")}
+        else if (active == null) { navigate("/suscripciones/clientes") }
     }, [active]);
 
     useEffect(() => {
@@ -105,7 +105,7 @@ export const ClientsForm = () => {
         startGetGender();
         startGetKindPerson();
         startGetStratum(),
-        startClearMessage();
+            startClearMessage();
     }, []);
 
     return (
@@ -265,7 +265,7 @@ export const ClientsForm = () => {
                             />
 
                             {/* TELEFONO */}
-                                <Field
+                            <Field
                                 as={TextField}
                                 type="text"
                                 fullWidth
@@ -352,8 +352,8 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                        label="Estatus social"
-                                        placeholder="Busque y seleccione un estatus social"
+                                        label="Estrato social"
+                                        placeholder="Busque y seleccione un estrato social"
                                         name="stratum_id"
                                         error={errors.stratum_id && touched.stratum_id}
                                         helperText={errors.stratum_id && touched.stratum_id && errors.stratum_id}
@@ -370,7 +370,7 @@ export const ClientsForm = () => {
                                     setFieldValue('country_id', newValue ? newValue.value : null);
                                     setCountryId(newValue.value);
                                 }}
-                                sx={{ gridColumn: "span 4" }}
+                                sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Pais"
@@ -394,8 +394,8 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                        label="Provincia"
-                                        placeholder="Busque y seleccione una provincia"
+                                        label="Departamento"
+                                        placeholder="Busque y seleccione un departamento"
                                         name="province_id"
                                         error={errors.province_id && touched.province_id}
                                         helperText={errors.province_id && touched.province_id && errors.province_id}
@@ -414,12 +414,31 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                        label="Canton"
-                                        placeholder="Busque y seleccione un canton"
+                                        label="Ciudad"
+                                        placeholder="Busque y seleccione una ciudad"
                                         name="cantons_id"
                                         error={errors.cantons_id && touched.cantons_id}
                                         helperText={errors.cantons_id && touched.cantons_id && errors.cantons_id}
                                         variant="filled" />}
+                            />
+
+                            {/*CODIGO POSTAL */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Código postal"
+                                placeholder="Ingrese el codigo postal"
+                                name="cellphone2"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                error={errors.cellphone2 && touched.cellphone2}
+                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2}
+                                sx={{ gridColumn: "span 2" }}
                             />
                             {/* CORREO ELECTRONICO */}
                             <Field
