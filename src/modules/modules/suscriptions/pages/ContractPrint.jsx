@@ -1,22 +1,26 @@
-import { useMemo } from "react"
-import { Box } from "@mui/material"
+import { useEffect, useMemo } from "react"
+import { Box, Button } from "@mui/material"
 
 import { Header } from "../../components"
 import { useContractDetailsStore } from "../../../../store"
 import { useGetReports } from "../helpers/useGetReports"
-import { useEffect } from "react"
-import { Viewer, Worker } from "@react-pdf-viewer/core"
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import { PDFViewers } from "../../../components/PDFViewers"
+import { getIcons } from "../../../../helpers/getIcons"
+import { useNavigate } from "react-router-dom"
+import { useTheme } from "@emotion/react"
+import { tokens } from "../../../../theme"
+import { LoadingSpinner } from "../../../components/LoadingSpinner"
 
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 export const ContractPrint = () => {
 
-  const { headerContract } = useContractDetailsStore()
-  const { contractPrint, startGetContratPrint } = useGetReports();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
+  const icons = getIcons();
 
-  console.log(contractPrint.url)
+  const { headerContract } = useContractDetailsStore()
+  const { contractPrint,isLoading, startGetContratPrint } = useGetReports();
 
   const headerTitle = useMemo(() => {
     if (headerContract == null) {
@@ -24,35 +28,59 @@ export const ContractPrint = () => {
     }
     return `Imprimir contrato ${headerContract.name}`;
   }, [headerContract])
-
-  useEffect(() => {
-    startGetContratPrint(headerContract.id)
-  }, [])
-
+  
   const documentPrint = useMemo(() => {
     if (contractPrint == "") {
-      return '';
+      startGetContratPrint(headerContract.id)
+      return;
     }
-    return `{contractPrint.url}`;
+    return contractPrint.pdf_data;
   }, [contractPrint])
 
 
-  /* const pdfUrl = 'http://154.12.236.19:128/media/contract/contrato_pdf/CON000000002_1.pdf'; */
-  const pdfUrl = 'http://mangel-pc.local:8001/proxy/pdf?url=http://154.12.236.19:128/media/contract/contrato_pdf/CON000000002_1.pdf';
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
   return (
     <Box className="animate__animated animate__fadeIn">
-      <Header title={headerTitle} subtitle="Visualiza el contrato y verifica que todo este en orden." />
-      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-        <Viewer fileUrl="/pdf/test.pdf"
-
-          plugins={[
-            // Register plugins
-            defaultLayoutPluginInstance]}
-
-        />
-
-      </Worker>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Header title={headerTitle} subtitle="Visualiza el contrato y verifica que todo este en orden." />
+        <Box>
+          <Button
+            color="primary" variant="outlined"
+            onClick={() => {
+              navigate('/suscripciones/contratos');
+            }}
+            sx={{
+              fontSize: "14px",
+              fontWeight: "bold",
+              mr: "10px",
+              padding: "10px 20px",
+            }}
+          >
+            {icons["ArrowBackIcon"]({ sx: { mr: "10px" } })}
+            Regresar
+          </Button>
+          <Button
+            sx={{
+              backgroundColor: colors.primary[400],
+              color: colors.grey[100],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              "&:hover": {
+                backgroundColor: colors.primary[300],
+              }
+            }}
+          >
+            {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
+            Crear
+          </Button>
+        </Box>
+      </Box>
+      {
+        isLoading == false
+        ?<PDFViewers contractBase64={documentPrint} />
+        :<></>
+      }
+      <LoadingSpinner  message ="Cargando contrato, por favor espere..." isSaving={isLoading}/>
     </Box>
   )
 }
