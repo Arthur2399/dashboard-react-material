@@ -105,7 +105,7 @@ export const ClientsForm = () => {
         startGetGender();
         startGetKindPerson();
         startGetStratum(),
-            startClearMessage();
+        startClearMessage();
     }, []);
 
     return (

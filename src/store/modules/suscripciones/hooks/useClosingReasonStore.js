@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { onIsLoading, onLoadreasons, onSetActiveReason } from "../slices/closeReasonSlice";
+import { onAddNewReason, onClearMessage, onIsLoading, onLoadreasons, onSendErrorMessage, onSendServerErrorMessage, onSetActiveReason, onUpdateReason } from "../slices/closeReasonSlice";
 import { decryptData } from "../../../../hooks/useEncrypData";
 import { morgquickApi } from "../../../../api/morgquickApi";
 
@@ -26,32 +26,32 @@ export const useClosingReasonStore = () => {
         dispatch(onSetActiveReason(client));
     }
 
-    const startSavingReason = async (clientData) => {
+    const startSavingReason = async (reasonData) => {
 
         const companyInfo = localStorage.getItem("Company");
         const decryptedData = JSON.parse(decryptData(companyInfo));
-        const values = { ...clientData, company_id: decryptedData.id }
+        const values = { ...reasonData, company_id: decryptedData.id }
 
         dispatch(onIsLoading())
         try {
-            if (clientData.id) {
+            if (reasonData.id) {
                 // Actualizando
-                await morgquickApi.put(`/client/update/${clientData.id}`, values);
-                dispatch(onUpdateClient(values));
-                navigate('/suscripciones/clientes');
+                await morgquickApi.put(`/tables/ClosingReason/update/${reasonData.id}`, values);
+                dispatch(onUpdateReason(values));
+                navigate('/suscripciones/configuracion/razoncierre');
                 return;
             }
             // Creando
-            await morgquickApi.post('/client/post', values);
-            dispatch(onAddNewClient(values));
-            navigate('/suscripciones/clientes');
+            await morgquickApi.post('tables/ClosingReason/post', values);
+            dispatch(onAddNewReason(values));
+            navigate('/suscripciones/configuracion/razoncierre');
         } catch (error) {
             if (error.response.status == 400) {
                 var claves = Object.keys(error.response.data);
                 var firstValue = error.response.data[claves[0]];
-                dispatch(sendErrorMessage(firstValue[0]))
+                dispatch(onSendErrorMessage(firstValue[0]))
             } else {
-                dispatch(sendServerErrorMessage(error.response.data.error))
+                dispatch(onSendServerErrorMessage(error.response.data.error))
             }
         }
     }
@@ -68,7 +68,7 @@ export const useClosingReasonStore = () => {
     }
 
     const startClearMessage = () => {
-        dispatch(clearMessage());
+        dispatch(onClearMessage());
     }
 
     const startConfirmDelete = () => {
@@ -87,5 +87,7 @@ export const useClosingReasonStore = () => {
         /* Metodos */
         startonLoadingReasons,
         startSetActiveReason,
+        startSavingReason,
+        startClearMessage,
     }
 }

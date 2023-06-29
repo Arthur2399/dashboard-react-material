@@ -23,9 +23,7 @@ export const ClosingReason = () => {
     const icons = getIcons();
     const navigate = useNavigate();
 
-
     const { reasons, startonLoadingReasons, startSetActiveReason } = useClosingReasonStore();
-
 
     const columns = [
         {
@@ -134,4 +132,7 @@ export const ClosingReason = () => {
 
 const initialValues = {
     id: 0,
+	code : "",
+	name : "",
+	description : ""
 }
