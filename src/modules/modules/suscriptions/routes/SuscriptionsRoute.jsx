@@ -43,7 +43,7 @@ export const SuscriptionsRoute = () => {
             <Route path="configuracion/servicios/Formulario" element={< ServiceForm />} />
 
             <Route path="configuracion/razoncierre" element={< ClosingReason />} />
-            <Route path="configuracion/razoncierre" element={< ClosingReasonForm />} />
+            <Route path="configuracion/razoncierre/formulario" element={< ClosingReasonForm />} />
 
 
             {/* CONTRATO */}

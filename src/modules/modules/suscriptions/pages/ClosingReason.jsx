@@ -1,28 +1,30 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { customStyles } from "../../../helpers";
-import { tokens } from "../../../../theme";
-import { Header } from "../../components";
 
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { useClosingReasonStore } from "../../../../store/modules/suscripciones/hooks/useClosingReasonStore";
-import { useEffect } from "react";
+import { Header } from "../../components";
+import { tokens } from "../../../../theme";
+import { customStyles } from "../../../helpers";
+import { useClosingReasonStore } from "../../../../store";
+import { getIcons } from "../../../../helpers/getIcons";
+
+
 
 
 export const ClosingReason = () => {
 
     const theme = useTheme();
-    const { colorDataGrid } = customStyles();
     const colors = tokens(theme.palette.mode);
+    const { colorDataGrid } = customStyles();
+
+    const icons = getIcons();
     const navigate = useNavigate();
 
-    const { reasons, startonLoadingReasons } = useClosingReasonStore();
+
+    const { reasons, startonLoadingReasons, startSetActiveReason } = useClosingReasonStore();
 
 
     const columns = [
@@ -60,18 +62,18 @@ export const ClosingReason = () => {
             disableColumnMenu: true,
             renderCell: (params) => {
                 const handleEdit = () => {
+                    startSetActiveReason(params.row)
                     navigate("formulario");
                 };
                 const handleDelete = () => {
-                    /* startConfirmDelete(); */
                 };
                 return (
                     <>
                         <IconButton onClick={handleEdit} >
-                            <EditIcon />
+                            {icons["EditIcon"]()}
                         </IconButton>
                         <IconButton onClick={handleDelete}>
-                            <DeleteIcon />
+                            {icons["DeleteIcon"]()}
                         </IconButton>
                     </>
                 );
@@ -79,6 +81,11 @@ export const ClosingReason = () => {
         },
     ];
 
+
+    const onCreateClosinReason = () => {
+        startSetActiveReason(initialValues);
+        navigate("formulario")
+    }
 
     useEffect(() => {
         startonLoadingReasons();
@@ -91,7 +98,7 @@ export const ClosingReason = () => {
                 <Header title="Razon de cierre" subtitle="Crear razon de cierre." />
                 <Box>
                     <Button
-                        onClick={() => { navigate("formulario") }}
+                        onClick={onCreateClosinReason}
                         sx={{
                             backgroundColor: colors.primary[400],
                             color: colors.grey[100],
@@ -103,7 +110,7 @@ export const ClosingReason = () => {
                             }
                         }}
                     >
-                        <AddCircleIcon sx={{ mr: "10px" }} />
+                        {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
                         Crear
                     </Button>
                 </Box>
@@ -123,5 +130,8 @@ export const ClosingReason = () => {
             </Box>
         </Box>
     )
+}
 
+const initialValues = {
+    id: 0,
 }
