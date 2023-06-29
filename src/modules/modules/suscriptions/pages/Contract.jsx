@@ -67,6 +67,7 @@ export const Contract = () => {
       flex: 1,
       align: 'center',
       headerAlign: 'center',
+      valueGetter: (params) => (params.value != null ? 'Firmado' : 'No firmado'),
     },
     {
       field: "close_reason",
