@@ -6,12 +6,12 @@ import { closeReasonSlice } from "./modules/suscripciones/slices/closeReasonSlic
 
 export const store = configureStore({
     reducer: {
-
+        
         closeReason: closeReasonSlice.reducer,
         client: clientSlice.reducer,
         contractDetails: contractDetailsSlices.reducer,
         contract: contractSlice.reducer,
-
+        
         auth: authSlice.reducer,
         changePassword: changePasswordSlice.reducer,
         community: communitySlice.reducer,

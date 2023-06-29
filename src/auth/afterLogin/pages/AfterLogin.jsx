@@ -26,7 +26,9 @@ export const AfterLogin = () => {
 
   useEffect(() => {
     if (idCompany != '') {
-      setFiscalExerciseList(companies[idCompany - 1].fiscal_exercise)
+      const company = companies.find(company => company.id === idCompany);
+      const { fiscal_exercise } = company;
+      setFiscalExerciseList(fiscal_exercise)
       setIsDisable(false)
     }
     else {
