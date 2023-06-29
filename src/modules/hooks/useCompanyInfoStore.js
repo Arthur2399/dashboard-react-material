@@ -42,6 +42,14 @@ export const useCompanyInfoStore = () => {
         }
     }
 
+    const startReloadCompanies = async ()  =>{
+        try {
+            const { data } = await morgquickApi.get('/company/companyuser/company');
+            dispatch(gettingCompanies(data));
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const startSelectionCompany = ({ company, fiscalExercise }) => {
 
@@ -112,5 +120,6 @@ export const useCompanyInfoStore = () => {
         checkingCompany,
         startSelectionCompany,
         startChangeCompany,
+        startReloadCompanies
     }
 }
