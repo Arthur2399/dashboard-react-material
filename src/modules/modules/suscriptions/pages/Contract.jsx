@@ -122,19 +122,19 @@ export const Contract = () => {
         }
         return (
           <>
-            <IconButton title="Editar" onClick={handleEdit}>
+            <IconButton title="Editar" onClick={handleEdit} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
               {icons['EditIcon']()}
             </IconButton>
-            <IconButton title="Detalle" onClick={handleDetail}>
+            <IconButton title="Detalle" onClick={handleDetail} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
               {icons['DehazeIcon']()}
             </IconButton>
-            <IconButton title="Firmar" onClick={handleSing}>
+            <IconButton title="Firmar" onClick={handleSing} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
               {icons['GestureIcon']()}
             </IconButton>
-            <IconButton title="Imprimir" onClick={handlePrint}>
+            <IconButton title="Imprimir" onClick={handlePrint} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
               {icons['PictureAsPdfIcon']()}
             </IconButton>
-            <IconButton title="Archivar" onClick={handleDelete} >
+            <IconButton title="Archivar" onClick={handleDelete} sx={{p:"3px" , "&:hover": { color: colors.redAccent [700], background: colors.redAccent[200] },}}>
               {icons['DeleteIcon']()}
             </IconButton>
           </>
@@ -197,7 +197,7 @@ export const Contract = () => {
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
-      <LoadingSpinner isSaving={isLoading} />
+      <LoadingSpinner isSaving={isLoading} message="Cargando los contratos..." />
     </Box>
   )
 }
