@@ -1,11 +1,14 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { Accounting,Treasury } from '../pages';
+import {
+  AccountingPlanStructure,
+  Treasury,
+} from '../pages';
 
 export const AccountingRoutes = () => {
   return (
     <Routes>
       <Route path="tesoreria" element={<Treasury />} />
-      <Route path="estructuraPlanContable" element={<Treasury />} />
+      <Route path="estructuraPlanContable" element={<AccountingPlanStructure />} />
       <Route path="planContable" element={<Treasury />} />
       <Route path="cuentasCierre" element={<Treasury />} />
       <Route path="conciliacionBancaria" element={<Treasury />} />
