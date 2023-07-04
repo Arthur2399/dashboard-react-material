@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { checkingCredentials, clearErrorMessage, login, logout } from "../store/auth/authSlice";
-import morgquickApi from "../api/morgquickApi";
+import 
+{ morgquickApi } from "../api/morgquickApi";
 import { useCompanyInfoStore } from "../modules/hooks/useCompanyInfoStore";
 
 export const useAuthStore = () => {

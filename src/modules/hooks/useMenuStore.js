@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import morgquickApi from "../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../api/morgquickApi";
 import { decryptData } from "../../hooks/useEncrypData";
 import { checkingAccess, getModules } from "../../store/modules/ui/menu/menuSlice";
 

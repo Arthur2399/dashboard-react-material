@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearMessage, onAddNewPlanDetails, onIsLoading, onLoadPlansDetails, onSetActivePlanDetails, onSetHeaderPlan, onUpdatePlanDetails, sendErrorMessage, sendServerErrorMessage } from "../slices/plansDetailsSlice";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { encrypData } from "../../../../hooks/useEncrypData";
 import { decryptData } from "../../../../hooks/useEncrypData";
 

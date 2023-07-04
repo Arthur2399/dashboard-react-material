@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import morgquickApi from "../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../api/morgquickApi";
 import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, setCompanies, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
 import { useMenuStore } from "./useMenuStore";
 import { decryptData, encrypData } from "../../hooks/useEncrypData";
@@ -41,6 +42,14 @@ export const useCompanyInfoStore = () => {
         }
     }
 
+    const startReloadCompanies = async ()  =>{
+        try {
+            const { data } = await morgquickApi.get('/company/companyuser/company');
+            dispatch(gettingCompanies(data));
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const startSelectionCompany = ({ company, fiscalExercise }) => {
 
@@ -111,5 +120,6 @@ export const useCompanyInfoStore = () => {
         checkingCompany,
         startSelectionCompany,
         startChangeCompany,
+        startReloadCompanies
     }
 }

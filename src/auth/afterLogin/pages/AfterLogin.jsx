@@ -13,7 +13,7 @@ import afterLoginGif from '/Img/after-login.gif'
 
 export const AfterLogin = () => {
 
-  const { companies, startSelectionCompany } = useCompanyInfoStore();
+  const { companies, startSelectionCompany, startReloadCompanies } = useCompanyInfoStore();
   const { startLogout } = useAuthStore();
 
   const [fiscalExerciseList, setFiscalExerciseList] = useState([]);
@@ -26,7 +26,9 @@ export const AfterLogin = () => {
 
   useEffect(() => {
     if (idCompany != '') {
-      setFiscalExerciseList(companies[idCompany - 1].fiscal_exercise)
+      const company = companies.find(company => company.id === idCompany);
+      const { fiscal_exercise } = company;
+      setFiscalExerciseList(fiscal_exercise)
       setIsDisable(false)
     }
     else {
@@ -35,6 +37,10 @@ export const AfterLogin = () => {
     }
   }, [idCompany])
 
+  useEffect(() => {
+    startReloadCompanies();
+  }, [])
+  
 
   return (
     <AuthLayout title="Seleccionar empresa" imgSrc={afterLoginGif}>

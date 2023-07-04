@@ -71,7 +71,8 @@ export const TopBar = () => {
                     src={user.photoURL}
                     onClick={handleClickMenu}
                     sx={{
-                        ml: "20px"
+                        ml: "20px",
+                        cursor: "pointer",
                     }}
                 />
             </Box>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { useEffect } from "react";
 
 export const useGetComboBox = () => {

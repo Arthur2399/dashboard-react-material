@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import { clearMessage, onAddNew, onIsLoading, onLoad, onSetActive, onUpdate, sendErrorMessage, sendServerErrorMessage } from "../slices/servicesSlice";
 import { decryptData } from "../../../../hooks/useEncrypData";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { useNavigate } from "react-router-dom";
 
 export const useServicesStore = () => {

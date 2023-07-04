@@ -14,8 +14,14 @@ export const AppRouter = () => {
 
     useEffect(() => {
         checkAuthToken();
-        checkingCompany();
     }, [])
+    
+    useEffect(() => {
+        if(status =="authenticated"){
+            checkingCompany();
+        }
+    }, [status])
+    
 
 
     // Caso uno: Verificación de credenciales

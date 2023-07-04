@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { decryptData } from "../../../../hooks/useEncrypData";
 import { onAddNewCommunity, onIsLoading, onLoadCommunities, onSetActiveCommunity, onUpdateCommunity } from "../community/communitySlice";
 import { useNavigate } from "react-router-dom";

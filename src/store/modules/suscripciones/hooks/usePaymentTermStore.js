@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { decryptData } from "../../../../hooks/useEncrypData";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { clearMessage, onAddNewPaymentTerm, onIsLoading, onLoadingPaymentTerm, onSetActivePaymentTerm, onUpdatePaymentTerm, sendErrorMessage, sendServerErrorMessage } from "../slices/paymentTermSlice";
 
 export const usePaymentTermStore = () => {
