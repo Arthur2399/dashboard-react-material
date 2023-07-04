@@ -14,7 +14,9 @@ export const AppRouter = () => {
 
     useEffect(() => {
         checkAuthToken();
-        checkingCompany();
+        if(status =="authenticated"){
+            checkingCompany();
+        }
     }, [])
 
 
