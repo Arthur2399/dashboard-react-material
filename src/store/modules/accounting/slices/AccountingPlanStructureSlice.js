@@ -1,49 +1,51 @@
-export const pedroSlice = createSlice({
-    name: 'pedro',
+import { createSlice } from "@reduxjs/toolkit";
+
+export const accountingPlanStructureSlice = createSlice({
+    name: 'accPlanStructure',
     initialState: {
         isLoading: false,
         active: null,
-        pedros: [],
+        accPlanStructures: [],
         confirm: false,
         errorMessage: null,
         serverMessage: null,
     },
     reducers: {
-        onIsLoadingPedro: (state) => {
+        onIsLoadingAccPlanStructure: (state) => {
             state.isLoading = true;
         },
-        onSetActivePedro: (state, { payload }) => {
+        onSetActiveAccPlanStructure: (state, { payload }) => {
             state.active = payload;
         },
-        onLoadPedro: (state, { payload = [] }) => {
+        onLoadAccPlanStructure: (state, { payload = [] }) => {
             state.isLoading = false;
-            state.pedros = payload
+            state.accPlanStructures = payload
         },
-        onAddNewPedro: (state, { payload }) => {
+        onAddNewAccPlanStructure: (state, { payload }) => {
             if (payload.id === 0) return;
-            state.pedros.push(payload);
+            state.accPlanStructures.push(payload);
             state.active = null;
         },
-        onUpdatePedro: (state, { payload }) => {
-            state.pedros = state.pedros.map(pedro => {
-                if (pedro.id === payload.id) {
+        onUpdateAccPlanStructure: (state, { payload }) => {
+            state.accPlanStructures = state.accPlanStructures.map(accPlanStructure => {
+                if (accPlanStructure.id === payload.id) {
                     return payload;
                 }
-                return pedro;
+                return accPlanStructure;
             });
         },
-        onConfirmDeletePedro: (state,) => {
+        onConfirmDeleteAccPlanStructure: (state,) => {
             state.confirm = true
         },
-        sendErrorMessagePedro: (state, { payload }) => {
+        sendErrorMessageAccPlanStructure: (state, { payload }) => {
             state.isLoading = false;
             state.errorMessage = payload;
         },
-        sendServerErrorMessagePedro: (state, { payload }) => {
+        sendServerErrorMessageAccPlanStructure: (state, { payload }) => {
             state.isLoading = false;
             state.serverMessage = payload;
         },
-        clearMessagePedro: (state) => {
+        clearMessageAccPlanStructure: (state) => {
             state.errorMessage = null;
             state.serverMessage = null;
             state.confirm = false;
@@ -51,4 +53,4 @@ export const pedroSlice = createSlice({
     }
 })
 export const {
-} = pedroSlice.actions;
+} = accountingPlanStructureSlice.actions;
