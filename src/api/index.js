@@ -1,1 +1,1 @@
-export { default as morgquickApi } from './morgquickApi';
+export * from './morgquickApi';

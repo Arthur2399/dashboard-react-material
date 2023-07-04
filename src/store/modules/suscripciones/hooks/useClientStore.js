@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { decryptData } from "../../../../hooks/useEncrypData";
-import morgquickApi from "../../../../api/morgquickApi";
+import 
+{ morgquickApi } from "../../../../api/morgquickApi";
 import { clearMessage, onAddNewClient, onConfirmDelete, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
 
 export const useClientStore = () => {

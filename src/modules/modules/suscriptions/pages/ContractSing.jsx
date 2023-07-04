@@ -8,24 +8,35 @@ import SaveIcon from '@mui/icons-material/Save';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useRef } from "react";
+import { useContractDetailsStore } from "../../../../store";
+import { useMemo } from "react";
 
 export const ContractSing = () => {
 
     const navigate = useNavigate();
     const signatureCanvasRef = useRef();
 
+    const {headerContract} = useContractDetailsStore();
+
     const handleSave = () => {
-        const signatureData = signatureCanvasRef.current.toDataURL();
-        console.log(signatureData);
-        // Aquí puedes guardar el valor de 'signatureData' en tu base de datos o realizar cualquier otra acción con él
+        /* const signatureData = signatureCanvasRef.current.toDataURL();
+        console.log(signatureData); */
+        navigate('/suscripciones/contratos/');
     };
     const handleClear = () => {
         signatureCanvasRef.current.clear();
     };
 
+    const headerTitle = useMemo(() => {
+        if (headerContract == null) {
+          return '';
+        }
+        return `Firma del contrato ${headerContract.client}`;
+      }, [headerContract])
+
     return (
         <Box className="animate__animated animate__fadeIn">
-            <Header title="Firma de Miguel Pino" subtitle="Por favor firme en el siguiente espacio." />
+            <Header title={headerTitle} subtitle="Por favor firme en el siguiente espacio." />
 
             <Box display="flex" justifyContent="center" alignItems="center" sx={{width:"100%"}}>
                 <SignatureCanvas
@@ -43,7 +54,7 @@ export const ContractSing = () => {
                 >
                     <RestartAltIcon />
                 </Button>
-                <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
+                <Button  onClick={handleSave} type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
                     <SaveIcon sx={{ mr: 1 }} />
                     Guardar
                 </Button>

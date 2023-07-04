@@ -1,22 +1,43 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./auth";
-import { clientSlice, communitySlice, companyInfoSlice, contractSlice, menuSlice, paymentTermSlice, plansDetailsSlice, plansSlice, servicesSlice } from "./modules";
-import { changePasswordSlice } from "./modules/configuration/changePassword/changePasswordSlice";
+import {
+    accountingPlanStructureSlice,
+    changePasswordSlice,
+    clientSlice,
+    closeReasonSlice,
+    communitySlice,
+    companyInfoSlice,
+    contractDetailsSlices,
+    contractSlice,
+    menuSlice,
+    paymentTermSlice,
+    plansDetailsSlice,
+    plansSlice,
+    servicesSlice,
+} from "./modules";
+
 
 export const store = configureStore({
     reducer: {
 
-        contract: contractSlice.reducer,
+        /* Contabilidad */
+        accPlanStructure: accountingPlanStructureSlice.reducer,
 
-        auth: authSlice.reducer,
-        changePassword: changePasswordSlice.reducer,
+        /* suscripciones */
         client: clientSlice.reducer,
-        community: communitySlice.reducer,
-        companyInfo: companyInfoSlice.reducer,
-        menu: menuSlice.reducer,
+        closeReason: closeReasonSlice.reducer,
+        contract: contractSlice.reducer,
+        contractDetails: contractDetailsSlices.reducer,
         paymentTerm: paymentTermSlice.reducer,
         plans: plansSlice.reducer,
         plansDetails: plansDetailsSlice.reducer,
         services: servicesSlice.reducer,
+
+        /* Sistema */
+        auth: authSlice.reducer,
+        changePassword: changePasswordSlice.reducer,
+        community: communitySlice.reducer,
+        companyInfo: companyInfoSlice.reducer,
+        menu: menuSlice.reducer,
     }
 });

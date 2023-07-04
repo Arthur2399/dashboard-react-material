@@ -1,32 +1,33 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Header } from "../../components";
 import { tokens } from "../../../../theme";
+import { getIcons } from "../../../../helpers";
 import { customStyles } from "../../../helpers";
+import { useContractDetailsStore, useContractStore } from "../../../../store/";
 
+import { format } from "date-fns";
 import { useTheme } from "@emotion/react";
 import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
-
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DehazeIcon from '@mui/icons-material/Dehaze';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import GestureIcon from '@mui/icons-material/Gesture';
-
-import { contract } from "../../../../data/modules/suscriptions/mockSuscriptions";
+import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 export const Contract = () => {
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { colorDataGrid } = customStyles();
   const navigate = useNavigate();
 
-  const { colorDataGrid } = customStyles();
+  const { contract, isLoading, startLoadContracts, startSetActiveContract } = useContractStore();
+  const { startSetHeaderContract } = useContractDetailsStore();
+
+  const icons = getIcons();
 
   const columns = [
     {
-      field: "code",
+      field: "name",
       headerName: "Código",
       flex: 1,
       align: 'center',
@@ -35,12 +36,12 @@ export const Contract = () => {
     {
       field: "client",
       headerName: "Cliente",
-      flex: 1,
+      flex: 2,
       align: 'center',
       headerAlign: 'center',
     },
     {
-      field: "date_contract",
+      field: "date_start",
       headerName: "Fecha de contrato",
       flex: 1,
       align: 'center',
@@ -54,18 +55,19 @@ export const Contract = () => {
       headerAlign: 'center',
     },
     {
-      field: "total",
+      field: "value",
       headerName: "Total",
       flex: 1,
       align: 'right',
       headerAlign: 'center',
     },
     {
-      field: "sing",
+      field: "signature",
       headerName: "Firma",
       flex: 1,
       align: 'center',
       headerAlign: 'center',
+      valueGetter: (params) => (params.value != null ? 'Firmado' : 'No firmado'),
     },
     {
       field: "close_reason",
@@ -82,7 +84,7 @@ export const Contract = () => {
       headerAlign: 'center',
     },
     {
-      field: "pay_form",
+      field: "payment_places",
       headerName: "Forma de pago",
       flex: 1,
       align: 'center',
@@ -92,34 +94,48 @@ export const Contract = () => {
       field: "actions",
       headerName: "Opciones",
       sortable: false,
+      flex: 2,
       align: 'center',
       headerAlign: 'center',
       width: "150",
       disableColumnMenu: true,
       renderCell: (params) => {
         const handleEdit = () => {
-          // handle edit logic
+          startSetActiveContract(params.row)
+          navigate("formulario");
         };
         const handleDelete = () => {
           // handle delete logic
         };
+        const handleDetail = () => {
+          startSetHeaderContract(params.row)
+          navigate("detalle");
+        }
+        const handlePrint = () => {
+          startSetHeaderContract(params.row)
+          navigate("imprimir");
+        }
         const handleSing = () => {
+          startSetHeaderContract(params.row)
           navigate("firmar")
 
         }
         return (
           <>
-            <IconButton title="Editar" onClick={handleEdit}>
-              <EditIcon />
+            <IconButton title="Editar" onClick={handleEdit} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
+              {icons['EditIcon']()}
             </IconButton>
-            <IconButton title="Detalle" >
-              <DehazeIcon />
+            <IconButton title="Detalle" onClick={handleDetail} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
+              {icons['DehazeIcon']()}
             </IconButton>
-            <IconButton title="Firmar" onClick={handleSing}>
-              <GestureIcon />
+            <IconButton title="Firmar" onClick={handleSing} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
+              {icons['GestureIcon']()}
             </IconButton>
-            <IconButton title="Archivar" onClick={handleDelete} >
-              <DeleteIcon />
+            <IconButton title="Imprimir" onClick={handlePrint} sx={{p:"3px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] },}}>
+              {icons['PictureAsPdfIcon']()}
+            </IconButton>
+            <IconButton title="Archivar" onClick={handleDelete} sx={{p:"3px" , "&:hover": { color: colors.redAccent [700], background: colors.redAccent[200] },}}>
+              {icons['DeleteIcon']()}
             </IconButton>
           </>
         );
@@ -128,8 +144,23 @@ export const Contract = () => {
   ];
 
   const onCreateContract = () => {
+    const date = new Date();
+    const dateString = format(new Date(date), 'yyyy-MM-dd').toString();
+    startSetActiveContract({
+      id: 0,
+      client_id: null,
+      company_id: null,
+      date_end: dateString,
+      date_start: dateString,
+      payment_places_id: null,
+    })
     navigate('formulario');
   }
+
+  useEffect(() => {
+    startLoadContracts();
+  }, [])
+
 
   return (
     <Box className="animate__animated animate__fadeIn">
@@ -149,7 +180,7 @@ export const Contract = () => {
               }
             }}
           >
-            <AddCircleIcon sx={{ mr: "10px" }} />
+            {icons['AddCircleIcon']({ sx: { mr: "10px" } })}
             Crear
           </Button>
         </Box>
@@ -166,6 +197,7 @@ export const Contract = () => {
           components={{ Toolbar: GridToolbar }}
         />
       </Box>
+      <LoadingSpinner isSaving={isLoading} message="Cargando los contratos..." />
     </Box>
   )
 }
