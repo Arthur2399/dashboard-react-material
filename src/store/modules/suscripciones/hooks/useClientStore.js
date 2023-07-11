@@ -4,12 +4,14 @@ import { decryptData } from "../../../../hooks/useEncrypData";
 import 
 { morgquickApi } from "../../../../api/morgquickApi";
 import { clearMessage, onAddNewClient, onConfirmDelete, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
+import { useState } from "react";
 
 export const useClientStore = () => {
 
   const { isLoading, clients, active, serverMessage, errorMessage,confirm } = useSelector(state => state.client)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [errorAtributes, setErrorAtributes] = useState([]);
 
   const startonLoadingClients = async () => {
     const companyInfo = localStorage.getItem("Company");
@@ -50,8 +52,10 @@ export const useClientStore = () => {
     } catch (error) {
       if (error.response.status == 400) {
         var claves = Object.keys(error.response.data);
+        setErrorAtributes(error.response.data)
         var firstValue = error.response.data[claves[0]];
-        dispatch(sendErrorMessage(firstValue[0]))
+        dispatch(sendErrorMessage(`${firstValue[0]}`))
+
       } else {
         dispatch(sendServerErrorMessage(error.response.data.error))
       }
@@ -86,6 +90,7 @@ export const useClientStore = () => {
     active,
     serverMessage,
     errorMessage,
+    errorAtributes,
 
     /* METODOS */
     startDeletingClient,

@@ -48,7 +48,15 @@ export const ClientsForm = () => {
     const [countryId, setCountryId] = useState("")
     const [provinceId, setProvinceId] = useState("")
 
-    const { active, isLoading, serverMessage, errorMessage, startSavingClient, startClearMessage, } = useClientStore();
+    /* Validacion de tipo de documento */
+    const [typeIdentificationSelect, setTypeIdentificationSelect] = useState("")
+    const valueTypeIdentNameLastname = 4;
+    const valueTypeIdentReasonSocial = 1;
+
+    console.log(typeIdentificationSelect)
+
+    const { errorAtributes, active, isLoading, serverMessage, errorMessage, startSavingClient, startClearMessage, } = useClientStore();
+    console.log(errorAtributes)
     const {
         gender,
         countries,
@@ -95,6 +103,7 @@ export const ClientsForm = () => {
         startGetCanton(provinceId);
     }, [provinceId])
 
+
     useEffect(() => {
         startGetCountries();
         startGetIdentificationType();
@@ -125,71 +134,111 @@ export const ClientsForm = () => {
                                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                             }}
                         >
-                            {/* NOMBRE */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Nombre"
-                                placeholder="Ingrese el nombre"
-                                name="first_name"
-                                error={errors.first_name && touched.first_name}
-                                helperText={errors.first_name && touched.first_name && errors.first_name}
-                                sx={{ gridColumn: "span 2 " }}
+                            {/* TIPO DE DOCUMENTO */}
+                            <Autocomplete
+                                options={typeIdentification}
+                                getOptionLabel={(option) => option.label}
+                                value={typeIdentification.find((option) => option.value === values.identification_type_id) || null}
+                                onBlur={() => setFieldTouched('identification_type_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('identification_type_id', newValue ? newValue.value : null);
+                                    setTypeIdentificationSelect(newValue);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Tipo de identificación"
+                                        placeholder="Busque y tipo de identificacion"
+                                        name="identification_type_id"
+                                        error={errors.identification_type_id && touched.identification_type_id}
+                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id}
+                                        variant="filled" />}
                             />
-                            {/* SEGUNDO NOMBRE */}
+                            {/* CEDULA */}
                             <Field
                                 as={TextField}
                                 type="text"
                                 fullWidth
                                 variant="filled"
-                                label="Segundo nombre"
-                                placeholder="Ingrese el segudno nombre"
-                                name="second_name"
-                                error={errors.second_name && touched.second_name}
-                                helperText={errors.second_name && touched.second_name && errors.second_name}
-                                sx={{ gridColumn: "span 2 " }}
-                            />
-                            {/* APELLIDO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Apellido"
-                                placeholder="Ingrese el apellido paterno"
-                                name="last_name"
-                                error={errors.last_name && touched.last_name}
-                                helperText={errors.last_name && touched.last_name && errors.last_name}
-                                sx={{ gridColumn: "span 2 " }}
-                            />
-                            {/* SEGUNDO APELLIDO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Segundo apellido"
-                                placeholder="Ingrese el apellido materno"
-                                name="second_last_name"
-                                error={errors.second_last_name && touched.second_last_name}
-                                helperText={errors.second_last_name && touched.second_last_name && errors.second_last_name}
+                                disabled ={typeIdentificationSelect == ""}
+                                label={`Número de ${typeIdentificationSelect.label}`}
+                                placeholder="Ingrese el numero de identificación"
+                                name="identification_number"
+                                error={errors.identification_number && touched.identification_number || !!errorAtributes.identification_number}
+                                helperText={errors.identification_number && touched.identification_number && errors.identification_number || errorAtributes.identification_number}
                                 sx={{ gridColumn: "span 2 " }}
                             />
                             {/* RAZON SOCIAL */}
                             <Field
                                 as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Razon social"
-                                placeholder="Ingrese la razon social"
-                                name="comercial_name"
+                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentReasonSocial || typeIdentificationSelect.value == ""}
                                 error={errors.comercial_name && touched.comercial_name}
+                                fullWidth
                                 helperText={errors.comercial_name && touched.comercial_name && errors.comercial_name}
+                                label="Razon social"
+                                name="comercial_name"
+                                placeholder="Ingrese la razon social"
                                 sx={{ gridColumn: "span 4 " }}
+                                type="text"
+                                variant="filled"
                             />
+                            {/* NOMBRE */}
+                            <Field
+                                as={TextField}
+                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                error={errors.first_name && touched.first_name}
+                                fullWidth
+                                helperText={errors.first_name && touched.first_name && errors.first_name}
+                                label="Nombre"
+                                name="first_name"
+                                placeholder="Ingrese el nombre"
+                                sx={{ gridColumn: "span 2 " }}
+                                type="text"
+                                variant="filled"
+                            />
+                            {/* SEGUNDO NOMBRE */}
+                            <Field
+                                as={TextField}
+                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                error={errors.second_name && touched.second_name}
+                                fullWidth
+                                helperText={errors.second_name && touched.second_name && errors.second_name}
+                                label="Segundo nombre"
+                                name="second_name"
+                                placeholder="Ingrese el segudno nombre"
+                                sx={{ gridColumn: "span 2 " }}
+                                type="text"
+                                variant="filled"
+                            />
+                            {/* APELLIDO */}
+                            <Field
+                                as={TextField}
+                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                error={errors.last_name && touched.last_name}
+                                fullWidth
+                                helperText={errors.last_name && touched.last_name && errors.last_name}
+                                label="Apellido"
+                                name="last_name"
+                                placeholder="Ingrese el apellido paterno"
+                                sx={{ gridColumn: "span 2 " }}
+                                type="text"
+                                variant="filled"
+                            />
+                            {/* SEGUNDO APELLIDO */}
+                            <Field
+                                as={TextField}
+                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                error={errors.second_last_name && touched.second_last_name}
+                                fullWidth
+                                helperText={errors.second_last_name && touched.second_last_name && errors.second_last_name}
+                                label="Segundo apellido"
+                                name="second_last_name"
+                                placeholder="Ingrese el apellido materno"
+                                sx={{ gridColumn: "span 2 " }}
+                                type="text"
+                                variant="filled"
+                            />
+
 
                             {/* FECHA DE NACIMIENTO */}
                             <DatePicker
@@ -227,38 +276,7 @@ export const ClientsForm = () => {
                                         variant="filled" />}
                             />
 
-                            {/* TIPO DE DOCUMENTO */}
-                            <Autocomplete
-                                options={typeIdentification}
-                                getOptionLabel={(option) => option.label}
-                                value={typeIdentification.find((option) => option.value === values.identification_type_id) || null}
-                                onBlur={() => setFieldTouched('identification_type_id', true)}
-                                onChange={(event, newValue) => {
-                                    setFieldValue('identification_type_id', newValue ? newValue.value : null);
-                                }}
-                                sx={{ gridColumn: "span 1" }}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        label="Tipo de identificación"
-                                        placeholder="Busque y tipo de identificacion"
-                                        name="identification_type_id"
-                                        error={errors.identification_type_id && touched.identification_type_id}
-                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id}
-                                        variant="filled" />}
-                            />
-                            {/* CEDULA */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Cédula"
-                                placeholder="Ingrese el numero de cédula"
-                                name="identification_number"
-                                error={errors.identification_number && touched.identification_number}
-                                helperText={errors.identification_number && touched.identification_number && errors.identification_number}
-                                sx={{ gridColumn: "span 1 " }}
-                            />
+
 
                             {/* TELEFONO */}
                             <Field
