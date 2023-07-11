@@ -46,13 +46,10 @@ export const ClientsForm = () => {
         second_name: "",
     });
 
-    const [countryId, setCountryId] = useState("")
-    const [provinceId, setProvinceId] = useState("")
+    const [countryId, setCountryId] = useState("");
+    const [provinceId, setProvinceId] = useState("");
+    const [typeIdentificationSelect, setTypeIdentificationSelect] = useState("");
 
-    /* Validacion de tipo de documento */
-    const [typeIdentificationSelect, setTypeIdentificationSelect] = useState("")
-    const valueTypeIdentNameLastname = 4;
-    const valueTypeIdentReasonSocial = 1;
 
     const { errorAtributes, active, isLoading, serverMessage, errorMessage, startSavingClient, startClearMessage, } = useClientStore();
 
@@ -82,7 +79,6 @@ export const ClientsForm = () => {
         return 'Crear cliente';
     }, [active])
 
-
     useEffect(() => {
         if (active !== null) {
             setInitialState({ ...active });
@@ -109,7 +105,7 @@ export const ClientsForm = () => {
         startGetGender();
         startGetKindPerson();
         startGetStratum(),
-            startClearMessage();
+        startClearMessage();
     }, []);
 
     return (
@@ -154,14 +150,14 @@ export const ClientsForm = () => {
                                         variant="filled" />}
                             />
 
-                            {/* CEDULA */}
+                            {/* NÚMERO DE DOCUMENTO */}
                             <Field
                                 as={TextField}
                                 type="text"
                                 fullWidth
                                 variant="filled"
                                 disabled={typeIdentificationSelect == ""}
-                                label={`Número de ${typeIdentificationSelect.label}`}
+                                label={typeIdentificationSelect.label== undefined ? "Número de documento" :`Número de ${typeIdentificationSelect.label}`}
                                 placeholder="Ingrese el numero de identificación"
                                 name="identification_number"
                                 sx={{ gridColumn: "span 2 " }}
@@ -172,7 +168,7 @@ export const ClientsForm = () => {
                             {/* RAZON SOCIAL */}
                             <Field
                                 as={TextField}
-                                disabled={typeIdentificationSelect.value == valueTypeIdentReasonSocial || typeIdentificationSelect.value == ""}
+                                disabled={!typeIdentificationSelect.is_company}
                                 fullWidth
                                 label="Razon social"
                                 name="comercial_name"
@@ -187,7 +183,7 @@ export const ClientsForm = () => {
                             {/* NOMBRE */}
                             <Field
                                 as={TextField}
-                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                disabled={typeIdentificationSelect.is_company}
                                 fullWidth
                                 label="Nombre"
                                 name="first_name"
@@ -195,6 +191,11 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
                                 variant="filled"
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+                                    setFieldValue("first_name", newValue); // Actualiza el valor en Formik
+                                    setFieldValue("comercial_name", `${values.first_name} ${values.second_name} ${values.last_name} ${values.second_last_name}`);
+                                }}
                                 error={errors.first_name && touched.first_name || !!errorAtributes.first_name}
                                 helperText={errors.first_name && touched.first_name && errors.first_name || errorAtributes.first_name}
                             />
@@ -202,12 +203,17 @@ export const ClientsForm = () => {
                             {/* SEGUNDO NOMBRE */}
                             <Field
                                 as={TextField}
-                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                disabled={typeIdentificationSelect.is_company}
                                 fullWidth
                                 label="Segundo nombre"
                                 name="second_name"
                                 placeholder="Ingrese el segudno nombre"
                                 sx={{ gridColumn: "span 2 " }}
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+                                    setFieldValue("second_name", newValue); // Actualiza el valor en Formik
+                                    setFieldValue("comercial_name", `${values.first_name} ${values.second_name} ${values.last_name} ${values.second_last_name}`);
+                                }}
                                 type="text"
                                 variant="filled"
                                 error={errors.second_name && touched.second_name || !!errorAtributes.second_name}
@@ -216,13 +222,18 @@ export const ClientsForm = () => {
                             {/* APELLIDO */}
                             <Field
                                 as={TextField}
-                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                disabled={typeIdentificationSelect.is_company}
                                 fullWidth
                                 label="Apellido"
                                 name="last_name"
                                 placeholder="Ingrese el apellido paterno"
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+                                    setFieldValue("last_name", newValue); // Actualiza el valor en Formik
+                                    setFieldValue("comercial_name", `${values.first_name} ${values.second_name} ${values.last_name} ${values.second_last_name}`);
+                                }}
                                 variant="filled"
                                 error={errors.last_name && touched.last_name || !!errorAtributes.last_name}
                                 helperText={errors.last_name && touched.last_name && errors.last_name || errorAtributes.last_name}
@@ -230,7 +241,7 @@ export const ClientsForm = () => {
                             {/* SEGUNDO APELLIDO */}
                             <Field
                                 as={TextField}
-                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
+                                disabled={typeIdentificationSelect.is_company}
                                 fullWidth
                                 label="Segundo apellido"
                                 name="second_last_name"
@@ -238,8 +249,26 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
                                 variant="filled"
+                                onChange={(event) => {
+                                    const newValue = event.target.value;
+                                    setFieldValue("second_last_name", newValue); // Actualiza el valor en Formik
+                                    setFieldValue("comercial_name", `${values.first_name} ${values.second_name} ${values.last_name} ${values.second_last_name}`);
+                                }}
                                 error={errors.second_last_name && touched.second_last_name || !!errorAtributes.second_last_name}
                                 helperText={errors.second_last_name && touched.second_last_name && errors.second_last_name || errorAtributes.second_last_name}
+                            />
+                            {/* CORREO ELECTRONICO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Correo electrónico"
+                                placeholder="Ingrese el correo electrónico"
+                                name="email"
+                                error={errors.email && touched.email || !!errorAtributes.email}
+                                helperText={errors.email && touched.email && errors.email || errorAtributes.email}
+                                sx={{ gridColumn: "span 4" }}
                             />
 
                             {/* FECHA DE NACIMIENTO */}
@@ -277,65 +306,6 @@ export const ClientsForm = () => {
                                         helperText={errors.gender_id && touched.gender_id && errors.gender_id || errorAtributes.gender_id}
                                         variant="filled" />}
                             />
-
-
-                            {/* TELEFONO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Teléfono"
-                                placeholder="Ingrese el teléfono"
-                                name="phone"
-                                inputProps={{
-                                    pattern: "[0-9]*",
-                                    maxLength: 10,
-                                    onKeyPress: handleKeyPress,
-                                }}
-                                error={errors.phone && touched.phone || !!errorAtributes.phone}
-                                helperText={errors.phone && touched.phone && errors.phone || errorAtributes.phone}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
-                            {/* CELULAR */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Celular"
-                                placeholder="Ingrese el celular"
-                                name="cellphone1"
-                                inputProps={{
-                                    pattern: "[0-9]*",
-                                    maxLength: 10,
-                                    onKeyPress: handleKeyPress,
-                                }}
-                                error={errors.cellphone1 && touched.cellphone1 || !!errorAtributes.cellphone1}
-                                helperText={errors.cellphone1 && touched.cellphone1 && errors.cellphone1 || errorAtributes.cellphone1}
-                                sx={{ gridColumn: "span 2" }}
-                            />
-
-                            {/*SEGUNDO  CELULAR */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Segundo celular"
-                                placeholder="Ingrese el celular"
-                                name="cellphone2"
-                                inputProps={{
-                                    pattern: "[0-9]*",
-                                    maxLength: 10,
-                                    onKeyPress: handleKeyPress,
-                                }}
-                                sx={{ gridColumn: "span 2" }}
-                                error={errors.cellphone2 && touched.cellphone2 || !!errorAtributes.cellphone2}
-                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2 || errorAtributes.cellphone2}
-                            />
-
                             {/* TIPO DE PERSONA */}
                             <Autocomplete
                                 options={KindOfPerson}
@@ -346,7 +316,7 @@ export const ClientsForm = () => {
                                     setFieldValue('kind_person_id', newValue ? newValue.value : null);
                                     setCountryId(newValue.value);
                                 }}
-                                sx={{ gridColumn: "span 2" }}
+                                sx={{ gridColumn: "span 4" }}
                                 renderInput={(params) =>
                                     <TextField {...params}
                                         label="Tipo de persona"
@@ -356,26 +326,7 @@ export const ClientsForm = () => {
                                         helperText={errors.kind_person_id && touched.kind_person_id && errors.kind_person_id || errorAtributes.kind_person_id}
                                         variant="filled" />}
                             />
-                            {/* ESTATUS SOCIAL */}
-                            <Autocomplete
-                                options={stratum}
-                                getOptionLabel={(option) => option.label}
-                                value={stratum.find((option) => option.value === values.stratum_id) || null}
-                                onBlur={() => setFieldTouched('stratum_id', true)}
-                                onChange={(event, newValue) => {
-                                    setFieldValue('stratum_id', newValue ? newValue.value : null);
-                                    setCountryId(newValue.value);
-                                }}
-                                sx={{ gridColumn: "span 2" }}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        label="Estrato social"
-                                        placeholder="Busque y seleccione un estrato social"
-                                        name="stratum_id"
-                                        error={errors.stratum_id && touched.stratum_id || !!errorAtributes.stratum_id}
-                                        helperText={errors.stratum_id && touched.stratum_id && errors.stratum_id || errorAtributes.stratum_id}
-                                        variant="filled" />}
-                            />
+
 
                             {/* PAIS */}
                             <Autocomplete
@@ -438,6 +389,96 @@ export const ClientsForm = () => {
                                         helperText={errors.cantons_id && touched.cantons_id && errors.cantons_id || errorAtributes.cantons_id}
                                         variant="filled" />}
                             />
+                            {/* ESTATUS SOCIAL */}
+                            <Autocomplete
+                                options={stratum}
+                                getOptionLabel={(option) => option.label}
+                                value={stratum.find((option) => option.value === values.stratum_id) || null}
+                                onBlur={() => setFieldTouched('stratum_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('stratum_id', newValue ? newValue.value : null);
+                                    setCountryId(newValue.value);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Estrato social"
+                                        placeholder="Busque y seleccione un estrato social"
+                                        name="stratum_id"
+                                        error={errors.stratum_id && touched.stratum_id || !!errorAtributes.stratum_id}
+                                        helperText={errors.stratum_id && touched.stratum_id && errors.stratum_id || errorAtributes.stratum_id}
+                                        variant="filled" />}
+                            />
+
+                            {/* DIRECCIÓN */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Dirección"
+                                placeholder="Ingrese la dirección"
+                                name="address"
+                                error={errors.address && touched.address || !!errorAtributes.address}
+                                helperText={errors.address && touched.address && errors.address || errorAtributes.address}
+                                sx={{ gridColumn: "span 4" }}
+                            />
+                            {/* TELEFONO */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Teléfono"
+                                placeholder="Ingrese el teléfono"
+                                name="phone"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                error={errors.phone && touched.phone || !!errorAtributes.phone}
+                                helperText={errors.phone && touched.phone && errors.phone || errorAtributes.phone}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+
+                            {/* CELULAR */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Celular"
+                                placeholder="Ingrese el celular"
+                                name="cellphone1"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                error={errors.cellphone1 && touched.cellphone1 || !!errorAtributes.cellphone1}
+                                helperText={errors.cellphone1 && touched.cellphone1 && errors.cellphone1 || errorAtributes.cellphone1}
+                                sx={{ gridColumn: "span 2" }}
+                            />
+
+                            {/*SEGUNDO  CELULAR */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Segundo celular"
+                                placeholder="Ingrese el celular"
+                                name="cellphone2"
+                                inputProps={{
+                                    pattern: "[0-9]*",
+                                    maxLength: 10,
+                                    onKeyPress: handleKeyPress,
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                error={errors.cellphone2 && touched.cellphone2 || !!errorAtributes.cellphone2}
+                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2 || errorAtributes.cellphone2}
+                            />
 
                             {/*CODIGO POSTAL */}
                             <Field
@@ -458,33 +499,6 @@ export const ClientsForm = () => {
                                 sx={{ gridColumn: "span 2" }}
                             />
 
-                            {/* CORREO ELECTRONICO */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Correo electrónico"
-                                placeholder="Ingrese el correo electrónico"
-                                name="email"
-                                error={errors.email && touched.email || !!errorAtributes.email}
-                                helperText={errors.email && touched.email && errors.email || errorAtributes.email}
-                                sx={{ gridColumn: "span 4" }}
-                            />
-
-                            {/* DIRECCIÓN */}
-                            <Field
-                                as={TextField}
-                                type="text"
-                                fullWidth
-                                variant="filled"
-                                label="Dirección"
-                                placeholder="Ingrese la dirección"
-                                name="address"
-                                error={errors.address && touched.address || !!errorAtributes.address}
-                                helperText={errors.address && touched.address && errors.address || errorAtributes.address}
-                                sx={{ gridColumn: "span 4" }}
-                            />
 
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
@@ -559,6 +573,11 @@ const validationSchema = Yup.object().shape({
         .required('Este campo es requerido'),
 
     phone: Yup.string()
+        .required('Este campo es requerido')
+        .min(4, 'Ingrese un celular válido'),
+
+    postal_code: Yup.string()
+        .required('Este campo es requerido')
         .min(4, 'Ingrese un celular válido'),
 
     cellphone1: Yup.string()
