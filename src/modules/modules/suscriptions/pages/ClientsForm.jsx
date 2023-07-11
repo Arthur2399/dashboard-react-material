@@ -3,26 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import { Header } from '../../components';
-
-import { useClientStore } from '../../../../store/modules/suscripciones/hooks/useClientStore';
-import { useGetComboxBox } from '../helpers/useGetComboxBox';
-import { LoadingSpinner } from '../../../components/LoadingSpinner';
-import { AlertMessage } from '../../../components/AlertMessage';
-
 import { Autocomplete, Box, Button, TextField, useMediaQuery } from '@mui/material';
-
-import SaveIcon from '@mui/icons-material/Save';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { DatePicker } from '@mui/x-date-pickers';
 import { format, parse } from 'date-fns';
+
+import { Header } from '../../components';
+import { useGetComboxBox } from '../helpers';
+import { useClientStore } from '../../../../store';
+import { getIcons } from '../../../../helpers/getIcons';
+import { AlertMessage, LoadingSpinner } from '../../../components';
 
 
 export const ClientsForm = () => {
 
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
+    const icons = getIcons();
 
     const [initialState, setInitialState] = useState({
         id: 0,
@@ -105,7 +101,7 @@ export const ClientsForm = () => {
         startGetGender();
         startGetKindPerson();
         startGetStratum(),
-        startClearMessage();
+            startClearMessage();
     }, []);
 
     return (
@@ -472,15 +468,15 @@ export const ClientsForm = () => {
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">
                             <Button type="button" onClick={() => { navigate('/suscripciones/clientes') }} title="Cancelar" color="primary" variant="outlined" sx={{ mr: 1 }}>
-                                <ArrowBackIcon />
+                                {icons["ArrowBackIcon"]()}
                             </Button>
                             <Button type="button" title="Reiniciar" color="primary" variant="outlined" sx={{ mr: 1 }}
                                 onClick={resetForm}
                             >
-                                <RestartAltIcon />
+                                {icons["RestartAltIcon"]()}
                             </Button>
                             <Button type="submit" title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
-                                <SaveIcon sx={{ mr: 1 }} />
+                                {icons["SaveIcon"]({ sx: { mr: 1 } })}
                                 Guardar
                             </Button>
                         </Box>
