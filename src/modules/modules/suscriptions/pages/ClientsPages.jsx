@@ -166,6 +166,7 @@ const initialValues ={
 	cellphone2 : "",
 	comercial_name : "",
 	company_id: "",
+    postal_code:"",
 	country_id:"",
 	email: "",
 	first_name:"",

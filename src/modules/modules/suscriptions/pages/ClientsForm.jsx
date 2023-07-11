@@ -9,8 +9,8 @@ import { format, parse } from 'date-fns';
 
 import { Header } from '../../components';
 import { useGetComboxBox } from '../helpers';
+import { getIcons } from '../../../../helpers';
 import { useClientStore } from '../../../../store';
-import { getIcons } from '../../../../helpers/getIcons';
 import { AlertMessage, LoadingSpinner } from '../../../components';
 
 
@@ -30,6 +30,7 @@ export const ClientsForm = () => {
         comercial_name: "",
         company_id: "",
         country_id: "",
+        postal_code: "",
         email: "",
         first_name: "",
         gender_id: "",
@@ -53,10 +54,8 @@ export const ClientsForm = () => {
     const valueTypeIdentNameLastname = 4;
     const valueTypeIdentReasonSocial = 1;
 
-    console.log(typeIdentificationSelect)
-
     const { errorAtributes, active, isLoading, serverMessage, errorMessage, startSavingClient, startClearMessage, } = useClientStore();
-    console.log(errorAtributes)
+
     const {
         gender,
         countries,
@@ -150,95 +149,98 @@ export const ClientsForm = () => {
                                         label="Tipo de identificación"
                                         placeholder="Busque y tipo de identificacion"
                                         name="identification_type_id"
-                                        error={errors.identification_type_id && touched.identification_type_id}
-                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id}
+                                        error={errors.identification_type_id && touched.identification_type_id || !!errorAtributes.identification_type_id}
+                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id || errorAtributes.identification_number}
                                         variant="filled" />}
                             />
+
                             {/* CEDULA */}
                             <Field
                                 as={TextField}
                                 type="text"
                                 fullWidth
                                 variant="filled"
-                                disabled ={typeIdentificationSelect == ""}
+                                disabled={typeIdentificationSelect == ""}
                                 label={`Número de ${typeIdentificationSelect.label}`}
                                 placeholder="Ingrese el numero de identificación"
                                 name="identification_number"
+                                sx={{ gridColumn: "span 2 " }}
                                 error={errors.identification_number && touched.identification_number || !!errorAtributes.identification_number}
                                 helperText={errors.identification_number && touched.identification_number && errors.identification_number || errorAtributes.identification_number}
-                                sx={{ gridColumn: "span 2 " }}
                             />
+
                             {/* RAZON SOCIAL */}
                             <Field
                                 as={TextField}
-                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentReasonSocial || typeIdentificationSelect.value == ""}
-                                error={errors.comercial_name && touched.comercial_name}
+                                disabled={typeIdentificationSelect.value == valueTypeIdentReasonSocial || typeIdentificationSelect.value == ""}
                                 fullWidth
-                                helperText={errors.comercial_name && touched.comercial_name && errors.comercial_name}
                                 label="Razon social"
                                 name="comercial_name"
                                 placeholder="Ingrese la razon social"
                                 sx={{ gridColumn: "span 4 " }}
                                 type="text"
                                 variant="filled"
+                                error={errors.comercial_name && touched.comercial_name || !!errorAtributes.comercial_name}
+                                helperText={errors.comercial_name && touched.comercial_name && errors.comercial_name || errorAtributes.comercial_name}
                             />
+
                             {/* NOMBRE */}
                             <Field
                                 as={TextField}
-                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
-                                error={errors.first_name && touched.first_name}
+                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
                                 fullWidth
-                                helperText={errors.first_name && touched.first_name && errors.first_name}
                                 label="Nombre"
                                 name="first_name"
                                 placeholder="Ingrese el nombre"
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
                                 variant="filled"
+                                error={errors.first_name && touched.first_name || !!errorAtributes.first_name}
+                                helperText={errors.first_name && touched.first_name && errors.first_name || errorAtributes.first_name}
                             />
+
                             {/* SEGUNDO NOMBRE */}
                             <Field
                                 as={TextField}
-                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
-                                error={errors.second_name && touched.second_name}
+                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
                                 fullWidth
-                                helperText={errors.second_name && touched.second_name && errors.second_name}
                                 label="Segundo nombre"
                                 name="second_name"
                                 placeholder="Ingrese el segudno nombre"
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
                                 variant="filled"
+                                error={errors.second_name && touched.second_name || !!errorAtributes.second_name}
+                                helperText={errors.second_name && touched.second_name && errors.second_name || errorAtributes.second_name}
                             />
                             {/* APELLIDO */}
                             <Field
                                 as={TextField}
-                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
-                                error={errors.last_name && touched.last_name}
+                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
                                 fullWidth
-                                helperText={errors.last_name && touched.last_name && errors.last_name}
                                 label="Apellido"
                                 name="last_name"
                                 placeholder="Ingrese el apellido paterno"
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
                                 variant="filled"
+                                error={errors.last_name && touched.last_name || !!errorAtributes.last_name}
+                                helperText={errors.last_name && touched.last_name && errors.last_name || errorAtributes.last_name}
                             />
                             {/* SEGUNDO APELLIDO */}
                             <Field
                                 as={TextField}
-                                disabled = {typeIdentificationSelect.value ==  valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
-                                error={errors.second_last_name && touched.second_last_name}
+                                disabled={typeIdentificationSelect.value == valueTypeIdentNameLastname || typeIdentificationSelect.value == ""}
                                 fullWidth
-                                helperText={errors.second_last_name && touched.second_last_name && errors.second_last_name}
                                 label="Segundo apellido"
                                 name="second_last_name"
                                 placeholder="Ingrese el apellido materno"
                                 sx={{ gridColumn: "span 2 " }}
                                 type="text"
                                 variant="filled"
+                                error={errors.second_last_name && touched.second_last_name || !!errorAtributes.second_last_name}
+                                helperText={errors.second_last_name && touched.second_last_name && errors.second_last_name || errorAtributes.second_last_name}
                             />
-
 
                             {/* FECHA DE NACIMIENTO */}
                             <DatePicker
@@ -252,8 +254,8 @@ export const ClientsForm = () => {
                                     const newDate = format(new Date(event), 'yyyy-MM-dd')
                                     setFieldValue('birthdate', newDate);
                                 }}
-                                error={errors.birthdate && touched.birthdate}
-                                helperText={errors.birthdate && touched.birthdate && errors.birthdate}
+                                error={errors.birthdate && touched.birthdate || !!errorAtributes.birthdate}
+                                helperText={errors.birthdate && touched.birthdate && errors.birthdate || errorAtributes.birthdate}
                             />
 
                             {/* SEXO */}
@@ -271,11 +273,10 @@ export const ClientsForm = () => {
                                         label="Sexo"
                                         placeholder="Busque y seleccione tipo de genero"
                                         name="gender_id"
-                                        error={errors.gender_id && touched.gender_id}
-                                        helperText={errors.gender_id && touched.gender_id && errors.gender_id}
+                                        error={errors.gender_id && touched.gender_id || !!errorAtributes.gender_id}
+                                        helperText={errors.gender_id && touched.gender_id && errors.gender_id || errorAtributes.gender_id}
                                         variant="filled" />}
                             />
-
 
 
                             {/* TELEFONO */}
@@ -292,10 +293,11 @@ export const ClientsForm = () => {
                                     maxLength: 10,
                                     onKeyPress: handleKeyPress,
                                 }}
-                                error={errors.phone && touched.phone}
-                                helperText={errors.phone && touched.phone && errors.phone}
+                                error={errors.phone && touched.phone || !!errorAtributes.phone}
+                                helperText={errors.phone && touched.phone && errors.phone || errorAtributes.phone}
                                 sx={{ gridColumn: "span 2" }}
                             />
+
                             {/* CELULAR */}
                             <Field
                                 as={TextField}
@@ -310,10 +312,11 @@ export const ClientsForm = () => {
                                     maxLength: 10,
                                     onKeyPress: handleKeyPress,
                                 }}
-                                error={errors.cellphone1 && touched.cellphone1}
-                                helperText={errors.cellphone1 && touched.cellphone1 && errors.cellphone1}
+                                error={errors.cellphone1 && touched.cellphone1 || !!errorAtributes.cellphone1}
+                                helperText={errors.cellphone1 && touched.cellphone1 && errors.cellphone1 || errorAtributes.cellphone1}
                                 sx={{ gridColumn: "span 2" }}
                             />
+
                             {/*SEGUNDO  CELULAR */}
                             <Field
                                 as={TextField}
@@ -328,9 +331,9 @@ export const ClientsForm = () => {
                                     maxLength: 10,
                                     onKeyPress: handleKeyPress,
                                 }}
-                                error={errors.cellphone2 && touched.cellphone2}
-                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2}
                                 sx={{ gridColumn: "span 2" }}
+                                error={errors.cellphone2 && touched.cellphone2 || !!errorAtributes.cellphone2}
+                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2 || errorAtributes.cellphone2}
                             />
 
                             {/* TIPO DE PERSONA */}
@@ -349,8 +352,8 @@ export const ClientsForm = () => {
                                         label="Tipo de persona"
                                         placeholder="Busque y seleccione un tipo de persona"
                                         name="kind_person_id"
-                                        error={errors.kind_person_id && touched.kind_person_id}
-                                        helperText={errors.kind_person_id && touched.kind_person_id && errors.kind_person_id}
+                                        error={errors.kind_person_id && touched.kind_person_id || !!errorAtributes.kind_person_id}
+                                        helperText={errors.kind_person_id && touched.kind_person_id && errors.kind_person_id || errorAtributes.kind_person_id}
                                         variant="filled" />}
                             />
                             {/* ESTATUS SOCIAL */}
@@ -369,8 +372,8 @@ export const ClientsForm = () => {
                                         label="Estrato social"
                                         placeholder="Busque y seleccione un estrato social"
                                         name="stratum_id"
-                                        error={errors.stratum_id && touched.stratum_id}
-                                        helperText={errors.stratum_id && touched.stratum_id && errors.stratum_id}
+                                        error={errors.stratum_id && touched.stratum_id || !!errorAtributes.stratum_id}
+                                        helperText={errors.stratum_id && touched.stratum_id && errors.stratum_id || errorAtributes.stratum_id}
                                         variant="filled" />}
                             />
 
@@ -390,8 +393,8 @@ export const ClientsForm = () => {
                                         label="Pais"
                                         placeholder="Busque y seleccione un pais"
                                         name="country_id"
-                                        error={errors.country_id && touched.country_id}
-                                        helperText={errors.country_id && touched.country_id && errors.country_id}
+                                        error={errors.country_id && touched.country_id || !!errorAtributes.country_id}
+                                        helperText={errors.country_id && touched.country_id && errors.country_id || errorAtributes.country_id}
                                         variant="filled" />}
                             />
                             {/* PROVINCIA */}
@@ -411,8 +414,8 @@ export const ClientsForm = () => {
                                         label="Departamento"
                                         placeholder="Busque y seleccione un departamento"
                                         name="province_id"
-                                        error={errors.province_id && touched.province_id}
-                                        helperText={errors.province_id && touched.province_id && errors.province_id}
+                                        error={errors.province_id && touched.province_id || !!errorAtributes.province_id}
+                                        helperText={errors.province_id && touched.province_id && errors.province_id || errorAtributes.province_id}
                                         variant="filled" />}
                             />
                             {/* CANTON */}
@@ -431,8 +434,8 @@ export const ClientsForm = () => {
                                         label="Ciudad"
                                         placeholder="Busque y seleccione una ciudad"
                                         name="cantons_id"
-                                        error={errors.cantons_id && touched.cantons_id}
-                                        helperText={errors.cantons_id && touched.cantons_id && errors.cantons_id}
+                                        error={errors.cantons_id && touched.cantons_id || !!errorAtributes.cantons_id}
+                                        helperText={errors.cantons_id && touched.cantons_id && errors.cantons_id || errorAtributes.cantons_id}
                                         variant="filled" />}
                             />
 
@@ -444,16 +447,17 @@ export const ClientsForm = () => {
                                 variant="filled"
                                 label="Código postal"
                                 placeholder="Ingrese el codigo postal"
-                                name="cellphone2"
+                                name="postal_code"
                                 inputProps={{
                                     pattern: "[0-9]*",
                                     maxLength: 10,
                                     onKeyPress: handleKeyPress,
                                 }}
-                                error={errors.cellphone2 && touched.cellphone2}
-                                helperText={errors.cellphone2 && touched.cellphone2 && errors.cellphone2}
+                                error={errors.postal_code && touched.postal_code || !!errorAtributes.postal_code}
+                                helperText={errors.postal_code && touched.postal_code && errors.postal_code || errorAtributes.postal_code}
                                 sx={{ gridColumn: "span 2" }}
                             />
+
                             {/* CORREO ELECTRONICO */}
                             <Field
                                 as={TextField}
@@ -463,8 +467,8 @@ export const ClientsForm = () => {
                                 label="Correo electrónico"
                                 placeholder="Ingrese el correo electrónico"
                                 name="email"
-                                error={errors.email && touched.email}
-                                helperText={errors.email && touched.email && errors.email}
+                                error={errors.email && touched.email || !!errorAtributes.email}
+                                helperText={errors.email && touched.email && errors.email || errorAtributes.email}
                                 sx={{ gridColumn: "span 4" }}
                             />
 
@@ -477,11 +481,10 @@ export const ClientsForm = () => {
                                 label="Dirección"
                                 placeholder="Ingrese la dirección"
                                 name="address"
-                                error={errors.address && touched.address}
-                                helperText={errors.address && touched.address && errors.address}
+                                error={errors.address && touched.address || !!errorAtributes.address}
+                                helperText={errors.address && touched.address && errors.address || errorAtributes.address}
                                 sx={{ gridColumn: "span 4" }}
                             />
-
 
                         </Box>
                         <Box display="flex" justifyContent="end" mt="20px">

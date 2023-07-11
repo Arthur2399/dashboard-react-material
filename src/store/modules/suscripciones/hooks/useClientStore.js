@@ -1,23 +1,33 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
-import { decryptData } from "../../../../hooks/useEncrypData";
-import 
-{ morgquickApi } from "../../../../api/morgquickApi";
-import { clearMessage, onAddNewClient, onConfirmDelete, onIsLoading, onLoadClients, onSetActiveClient, onUpdateClient, sendErrorMessage, sendServerErrorMessage } from "../slices/clientSlice";
-import { useState } from "react";
+
+import { decryptData } from "../../../../hooks";
+import { morgquickApi } from "../../../../api";
+import {
+  clearMessage,
+  onAddNewClient,
+  onConfirmDelete,
+  onIsLoading,
+  onLoadClients,
+  onSetActiveClient,
+  onUpdateClient,
+  sendErrorMessage,
+  sendServerErrorMessage
+} from "../slices/clientSlice";
 
 export const useClientStore = () => {
 
-  const { isLoading, clients, active, serverMessage, errorMessage,confirm } = useSelector(state => state.client)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { isLoading, clients, active, serverMessage, errorMessage, confirm } = useSelector(state => state.client);
   const [errorAtributes, setErrorAtributes] = useState([]);
 
   const startonLoadingClients = async () => {
     const companyInfo = localStorage.getItem("Company");
     const decryptedData = JSON.parse(decryptData(companyInfo));
     dispatch(onIsLoading())
-
     try {
       const { data } = await morgquickApi.get(`/client/get/${decryptedData.id}`);
       dispatch(onLoadClients(data))
@@ -31,11 +41,9 @@ export const useClientStore = () => {
   }
 
   const startSavingClient = async (clientData) => {
-
     const companyInfo = localStorage.getItem("Company");
     const decryptedData = JSON.parse(decryptData(companyInfo));
     const values = { ...clientData, company_id: decryptedData.id }
-
     dispatch(onIsLoading())
     try {
       if (clientData.id) {
@@ -62,16 +70,15 @@ export const useClientStore = () => {
     }
   }
 
-  const startDeletingClient = async() => {
-    // Todo: Llegar al backend
+  const startDeletingClient = async () => {
     try {
-        await calendarApi.delete(`/events/${ activeEvent.id }` );
-        dispatch( onDeleteEvent() );
+      await calendarApi.delete(`/events/${activeEvent.id}`);
+      dispatch(onDeleteEvent());
     } catch (error) {
-        console.log(error);
-        Swal.fire('Error al eliminar', error.response.data.msg, 'error');
+      console.log(error);
+      Swal.fire('Error al eliminar', error.response.data.msg, 'error');
     }
-}
+  }
 
   const startClearMessage = () => {
     dispatch(clearMessage());
@@ -84,20 +91,20 @@ export const useClientStore = () => {
 
   return {
     /* ATRIBUTOS */
-    isLoading,
+    active,
     clients,
     confirm,
-    active,
-    serverMessage,
-    errorMessage,
     errorAtributes,
+    errorMessage,
+    isLoading,
+    serverMessage,
 
     /* METODOS */
+    startClearMessage,
+    startConfirmDelete,
     startDeletingClient,
     startonLoadingClients,
-    startSetActiveClient,
     startSavingClient,
-    startClearMessage,
-    startConfirmDelete
+    startSetActiveClient,
   }
 }

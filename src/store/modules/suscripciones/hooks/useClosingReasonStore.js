@@ -15,7 +15,6 @@ export const useClosingReasonStore = () => {
         dispatch(onIsLoading())
         try {
             const { data } = await morgquickApi.get(`/tables/ClosingReason/get/${decryptedData.id}`);
-            console.log(data)
             dispatch(onLoadreasons(data))
         } catch (error) {
             console.log(error)
