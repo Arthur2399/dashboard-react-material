@@ -534,21 +534,6 @@ const handleKeyPress = (event) => {
 };
 
 const validationSchema = Yup.object().shape({
-    first_name: Yup.string()
-        .min(2, 'El nombre debe tener al menos dos caracteres')
-        .required('Este campo es requerido'),
-
-    second_name: Yup.string()
-        .min(2, 'El nombre debe tener al menos dos caracteres')
-        .required('Este campo es requerido'),
-
-    last_name: Yup.string()
-        .min(2, 'El apellido debe tener al menos dos caracteres')
-        .required('Este campo es requerido'),
-
-    second_last_name: Yup.string()
-        .min(2, 'El apellido debe tener al menos dos caracteres')
-        .required('Este campo es requerido'),
 
     comercial_name: Yup.string()
         .min(2, 'La razón social debe tener al menos dos caracteres'),
