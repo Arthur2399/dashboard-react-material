@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./auth";
 import {
+    accountingPlanSlice,
     accountingPlanStructureSlice,
     changePasswordSlice,
     clientSlice,
@@ -21,6 +22,7 @@ export const store = configureStore({
     reducer: {
 
         /* Contabilidad */
+        accountingPlan: accountingPlanSlice.reducer,
         accPlanStructure: accountingPlanStructureSlice.reducer,
 
         /* suscripciones */
