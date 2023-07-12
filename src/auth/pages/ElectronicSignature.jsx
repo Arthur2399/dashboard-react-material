@@ -23,6 +23,7 @@ import {
 import { tokens } from '../../theme';
 import { useState } from 'react';
 import { useRef } from 'react';
+import { useEffect } from 'react';
 
 export const ElectronicSignature = () => {
 
@@ -32,6 +33,14 @@ export const ElectronicSignature = () => {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const fileInputRef = useRef();
+
+ 
+    useEffect(() => {
+        const url = new URL(document.location)
+        const authParam = url.searchParams.get('auth');
+        console.log(authParam)
+    }, [])
+    
 
     const errorMessage = "";
 
