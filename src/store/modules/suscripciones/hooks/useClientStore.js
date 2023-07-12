@@ -4,17 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 
 import { decryptData } from "../../../../hooks";
 import { morgquickApi } from "../../../../api";
-import {
-  clearMessage,
-  onAddNewClient,
-  onConfirmDelete,
-  onIsLoading,
-  onLoadClients,
-  onSetActiveClient,
-  onUpdateClient,
-  sendErrorMessage,
-  sendServerErrorMessage
-} from "../slices/clientSlice";
+import { onAddNewClient, onClearMessageClient, onConfirmDeleteClient, onDeleteClient, onIsLoadingClient, onLoadClients, onSendErrorMessageClient, onSendServerErrorMessageClient, onSetActiveClient, onUpdateClient } from "../slices";
+
 
 export const useClientStore = () => {
 
@@ -27,7 +18,7 @@ export const useClientStore = () => {
   const startonLoadingClients = async () => {
     const companyInfo = localStorage.getItem("Company");
     const decryptedData = JSON.parse(decryptData(companyInfo));
-    dispatch(onIsLoading())
+    dispatch(onIsLoadingClient())
     try {
       const { data } = await morgquickApi.get(`/client/get/${decryptedData.id}`);
       dispatch(onLoadClients(data))
@@ -44,7 +35,7 @@ export const useClientStore = () => {
     const companyInfo = localStorage.getItem("Company");
     const decryptedData = JSON.parse(decryptData(companyInfo));
     const values = { ...clientData, company_id: decryptedData.id }
-    dispatch(onIsLoading())
+    dispatch(onIsLoadingClient())
     try {
       if (clientData.id) {
         // Actualizando
@@ -62,18 +53,18 @@ export const useClientStore = () => {
         var claves = Object.keys(error.response.data);
         setErrorAtributes(error.response.data)
         var firstValue = error.response.data[claves[0]];
-        dispatch(sendErrorMessage(`${firstValue[0]}`))
+        dispatch(onSendErrorMessageClient(`${firstValue[0]}`))
 
       } else {
-        dispatch(sendServerErrorMessage(error.response.data.error))
+        dispatch(onSendServerErrorMessageClient(error.response.data.error))
       }
     }
   }
 
   const startDeletingClient = async () => {
     try {
-      await calendarApi.delete(`/events/${activeEvent.id}`);
-      dispatch(onDeleteEvent());
+      await calendarApi.delete(`/client/update/${activeEvent.id}`);
+      dispatch(onDeleteClient());
     } catch (error) {
       console.log(error);
       Swal.fire('Error al eliminar', error.response.data.msg, 'error');
@@ -81,11 +72,11 @@ export const useClientStore = () => {
   }
 
   const startClearMessage = () => {
-    dispatch(clearMessage());
+    dispatch(onClearMessageClient());
   }
 
   const startConfirmDelete = () => {
-    dispatch(onConfirmDelete());
+    dispatch(onConfirmDeleteClient());
   }
 
 
