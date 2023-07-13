@@ -9,9 +9,7 @@ import {
     Alert,
     Box,
     Button,
-    Checkbox,
     FormControl,
-    FormControlLabel,
     Grid,
     IconButton,
     Input,
@@ -24,58 +22,60 @@ import { tokens } from '../../theme';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { useElectronicSignatureStore } from '../../store';
+import { LoadingSpinner } from '../../modules/components/LoadingSpinner';
 
 export const ElectronicSignature = () => {
 
+    /* Diseño - tema */
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    /* Manejo de estado */
+    const { startLoadUser, isLoading, user, errorMessage } = useElectronicSignatureStore();
+
+    const fileInputRef = useRef();
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const fileInputRef = useRef();
 
- 
+    const [file, setFile] = useState("");
+    console.log(file)
+
     useEffect(() => {
         const url = new URL(document.location)
         const authParam = url.searchParams.get('auth');
-        console.log(authParam)
+        startLoadUser(authParam)
     }, [])
-    
-
-    const errorMessage = "";
-
-    const onFileInputChange = () => {
-
-    }
 
     return (
         <AuthLayout title="Firma electrónica" imgSrc={firmaGif}>
-
             <Typography
                 textAlign="center"
                 sx={{ mt: 2, fontSize: "14px" }}
             >
-                Hola  Efrían Raza con  CI:17273635467001, para poder configurar el sistema de facturación electrónica, debes llenar los siguientes campos:
+                Hola  {user[0]?.name_client} con  CI: {user[0]?.ruc_client}, para poder configurar el sistema de facturación electrónica, debes llenar los siguientes campos:
             </Typography>
 
             <Box display="flex" justifyContent="center" alignItems="center" marginTop={2}>
                 <img
                     src="/img/firmlog.png"
                     alt="logo"
-                    style={{ width: "80px"}}
+                    style={{ width: "80px" }}
                 />
             </Box>
 
             <Box sx={{ mt: 2 }}>
                 <Formik
-                /*    initialValues={{ email: '', password: '' }}
-                      validationSchema={validationSchema}
-                      onSubmit={(values) => {
-                        onLogin(values);
-                      }} 
-                */
+                    initialValues={{
+                        password: '',
+                        p_12: null
+                    }}
+                    validationSchema={validationSchema}
+                    onSubmit={(values) => {
+                        console.log(values);
+                    }}
                 >
-                    {({ errors, touched }) => (
+                    {({ errors, touched, setFieldValue }) => (
                         <Form>
                             {/* PASSWORD */}
                             <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
@@ -106,28 +106,53 @@ export const ElectronicSignature = () => {
                                     {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
                                 </ErrorMessage>
                             </FormControl>
-
-                            <input
-                                type="file"
-                                multiple
-                                ref={fileInputRef}
-                                onChange={onFileInputChange}
-                                style={{ display: 'none' }}
-                            />
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                justifyContent="center"
-                            >
-                                <Typography sx={{ color: colors.grey[500] }}> Subir el archivo <em><strong>P12</strong></em> </Typography>
-                                <IconButton
-                                    sx={{ background: colors.primary[400], color: "white", ml: 2, "&:hover": { color: colors.primary[400] } }}
-                                    onClick={() => fileInputRef.current.click()}
+                            <FormControl sx={{ width: '100%', mb: 2 }} variant="standard">
+                                <input
+                                    id="p_12"
+                                    name="p_12"
+                                    type="file"
+                                    /* accept=".pdf" */
+                                    style={{ display: 'none' }}
+                                    ref={fileInputRef}
+                                    onChange={(event) => {
+                                        const file = event.target.files[0];
+                                        console.log(file)
+                                        if (file != undefined) {
+                                            const reader = new FileReader();
+                                            reader.onloadend = () => {
+                                                const base64Data = reader.result;
+                                                console.log(base64Data)
+                                                const data = {
+                                                    change: true,
+                                                    b64: base64Data.split(",")[1],
+                                                    ext: base64Data.split(';')[0].split('/')[1]
+                                                }
+                                                setFieldValue('p_12', data);
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }else{
+                                            setFieldValue('p_12',null)
+                                        }
+                                    }}
+                                />
+                                <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="start"
                                 >
-                                    <UploadOutlined />
-                                </IconButton>
+                                    <Typography sx={{ color: colors.grey[500] }}>Subir el archivo <em><strong>P12</strong></em></Typography>
+                                    <IconButton
+                                        sx={{ background: colors.primary[400], color: "white", ml: 2, "&:hover": { color: colors.primary[400] } }}
+                                        onClick={() => fileInputRef.current.click()}
+                                    >
+                                        <UploadOutlined />
+                                    </IconButton>
+                                </Box>
+                                <ErrorMessage name="p_12">
+                                    {(msg) => <TextHelper sx={{ color: 'red' }}>{msg}</TextHelper>}
+                                </ErrorMessage>
+                            </FormControl>
 
-                            </Box>
 
                             {/* ALERT BOX */}
                             <Grid
@@ -156,6 +181,15 @@ export const ElectronicSignature = () => {
                     )}
                 </Formik>
             </Box>
+            <LoadingSpinner isSaving={isLoading} message="Cargando información..." />
         </AuthLayout>
     )
 }
+
+const validationSchema = Yup.object().shape({
+    password: Yup.string()
+        .required('Este campo es requerido'),
+    p_12: Yup.object()
+        .required('Este campo es requerido'),
+
+})
