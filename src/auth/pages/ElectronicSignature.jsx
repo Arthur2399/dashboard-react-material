@@ -36,7 +36,6 @@ export const ElectronicSignature = () => {
 
     /* Manejo de estado */
     const { startLoadUser, startPostElectronicSignature, isLoading, user, errorMessage, confirm } = useElectronicSignatureStore();
-    console.log(errorMessage)
 
     const fileInputRef = useRef();
     const [showPassword, setShowPassword] = useState(false);
