@@ -17,8 +17,8 @@ export const electronicSignatureSlice = createSlice({
             state.isLoading = false;
             state.user = payload
         },
-        onConfirm: () => {
-            state.confirm = true
+        onConfirm: (state) => {
+            state.confirm = true;
         },
         onSendErrorMessageElecSignature: (state, { payload }) => {
             state.isLoading = false;

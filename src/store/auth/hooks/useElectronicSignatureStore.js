@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { onIsLoadingElecSignature, onLoadUser } from "../electronicSignatureSlice";
+import { onConfirm, onIsLoadingElecSignature, onLoadUser, onSendErrorMessageElecSignature } from "../electronicSignatureSlice";
 
 export const useElectronicSignatureStore = () => {
     const {
@@ -10,7 +10,7 @@ export const useElectronicSignatureStore = () => {
         serverMessage } = useSelector(state => state.elecSignature);
 
     const dispatch = useDispatch();
-    
+
     const startLoadUser = async (token) => {
         try {
             dispatch(onIsLoadingElecSignature())
@@ -22,6 +22,27 @@ export const useElectronicSignatureStore = () => {
             });
             const data = await response.json();
             dispatch(onLoadUser(data))
+            if (response.status == 401) {
+                dispatch(onSendErrorMessageElecSignature("Lo sentimos, pero tu sesión expiró"));
+            }
+        } catch (error) {
+        }
+    }
+
+    const startPostElectronicSignature = async (token, values) => {
+        try {
+            dispatch(onIsLoadingElecSignature())
+            const response = await fetch('http://192.168.100.2:8084/makeurl/upload', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: values
+            });
+            const data = await response.json();
+            dispatch(onConfirm());
+            console.log(data)
         } catch (error) {
             console.log(error)
         }
@@ -37,6 +58,7 @@ export const useElectronicSignatureStore = () => {
 
         /* Métodos */
         startLoadUser,
+        startPostElectronicSignature,
 
     }
 }
