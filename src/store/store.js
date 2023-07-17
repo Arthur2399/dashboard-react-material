@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authSlice } from "./auth";
+import { authSlice, electronicSignatureSlice } from "./auth";
 import {
     accountingPlanStructureSlice,
     changePasswordSlice,
@@ -20,6 +20,7 @@ import {
 export const store = configureStore({
     reducer: {
         /* Sistema */
+        elecSignature: electronicSignatureSlice.reducer,
         auth: authSlice.reducer,
         companyInfo: companyInfoSlice.reducer,
         changePassword: changePasswordSlice.reducer,

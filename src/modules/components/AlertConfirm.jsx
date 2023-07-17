@@ -8,11 +8,11 @@ export const AlertConfirm = ({ title, message, confirm, buttonConfirm }) => {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Contraseña cambiada correctamente"}
+        {title}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Por su seguridad vamos a cerrar la sesión en todos los dispositivos, por favor vuelva a ingresar con las nuevas credenciales
+          {message}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
