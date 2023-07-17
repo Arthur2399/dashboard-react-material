@@ -105,6 +105,7 @@ export const useCompanyInfoStore = () => {
 
     const startChangeCompany = () => {
         localStorage.removeItem("Company")
+        checkingCompany();
         dispatch(changeCompany())
     }
 

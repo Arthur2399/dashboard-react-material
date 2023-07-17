@@ -59,7 +59,7 @@ export const AuthLayout = ({ children, title = '', imgSrc }) => {
                         borderTopLeftRadius: { md: "0px", sm: "20px", xs: "20px" },
                         borderBottomLeftRadius: { md: "0px", sm: "20px", xs: "20px" },
                     }}>
-                    <Typography variant='h5' sx={{ mb: 0, color: colors.primary[400] }} textAlign="center">{title}</Typography>
+                    <Typography variant='h4' sx={{ mb: 0, color: colors.primary[400] }} textAlign="center">{title}</Typography>
                     {children}
                 </Grid>
             </Grid>

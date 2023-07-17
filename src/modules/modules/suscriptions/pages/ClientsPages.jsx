@@ -86,10 +86,10 @@ export const ClientsPages = () => {
                 };
                 return (
                     <>
-                        <IconButton onClick={handleEdit} >
+                        <IconButton onClick={handleEdit} title="Editar" sx={{p:"4px" , "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] }}} >
                             {icons["EditIcon"]()}
                         </IconButton>
-                        <IconButton onClick={handleDelete}>
+                        <IconButton onClick={handleDelete} title="Archivar" sx={{p:"4px" , "&:hover": { color: colors.redAccent [700], background: colors.redAccent[200] },}}>
                             {icons["ArchiveIcon"]()}
                         </IconButton>
                     </>
@@ -166,6 +166,7 @@ const initialValues ={
 	cellphone2 : "",
 	comercial_name : "",
 	company_id: "",
+    postal_code:"",
 	country_id:"",
 	email: "",
 	first_name:"",
