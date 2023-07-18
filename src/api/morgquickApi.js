@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getEnvironments } from '../helpers/getEnvironments';
 
 const { VITE_API_URL } = getEnvironments();
+console.log(VITE_API_URL)
 
 
 export const morgquickApi = axios.create({
