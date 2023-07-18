@@ -14,7 +14,7 @@ export const useAuthStore = () => {
         dispatch(checkingCredentials())
         try {
             const { data } = await morgquickApi.post('/authMorg/auth/login', { email, password });
-            sessionStorage.setItem("token", data.token);
+            localStorage.setItem("token", data.token);
             dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }));
             startGetCompany();
         } catch (error) {
@@ -26,11 +26,11 @@ export const useAuthStore = () => {
     }
 
     const checkAuthToken = async () => {
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
         if (!token) return dispatch(logout());
         try {
             const { data } = await morgquickApi.get('/authMorg/auth/token');
-            sessionStorage.setItem("token", data.token);
+            localStorage.setItem("token", data.token);
             dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }));
         } catch (error) {
             localStorage.clear();
@@ -40,7 +40,7 @@ export const useAuthStore = () => {
 
     const startLogout = () => {
         localStorage.clear();
-        sessionStorage.clear();
+        localStorage.clear();
         dispatch(logout());
     }
 
