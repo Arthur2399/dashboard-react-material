@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import {
+  AccountingPlan,
   AccountingPlanStructure,
   Treasury,
 } from '../pages';
@@ -7,11 +8,11 @@ import {
 export const AccountingRoutes = () => {
   return (
     <Routes>
-      <Route path="tesoreria" element={<Treasury />} />
-      <Route path="estructuraPlanContable" element={<AccountingPlanStructure />} />
-      <Route path="planContable" element={<Treasury />} />
-      <Route path="cuentasCierre" element={<Treasury />} />
       <Route path="conciliacionBancaria" element={<Treasury />} />
+      <Route path="cuentasCierre" element={<Treasury />} />
+      <Route path="estructuraPlanContable" element={<AccountingPlanStructure />} />
+      <Route path="planContable" element={<AccountingPlan />} />
+      <Route path="tesoreria" element={<Treasury />} />
       <Route path="tiposComprobantes" element={<Treasury />} />
 
       {/* Movimientos */}
