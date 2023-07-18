@@ -120,7 +120,7 @@ export const AccountingPlan = () => {
                 />
             </Box>
 
-            //TODO Spinner de carga cuando el Backend este listo
+            {/* TODO Spinner de carga cuando el Backend este listo */}
             {/*
             <LoadingSpinner isSaving={isLoading} message={"Cargando clientes, por favor espere..."} />
             <AlertConfirm

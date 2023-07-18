@@ -2,7 +2,7 @@ import { Autocomplete, Box, Modal, TextField, Typography, useMediaQuery } from "
 import { useNavigate } from "react-router-dom";
 import { getIcons } from "../../../../helpers";
 import { Header } from "../../components";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 
 export const AccountingPlanForm = () => {
 
@@ -48,7 +48,7 @@ export const AccountingPlanForm = () => {
                                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
                             }}
                         >
-                            {/* TIPO DE DOCUMENTO */}
+                            {/* CUENTA PADRE */}
                             <Autocomplete
                                 options={[]}
                                 getOptionLabel={(option) => option.label}
@@ -69,9 +69,89 @@ export const AccountingPlanForm = () => {
                                         error={errors.identification_type_id && touched.identification_type_id || !!errorAtributes.identification_type_id}
                                         helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id || errorAtributes.identification_number} */
                                         variant="filled" />} />
-
+                            {/* CUENTA */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Cuenta"
+                                placeholder="Ingrese la cuenta"
+                                name="identification_number"
+                                sx={{ gridColumn: "span 4 " }}
+                            /* error={errors.identification_number && touched.identification_number || !!errorAtributes.identification_number}
+                            helperText={errors.identification_number && touched.identification_number && errors.identification_number || errorAtributes.identification_number} */
+                            />
+                            {/* NOMBRE */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Nombre"
+                                placeholder="Ingrese nombre"
+                                name="identification_number"
+                                sx={{ gridColumn: "span 4 " }}
+                            /* error={errors.identification_number && touched.identification_number || !!errorAtributes.identification_number}
+                            helperText={errors.identification_number && touched.identification_number && errors.identification_number || errorAtributes.identification_number} */
+                            />
+                            {/* ULTIMO NIVEL */}
+                            <Autocomplete
+                                options={[{ value: 1, label: "Si" }]}
+                                getOptionLabel={(option) => option.label}
+                                value={[].find((option) => option.value === values.identification_type_id) || null}
+                                onBlur={() => setFieldTouched('identification_type_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('identification_type_id', newValue ? newValue.value : null);
+                                    setTypeIdentificationSelect(newValue);
+                                }}
+                                sx={{ gridColumn: "span 1" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Ultimo nivel"
+                                        placeholder="Busque seleccione una cuenta contable"
+                                        name="identification_type_id"
+                                        /*
+                                        TODO: Manejar los errores desde el Backend
+                                        error={errors.identification_type_id && touched.identification_type_id || !!errorAtributes.identification_type_id}
+                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id || errorAtributes.identification_number} */
+                                        variant="filled" />} />
+                            {/* NIVEL CUENTA */}
+                            <Field
+                                as={TextField}
+                                type="text"
+                                fullWidth
+                                variant="filled"
+                                label="Nivel cuenta"
+                                placeholder="Ingrese nombre"
+                                name="identification_number"
+                                sx={{ gridColumn: "span 1 " }}
+                            /* error={errors.identification_number && touched.identification_number || !!errorAtributes.identification_number}
+                            helperText={errors.identification_number && touched.identification_number && errors.identification_number || errorAtributes.identification_number} */
+                            />
+                            {/* ESTADO */}
+                            <Autocomplete
+                                options={[{ value: 1, label: "ACTIVO" }]}
+                                getOptionLabel={(option) => option.label}
+                                value={[].find((option) => option.value === values.identification_type_id) || null}
+                                onBlur={() => setFieldTouched('identification_type_id', true)}
+                                onChange={(event, newValue) => {
+                                    setFieldValue('identification_type_id', newValue ? newValue.value : null);
+                                    setTypeIdentificationSelect(newValue);
+                                }}
+                                sx={{ gridColumn: "span 2" }}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                        label="Estado"
+                                        placeholder="Seleccione un estado"
+                                        name="identification_type_id"
+                                        /*
+                                        TODO: Manejar los errores desde el Backend
+                                        error={errors.identification_type_id && touched.identification_type_id || !!errorAtributes.identification_type_id}
+                                        helperText={errors.identification_type_id && touched.identification_type_id && errors.identification_type_id || errorAtributes.identification_number} */
+                                        variant="filled" />} />
                             <Modal
-                                open={true}
+                                open={false}
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
                             >

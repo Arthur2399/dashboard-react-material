@@ -41,12 +41,24 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
 import LineStyleIcon from '@mui/icons-material/LineStyle';
 import TimelineIcon from '@mui/icons-material/Timeline';
-
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import BookIcon from '@mui/icons-material/Book';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 import BallotIcon from '@mui/icons-material/Ballot';
 import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
+import QueueIcon from '@mui/icons-material/Queue';
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import SystemSecurityUpdateWarningIcon from '@mui/icons-material/SystemSecurityUpdateWarning';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
+import LowPriorityIcon from '@mui/icons-material/LowPriority';
 
 
 export const getIcons = () => {
@@ -99,6 +111,18 @@ export const getIcons = () => {
     "FactCheckIcon": (props) => <FactCheckIcon {...props}/>,
     "BallotIcon": (props) => <BallotIcon {...props}/>,
     "LibraryAddCheckIcon": (props) => <LibraryAddCheckIcon {...props}/>,
+    "AssignmentTurnedInIcon": (props) => <AssignmentTurnedInIcon {...props}/>,
+    "Inventory2Icon": (props) => <Inventory2Icon {...props}/>,
+    "DeveloperBoardIcon": (props) => <DeveloperBoardIcon {...props}/>,
+    "QueueIcon": (props) => <QueueIcon {...props}/>,
+    "StoreMallDirectoryIcon": (props) => <StoreMallDirectoryIcon {...props}/>,
+    "DynamicFeedIcon": (props) => <DynamicFeedIcon {...props}/>,
+    "EscalatorWarningIcon": (props) => <EscalatorWarningIcon {...props}/>,
+    "SyncAltIcon": (props) => <SyncAltIcon {...props}/>,
+    "SystemSecurityUpdateWarningIcon": (props) => <SystemSecurityUpdateWarningIcon {...props}/>,
+    "ReceiptLongIcon": (props) => <ReceiptLongIcon {...props}/>,
+    "FamilyRestroomIcon": (props) => <FamilyRestroomIcon {...props}/>,
+    "LowPriorityIcon": (props) => <LowPriorityIcon {...props}/>,
   }
   return icons;
 }
