@@ -11,7 +11,7 @@ export const clientSlice = createSlice({
         serverMessage: null,
     },
     reducers: {
-        onIsLoading: (state) => {
+        onIsLoadingClient: (state) => {
             state.isLoading = true;
         },
 
@@ -20,7 +20,6 @@ export const clientSlice = createSlice({
         },
         onLoadClients: (state, { payload = [] }) => {
             state.isLoading = false;
-            // state.events = payload;
             state.clients = payload
         },
 
@@ -39,46 +38,48 @@ export const clientSlice = createSlice({
             });
         },
 
-        onConfirmDelete: (state,) => {
+        onConfirmDeleteClient: (state,) => {
             state.confirm = true
         },
-        sendErrorMessage: (state, { payload }) => {
+        onSendErrorMessageClient: (state, { payload }) => {
             state.isLoading = false;
             state.errorMessage = payload;
         },
-        sendServerErrorMessage: (state, { payload }) => {
+        onSendServerErrorMessageClient: (state, { payload }) => {
             state.isLoading = false;
             state.serverMessage = payload;
         },
-        clearMessage: (state) => {
+        onClearMessageClient: (state) => {
             state.errorMessage = null;
             state.serverMessage = null;
             state.confirm = false;
+        },
+        onDeleteClient: (state) => {
+            if (state.activeEvent) {
+                state.events = state.events.filter(event => event.id !== state.activeEvent.id);
+                state.activeEvent = null;
+            }
+        },
+        onLogoutClient: (state) => {
+            state.isLoadingEvents = false,
+                state.events = []
+            state.activeEvent = null
         }
-
-        /*       onDeleteEvent: ( state ) => {
-       if ( state.activeEvent ) {
-           state.events = state.events.filter( event => event.id !== state.activeEvent.id );
-           state.activeEvent = null;
-       }
-   },
- 
-   onLogoutCalendar: ( state ) => {
-       state.isLoadingEvents = true,
-       state.events      = []
-       state.activeEvent = null
-   } */
     }
 })
 
 export const {
-    onIsLoading,
-    onLoadClients,
+
+    onIsLoadingClient,
     onSetActiveClient,
+    onLoadClients,
     onAddNewClient,
     onUpdateClient,
-    sendErrorMessage,
-    sendServerErrorMessage,
-    clearMessage,
-    onConfirmDelete
+    onConfirmDeleteClient,
+    onSendErrorMessageClient,
+    onSendServerErrorMessageClient,
+    onClearMessageClient,
+    onDeleteClient,
+    onLogoutClient,
+
 } = clientSlice.actions;
