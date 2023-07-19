@@ -106,7 +106,7 @@ export const SideBar = () => {
             }}
           >
             {!isCollapsed && (
-              <Box position="fixed" className="animate__animated animate__fadeIn animate__delay-1s" zIndex={10} sx={{ background: colors.primary[400], width:"268px", top:"0", left:"0"}}>
+              <Box position="fixed" className=" my-element animate__animated animate__fadeIn" zIndex={10} sx={{ background: colors.primary[400], width:"268px", top:"0", left:"0"}}>
                 <Box
                   display="flex"
                   justifyContent="center"
