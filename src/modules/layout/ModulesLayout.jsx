@@ -31,7 +31,7 @@ export const ModulesLayout = ({ children }) => {
             sx={{ height: "calc(100% - 72px)" }} 
             flexDirection="column" 
             display="flex" 
-            justifyContent="space-evenly">
+            >
             {children}
           </Box>
       </Box>

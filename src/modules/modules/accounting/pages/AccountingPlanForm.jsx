@@ -28,7 +28,7 @@ export const AccountingPlanForm = () => {
 
 
     return (
-        <Box className="animate__animated animate__fadeIn">
+        <>
             <Header title="Crear cuenta contable" subtitle="Crea los clientes de tu negocio." />
             <Formik
             //initialValues={initialState}
@@ -169,6 +169,6 @@ export const AccountingPlanForm = () => {
                     </Form>
                 )}
             </Formik>
-        </Box>
+        </>
     )
 }
