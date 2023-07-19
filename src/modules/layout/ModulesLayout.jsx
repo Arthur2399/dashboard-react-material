@@ -23,7 +23,7 @@ export const ModulesLayout = ({ children }) => {
       <SideBar />
       <Box component='main' width="100%" height="100%" sx={{ flexGrow: 1 }}>
         <TopBar />
-        <Box overflow="auto" padding={2} sx={{ height: "calc(100% - 90px)" }}>
+        <Box overflow="auto" display="flex" justifyContent="center" alignItems="center" padding={2} sx={{ height: "calc(100% - 72px)"}}>
           {children}
         </Box>
       </Box>
