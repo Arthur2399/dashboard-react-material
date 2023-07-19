@@ -84,7 +84,7 @@ export const AccountingPlan = () => {
     }
 
     return (
-        <Box className="animate__animated animate__fadeIn" width="100%" height="100%"  flexDirection="column" display="flex" justifyContent="space-evenly">
+        <>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Header title="Plan contable" subtitle="Crea y gestiona tu cuentas contables." />
                 <Box>
@@ -128,6 +128,6 @@ export const AccountingPlan = () => {
                 message="Esta acción hara que el cliente no este activo para futuros ingresos."
                 confirm={confirm}
             /> */}
-        </Box>
+        </>
     )
 }
