@@ -59,6 +59,8 @@ import SystemSecurityUpdateWarningIcon from '@mui/icons-material/SystemSecurityU
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
 import LowPriorityIcon from '@mui/icons-material/LowPriority';
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import ArtTrackIcon from '@mui/icons-material/ArtTrack';
 
 
 export const getIcons = () => {
@@ -123,6 +125,9 @@ export const getIcons = () => {
     "ReceiptLongIcon": (props) => <ReceiptLongIcon {...props}/>,
     "FamilyRestroomIcon": (props) => <FamilyRestroomIcon {...props}/>,
     "LowPriorityIcon": (props) => <LowPriorityIcon {...props}/>,
+    "AssignmentReturnIcon" : (props)=> <AssignmentReturnIcon {...props} />,
+    "ArtTrackIcon" : (props)=> <ArtTrackIcon {...props} />,
+    
   }
   return icons;
 }
