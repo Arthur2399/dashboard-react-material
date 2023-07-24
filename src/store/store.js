@@ -21,17 +21,19 @@ import {
 export const store = configureStore({
     reducer: {
 
+        /* Sistema */
+        auth: authSlice.reducer,
+        companyInfo: companyInfoSlice.reducer,
+        elecSignature: electronicSignatureSlice.reducer,
+        changePassword: changePasswordSlice.reducer,
+        community: communitySlice.reducer,
+        menu: menuSlice.reducer,
+
+
         /* Contabilidad */
         accountingPlan: accountingPlanSlice.reducer,
         accPlanStructure: accountingPlanStructureSlice.reducer,
 
-        /* Sistema */
-        elecSignature: electronicSignatureSlice.reducer,
-        auth: authSlice.reducer,
-        companyInfo: companyInfoSlice.reducer,
-        changePassword: changePasswordSlice.reducer,
-        community: communitySlice.reducer,
-        menu: menuSlice.reducer,
 
         /* suscripciones */
         client: clientSlice.reducer,

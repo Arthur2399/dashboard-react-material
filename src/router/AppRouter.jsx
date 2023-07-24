@@ -10,13 +10,13 @@ import { useCompanyInfoStore } from '../modules/hooks/useCompanyInfoStore';
 export const AppRouter = () => {
 
     const { status, checkAuthToken } = useAuthStore();
-    const { status: statusCompany, checkingCompany } = useCompanyInfoStore();
+    const { status: statusCompany, } = useCompanyInfoStore();
 
     useEffect(() => {
         checkAuthToken();
-        checkingCompany();
     }, [])
-    
+
+
     // Caso uno: Verificación de credenciales
     if (status === "checking") {
         return <CheckingAuth msg="Validando credenciales ..." />
