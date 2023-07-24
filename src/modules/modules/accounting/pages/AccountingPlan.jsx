@@ -104,6 +104,21 @@ export const AccountingPlan = () => {
                         {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
                         Crear
                     </Button>
+                    <Button
+                        onClick={onCreateAccoutingPlan}
+                        sx={{
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                            padding: "10px 20px",
+                            "&:hover": {
+                                backgroundColor: colors.primary[300],
+                            }
+                        }}
+                        variant="outlined"
+                    >
+                        {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
+                        Crear
+                    </Button>
                 </Box>
             </Box>
             <Box
