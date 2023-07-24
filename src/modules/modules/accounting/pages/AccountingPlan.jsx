@@ -24,7 +24,7 @@ export const AccountingPlan = () => {
             headerName: "Cuenta",
             flex: 1,
             headerAlign: "center",
-            align: "start"
+            align: "left"
         },
         {
             field: "name",
