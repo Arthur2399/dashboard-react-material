@@ -20,6 +20,11 @@ import {
 
 export const store = configureStore({
     reducer: {
+
+        /* Contabilidad */
+        accountingPlan: accountingPlanSlice.reducer,
+        accPlanStructure: accountingPlanStructureSlice.reducer,
+
         /* Sistema */
         elecSignature: electronicSignatureSlice.reducer,
         auth: authSlice.reducer,
@@ -27,12 +32,6 @@ export const store = configureStore({
         changePassword: changePasswordSlice.reducer,
         community: communitySlice.reducer,
         menu: menuSlice.reducer,
-
-
-
-        /* Contabilidad */
-        accountingPlan: accountingPlanSlice.reducer,
-        accPlanStructure: accountingPlanStructureSlice.reducer,
 
         /* suscripciones */
         client: clientSlice.reducer,
@@ -43,7 +42,5 @@ export const store = configureStore({
         plans: plansSlice.reducer,
         plansDetails: plansDetailsSlice.reducer,
         services: servicesSlice.reducer,
-
-
     }
 });
