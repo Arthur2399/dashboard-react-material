@@ -13,7 +13,7 @@ morgquickApi.interceptors.request.use( config => {
 
     config.headers = {
         ...config.headers,
-        'Authorization': sessionStorage.getItem('token')
+        'Authorization': localStorage.getItem('token')
     }
 
     return config;

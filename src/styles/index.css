@@ -8,6 +8,7 @@ body,
 
 ::-webkit-scrollbar {
   width: 10px;
+  display: none;
 }
 
 /* Track */
@@ -29,4 +30,8 @@ body,
   width:"100%";
   border-radius: 10px;
   height: "200px";
+}
+
+.my-element {
+  animation-duration: 2s; /* don't forget to set a duration! */
 }

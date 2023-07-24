@@ -4,7 +4,6 @@ import { LineChart, StatBox } from '../components/';
 import { tokens } from '../../../../theme';
 
 import { Box, Button, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { mockTransactions } from '../../../../data/modules/dashboard/mockData';
 
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -17,11 +16,10 @@ export const DashboardPage = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery("(min-width:1000px)");
 
   return (
-    <Box className="animate__animated animate__fadeIn" >
-      {/* HEADER */}
+    <>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="Inicio" subtitle="¡Bienvenido a Morgquick!" />
         <Box>
@@ -40,8 +38,10 @@ export const DashboardPage = () => {
         </Box>
       </Box>
 
+
       {/* GRID & CHARTS */}
       <Box
+        height="70vh"
         display="grid"
         gap="30px"
         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
@@ -134,7 +134,6 @@ export const DashboardPage = () => {
             }
           />
         </Box>
-
         {/* ROW 2 */}
         <Box
           gridColumn="span 4"
@@ -172,12 +171,12 @@ export const DashboardPage = () => {
               </IconButton>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
+          <Box height="220px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
           </Box>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

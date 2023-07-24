@@ -10,6 +10,7 @@ import { Box, IconButton, InputBase, Typography, useTheme } from "@mui/material"
 
 import logo from "/logos/logo.png"
 import "react-pro-sidebar/dist/css/styles.css";
+import { ScaleLoader } from "react-spinners";
 
 
 const icons = getIcons();
@@ -50,7 +51,7 @@ const RenderItem = ({ item, selected, setSelected }) => {
           userSelect: 'none',
           color: colors.grey[100],
         }}
-        >
+      >
         {item.subItems.map((subitem) => (
           <RenderItem key={subitem.id} item={subitem} selected={selected} setSelected={setSelected} />
         ))}
@@ -65,19 +66,23 @@ const RenderItem = ({ item, selected, setSelected }) => {
 
 export const SideBar = () => {
 
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 
-  const { modules } = useMenuStore();
+  const { modules,isLoading } = useMenuStore();
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   return (
     <Box
       sx={{
+        m: 0,
+        p: 0,
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
+          /* background: `red!important`, */
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -94,54 +99,62 @@ export const SideBar = () => {
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? icons["MenuOutlinedIcon"](): undefined}
+            onClick={isCollapsed == true ? () => setIsCollapsed(!isCollapsed) : () => { }}
+            icon={isCollapsed ? icons["MenuOutlinedIcon"]() : undefined}
             style={{
               margin: "0px",
+              padding: "0px",
               color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                mt="-10px"
-                sx={{ cursor: 'default', userSelect: 'none', margin: 0 }}
-              >
-                <img
-                  src={logo}
-                  alt="logo"
-                  style={{ width: "100px", marginLeft: '60px' }}
-                />
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                {icons["MenuOutlinedIcon"]({ style: { color: colors.grey[100] } })}
-                </IconButton>
+              <Box position="fixed" className=" my-element animate__animated animate__fadeIn" zIndex={10} sx={{ background: colors.primary[400], width: "268px", top: "0", left: "0" }}>
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  sx={{ cursor: 'default', userSelect: 'none', margin: 0 }}
+                >
+                  <img
+                    src={logo}
+                    alt="logo"
+                    style={{ width: "100px", marginLeft: '60px', marginTop: "10px" }}
+                  />
+                  <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    {icons["MenuOutlinedIcon"]({ style: { color: colors.grey[100], marginLeft: "20px" } })}
+                  </IconButton>
+                </Box>
+                <Box mb="25px">
+                  <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
+                    <Box
+                      width="85%"
+                      display="flex"
+                      margin="20px"
+                      backgroundColor={colors.primary[200]}
+                      borderRadius="3px"
+                      sx={{ cursor: 'default', userSelect: 'none', }}
+                    >
+                      <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Buscar..." />
+                      <IconButton type="button" sx={{ p: 1 }}>
+                        {icons['SearchIcon']()}
+                      </IconButton>
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
             )}
           </MenuItem>
 
-          {!isCollapsed && (
-            <Box mb="25px">
-              <Box textAlign="center" sx={{ cursor: 'default', userSelect: 'none' }}>
-                <Box
-                  width="85%"
-                  display="flex"
-                  margin="20px"
-                  backgroundColor={colors.primary[200]}
-                  borderRadius="3px"
-                  sx={{ cursor: 'default', userSelect: 'none', }}
-                >
-                  <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Buscar..." />
-                  <IconButton type="button" sx={{ p: 1 }}>
-                    {icons['SearchIcon']()}
-                  </IconButton>
-                </Box>
-              </Box>
-            </Box>
-          )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "5%"} sx={{ cursor: 'default', userSelect: 'none' }}>
+          <Box paddingLeft={isCollapsed ? undefined : "5%"} sx={{ cursor: 'default', userSelect: 'none', mt: isCollapsed ? 0 : '140px' }}>
+            <Box
+              width="100%"
+              height="75vh"
+              sx={{ display: isLoading == true ? "flex" : "none", flexDirection:"column", justifyContent:"center", alignItems:"center" }}
+            >
+              <ScaleLoader loading={isLoading} color="white" width={6} />
+              <Typography sx={{ color: "white" }}>Cargando...</Typography>
+            </Box>
             {modules.map((item) => (
               item.titleGroup ? (
                 <Typography

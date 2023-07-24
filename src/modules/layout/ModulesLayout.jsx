@@ -23,9 +23,17 @@ export const ModulesLayout = ({ children }) => {
       <SideBar />
       <Box component='main' width="100%" height="100%" sx={{ flexGrow: 1 }}>
         <TopBar />
-        <Box overflow="auto" padding={2} sx={{ height: "calc(100% - 90px)" }}>
-          {children}
-        </Box>
+          <Box 
+            className="animate__animated animate__fadeIn" 
+            overflow="auto" 
+            width="100%" 
+            padding={2}  
+            sx={{ height: "calc(100% - 72px)" }} 
+            flexDirection="column" 
+            display="flex" 
+            >
+            {children}
+          </Box>
       </Box>
     </Box>
   );

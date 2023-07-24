@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import 
 { morgquickApi } from "../../api/morgquickApi";
 import { decryptData } from "../../hooks/useEncrypData";
-import { checkingAccess, getModules } from "../../store/modules/ui/menu/menuSlice";
+import { checkingAccess, clearModule, getModules } from "../../store/modules/ui/menu/menuSlice";
 
 export const useMenuStore = () => {
 
-    const { status, modules } = useSelector(state => state.menu);
+    const { status, modules, isLoading } = useSelector(state => state.menu);
     const dispatch = useDispatch();
 
     const startCreateMenu = async () => {
@@ -22,12 +22,18 @@ export const useMenuStore = () => {
         }
     }
 
+    const startClearMenu = () =>{
+        dispatch(clearModule());
+    }
+
     return {
 
         /* Atributos */
         status,
         modules,
+        isLoading,
         /* Metodos */
         startCreateMenu,
+        startClearMenu,
     }
 }

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { authSlice, electronicSignatureSlice } from "./auth";
 import {
+    accountingPlanSlice,
     accountingPlanStructureSlice,
     changePasswordSlice,
     clientSlice,
@@ -19,18 +20,20 @@ import {
 
 export const store = configureStore({
     reducer: {
+
         /* Sistema */
-        elecSignature: electronicSignatureSlice.reducer,
         auth: authSlice.reducer,
         companyInfo: companyInfoSlice.reducer,
+        elecSignature: electronicSignatureSlice.reducer,
         changePassword: changePasswordSlice.reducer,
         community: communitySlice.reducer,
         menu: menuSlice.reducer,
 
 
-
         /* Contabilidad */
+        accountingPlan: accountingPlanSlice.reducer,
         accPlanStructure: accountingPlanStructureSlice.reducer,
+
 
         /* suscripciones */
         client: clientSlice.reducer,
@@ -41,7 +44,5 @@ export const store = configureStore({
         plans: plansSlice.reducer,
         plansDetails: plansDetailsSlice.reducer,
         services: servicesSlice.reducer,
-
-
     }
 });

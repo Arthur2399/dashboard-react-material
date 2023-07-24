@@ -15,7 +15,7 @@ export const AppRouter = () => {
     useEffect(() => {
         checkAuthToken();
     }, [])
-    
+
     // Caso uno: Verificación de credenciales
     if (status === "checking") {
         return <CheckingAuth msg="Validando credenciales ..." />
