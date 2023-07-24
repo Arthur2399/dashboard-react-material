@@ -3,11 +3,13 @@ import { checkingCredentials, clearErrorMessage, login, logout } from "../store/
 import 
 { morgquickApi } from "../api/morgquickApi";
 import { useCompanyInfoStore } from "../modules/hooks/useCompanyInfoStore";
+import { useMenuStore } from "../modules/hooks/useMenuStore";
 
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth)
-    const { startGetCompany,checkingCompany } = useCompanyInfoStore();
+    const { startGetCompany,checkingCompany, startClearCompany } = useCompanyInfoStore();
+    const {startClearMenu} = useMenuStore();
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
@@ -40,9 +42,12 @@ export const useAuthStore = () => {
     }
 
     const startLogout = () => {
+        startClearCompany();
+        startClearMenu();
         localStorage.clear();
         localStorage.clear();
         dispatch(logout());
+
     }
 
     return {

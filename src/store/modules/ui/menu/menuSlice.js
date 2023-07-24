@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const menuSlice = createSlice({
     name: 'menu',
     initialState: {
-        status: 'No-checking',
+        status: 'no-checking',
         modules: [],
     },
     reducers: {
@@ -16,7 +16,7 @@ export const menuSlice = createSlice({
 
         },
         clearModule: (state) => {
-            state.status = 'not-complete';
+            state.status = 'no-checking';
             state.modules = [];
         }
     }

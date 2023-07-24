@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { morgquickApi } from "../../api/morgquickApi";
-import { changeCompany, gettingCompanies, loadingCompanies, selectCompany, setCompanies, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
+import { changeCompany, clearCompany, gettingCompanies, loadingCompanies, selectCompany, setCompanies, unselectedCompany } from "../../store/modules/ui/company/companyInfoSlice";
 import { useMenuStore } from "./useMenuStore";
 import { decryptData, encrypData } from "../../hooks/useEncrypData";
 
@@ -110,6 +110,10 @@ export const useCompanyInfoStore = () => {
         dispatch(changeCompany())
     }
 
+    const startClearCompany= () =>{
+        dispatch(clearCompany());
+    }
+
 
 
     return {
@@ -122,6 +126,7 @@ export const useCompanyInfoStore = () => {
         checkingCompany,
         startSelectionCompany,
         startChangeCompany,
-        startReloadCompanies
+        startReloadCompanies,
+        startClearCompany,
     }
 }
