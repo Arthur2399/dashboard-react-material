@@ -10,6 +10,7 @@ import { Box, IconButton, InputBase, Typography, useTheme } from "@mui/material"
 
 import logo from "/logos/logo.png"
 import "react-pro-sidebar/dist/css/styles.css";
+import { ScaleLoader } from "react-spinners";
 
 
 const icons = getIcons();
@@ -71,13 +72,14 @@ export const SideBar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Inicio");
 
-  const { modules } = useMenuStore();
+  const { modules,isLoading } = useMenuStore();
+
 
   return (
     <Box
       sx={{
-        m:0,
-        p:0,
+        m: 0,
+        p: 0,
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
           /* background: `red!important`, */
@@ -97,16 +99,16 @@ export const SideBar = () => {
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
           <MenuItem
-            onClick={isCollapsed ==true? () => setIsCollapsed(!isCollapsed): ()=>{}}
+            onClick={isCollapsed == true ? () => setIsCollapsed(!isCollapsed) : () => { }}
             icon={isCollapsed ? icons["MenuOutlinedIcon"]() : undefined}
             style={{
               margin: "0px",
-              padding:"0px",
+              padding: "0px",
               color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
-              <Box position="fixed" className=" my-element animate__animated animate__fadeIn" zIndex={10} sx={{ background: colors.primary[400], width:"268px", top:"0", left:"0"}}>
+              <Box position="fixed" className=" my-element animate__animated animate__fadeIn" zIndex={10} sx={{ background: colors.primary[400], width: "268px", top: "0", left: "0" }}>
                 <Box
                   display="flex"
                   justifyContent="center"
@@ -116,10 +118,10 @@ export const SideBar = () => {
                   <img
                     src={logo}
                     alt="logo"
-                    style={{ width: "100px", marginLeft: '60px', marginTop:"10px" }}
+                    style={{ width: "100px", marginLeft: '60px', marginTop: "10px" }}
                   />
                   <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                    {icons["MenuOutlinedIcon"]({ style: { color: colors.grey[100], marginLeft:"20px" } })}
+                    {icons["MenuOutlinedIcon"]({ style: { color: colors.grey[100], marginLeft: "20px" } })}
                   </IconButton>
                 </Box>
                 <Box mb="25px">
@@ -143,7 +145,16 @@ export const SideBar = () => {
             )}
           </MenuItem>
 
+
           <Box paddingLeft={isCollapsed ? undefined : "5%"} sx={{ cursor: 'default', userSelect: 'none', mt: isCollapsed ? 0 : '140px' }}>
+            <Box
+              width="100%"
+              height="75vh"
+              sx={{ display: isLoading == true ? "flex" : "none", flexDirection:"column", justifyContent:"center", alignItems:"center" }}
+            >
+              <ScaleLoader loading={isLoading} color="white" width={6} />
+              <Typography sx={{ color: "white" }}>Cargando...</Typography>
+            </Box>
             {modules.map((item) => (
               item.titleGroup ? (
                 <Typography

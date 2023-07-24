@@ -6,7 +6,7 @@ import { checkingAccess, clearModule, getModules } from "../../store/modules/ui/
 
 export const useMenuStore = () => {
 
-    const { status, modules } = useSelector(state => state.menu);
+    const { status, modules, isLoading } = useSelector(state => state.menu);
     const dispatch = useDispatch();
 
     const startCreateMenu = async () => {
@@ -31,6 +31,7 @@ export const useMenuStore = () => {
         /* Atributos */
         status,
         modules,
+        isLoading,
         /* Metodos */
         startCreateMenu,
         startClearMenu,
