@@ -7,7 +7,7 @@ import { useCompanyInfoStore } from "../modules/hooks/useCompanyInfoStore";
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth)
-    const { startGetCompany } = useCompanyInfoStore();
+    const { startGetCompany,checkingCompany } = useCompanyInfoStore();
     const dispatch = useDispatch();
 
     const startLogin = async ({ email, password }) => {
@@ -32,6 +32,7 @@ export const useAuthStore = () => {
             const { data } = await morgquickApi.get('/authMorg/auth/token');
             localStorage.setItem("token", data.token);
             dispatch(login({ email: data.email, job: data.job, name: data.name, photoURL: data.photoURL }));
+            checkingCompany();
         } catch (error) {
             localStorage.clear();
             dispatch(logout());
