@@ -3,22 +3,25 @@ import {
   AccountingPlan,
   AccountingPlanForm,
   AccountingPlanStructure,
+  AccoutingEntries,
   Treasury,
 } from '../pages';
 
 export const AccountingRoutes = () => {
   return (
     <Routes>
+
+      <Route path="planContable" element={<AccountingPlan />} />
+      <Route path="planContable/formulario" element={<AccountingPlanForm />} />
+
       <Route path="conciliacionBancaria" element={<Treasury />} />
       <Route path="cuentasCierre" element={<Treasury />} />
       <Route path="estructuraPlanContable" element={<AccountingPlanStructure />} />
-      <Route path="planContable" element={<AccountingPlan />} />
-      <Route path="planContable/formulario" element={<AccountingPlanForm />} />
       <Route path="tesoreria" element={<Treasury />} />
       <Route path="tiposComprobantes" element={<Treasury />} />
 
       {/* Movimientos */}
-      <Route path="movimientos/asientosContables" element={<Treasury />} />
+      <Route path="movimientos/asientosContables" element={<AccoutingEntries />} />
       <Route path="movimientos/comprobantesIngreso" element={<Treasury />} />
 
       {/* Procesos */}
