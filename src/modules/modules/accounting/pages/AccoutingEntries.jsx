@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 
-import { Box, Button, IconButton, Tooltip } from "@mui/material";
+import { Box, Button, IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 
 import { customStyles } from "../../../helpers";
@@ -9,6 +9,7 @@ import { getIcons } from "../../../../helpers";
 import { tokens } from "../../../../theme";
 import { Header } from "../../components";
 import { asientosContables } from "../../../../data/modules/accounting/mockData";
+import { useState } from "react";
 
 export const AccoutingEntries = () => {
 
@@ -18,6 +19,15 @@ export const AccoutingEntries = () => {
     const colors = tokens(theme.palette.mode);
     const icons = getIcons();
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const ITEM_HEIGHT = 48;
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const columns = [
         {
@@ -103,15 +113,15 @@ export const AccoutingEntries = () => {
 
                 };
                 return (
-                    <Box display="flex" justifyContent="center" flexWrap="wrap">
+                    <>
                         <Tooltip title="Editar">
                             <IconButton onClick={handleEdit} sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] } }} >
                                 {icons["EditIcon"]()}
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Anular">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                                {icons["CancelIcon"]()}
+                        <Tooltip title="Detalle">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] }, }}>
+                                {icons["DehazeIcon"]()}
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Anular">
@@ -119,32 +129,63 @@ export const AccoutingEntries = () => {
                                 {icons["CancelIcon"]()}
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Anular">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                                {icons["CancelIcon"]()}
+                        <Tooltip title="Más opciones">
+                            <IconButton sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] }, }}
+                                aria-label="more"
+                                id="long-button"
+                                aria-controls={open ? 'long-menu' : undefined}
+                                aria-expanded={open ? 'true' : undefined}
+                                aria-haspopup="true"
+                                onClick={handleClick}
+                            >
+                                {icons["MoreVertIcon"]()}
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Anular">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                                {icons["CancelIcon"]()}
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Anular">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                                {icons["CancelIcon"]()}
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Anular">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                                {icons["CancelIcon"]()}
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Anular">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                                {icons["CancelIcon"]()}
-                            </IconButton>
-                        </Tooltip>
-                        </Box>  
+
+                        <Menu
+                            id="long-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            PaperProps={{
+                                style: {
+                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', // Ajusta el valor de sombra según tus preferencias
+                                },
+                            }} s
+                        >
+                            <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
+                                <IconButton sx={{ mr: "10px", ml: "-10px" }}>
+                                    {icons["SyncIcon"]()}
+                                </IconButton>
+                                Reversar
+                            </MenuItem>
+                            <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
+                                <IconButton sx={{ mr: "10px", ml: "-10px" }}>
+                                    {icons["RequestPageIcon"]()}
+                                </IconButton>
+                                Descargar Excel
+                            </MenuItem>
+                            <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
+                                <IconButton sx={{ mr: "10px", ml: "-10px" }}>
+                                    {icons["ContentCopyIcon"]()}
+                                </IconButton>
+                                Copiar
+                            </MenuItem>
+                            <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
+                                <IconButton sx={{ mr: "10px", ml: "-10px" }}>
+                                    {icons["LocalPrintshopIcon"]()}
+                                </IconButton>
+                                Imprimir
+                            </MenuItem>
+                            <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
+                                <IconButton sx={{ mr: "10px", ml: "-10px" }}>
+                                    {icons["AdfScannerIcon"]()}
+                                </IconButton>
+                                Digitalizar
+                            </MenuItem>
+
+                        </Menu>
+                    </>
                 );
             },
         },
@@ -190,7 +231,7 @@ export const AccoutingEntries = () => {
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
                     getRowId={(row) => row.id}
-                    density="comfortable"
+                    density="compact"
                 />
             </Box>
 
