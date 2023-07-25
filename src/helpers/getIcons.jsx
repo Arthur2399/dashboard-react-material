@@ -3,21 +3,36 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArtTrackIcon from '@mui/icons-material/ArtTrack';
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import BallotIcon from '@mui/icons-material/Ballot';
+import BookIcon from '@mui/icons-material/Book';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
+import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import EditIcon from '@mui/icons-material/Edit';
+import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
+import FactCheckIcon from '@mui/icons-material/FactCheck';
+import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
 import GestureIcon from '@mui/icons-material/Gesture';
 import HailIcon from '@mui/icons-material/Hail';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import LineStyleIcon from '@mui/icons-material/LineStyle';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import LowPriorityIcon from '@mui/icons-material/LowPriority';
 import MapIcon from '@mui/icons-material/Map';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MessageIcon from '@mui/icons-material/Message';
@@ -29,6 +44,8 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
+import QueueIcon from '@mui/icons-material/Queue';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -37,30 +54,16 @@ import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from "@mui/icons-material/Search";
 import SettingsIcon from '@mui/icons-material/Settings';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
-import LineStyleIcon from '@mui/icons-material/LineStyle';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
-import BookIcon from '@mui/icons-material/Book';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
-import BallotIcon from '@mui/icons-material/Ballot';
-import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
-
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
-import QueueIcon from '@mui/icons-material/Queue';
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import SystemSecurityUpdateGoodIcon from '@mui/icons-material/SystemSecurityUpdateGood';
 import SystemSecurityUpdateWarningIcon from '@mui/icons-material/SystemSecurityUpdateWarning';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
-import LowPriorityIcon from '@mui/icons-material/LowPriority';
-import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
-import ArtTrackIcon from '@mui/icons-material/ArtTrack';
+import TimelineIcon from '@mui/icons-material/Timeline';
+
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
+import DownloadIcon from '@mui/icons-material/Download';
 
 
 export const getIcons = () => {
@@ -127,6 +130,10 @@ export const getIcons = () => {
     "LowPriorityIcon": (props) => <LowPriorityIcon {...props}/>,
     "AssignmentReturnIcon" : (props)=> <AssignmentReturnIcon {...props} />,
     "ArtTrackIcon" : (props)=> <ArtTrackIcon {...props} />,
+
+    "LocalPrintshopIcon": (props) => <LocalPrintshopIcon {...props}/>,
+    "FileUploadIcon": (props) => <FileUploadIcon {...props}/>,
+    "DownloadIcon": (props) => <DownloadIcon {...props}/>,
     
   }
   return icons;
