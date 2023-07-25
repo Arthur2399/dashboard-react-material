@@ -61,7 +61,7 @@ export const AccoutingEntries = () => {
             headerName: "Descripción",
             flex: 2,
             headerAlign: "center",
-            align: "center"
+            align: "center",
         },
         {
             field: "total_debit",
@@ -103,7 +103,7 @@ export const AccoutingEntries = () => {
 
                 };
                 return (
-                    <>
+                    <Box display="flex" justifyContent="center" flexWrap="wrap">
                         <Tooltip title="Editar">
                             <IconButton onClick={handleEdit} sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] } }} >
                                 {icons["EditIcon"]()}
@@ -114,7 +114,37 @@ export const AccoutingEntries = () => {
                                 {icons["CancelIcon"]()}
                             </IconButton>
                         </Tooltip>
-                    </>
+                        <Tooltip title="Anular">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                                {icons["CancelIcon"]()}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Anular">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                                {icons["CancelIcon"]()}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Anular">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                                {icons["CancelIcon"]()}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Anular">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                                {icons["CancelIcon"]()}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Anular">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                                {icons["CancelIcon"]()}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Anular">
+                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                                {icons["CancelIcon"]()}
+                            </IconButton>
+                        </Tooltip>
+                        </Box>  
                 );
             },
         },
@@ -160,7 +190,7 @@ export const AccoutingEntries = () => {
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
                     getRowId={(row) => row.id}
-                    density="compact"
+                    density="comfortable"
                 />
             </Box>
 
