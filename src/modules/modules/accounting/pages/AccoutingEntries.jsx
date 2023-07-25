@@ -8,6 +8,7 @@ import { customStyles } from "../../../helpers";
 import { getIcons } from "../../../../helpers";
 import { tokens } from "../../../../theme";
 import { Header } from "../../components";
+import { asientosContables } from "../../../../data/modules/accounting/mockData";
 
 export const AccoutingEntries = () => {
 
@@ -154,7 +155,7 @@ export const AccoutingEntries = () => {
                 sx={colorDataGrid}
             >
                 <DataGrid
-                    rows={[]}
+                    rows={asientosContables}
                     columns={columns}
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
