@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 
-import { Box, Button, IconButton } from "@mui/material";
+import { Box, Button, IconButton, Tooltip } from "@mui/material";
 import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import { planCuentas } from "../../../../data/modules/accounting/mockData";
 
@@ -24,14 +24,14 @@ export const AccountingPlan = () => {
             headerName: "Cuenta",
             flex: 1,
             headerAlign: "center",
-            align: "start"
+            align: "left"
         },
         {
             field: "name",
             headerName: "Nombre",
             flex: 2,
             headerAlign: "center",
-            align: "center"
+            align: "left"
         },
         {
             field: "last_level",
@@ -67,12 +67,16 @@ export const AccountingPlan = () => {
                 };
                 return (
                     <>
-                        <IconButton onClick={handleEdit} title="Editar" sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] } }} >
+                    <Tooltip title="Editar">
+                        <IconButton onClick={handleEdit}  sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] } }} >
                             {icons["EditIcon"]()}
                         </IconButton>
-                        <IconButton onClick={handleDelete} title="Archivar" sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                            {icons["ArchiveIcon"]()}
+                    </Tooltip>
+                    <Tooltip title="Anular">
+                        <IconButton onClick={handleDelete}  sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                            {icons["CancelIcon"]()}
                         </IconButton>
+                    </Tooltip>
                     </>
                 );
             },
@@ -88,37 +92,71 @@ export const AccountingPlan = () => {
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Header title="Plan contable" subtitle="Crea y gestiona tu cuentas contables." />
                 <Box>
+
+
+                    <Tooltip title="Imprimir">
+                        <Button
+                            onClick={onCreateAccoutingPlan}
+                            variant="outlined"
+                            sx={{
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                ml: "5px",
+                                padding: "10px 20px",
+                                "&:hover": { backgroundColor: colors.primary[400], color: "white" }
+                            }}
+                        >
+                            {icons["LocalPrintshopIcon"]()}
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Descargar Excel">
+                        <Button
+                            onClick={onCreateAccoutingPlan}
+                            variant="outlined"
+                            sx={{
+                                fontSize: "14px",
+                                ml: "5px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                "&:hover": { backgroundColor: colors.primary[400], color: "white" }
+                            }}
+                        >
+                            {icons["DownloadIcon"]()}
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Subir Excel">
+                        <Button
+                            onClick={onCreateAccoutingPlan}
+                            variant="outlined"
+                            sx={{
+                                fontSize: "14px",
+                                ml: "5px",
+                                fontWeight: "bold",
+                                padding: "10px 20px",
+                                "&:hover": { backgroundColor: colors.primary[400], color: "white" }
+                            }}
+                        >
+                            {icons["FileUploadIcon"]()}
+                        </Button>
+                    </Tooltip>
+
                     <Button
                         onClick={onCreateAccoutingPlan}
+                        variant="primary"
                         sx={{
                             backgroundColor: colors.primary[400],
                             color: colors.grey[100],
                             fontSize: "14px",
+                            ml: "20px",
                             fontWeight: "bold",
                             padding: "10px 20px",
-                            "&:hover": {
-                                backgroundColor: colors.primary[300],
-                            }
+                            "&:hover": { backgroundColor: colors.primary[300], }
                         }}
                     >
                         {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
                         Crear
                     </Button>
-                    <Button
-                        onClick={onCreateAccoutingPlan}
-                        sx={{
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                            "&:hover": {
-                                backgroundColor: colors.primary[300],
-                            }
-                        }}
-                        variant="outlined"
-                    >
-                        {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
-                        Crear
-                    </Button>
+
                 </Box>
             </Box>
             <Box
@@ -132,6 +170,7 @@ export const AccountingPlan = () => {
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
                     getRowId={(row) => row.id}
+                    density="compact"
                 />
             </Box>
 
