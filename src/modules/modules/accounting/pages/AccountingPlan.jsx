@@ -67,12 +67,16 @@ export const AccountingPlan = () => {
                 };
                 return (
                     <>
-                        <IconButton onClick={handleEdit} title="Editar" sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] } }} >
+                    <Tooltip title="Editar">
+                        <IconButton onClick={handleEdit}  sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] } }} >
                             {icons["EditIcon"]()}
                         </IconButton>
-                        <IconButton onClick={handleDelete} title="Archivar" sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
-                            {icons["ArchiveIcon"]()}
+                    </Tooltip>
+                    <Tooltip title="Anular">
+                        <IconButton onClick={handleDelete}  sx={{ p: "4px", "&:hover": { color: colors.redAccent[700], background: colors.redAccent[200] }, }}>
+                            {icons["CancelIcon"]()}
                         </IconButton>
+                    </Tooltip>
                     </>
                 );
             },
@@ -166,6 +170,7 @@ export const AccountingPlan = () => {
                     localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                     components={{ Toolbar: GridToolbar }}
                     getRowId={(row) => row.id}
+                    density="compact"
                 />
             </Box>
 
