@@ -1,3 +1,4 @@
+export * from "./AccountingEntriesForm";
 export * from "./AccountingPlan";
 export * from "./AccountingPlanForm";
 export * from "./AccountingPlanStructure";

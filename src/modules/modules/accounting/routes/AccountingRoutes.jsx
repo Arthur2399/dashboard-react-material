@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import {
+  AccountingEntriesForm,
   AccountingPlan,
   AccountingPlanForm,
   AccountingPlanStructure,
@@ -22,6 +23,8 @@ export const AccountingRoutes = () => {
 
       {/* Movimientos */}
       <Route path="movimientos/asientosContables" element={<AccoutingEntries />} />
+      <Route path="movimientos/asientosContables/formulario" element={<AccountingEntriesForm />} />
+
       <Route path="movimientos/comprobantesIngreso" element={<Treasury />} />
 
       {/* Procesos */}
