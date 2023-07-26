@@ -164,12 +164,6 @@ export const AccoutingEntries = () => {
                             </MenuItem>
                             <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
                                 <IconButton sx={{ mr: "10px", ml: "-10px" }}>
-                                    {icons["RequestPageIcon"]()}
-                                </IconButton>
-                                Descargar Excel
-                            </MenuItem>
-                            <MenuItem onClick={handleClose} sx={{ mt: "-10px", mb: "-10px", "&:hover": { background: colors.grey[200] } }}>
-                                <IconButton sx={{ mr: "10px", ml: "-10px" }}>
                                     {icons["ContentCopyIcon"]()}
                                 </IconButton>
                                 Copiar

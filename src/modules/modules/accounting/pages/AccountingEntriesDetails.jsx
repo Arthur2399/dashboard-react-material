@@ -104,11 +104,17 @@ export const AccountingEntriesDetails = () => {
                 };
                 return (
                     <>
+                    <Tooltip title="Editar">
+                            <IconButton >
+                                {icons["EditIcon"]()}
+                            </IconButton>
+                        </Tooltip>
                     <Tooltip title="Eliminar">
                         <IconButton >
                             {icons["DeleteIcon"]()}
                         </IconButton>
                     </Tooltip>
+
 
                     </>
                 );
@@ -334,8 +340,8 @@ export const AccountingEntriesDetails = () => {
                                 {icons["RestartAltIcon"]()}
                             </Button>
                             <Button type="button" onClick={() => { navigate('/contabilidad/movimientos/asientosContables/') }} title="Crear" color="primary" variant="contained" sx={{ mr: 1 }}>
-                                {icons["SaveIcon"]({ sx: { mr: 1 } })}
-                                Guardar
+                                {icons["AddCircleIcon"]({ sx: { mr: "10px" } })}
+                                Agregar
                             </Button>
                         </Box>
 
