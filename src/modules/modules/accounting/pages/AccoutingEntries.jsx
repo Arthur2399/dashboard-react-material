@@ -112,6 +112,9 @@ export const AccoutingEntries = () => {
                 const handleDelete = () => {
 
                 };
+                const handleDetails = () => {
+                    navigate(`detalle/${params.row.id}`)
+                };
                 return (
                     <>
                         <Tooltip title="Editar">
@@ -120,7 +123,7 @@ export const AccoutingEntries = () => {
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Detalle">
-                            <IconButton onClick={handleDelete} sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] }, }}>
+                            <IconButton onClick={handleDetails} sx={{ p: "4px", "&:hover": { color: colors.primary[400], background: colors.blueAccent[200] }, }}>
                                 {icons["DehazeIcon"]()}
                             </IconButton>
                         </Tooltip>
@@ -183,7 +186,6 @@ export const AccoutingEntries = () => {
                                 </IconButton>
                                 Digitalizar
                             </MenuItem>
-
                         </Menu>
                     </>
                 );
